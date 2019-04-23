@@ -6,10 +6,8 @@ In apde, the students assignment file has to be stored in a folder called data
 the data folder should be inside the class's folder and the path should be the
 filename. 
 APDE clone details
-Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
-Local: autoGrad
-Username: Suacodefacilitators
-Password: Suacodefacilitators10!
+Remote: https://github.com/PrinceSAnnor/autograd.git
+Local: autograd
 */
 
 class Test {

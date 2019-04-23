@@ -7,7 +7,7 @@ the data folder should be inside the class's folder and the path should be the
 filename. 
 APDE clone details
 Remote: https://github.com/PrinceSAnnor/autograd.git
-Local: autoGrad
+Local: autograd
 */
 
 class Test {
