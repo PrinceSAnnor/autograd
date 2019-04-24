@@ -6,8 +6,10 @@ In apde, the students assignment file has to be stored in a folder called data
 the data folder should be inside the class's folder and the path should be the
 filename. 
 APDE clone details
-Remote: https://github.com/PrinceSAnnor/autograd.git
-Local: autograd
+Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
+Local: autoGrad
+Username: Suacodefacilitators
+Password: Suacodefacilitators10!
 */
 
 class Test {
@@ -21,6 +23,10 @@ class Test {
   ArrayList<Integer> lines = new ArrayList<Integer>(); //line lines
   ArrayList<Integer> fills = new ArrayList<Integer>(); //fill lines
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
+  ArrayList<Integer> variableLines = new ArrayList<Integer>(); //lines with variables
+
+  
+  HashMap<String,String> varaiblesHashMap = new HashMap<String,String>();
 
   float totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
@@ -48,6 +54,7 @@ class Test {
       totalScore -= majorExceptions;
     }
   }
+  
 
   /*
    In the function below, I'm checking the student indented properly
@@ -978,6 +985,34 @@ void checkRects() //check rects
     }
     return true;
   }
+  
+  void getVariables() 
+  { 
+    String[] splitByEquals;
+    String[] splitBySpace;
+    
+    try
+    {
+      for(int i = 0; i < linesFiltered.size(); i++)
+      {  
+        if (match(linesFiltered.get(i), "=") != null)
+        {
+          variableLines.add(i);
+        }
+      }
+      
+      for (int m = 0; m < variableLines.size(); m++) 
+      {
+        splitByEquals = splitTokens(linesFiltered.get(variableLines.get(m)), "="); //split by equals 
+        splitBySpace = split(splitByEquals[0], " "); //get variable name
+      }
+    }
+    
+    catch(Exception e)
+    {
+      println("Could not get variables"); 
+    }
+  }
 
   void printResults() {
     if (totalScore < 0)
@@ -991,6 +1026,7 @@ void checkRects() //check rects
     getLines();
     checkTabs();
     removeEmptyLines();
+    getVariables();
     checkStatementsPerLine();
     getScreenSize();
     checkSize();
