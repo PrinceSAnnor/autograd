@@ -387,11 +387,11 @@ void checkRects() //check rects
   {
     try
     {
-      //ArrayList<Integer> parameters = new ArrayList<Integer>();     
+      ArrayList<Integer> parameters = new ArrayList<Integer>();     
       String[] splitByLeftBrace1;
       String[] splitByCommas1;
       int max = 0;      
-      //int coordinateFlag = 0;
+      int coordinateFlag = 0;
 
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
@@ -409,7 +409,10 @@ void checkRects() //check rects
         j = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
         {
-          //put something here
+          //get the value and add to parameters arraylist
+          int val = int(variablesHashMap.get(splitByCommas1[j]));
+          parameters.add(val);
+          
           if(isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
             println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
@@ -419,6 +422,45 @@ void checkRects() //check rects
           j++;
         }
         max = max + j;
+      }
+      
+      if (int(parameters.get(0)) == 0 && int(parameters.get(1)) == 0) //check which paddle is at left
+      {
+        coordinateFlag = 1;
+      } else if (int(parameters.get(4)) == 0 && int(parameters.get(5)) == 0)
+      {
+        coordinateFlag = 2;
+      } else //pinalize if none are at left position
+      {
+        totalScore -= deduction;
+        println("Left paddle not at 0,0");
+      }
+      if (coordinateFlag == 1 || coordinateFlag == 0) //check second paddle
+      {
+        if (int(parameters.get(4)) != int(screenWidth-parameters.get(2)) || int(parameters.get(5)) != int(screenHeight-parameters.get(3))) //pinalize if wrong right paddle
+        {
+          totalScore -= deduction;
+          println("Right paddle not at right bottom position");
+        }
+      } else if (coordinateFlag == 2 || coordinateFlag == 0) //check second paddle
+      {
+        if (int(parameters.get(0)) != int(screenWidth-parameters.get(6)) || int(parameters.get(1)) != int(screenHeight-parameters.get(7))) //pinalize if wrong right paddle
+        {
+          totalScore -= deduction;
+          println("Right paddle not at right bottom position");
+        }
+      }
+
+      if (int(parameters.get(2)) != int(parameters.get(6)) || int(parameters.get(3)) != int(parameters.get(7))) //check paddle dimensions
+      {
+        totalScore -= deduction;
+        println("Paddles don't have the same dimensions");
+      }
+
+      if (parameters.size() > 8) //if more than two paddles
+      {
+        totalScore -= deduction;
+        println("You have more than two paddles? Use only two rectangles before grade is released");
       }
     }
     catch (Exception e) 
@@ -845,13 +887,14 @@ void checkRects() //check rects
   {
     try
     {        
-      //ArrayList<Integer> parameters = new ArrayList<Integer>();     
+      ArrayList<Integer> parameters = new ArrayList<Integer>();     
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-      //int coordinateFlag = 0;
+      int coordinateFlag = 0;
       boolean sizeFlag = true;
-
+      
+      //make sure size is set beore writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
@@ -876,32 +919,109 @@ void checkRects() //check rects
       }
       
       int j = 0;
-      
-      for (int m = 0; m < texts.size(); m++) 
+      for(int m = 0; m < texts.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
         
+        
         j = 0;
         while(j < splitByCommas.length) // 
-        { 
-          if(m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check fo magic number in texSize() fxn. 'scoreSize'
+        {  
+          //println( "m is: " + m + " j is: " + j + " : " + splitByCommas[j]);
+          
+          if(m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
-            println(splitByCommas[j]);
             println("Use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
             break;
           }
           
-          if(m > 0 && j < 3 && isNumeric(splitByCommas[j])) // check for magic numbers for both text() fxns 'scores' 
+          if(m > 0 && j < 3) // check for magic numbers for both text() fxns 'scores' 
           { 
-            println("Use of magic numbers as parameters for text() " + m); // 'm' indicates the affected text fnx
-            totalScore -= deduction;
-            break;
+            if(j > 0) // do not touch the conditions in this satement!!!!!!!!!! 
+            { 
+              //get the value and add to parameters arraylist
+              boolean err = false;
+              int val = 0;
+              try {
+                val = int(variablesHashMap.get(splitByCommas[j]));
+              } catch (Exception e) {
+               err = true; 
+              }
+              
+              if(!err) {
+                parameters.add(val);
+              }
+              
+              print(parameters);
+            }
+            
+            if(isNumeric(splitByCommas[j])) { 
+              println("Use of magic numbers as parameters for text() " + m); // 'm' indicates the affected text fnx
+              totalScore -= deduction;
+              break;
+            }
           }
+          
           j++;
         }
         max = max + j;
+        
+        /*
+        Getting the necessary parameters A little explanation
+        when m = 0, we get the params for the textSize function and we dont need that hence m > 0
+        when x = 0 we get the 1st params of each function in the texts ArrayList. We dont need those either
+        when x > 3 we get the 4th element of the array. we dont need those too
+        maybe there is a better way to do this but please...
+        */
+        /*
+        for(int x = 0; x < splitByCommas.length; x++)
+        {
+          if(m > 0 && x > 0 && x < 3) // do not touch the conditions in this satement!!!!!!!!!! 
+          { 
+            boolean err = false;
+            int val = 0;
+            try {
+              val = int(variablesHashMap.get(splitByCommas[x]));
+            } catch (Exception e) {
+             err = true; 
+            }
+            
+            if(!err) {
+              parameters.add(val);
+            }
+          }
+        }
+        */
+      }
+      
+      if (parameters.get(0) < (screenWidth/2)) //check left score
+      {
+        coordinateFlag = 1;
+      } else if (parameters.get(2) < (screenWidth/2))
+      {
+        coordinateFlag = 2;
+      } else
+      {
+        totalScore -= deduction;
+        println("Left score not at left position");
+      }
+
+      if (coordinateFlag == 1) //check right score
+      {
+        if (parameters.get(2) < (screenWidth/2))
+        {
+          totalScore -= deduction;
+          println("Right score not at right position");
+        }
+      } else if (coordinateFlag == 2)
+      {
+        if (parameters.get(0) < (screenWidth/2))
+        {
+          totalScore -= deduction;
+          println("Right score not at right position");
+        }
       }
     }
     catch (Exception e) 
@@ -921,7 +1041,7 @@ void checkRects() //check rects
   {
     try
     {
-      //ArrayList<Integer> parameters = new ArrayList<Integer>();    
+      ArrayList<Integer> parameters = new ArrayList<Integer>();    
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
@@ -942,6 +1062,10 @@ void checkRects() //check rects
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
         {
+          //get the value and add to parameters arraylist
+          int val = int(variablesHashMap.get(splitByCommas[j]));
+          parameters.add(val);
+          
           if(isNumeric(splitByCommas[j])) // check for magic numbers
           {
             println("Use of magic numbers as params for ellipse");
@@ -951,6 +1075,25 @@ void checkRects() //check rects
           j++;
         }
         max = max + j;
+      }
+      
+      if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
+        (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
+      {
+        totalScore -= deduction;
+        println("Ball not at the center");
+      }
+
+      if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
+      {
+        totalScore -= deduction;
+        println("Weird ball you got there lad");
+      }
+
+      if (parameters.size() > 4) //if more than one ball
+      {
+        totalScore -= deduction;
+        println("You have more than one ball?");
       }
     }
     catch (Exception e) 
@@ -1003,12 +1146,12 @@ void checkRects() //check rects
       
       for (int m = 0; m < variableLines.size(); m++) 
       {
-        splitByEquals = splitTokens(linesFiltered.get(variableLines.get(m)), "="); //split by equals 
+        splitByEquals = splitTokens(linesFiltered.get(variableLines.get(m)), "="); // 
         splitBySpace = trim(splitTokens(splitByEquals[0], " ")); //get variable name
         
         String varName = splitBySpace[splitBySpace.length-1];
         
-        splitBySemiColon = trim(splitTokens(splitByEquals[1], ";")); //split by equals 
+        splitBySemiColon = trim(splitTokens(splitByEquals[1], ";")); //get the value of the varaible 
         
         String varValue = splitBySemiColon[0];
         

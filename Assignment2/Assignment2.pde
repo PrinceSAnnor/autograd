@@ -46,6 +46,6 @@ void draw()
   //Draw scores on screen
   stroke (0, 25, 255); //use a blue outline for all shapes
   textSize(txtSize); //size of the text 
-  text(leftScore, leftScoreX, scoreY); //left score at the left corner of the screen
-  text(rightScore, rightScoreX, scoreY); //right score at right corner of the screen
+  text(leftScore, leftScoreX, scoreY);  //left score at the left corner of the screen
+  text(rightScore, 5, scoreY); //right score at right corner of the screen
 }
