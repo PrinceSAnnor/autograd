@@ -3,7 +3,7 @@
 int leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, rightPaddleX, rightPaddleY; //varaibles for paddles
 int ballX, ballY, ballWidth, ballHeight; //variables for ball
 int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
-
+int x = 0;
 void setup() //runs once
 {
   size(1920, 1080); //sets the width and height of the program

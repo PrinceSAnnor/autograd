@@ -25,8 +25,7 @@ class Test {
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
   ArrayList<Integer> variableLines = new ArrayList<Integer>(); //lines with variables
 
-  
-  HashMap<String,String> varaiblesHashMap = new HashMap<String,String>();
+  HashMap<String,String> variablesHashMap = new HashMap<String,String>();
 
   float totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
@@ -926,7 +925,7 @@ void checkRects() //check rects
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-
+      
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
@@ -934,7 +933,7 @@ void checkRects() //check rects
           ellipses.add(i);
         }
       }
-
+  
       int j = 0;
       for (int m = 0; m < ellipses.size(); m++) {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
@@ -989,6 +988,7 @@ void checkRects() //check rects
   void getVariables() 
   { 
     String[] splitByEquals;
+    String[] splitBySemiColon;
     String[] splitBySpace;
     
     try
@@ -1004,7 +1004,19 @@ void checkRects() //check rects
       for (int m = 0; m < variableLines.size(); m++) 
       {
         splitByEquals = splitTokens(linesFiltered.get(variableLines.get(m)), "="); //split by equals 
-        splitBySpace = split(splitByEquals[0], " "); //get variable name
+        splitBySpace = trim(splitTokens(splitByEquals[0], " ")); //get variable name
+        
+        String varName = splitBySpace[splitBySpace.length-1];
+        
+        splitBySemiColon = trim(splitTokens(splitByEquals[1], ";")); //split by equals 
+        
+        String varValue = splitBySemiColon[0];
+        
+        if(isNumeric(varValue)) {
+           variablesHashMap.put(varName, varValue); 
+        } else {
+          println("The value for the variable " + varName + " is not a number");
+        }
       }
     }
     
