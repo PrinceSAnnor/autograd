@@ -45,9 +45,9 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("../Assignment2/Assignment2.pde"); //comment if you're using APDE
+      //fileLines = loadStrings("../Assignment2/Assignment2.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment2.pde"); //uncomment if you're using APDE
-      //fileLines = loadStrings("../Assignment2/Tests/test01/test01.pde"); //tests with pc
+      fileLines = loadStrings("../Assignment2/tests/test2/test2.pde"); //tests with pc
     }
     catch (Exception e) //IO error
     {
@@ -56,7 +56,35 @@ class Test {
     }
   }
   
+ 
   /*
+    Loops through the lines in the file and removes white lines
+   Also check for at least two empty lines to assume grouped sections of code
+   */
+  void removeEmptyLines() { //removes empty lines
+    try
+    {
+      int emptyLines = 0;
+      for (int i = 0; i < fileLines.length; i++) {
+        if (fileLines[i] != null && fileLines[i].length() > 0) //if lines have no content or a null string
+          linesFiltered.add(trim(fileLines[i]));
+        else
+          emptyLines++;
+      }
+      if (emptyLines < 2) //if at least two lines are empty
+      {
+        println("Improper code grouping");
+        totalScore -= deduction;
+      }
+    }
+    catch (Exception e) //catch exception
+    {
+      println("Couldn't remove empty lines in file");
+      totalScore -= majorExceptions;
+    }
+  }
+  
+ /*
    In the function below, I'm checking the student indented properly
    I have a var called tabs that increments when it sees a {
    And decrements when iit sees a }
@@ -111,33 +139,6 @@ class Test {
     catch (Exception e) //catch exception
     {
       println("Check tabs in file");
-      totalScore -= majorExceptions;
-    }
-  }
-
-  /*
-    Loops through the lines in the file and removes white lines
-   Also check for at least two empty lines to assume grouped sections of code
-   */
-  void removeEmptyLines() { //removes empty lines
-    try
-    {
-      int emptyLines = 0;
-      for (int i = 0; i < fileLines.length; i++) {
-        if (fileLines[i] != null && fileLines[i].length() > 0) //if lines have no content or a null string
-          linesFiltered.add(trim(fileLines[i]));
-        else
-          emptyLines++;
-      }
-      if (emptyLines < 2) //if at least two lines are empty
-      {
-        println("Improper code grouping");
-        totalScore -= deduction;
-      }
-    }
-    catch (Exception e) //catch exception
-    {
-      println("Couldn't remove empty lines in file");
       totalScore -= majorExceptions;
     }
   }
@@ -344,17 +345,17 @@ class Test {
           j++;
         }
       }
-      if (parameterSize == 1) //compares the parameters in the subsequent stroke functions
+      if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
-        for (int m = 0; m < strokes.size(); m++) {
+        for (int m = 0; m < strokes.size() - 1; m++) {
           if (int(parameters.get(m)) != int(parameters.get(m+1)))
           {
             wrongFlag = true;
           }
         }
-      } else if (parameterSize == 3) //compares the parameters in the subsequent stroke functions
+      } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
-        for (int m = 0; m < (3 * (strokes.size() - 1)); m++) {
+        for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
           if (int(parameters.get(m)) != int(parameters.get(m+3)))
           {
             wrongFlag = true;
