@@ -910,6 +910,7 @@ class Test {
         while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length)
         {
           parameters.add(int(trim(splitByCommas[j])));
+          //println(parameters);
           j++;
         }
         max = max + j-1; //because j is starting from 1

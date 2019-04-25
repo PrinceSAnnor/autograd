@@ -408,11 +408,17 @@ void checkRects() //check rects
         
         j = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
-        {
-          //get the value and add to parameters arraylist
-          int val = int(variablesHashMap.get(splitByCommas1[j]));
-          parameters.add(val);
+        {  
           
+          if(variablesHashMap.containsKey(splitByCommas1[j]))
+          {
+            parameters.add(int(variablesHashMap.get(splitByCommas1[j])));
+          } else {
+            parameters.add(int(splitByCommas1[j]));
+          }
+          
+          //println(splitByCommas1[j] + " => " + variablesHashMap.get(splitByCommas1[j]));
+
           if(isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
             println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
@@ -924,12 +930,9 @@ void checkRects() //check rects
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
         
-        
         j = 0;
         while(j < splitByCommas.length) // 
-        {  
-          //println( "m is: " + m + " j is: " + j + " : " + splitByCommas[j]);
-          
+        {         
           if(m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
             println("Use of magic numbers as parameters for textSize()");
@@ -939,22 +942,14 @@ void checkRects() //check rects
           
           if(m > 0 && j < 3) // check for magic numbers for both text() fxns 'scores' 
           { 
-            if(j > 0) // do not touch the conditions in this satement!!!!!!!!!! 
-            { 
-              //get the value and add to parameters arraylist
-              boolean err = false;
-              int val = 0;
-              try {
-                val = int(variablesHashMap.get(splitByCommas[j]));
-              } catch (Exception e) {
-               err = true; 
-              }
-              
-              if(!err) {
-                parameters.add(val);
-              }
-              
-              print(parameters);
+            if(j > 0) 
+            {               
+              if(variablesHashMap.containsKey(splitByCommas[j]))
+              {
+                parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+              } else {
+                parameters.add(int(splitByCommas[j]));
+              } 
             }
             
             if(isNumeric(splitByCommas[j])) { 
@@ -967,33 +962,6 @@ void checkRects() //check rects
           j++;
         }
         max = max + j;
-        
-        /*
-        Getting the necessary parameters A little explanation
-        when m = 0, we get the params for the textSize function and we dont need that hence m > 0
-        when x = 0 we get the 1st params of each function in the texts ArrayList. We dont need those either
-        when x > 3 we get the 4th element of the array. we dont need those too
-        maybe there is a better way to do this but please...
-        */
-        /*
-        for(int x = 0; x < splitByCommas.length; x++)
-        {
-          if(m > 0 && x > 0 && x < 3) // do not touch the conditions in this satement!!!!!!!!!! 
-          { 
-            boolean err = false;
-            int val = 0;
-            try {
-              val = int(variablesHashMap.get(splitByCommas[x]));
-            } catch (Exception e) {
-             err = true; 
-            }
-            
-            if(!err) {
-              parameters.add(val);
-            }
-          }
-        }
-        */
       }
       
       if (parameters.get(0) < (screenWidth/2)) //check left score
@@ -1061,17 +1029,21 @@ void checkRects() //check rects
 
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
-        {
-          //get the value and add to parameters arraylist
-          int val = int(variablesHashMap.get(splitByCommas[j]));
-          parameters.add(val);
+        { 
+          
+          if(variablesHashMap.containsKey(splitByCommas[j]))
+          {
+            parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+          } else {
+            parameters.add(int(splitByCommas[j]));
+          }
           
           if(isNumeric(splitByCommas[j])) // check for magic numbers
           {
             println("Use of magic numbers as params for ellipse");
             totalScore -= deduction;
-            break;
           }
+          
           j++;
         }
         max = max + j;
@@ -1098,7 +1070,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      println("Check ellipses");
+      println("Couldnt Check ellipses");
       totalScore -= majorExceptions;
     }
   }
