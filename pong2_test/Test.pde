@@ -13,7 +13,7 @@ Password: Suacodefacilitators10!
 */
 
 class Test {
-
+  
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
   ArrayList<Integer> backgrounds = new ArrayList<Integer>(); //background lines
@@ -23,9 +23,10 @@ class Test {
   ArrayList<Integer> lines = new ArrayList<Integer>(); //line lines
   ArrayList<Integer> fills = new ArrayList<Integer>(); //fill lines
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
+  
   ArrayList<Integer> variableLines = new ArrayList<Integer>(); //lines with variables
-
-  HashMap<String,String> variablesHashMap = new HashMap<String,String>();
+  HashMap<String,String> variablesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
+  ArrayList<String> varKeys = new ArrayList<String>(); //variable names
 
   float totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
@@ -46,6 +47,7 @@ class Test {
     {
       fileLines = loadStrings("../Assignment2/Assignment2.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment2.pde"); //uncomment if you're using APDE
+      //fileLines = loadStrings("../Assignment2/Tests/test01/test01.pde"); //tests with pc
     }
     catch (Exception e) //IO error
     {
@@ -54,7 +56,6 @@ class Test {
     }
   }
   
-
   /*
    In the function below, I'm checking the student indented properly
    I have a var called tabs that increments when it sees a {
@@ -118,7 +119,6 @@ class Test {
     Loops through the lines in the file and removes white lines
    Also check for at least two empty lines to assume grouped sections of code
    */
-
   void removeEmptyLines() { //removes empty lines
     try
     {
@@ -179,7 +179,6 @@ class Test {
   This line parses the first comment in the line and gets the size of the screen used by the device, it just keeps splitting by tokens
    Follow the name of the variables to understand what's going on with each splitTokens
    */
-
   void getScreenSize() //gets first comment line
   {
     try
@@ -233,7 +232,6 @@ class Test {
    This function basically verifies the values gotten from the first comment are the same as the values in the size function 
    Follow the name of the variables to understand what's going on with each splitTokens
    */
-
   void checkSize() //verify screen width and height in size function
   {
     boolean sizeFlag = false;
@@ -271,7 +269,6 @@ class Test {
   /*
   Counts the number of comments, finds the percentage of comments within the file
    */
-
   void checkComments() //check number of comments
   {
     try
@@ -409,7 +406,7 @@ void checkRects() //check rects
         j = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
         {  
-          
+          //gets values all parameters(variables) for both rects
           if(variablesHashMap.containsKey(splitByCommas1[j]))
           {
             parameters.add(int(variablesHashMap.get(splitByCommas1[j])));
@@ -417,8 +414,6 @@ void checkRects() //check rects
             parameters.add(int(splitByCommas1[j]));
           }
           
-          //println(splitByCommas1[j] + " => " + variablesHashMap.get(splitByCommas1[j]));
-
           if(isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
             println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
@@ -1014,6 +1009,11 @@ void checkRects() //check rects
       String[] splitByCommas;
       int max = 0;
       
+      //String[] splitByEquals;
+      //int noOfMatches = 0;
+      //ArrayList<String> matches = new ArrayList<String>();    
+
+     
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
@@ -1023,32 +1023,31 @@ void checkRects() //check rects
       }
   
       int j = 0;
-      for (int m = 0; m < ellipses.size(); m++) {
+      for(int m = 0; m < ellipses.size(); m++) 
+      {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
 
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
         { 
-          
+          //get all parameters for ellipse fnx
           if(variablesHashMap.containsKey(splitByCommas[j]))
           {
             parameters.add(int(variablesHashMap.get(splitByCommas[j])));
           } else {
             parameters.add(int(splitByCommas[j]));
           }
-          
+
           if(isNumeric(splitByCommas[j])) // check for magic numbers
           {
             println("Use of magic numbers as params for ellipse");
             totalScore -= deduction;
           }
-          
           j++;
         }
         max = max + j;
       }
-      
       if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
@@ -1129,18 +1128,52 @@ void checkRects() //check rects
         
         if(isNumeric(varValue)) {
            variablesHashMap.put(varName, varValue); 
+           varKeys.add(varName);
         } else {
-          println("The value for the variable " + varName + " is not a number");
+          //println("The value for the variable " + varName + " is not a number");
         }
       }
     }
-    
     catch(Exception e)
     {
       println("Could not get variables"); 
     }
   }
+  
+  void checkMovingBall()
+  {
+    try
+    {
+      int noOfMatches = 0;
+      String[] splitByEquals;
+      
+      for(int k = 0; k < variableLines.size(); k++)
+      {
+        splitByEquals = trim(splitTokens(linesFiltered.get(variableLines.get(k)), "="));
+        
+        if ((match(splitByEquals[1], splitByEquals[0])) != null) //look with regex
+        {
+          for(int l = 0; l < varKeys.size(); l++) {
+            if(varKeys.get(l).equals(varKeys.get(l))) {
+              noOfMatches++;
+            }
+          }
+        }
+      }
 
+      if(noOfMatches < 2)
+      {
+        totalScore -= deduction;
+        println("ball not moving the right way");
+      }
+      //End of checking if the ball is moving
+    }
+    catch(Exception e)
+    {
+     println("Couldn't get moving ball");
+    }
+  }
+  
   void printResults() {
     if (totalScore < 0)
     {
@@ -1164,6 +1197,7 @@ void checkRects() //check rects
     checkEllipses();
     checkRects();
     checkScores();
+    checkMovingBall();
     shapeColorInteractions();
     printResults();
   }

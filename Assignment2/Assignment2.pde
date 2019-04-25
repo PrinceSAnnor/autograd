@@ -4,11 +4,11 @@ int leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, rightPaddleX, rightPadd
 int ballX, ballY, ballWidth, ballHeight; //variables for ball
 int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
 int x = 0;
+int ballSpeedX, ballSpeedY;
+
 void setup() //runs once
 {
-  size(1920, 1080); //sets the width and height of the program
-  background(0); //set background black
-  
+  size(1920, 1080); //sets the width and height of the program  
   leftPaddleX = 0;
   leftPaddleY = 0;
   rightPaddleX = 1872;
@@ -27,10 +27,15 @@ void setup() //runs once
   rightScoreX = 1440; 
   scoreY = 540;
   txtSize = 40;
+  
+  ballSpeedX = 2;
+  ballSpeedY = 2;
 }
 
 void draw()
 {
+  background(0); //set background black
+  
   fill(45, 6, 233); 
   ellipse(ballX, ballY, ballWidth, ballHeight); //draw circle at center
   
@@ -48,4 +53,7 @@ void draw()
   textSize(txtSize); //size of the text 
   text(leftScore, leftScoreX, scoreY);  //left score at the left corner of the screen
   text(rightScore, rightScoreX, scoreY); //right score at right corner of the screen
+  
+  ballX = ballX + ballSpeedX; //move ball in x direction
+  ballY = ballY + ballSpeedY; //move ball in y direction
 }
