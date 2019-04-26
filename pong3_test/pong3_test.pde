@@ -20,5 +20,4 @@ void setup ()
 void draw()
 {
   code.forever();
-  println(code.leftScore);
 }

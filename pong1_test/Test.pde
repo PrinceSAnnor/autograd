@@ -2,13 +2,13 @@
 
 /*
 Uncomment line 42 and comment line 41 in getLines function if using with APDE
-In apde, the students assignment file has to be stored in a folder called data
-the data folder should be inside the class's folder and the path should be the
-filename. 
-APDE clone details
-Remote: https://github.com/PrinceSAnnor/autograd.git
-Local: autograd
-*/
+ In apde, the students assignment file has to be stored in a folder called data
+ the data folder should be inside the class's folder and the path should be the
+ filename. 
+ APDE clone details
+ Remote: https://github.com/PrinceSAnnor/autograd.git
+ Local: autograd
+ */
 
 class Test {
 
@@ -56,6 +56,7 @@ class Test {
    if at the end tabs < 0 there's an unmatched }
    if at the end tabs > 0 there's an unmatched {
    */
+
   void checkTabs()
   {
     boolean tabsFlag = false;
@@ -65,11 +66,12 @@ class Test {
       for (int i = 0; i < fileLines.length; i++) {
         for (int j = 0; j < tabs; j++)
         {
-          if (fileLines[i].length() > tabs)
+          if (fileLines[i].length() > tabs && fileLines[i] != null && fileLines[i].length() > 0 && match(fileLines[i], "\\}") == null)
           {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
               tabsFlag = true;
+              println(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {

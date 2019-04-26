@@ -101,11 +101,12 @@ class Test {
       for (int i = 0; i < fileLines.length; i++) {
         for (int j = 0; j < tabs; j++)
         {
-          if (fileLines[i].length() > tabs)
+          if (fileLines[i].length() > tabs && fileLines[i] != null && fileLines[i].length() > 0 && match(fileLines[i], "\\}") == null)
           {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
               tabsFlag = true;
+              println(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {
@@ -1142,40 +1143,6 @@ void checkRects() //check rects
     }
   }
   
-  void checkMovingBall()
-  {
-    try
-    {
-      int noOfMatches = 0;
-      String[] splitByEquals;
-      
-      for(int k = 0; k < variableLines.size(); k++)
-      {
-        splitByEquals = trim(splitTokens(linesFiltered.get(variableLines.get(k)), "="));
-        
-        if ((match(splitByEquals[1], splitByEquals[0])) != null) //look with regex
-        {
-          for(int l = 0; l < varKeys.size(); l++) {
-            if(varKeys.get(l).equals(varKeys.get(l))) {
-              noOfMatches++;
-            }
-          }
-        }
-      }
-
-      if(noOfMatches < 2)
-      {
-        totalScore -= deduction;
-        println("ball not moving the right way");
-      }
-      //End of checking if the ball is moving
-    }
-    catch(Exception e)
-    {
-     println("Couldn't get moving ball");
-    }
-  }
-  
   void printResults() {
     if (totalScore < 0)
     {
@@ -1244,7 +1211,6 @@ void checkRects() //check rects
     checkEllipses();
     checkRects();
     checkScores();
-    checkMovingBall();
     shapeColorInteractions();
     printResults();
     createFile();
