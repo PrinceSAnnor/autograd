@@ -1189,24 +1189,12 @@ void checkRects() //check rects
     try
     {
       output.println("class Code {");
-      //output.println("Game() { //empty constructor for class");
-      //output.println("}");
- 
+
       for(int i = 0; i < fileLines.length; i++)
       {
          if(match(fileLines[i], "size.*$") != null) {
            output.println("  //" + fileLines[i]);
          } else if(match(fileLines[i], "^void") != null) {
-           
-           /*
-           if(match(fileLines[i], "^/Qsetup() \\{/E") != null) {
-             println("void once() {");
-           } else if(match(fileLines[i], "^setup().*$") != null) {
-             println("void once()");
-           } else {
-             println(fileLines[i]);
-           }
-           */
         
            String[] tokens = trim(splitTokens(fileLines[i], " "));
            
