@@ -46,7 +46,7 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("../Assignment3/Assignment3.pde"); //comment if you're using APDE
+      fileLines = loadStrings("Assignment3/Assignment3.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment2.pde"); //uncomment if you're using APDE
       //fileLines = loadStrings("../Assignment2/tests/test2/test2.pde"); //tests with pc
     }

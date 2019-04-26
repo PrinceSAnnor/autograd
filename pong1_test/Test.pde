@@ -39,7 +39,7 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("../Assignment1/Assignment1.pde"); //comment if you're using APDE
+      fileLines = loadStrings("Assignment1/Assignment1.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment1.pde"); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
@@ -71,7 +71,6 @@ class Test {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
               tabsFlag = true;
-              println(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {
