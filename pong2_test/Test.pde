@@ -1182,6 +1182,14 @@ void checkRects() //check rects
     }
     println("Total score: ", totalScore);
   }
+  
+  /*
+  void closeFile() {
+    output.flush(); // Writes the remaining data to the file
+    output.close(); // Finishes the file
+    exit(); // Stops the program
+  }
+  */
 
   void run() {
     getLines();
@@ -1201,5 +1209,6 @@ void checkRects() //check rects
     checkMovingBall();
     shapeColorInteractions();
     printResults();
+    //closeFile();
   }
 }

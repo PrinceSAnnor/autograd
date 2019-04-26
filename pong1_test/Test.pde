@@ -341,17 +341,17 @@ class Test {
           j++;
         }
       }
-      if (parameterSize == 1) //compares the parameters in the subsequent stroke functions
+      if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
-        for (int m = 0; m < strokes.size(); m++) {
+        for (int m = 0; m < strokes.size() - 1; m++) {
           if (int(parameters.get(m)) != int(parameters.get(m+1)))
           {
             wrongFlag = true;
           }
         }
-      } else if (parameterSize == 3) //compares the parameters in the subsequent stroke functions
+      } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
-        for (int m = 0; m < (3 * (strokes.size() - 1)); m++) {
+        for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
           if (int(parameters.get(m)) != int(parameters.get(m+3)))
           {
             wrongFlag = true;
@@ -371,7 +371,6 @@ class Test {
       totalScore -= majorExceptions;
     }
   }
-
   /*
   gets the parameters of the rects into an array
    Follow the name of the variables to understand what's going on with each splitTokens
