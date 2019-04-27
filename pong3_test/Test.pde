@@ -1151,48 +1151,40 @@ void checkRects() //check rects
     println("Total score: ", totalScore);
   }
   
-  
   void createFile() {
     try
     {
       output.println("class Code {");
 
-      for(int i = 0; i < fileLines.length; i++)
+      for (int i = 0; i < fileLines.length; i++)
       {
-         if(match(fileLines[i], "size.*$") != null) {
-           output.println("  //" + fileLines[i]);
-         } else if(match(fileLines[i], "^void") != null) {
-        
-           String[] tokens = trim(splitTokens(fileLines[i], " "));
-           
-           if(tokens.length > 2) {
-             if(tokens[1].equals("setup()") && tokens[2].equals("{")) {
-               output.println("void once() {"); 
-             }
-             if(tokens[1].equals("draw()") && tokens[2].equals("{")) {
-               output.println("void forever() {"); 
-             }
-           } else {
-             if(tokens[1].equals("setup()")) {
-               output.println("void once()");
-             }
-             if(tokens[1].equals("draw()")) {
-               output.println("void forever()");
-             }
-           }
-         } else {
-            output.println(fileLines[i]);
-         }
+        if (match(fileLines[i], "size") != null) {
+          output.println("  //" + fileLines[i]);
+        } else if (match(fileLines[i], "void") != null) {
+
+          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void once() {");
+          } else if (match(fileLines[i], "setup") != null) {
+            output.println("void once()");
+          }
+          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void forever() {");
+          } else if (match(fileLines[i], "draw") != null) {
+            output.println("void forever()");
+          }
+        } else {
+          output.println(fileLines[i]);
+        }
       }
-      
+
       output.println("}");
-      
+
       output.flush(); // Writes the remaining data to the file
       output.close(); // Finishes the file
     }
     catch(Exception e)
     {
-      println("couldnt create file " + e); 
+      println("couldnt create file " + e);
     }
   }
 
@@ -1212,7 +1204,7 @@ void checkRects() //check rects
     checkRects();
     checkScores();
     shapeColorInteractions();
-    printResults();
     createFile();
+	printResults();
   }
 }

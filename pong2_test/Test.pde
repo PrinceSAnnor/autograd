@@ -11,6 +11,7 @@ Uncomment line 42 and comment line 41 in getLines function if using with APDE
  */
 
 class Test {
+  PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -1183,6 +1184,43 @@ class Test {
     println("Total score: ", totalScore);
   }
 
+  void createFile() {
+    try
+    {
+      output.println("class Code {");
+
+      for (int i = 0; i < fileLines.length; i++)
+      {
+        if (match(fileLines[i], "size") != null) {
+          output.println("  //" + fileLines[i]);
+        } else if (match(fileLines[i], "void") != null) {
+
+          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void once() {");
+          } else if (match(fileLines[i], "setup") != null) {
+            output.println("void once()");
+          }
+          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void forever() {");
+          } else if (match(fileLines[i], "draw") != null) {
+            output.println("void forever()");
+          }
+        } else {
+          output.println(fileLines[i]);
+        }
+      }
+
+      output.println("}");
+
+      output.flush(); // Writes the remaining data to the file
+      output.close(); // Finishes the file
+    }
+    catch(Exception e)
+    {
+      println("couldnt create file " + e);
+    }
+  }
+
   void run() {
     getLines();
     checkTabs();
@@ -1200,6 +1238,6 @@ class Test {
     checkScores();
     checkMovingBall();
     shapeColorInteractions();
-    printResults();
+    createFile();
   }
 }
