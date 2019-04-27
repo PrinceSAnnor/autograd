@@ -2,7 +2,7 @@
 //This program creates an interface for the Pong game
 
 Test test1 = new Test();
-Code code = new Code();
+//Code code = new Code();
 
 void setup ()
 {
@@ -15,13 +15,13 @@ void setup ()
 
   try
   {
-    code.once();
-    code.forever();
+    //code.once();
+    //code.forever();
   }
   catch(Exception e)
   {
     test1.totalScore = 0;
-    println("Code runtime error: Total Score: " + test1.totalScore);
+    println("Code runtime error");
     exit();
   }
   test1.printResults();
@@ -29,5 +29,5 @@ void setup ()
 
 void draw()
 {
-  code.forever();
+  //code.forever();
 }

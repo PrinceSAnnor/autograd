@@ -1,9 +1,8 @@
-class Code {
 int ballX;//declare variable to hold x position of ball
 float ballY;//declare variable to hold y position of ball
 float diameter=20;//declare and initialize to variable to hold size of ball
 
-void once()
+void setup()
 {
   fullScreen(); //set the size of drawing window
   background(0); //set background color to black
@@ -12,7 +11,7 @@ void once()
   ballY=height/2;//initialize y value
  }
  
-void forever()
+ void draw()
  {
   background(0);//continues set background color to black
   fill(255,255,255); //set the interior of text in white
@@ -33,4 +32,3 @@ ballY=ballY-2;
 
 }
 
-}

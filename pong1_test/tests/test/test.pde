@@ -22,7 +22,7 @@ void draw()
 
   //Draw scores on screen
   stroke (0, 25, 255); //use a blue outline for all shapes
-  textSize(40); //size of the text 
+  textSize(40); 
   text(0, 480, 540); //left score at the left corner of the screen
   text(5, 1440, 540); //right score at right corner of the screen
 }

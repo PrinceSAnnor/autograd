@@ -1,6 +1,6 @@
 class Code {
   //maxX = ... 1920  .., maxY = 1080
-  
+  int foo = 2; int bar = 3; int baz = 4; 
   void once()
   {
     //size(1920, 1080);
@@ -9,7 +9,7 @@ class Code {
   void forever()
   {
     fill(45, 6, 233); 
-    ellipse(960, 540, 50, 50); //draw circle at center
+    ellipse(960, 540, 50, 50); //draw circle at center;
   
     //fill(255);
     fill(66, 227, 90);

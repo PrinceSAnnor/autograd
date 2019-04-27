@@ -2,7 +2,7 @@
 //This program should make the ball move
 
 Test test1 = new Test();
-Code code = new Code();
+//Code code = new Code();
 
 void setup ()
 {
@@ -15,21 +15,20 @@ void setup ()
 
   try
   {
-    code.once();
-    code.forever();
+    //code.once();
+    //code.forever();
   }
   catch(Exception e)
   {
     println("Code runtime error");
     test1.totalScore = 0;
-    test1.printResults();
+    //test1.printResults();
     exit();
   }
-
   test1.printResults();
 }
 
 void draw()
 {
-  code.forever();
+  //code.forever();
 }

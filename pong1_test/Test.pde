@@ -40,13 +40,13 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("tests/test/test.pde");
-      //fileLines = loadStrings("Assignment1/Assignment1.pde"); //comment if you're using APDE
+      //fileLines = loadStrings("tests/test/test.pde");
+      fileLines = loadStrings("assignment1/assignment1.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
       println("Error: couldn't load file");
-      totalScore -= majorExceptions;
+      exit();
     }
   }
 
@@ -67,7 +67,7 @@ class Test {
       for (int i = 0; i < fileLines.length; i++) {
         for (int j = 0; j < tabs; j++)
         {
-          if (fileLines[i].length() > tabs && fileLines[i] != null && fileLines[i].length() > 0 && match(fileLines[i], "\\}") == null)
+          if (fileLines[i].length() > tabs && fileLines[i] != null && fileLines[i].length() > 0 && match(fileLines[i], "\\}") == null && trim(fileLines[i]).length() > 0)
           {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
@@ -120,16 +120,20 @@ class Test {
     {
       int emptyLines = 0;
       for (int i = 0; i < fileLines.length; i++) {
-        if (fileLines[i] != null && fileLines[i].length() > 0) //if lines have no content or a null string
-          linesFiltered.add(trim(fileLines[i]));
-        else
+        if (trim(fileLines[i]).length() == 0) {//if lines have no content or a null string
           emptyLines++;
+        } else {
+         linesFiltered.add(trim(fileLines[i]));          
+        }
       }
+      
       if (emptyLines < 2) //if at least two lines are empty
       {
         println("improper code grouping");
         totalScore -= deduction;
       }
+      
+      
     }
     catch (Exception e) //catch exception
     {
@@ -149,18 +153,29 @@ class Test {
       boolean statementsFlag = false;
       for (int i = 1; i < linesFiltered.size(); i++) //start from the second line to escape the comment on the first line
       {
-        if (matchAll(linesFiltered.get(i), ";") != null) //if line has matched semi colon
+        if (match(linesFiltered.get(i), ";") != null) //if line has matched semi colon
         {
+
           if (matchAll(linesFiltered.get(i), ";").length > 1)//get number of semi colon matches
           {
-            statementsFlag = true;
+            if (match(linesFiltered.get(i), "^//.*$") == null && match(linesFiltered.get(i), "//") == null)//get number of semi colon matches
+            {
+              statementsFlag = true;
+            } else {
+              
+              String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
+
+              if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
+                statementsFlag = true;
+              }
+            }
           }
         }
       }
 
       if (statementsFlag)
       {
-        println("insufficient comments");
+        println("2 or more ;s on a line");
         totalScore -= deduction;
       }
     }
@@ -1055,7 +1070,12 @@ class Test {
       for (int i = 0; i < fileLines.length; i++)
       {
         if (match(fileLines[i], "size") != null) {
-          output.println("    //" + fileLines[i]);
+          String[] tokens = trim(splitTokens(fileLines[i], "//"));
+          if (match(tokens[0], "size") != null) {
+            output.println("    //" + tokens[0]);
+          } else {
+            output.println("    " + tokens[0] + "  //" + tokens[1]);
+          }
         } else if (match(fileLines[i], "void") != null) {
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
