@@ -11,6 +11,7 @@ Uncomment line 42 and comment line 41 in getLines function if using with APDE
  */
 
 class Test {
+  PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -23,7 +24,7 @@ class Test {
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
 
   float totalScore = 20; // total score of the student
-  float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
+  float majorExceptions = 0; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
@@ -39,8 +40,9 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("tests/test/test.pde");
+      //fileLines = loadStrings("tests/test/test.pde");
       //fileLines = loadStrings("../Assignment1/Assignment1.pde"); //comment if you're using APDE
+      fileLines = loadStrings("Assignment1/Assignment1.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment1.pde"); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
@@ -72,7 +74,6 @@ class Test {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
               tabsFlag = true;
-              println(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {
@@ -1049,6 +1050,44 @@ class Test {
     println("Total score: ", totalScore);
   }
 
+  void createFile() {
+    try
+    {
+      output.println("class Code {");
+
+      for (int i = 0; i < fileLines.length; i++)
+      {
+        if (match(fileLines[i], "size") != null) {
+          output.println("  //" + fileLines[i]);
+        } else if (match(fileLines[i], "void") != null) {
+
+          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void once() {");
+          } else if (match(fileLines[i], "setup") != null) {
+            output.println("void once()");
+          }
+          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void forever() {");
+          } else if (match(fileLines[i], "draw") != null) {
+            output.println("void forever()");
+          }
+        } else {
+          output.println(fileLines[i]);
+        }
+      }
+
+      output.println("}");
+
+      output.flush(); // Writes the remaining data to the file
+      output.close(); // Finishes the file
+    }
+    catch(Exception e)
+    {
+      println("couldnt create file " + e);
+    }
+  }
+
+
   void run() {
     getLines();
     checkTabs();
@@ -1064,6 +1103,6 @@ class Test {
     checkRects();
     checkScores();
     shapeColorInteractions();
-    printResults();
+    createFile();
   }
 }
