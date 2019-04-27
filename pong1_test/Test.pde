@@ -39,7 +39,8 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("../Assignment1/Assignment1.pde"); //comment if you're using APDE
+      fileLines = loadStrings("tests/test/test.pde");
+      //fileLines = loadStrings("../Assignment1/Assignment1.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment1.pde"); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
@@ -220,7 +221,7 @@ class Test {
     } 
     catch (Exception e)
     {
-      println("Check sytax of width and height at first line of code");
+      println("Check syntax of width and height at first line of code");
       totalScore -= majorExceptions;
     }
   }
