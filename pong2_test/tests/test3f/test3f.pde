@@ -1,51 +1,55 @@
 //maxX = ... 1920  .., maxY = 1080
 
-int rectX, rectY, rectA, rectB, rectWidth, rectHeight;//declares variables for paddles
-int ballX, ballY, diameter;//declares variables for the ball
-int playerX, playerY;
-float textWidthX, textWidthY; //
-int textHeightX, textHeightY;//declares variables for players scores
-int tSize;
-int ballXSpeed, ballYSpeed;//declares the movement of ball
+ int ballX; //declare variable to hold x position of ball
+ float ballY; //declare variable to hold y position of ball
+ float diameter =20; //declare and initialize position of ball
+ int paddleLx; //declare variable to hold x position of left paddle
+ int paddleLy; //declare variable to hold y position of left paddle
+ int paddleRx; //declare variable to hold x position of right paddle
+ int paddleRy; //declare variable to hold y position of right paddle
+ int paddleW; //declare variable to hold the width of paddles
+ int paddleH; //declare variable to hold the height of paddles
+ float numberRx; //declare variabe to hold x postion of right text
+ float numberRy; //declare variable to hold y position of right text
+ float numberLx; //declare variable to hold x postion of left text
+ float numberLy; //declare variable to hold y position of left text
+ int tSize; //declare variable to represent textsize
+ int ballXspeed; //declare variable to hold x postion of ball's speed
+ int ballYspeed; //declare variable to hold y position of ball's speed
  
 void setup() //runs once
 {
-  size(1920, 1080); //sets the width and height of the program  
-  rectX = 0; 
-  rectY = 0;
-  rectA = 1872; 
-  rectB = 864;
-  rectWidth = 48;
-  rectHeight = 216; //initializes the variables created for the paddles
-  ballX = 960; 
-  ballY = 540;
-  diameter = 20;//initializes the variables for the ball
-  ballXSpeed = 3;
-  ballYSpeed = 3;//initializes ball speed at certain direction and speed
-  playerX = 6; 
-  playerY = 2; 
-  textWidthX=480; 
-  textHeightX=540;
-  textWidthY=1440; 
-  textHeightY=540;//initializes variables for the ball
-  tSize = 25; //initializes textsize
+  fullScreen(); //sets full screen
+  ballX=width/2; //initialize x value
+  ballY=height/2; //initialize y value
+  paddleLx=width/160; //initialize x value of left paddle
+  paddleLy=height/170; //initialize y value of left paddle
+  paddleRx=width-24; //initialize x value of right paddle
+  paddleRy=height-123; //initialize y value of right paddle
+  paddleW=width/35; //position the width of paddles
+  paddleH=height/4; //position the height of paddles
+  numberRx=width-290; //initialize x value of right text
+  numberRy=height/2; //initialize y value of right text
+  numberLx=width/3; //initialize x value of left text
+  numberLy=height/2; //initialize y value of left text
+  tSize=width/25; //represent text size
+  ballXspeed=-1; //initialize x value of ball's speed
+  ballYspeed=2; //initialize y value of ball's speed
 }
-
-void draw() //runs continually
-{
-  background(87);//sets the background colour to gray
-  fill(0,0,255);//sets the interior of paddles to blue
-  stroke(0,128,0);//sets outline to green
-  rect(rectX,rectY, rectWidth, rectHeight); //draws a rectangle 
-  rect(rectA,rectB, rectWidth, rectHeight); //draws a rectangle at the other end.
-  
-  fill(255,0,0);//sets ellipse to red
-  ellipse(ballX, ballY, diameter, diameter);//to draw ellipse
-  
-  textSize(tSize); //set text size to 25
-  text(playerX, textWidthX, textHeightX); //writes text on screen
-  text(playerY, textWidthY, textHeightY); //writes text score on other side of screen
-  
-  ballX = ballX + ballXSpeed;//increases ball movement to right
-  ballY = ballY + ballYSpeed;//increases ball movement up
+ 
+void draw() //runs forever
+{ 
+  fill(0,255,0); //sets interior of rectangles to green
+  background(0); //sets the background color to black
+  rect(paddleRx,paddleRy, paddleW, paddleH); //draws a rectangle with variable
+  rect(paddleLx,paddleLy, paddleW, paddleH); //draws a second triangle with variable
+  fill(0,0,255); //sets the interior of circle to blue
+  ellipse(ballX,ballY, diameter, diameter); //creates ball with va
+  ballX=ballX+ballXspeed; //increment x position
+  ballY=ballY-ballYspeed;//increment y positio
+  fill(255,255,255); //sets the interior of texts to white
+  textSize(tSize); // creates variable to set text size to 35
+  text("3",numberLx, numberLy); //writes text on screen with variables
+  text("7",numberRx, numberRy); //writes second text on screen with variables
+  stroke(0,0,128); //sets the outlines of objects deep blue
 }
