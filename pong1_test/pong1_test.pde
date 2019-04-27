@@ -7,7 +7,7 @@ Code code = new Code();
 void setup ()
 {
   //will change size params later
-  size(1920, 1080); //sets the width and height of the program  
+  //size(1920, 1080); //sets the width and height of the program  
 
   background(0);
   test1 = new Test();
@@ -20,12 +20,10 @@ void setup ()
   }
   catch(Exception e)
   {
-    println("Code runtime error");
     test1.totalScore = 0;
-    test1.printResults();
+    println("Code runtime error: Total Score: " + test1.totalScore);
     exit();
   }
-
   test1.printResults();
 }
 

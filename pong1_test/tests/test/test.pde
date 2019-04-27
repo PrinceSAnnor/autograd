@@ -1,7 +1,8 @@
 //maxX = ... 1920  .., maxY = 1080
+
 void setup() //runs once
 {
-  size(1920, 1080); //sets the width and height of the program
+  size(1920, 108); //sets the width and height of the program
   background(0); //set background black
 }
 
