@@ -41,9 +41,7 @@ class Test {
     try
     {
       //fileLines = loadStrings("tests/test/test.pde");
-      //fileLines = loadStrings("../Assignment1/Assignment1.pde"); //comment if you're using APDE
       fileLines = loadStrings("Assignment1/Assignment1.pde"); //comment if you're using APDE
-      //fileLines = loadStrings("Assignment1.pde"); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
     {
