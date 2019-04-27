@@ -28,7 +28,7 @@ class Test {
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
 
   float totalScore = 20; // total score of the student
-  float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
+  float majorExceptions = 0; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
