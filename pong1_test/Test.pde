@@ -40,8 +40,8 @@ class Test {
   void getLines() { //reads file
     try
     {
-      //fileLines = loadStrings("tests/test/test.pde");
-      fileLines = loadStrings("Assignment1/Assignment1.pde"); //comment if you're using APDE
+      fileLines = loadStrings("tests/test3f/test3f.pde");
+      //fileLines = loadStrings("Assignment1/Assignment1.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
@@ -1056,21 +1056,21 @@ class Test {
       for (int i = 0; i < fileLines.length; i++)
       {
         if (match(fileLines[i], "size") != null) {
-          output.println("  //" + fileLines[i]);
+          output.println("    //" + fileLines[i]);
         } else if (match(fileLines[i], "void") != null) {
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void once() {");
+            output.println("  void once() {");
           } else if (match(fileLines[i], "setup") != null) {
-            output.println("void once()");
+            output.println("  void once()");
           }
           if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void forever() {");
+            output.println("  void forever() {");
           } else if (match(fileLines[i], "draw") != null) {
-            output.println("void forever()");
+            output.println("  void forever()");
           }
         } else {
-          output.println(fileLines[i]);
+          output.println("  " + fileLines[i]);
         }
       }
 
