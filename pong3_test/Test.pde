@@ -39,6 +39,7 @@ class Test {
   int tabLength = 2;
   
   int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
+  int ballX, ballY, diameter;
 
   Test() { //empty constructor for class
   }
@@ -1080,10 +1081,34 @@ void checkRects() //check rects
             println("Use of magic numbers as params for ellipse");
             totalScore -= deduction;
           }
+                    
+          //if(m == 0) {
+          //  if(j == 0) {
+          //    txtSize = int(variablesHashMap.get(splitByCommas[j]));
+          //  }
+          //} else if(m == 1){
+          //   if(j == 0) {
+          //    leftScore = int(variablesHashMap.get(splitByCommas[j]));
+          //  } else if(j == 0) {
+          //    leftScoreX = int(variablesHashMap.get(splitByCommas[j]));
+          //  } else if(j == 0) {
+          //    scoreY = int(variablesHashMap.get(splitByCommas[j]));
+          //  }
+          //} else if(m == 2){
+          //   if(j == 0) {
+          //    rightScore = int(variablesHashMap.get(splitByCommas[j]));
+          //  } else if(j == 1) {
+          //    rightScoreX = int(variablesHashMap.get(splitByCommas[j]));
+          //  }
+          //}
           j++;
         }
         max = max + j;
       }
+      ballX = parameters.get(0);
+      ballY = parameters.get(1);
+      diameter = parameters.get(2);
+      
       if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
