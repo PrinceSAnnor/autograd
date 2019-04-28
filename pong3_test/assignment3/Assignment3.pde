@@ -1,11 +1,11 @@
 //maxX = ... 1920  .., maxY = 1080
 
 int leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, rightPaddleX, rightPaddleY; //varaibles for paddles
-int xBall, yBall, diameter; //variables for ball
+float xBall, yBall, diameter; //variables for ball
 int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
 int x = 0;
 int xSpeed, ySpeed;
-int radius;
+float radius;
 
 boolean gameOn;
 void setup()

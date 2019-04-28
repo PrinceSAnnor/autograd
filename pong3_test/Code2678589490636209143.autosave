@@ -2,11 +2,11 @@ class Code {
 //maxX = ... 1920  .., maxY = 1080
 
 int leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, rightPaddleX, rightPaddleY; //varaibles for paddles
-float xBall, yBall, diameter; //variables for ball
+int xBall, yBall, diameter; //variables for ball
 int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
 int x = 0;
 int xSpeed, ySpeed;
-float radius;
+int radius;
 
 boolean gameOn;
 void once()
@@ -95,5 +95,5 @@ void forever()
     ySpeed *= -1; //then reverse the polarity of the vertical speed so the ball moves in the opposite vertical direction
   }
 }
-float get(String x) { return float(x); } 
+//int get(String x) { return x; } 
 }
