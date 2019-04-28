@@ -1,7 +1,7 @@
 //maxX = ... 1920  .., maxY = 1080
 
 int leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, rightPaddleX, rightPaddleY; //varaibles for paddles
-int xBall, yBall, ballWidth, ballHeight; //variables for ball
+int xBall, yBall, diameter; //variables for ball
 int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
 int x = 0;
 int xSpeed, ySpeed;
@@ -18,16 +18,15 @@ void setup()
   paddleWidth = 48;
   paddleHeight = 216;
   
-  radius = ballWidth/2;
-  
   xBall = 960;
   yBall = 540;
-  ballWidth = 50;
-  ballHeight = 50;
+  diameter = 50;
+  
+  radius = diameter/2;
   
   leftScore = 0;
   leftScoreX = 480;
-  rightScore = 5;
+  rightScore = 0;
   rightScoreX = 1440; 
   scoreY = 540;
   txtSize = 60;
@@ -41,7 +40,7 @@ void draw()
   background(0); //set background black
   
   fill(45, 6, 233); 
-  ellipse(xBall, yBall, ballWidth, ballHeight); //draw circle at center
+  ellipse(xBall, yBall, diameter, diameter); //draw circle at center
   
   //fill(255);
   fill(66, 227, 90);

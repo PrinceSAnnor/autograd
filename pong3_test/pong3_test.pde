@@ -6,7 +6,7 @@ Code code = new Code();
 void setup ()
 {
   //will change size params later
-  //size(1920, 1080); //sets the width and height of the program  
+  size(1920, 1080); //sets the width and height of the program  
 
   background(0);
   test1 = new Test();
@@ -22,13 +22,18 @@ void setup ()
     println("Code runtime error");
     test1.totalScore = 0;
     test1.printResults();
+    test1.reset();
     exit();
   }
   
+  println(test1.leftScore + " " + test1.rightScore + " " + test1.txtSize);
   mousePressed = true;
 }
 
 void draw()
 {
+  if(test1.leftScore == 0  && test1.rightScore == 0)
+  {
   code.forever();
+  }
 }

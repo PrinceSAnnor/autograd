@@ -44,8 +44,8 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
-      //fileLines = loadStrings("assignment2/assignment2.pde"); //uncomment if you're using APDE
+      //fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
+      fileLines = loadStrings("assignment2/assignment2.pde"); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
     {

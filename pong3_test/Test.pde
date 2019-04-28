@@ -13,8 +13,9 @@ Password: Suacodefacilitators10!
 */
 
 class Test {
+  
   PrintWriter output = createWriter("Code.pde");
-
+  
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
   ArrayList<Integer> backgrounds = new ArrayList<Integer>(); //background lines
@@ -36,6 +37,8 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
+  
+  int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
 
   Test() { //empty constructor for class
   }
@@ -46,7 +49,7 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("Assignment3/Assignment3.pde"); //comment if you're using APDE
+      fileLines = loadStrings("assignment3/assignment3.pde"); //comment if you're using APDE
       //fileLines = loadStrings("Assignment2.pde"); //uncomment if you're using APDE
       //fileLines = loadStrings("../Assignment2/tests/test2/test2.pde"); //tests with pc
     }
@@ -101,7 +104,7 @@ class Test {
       for (int i = 0; i < fileLines.length; i++) {
         for (int j = 0; j < tabs; j++)
         {
-          if (fileLines[i].length() > tabs && fileLines[i] != null && fileLines[i].length() > 0 && match(fileLines[i], "\\}") == null)
+          if (fileLines[i].length() > tabs && fileLines[i] != null && fileLines[i].length() > 0 && match(fileLines[i], "\\}") == null && trim(fileLines[i]).length() > 0)
           {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
@@ -156,11 +159,22 @@ class Test {
       boolean statementsFlag = false;
       for (int i = 1; i < linesFiltered.size(); i++) //start from the second line to escape the comment on the first line
       {
-        if (matchAll(linesFiltered.get(i), ";") != null) //if line has matched semi colon
+        if (match(linesFiltered.get(i), ";") != null) //if line has matched semi colon
         {
+
           if (matchAll(linesFiltered.get(i), ";").length > 1)//get number of semi colon matches
           {
-            statementsFlag = true;
+            if (match(linesFiltered.get(i), "^//.*$") == null && match(linesFiltered.get(i), "//") == null)//get number of semi colon matches
+            {
+              statementsFlag = true;
+            } else {
+              
+              String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
+
+              if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
+                statementsFlag = true;
+              }
+            }
           }
         }
       }
@@ -957,6 +971,25 @@ void checkRects() //check rects
             }
           }
           
+          if(m == 0) {
+            if(j == 0) {
+              txtSize = int(variablesHashMap.get(splitByCommas[j]));
+            }
+          } else if(m == 1){
+             if(j == 0) {
+              leftScore = int(variablesHashMap.get(splitByCommas[j]));
+            } else if(j == 0) {
+              leftScoreX = int(variablesHashMap.get(splitByCommas[j]));
+            } else if(j == 0) {
+              scoreY = int(variablesHashMap.get(splitByCommas[j]));
+            }
+          } else if(m == 2){
+             if(j == 0) {
+              rightScore = int(variablesHashMap.get(splitByCommas[j]));
+            } else if(j == 1) {
+              rightScoreX = int(variablesHashMap.get(splitByCommas[j]));
+            }
+          }
           j++;
         }
         max = max + j;
@@ -1158,8 +1191,13 @@ void checkRects() //check rects
 
       for (int i = 0; i < fileLines.length; i++)
       {
-        if (match(fileLines[i], "size") != null) {
-          output.println("  //" + fileLines[i]);
+        if (match(fileLines[i], "size\\(") != null) {
+          String[] tokens = trim(splitTokens(fileLines[i], "//"));
+          if (match(tokens[0], "size") != null) {
+            output.println("//" + tokens[0]);
+          } else {
+            output.println(tokens[0] + "  //" + tokens[1]);
+          }
         } else if (match(fileLines[i], "void") != null) {
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
@@ -1187,6 +1225,29 @@ void checkRects() //check rects
       println("couldnt create file " + e);
     }
   }
+  
+  void reset() 
+  {
+    
+    try
+    {
+      output.println("class Code {");
+      output.println("void once() {");
+
+      output.println("}");
+      output.println("void forever() {");
+
+      output.println("}");
+      output.println("}");
+
+      output.flush(); // Writes the remaining data to the file
+      output.close(); // Finishes the file
+    }
+    catch(Exception e)
+    {
+      println("couldnt reset file ");
+    }
+  }
 
   void run() {
     getLines();
@@ -1205,6 +1266,7 @@ void checkRects() //check rects
     checkScores();
     shapeColorInteractions();
     createFile();
-	printResults();
+	  printResults();
+    reset();
   }
 }

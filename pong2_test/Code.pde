@@ -1,36 +1,61 @@
 class Code {
-int ballX;//declare variable to hold x position of ball
-float ballY;//declare variable to hold y position of ball
-float diameter=20;//declare and initialize to variable to hold size of ball
+//maxX = ... 1920  .., maxY = 1080
+
+int leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, rightPaddleX, rightPaddleY; //varaibles for paddles
+int ballX, ballY, ballWidth, ballHeight; //variables for ball
+int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
+int x = 0;
+int ballSpeedX, ballSpeedY;
 
 void once()
 {
-  fullScreen(); //set the size of drawing window
-  background(0); //set background color to black
-  stroke(0,0,255); //set the outline of objects to blue
-  ballX=width/2;//initialize x value
-  ballY=height/2;//initialize y value
- }
- 
-void forever()
- {
-  background(0);//continues set background color to black
-  fill(255,255,255); //set the interior of text in white
-  textSize(45); //set text size to 45
-  text("6",width/5, height/2); //writes text on screen
-  text("2",width/1.25, height/2); //writes text on screen
+//size(1920, 1080);
+  leftPaddleX = 0;
+  leftPaddleY = 0;
+  rightPaddleX = 1872;
+  rightPaddleY = 864;
+  paddleWidth = 48;
+  paddleHeight = 216;
   
-  fill(0,255,0); //set the interior of object in green
-  rect(mouseX,mouseY, width/30,height/8); //draws a rectangle
-  rect(1230,620,width/30,height/8); //draws a rectangle
-
- fill(255); //set the interior of object in yellow
- ellipse(ballX,ballY,diameter,diameter); //create ball with varialble
-
-//move ball up and left
-ballX=ballX-4;
-ballY=ballY-2;
-
+  ballX = 960;
+  ballY = 540;
+  ballWidth = 50;
+  ballHeight = 50;
+  
+  leftScore = 0;
+  leftScoreX = 480;
+  rightScore = 5;
+  rightScoreX = 1440; 
+  scoreY = 540;
+  txtSize = 40;
+  
+  ballSpeedX = 2;
+  ballSpeedY = 2;
 }
 
+void forever()
+{
+  background(0); //set background black
+  
+  fill(45, 6, 233); 
+  ellipse(ballX, ballY, ballWidth, ballHeight); //draw circle at center
+  
+  //fill(255);
+  fill(66, 227, 90);
+  rect(leftPaddleX, leftPaddleY, paddleWidth, paddleHeight); //left paddle at top left 
+  
+  //Draw paddles
+  fill(66, 227, 90);
+
+  rect(rightPaddleX, rightPaddleY, paddleWidth, paddleHeight); //right paddle at the bottom right
+
+  //Draw scores on screen
+  stroke (0, 25, 255); //use a blue outline for all shapes
+  textSize(txtSize); //size of the text 
+  text(leftScore, leftScoreX, scoreY);  //left score at the left corner of the screen
+  text(rightScore, rightScoreX, scoreY); //right score at right corner of the screen
+  
+  ballX = ballX + ballSpeedX; //move ball in x direction
+  ballY = ballY + ballSpeedY; //move ball in y direction
+}
 }
