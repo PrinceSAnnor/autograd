@@ -1,16 +1,29 @@
 //Assigment 3: Bounce ball
+int gameWidth, gameHeight; 
+int pLeftScore, pRightScore;
+int pGameOn;
+int pBallX;
+int radius;
+int ballSpeedX;
+
+boolean once; // used to check if gameOn is true when mousePressed is true
 
 Test test1 = new Test();
 Code code = new Code();
-float ballX = code.get("xBall");
+
 void setup ()
 {
-  //will change size params later
-  //size(1920, 1080); //sets the width and height of the program  
-
-  background(0);
   test1 = new Test();
   test1.run();
+  
+  gameWidth = test1.screenWidth;
+  gameHeight = test1.screenHeight;
+  
+  radius = code.diameter()/2;
+  
+  size(1920, 1080); //sets the width and height of the program  
+
+  background(0);
 
   try
   {
@@ -26,19 +39,109 @@ void setup ()
     exit();
   }
   
-  println(ballX);
-  mousePressed = true;
+  
+  if(code.leftScore() == 0  && code.rightScore() == 0)
+  { 
+    mousePressed = true;
+  } else {
+    test1.totalScore -= test1.deduction;
+    println("Iniial scores not 0");
+  }
+  
+  once = true;
 }
 
 void draw()
 {
-  //if(test1.leftScore == 0  && test1.rightScore == 0)
-  //{
-  //  code.forever();
-  //  //test1.ballX = code.xBall;
-  //  println(code.xBall);
-  //  if (code.xBall + code.radius > 1920) {
-  //    mousePressed = false;
-  //  };
-  //}
+  int time = millis();
+  pLeftScore = code.leftScore();
+  pRightScore = code.rightScore();
+  pBallX = code.ballX();
+  pGameOn = code.gameOn();
+  
+  code.forever();
+  
+  if(once) {
+    if(code.ballX() > pBallX) {
+      if(code.gameOn() == 0) {  
+        test1.totalScore -= test1.deduction;
+        println("Ball moves even if gameOn is off");
+      }
+    }
+    once = false;
+  }
+  
+  checkLeftExit();
+  checkRightExit();
+    
+  ballSpeedX = code.ballX() - pBallX;
+  
+  println(code.leftScore());
+  mousePressed = true;
+  //test1.printResults();
+  if (time >= 60000) {
+    test1.printResults();
+    exit();
+  }
 }
+  
+void checkLeftExit() {
+  
+  boolean leftExitFlag = false;
+   
+  if(code.ballX() + radius <= 0)
+  { 
+    mousePressed = false;
+    leftExitFlag = true;
+  }
+  
+  if(leftExitFlag) {
+    if(code.rightScore() - pRightScore != 1) {
+      test1.totalScore -= test1.deduction;
+      println("Right player should score 1 if ball exits left screen"); 
+    } 
+  }
+}
+
+void checkRightExit() {
+  
+  boolean rightExitFlag = false;
+   
+  if(code.ballX() - radius >= gameWidth - ballSpeedX) // dont know why balls x speed is needed but... Probably because of draw
+  { 
+    mousePressed = false;
+    println(code.ballX() - radius + " " + gameWidth);
+    rightExitFlag = true;
+  }
+  
+  if(rightExitFlag) {
+    if(code.leftScore() - pLeftScore == 1) {
+      test1.totalScore -= test1.deduction;
+      println("Left player should score 1 if ball exits right screen"); 
+    } 
+  }
+}
+
+
+//void checkMovement() {
+//  while(x == 1) {
+//    if(code.gameOn() != 1) {  
+//      test1.totalScore -= test1.deduction;
+//      println("Ball moves even if gameOn is off");
+//    }
+//    x++;
+//  }
+//}
+
+//void checkScoring() {
+//  while(x == 1) { 
+//    if(code.ballX() + code.diameter()/2 > gameWidth && code.leftScore() == 1)
+//    { 
+//      println(pLeftScore + " " + code.leftScore());
+//      println(test1.totalScore);
+//      mousePressed = false;
+//    }
+//    x++;
+//  }
+//}
+  

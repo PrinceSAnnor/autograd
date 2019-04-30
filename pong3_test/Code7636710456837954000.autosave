@@ -19,11 +19,11 @@ float leftScoreX = 480; //x coordinate of the left player's score
 float leftScoreY = 540; //y coordinate of the right player's score
 float rightScoreX = 1440; //x coordinate of the right player's score
 float rightScoreY = 540; //y coordinate of the right player's score
-float xSpeed = 1; //horizontal speed of the ball
-float ySpeed = 1; //vertical speed of the ball
+float xSpeed = 6; //horizontal speed of the ball
+float ySpeed = 6; //vertical speed of the ball
 float radius = 25; //radius of the ball
 int tSize = 30; //Sets the text size
-boolean gameOn = false;
+boolean gameOn;
 
 void once()
 {

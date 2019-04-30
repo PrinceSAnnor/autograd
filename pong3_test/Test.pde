@@ -1,3 +1,4 @@
+import java.util.Map;
 //class for autoGrad assignment 3
 
 /*
@@ -39,7 +40,10 @@ class Test {
   int tabLength = 2;
   
   int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
-  String ballX;
+    
+  HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
+
+  
   
   ArrayList<String> ball = new ArrayList<String>();
   
@@ -439,6 +443,24 @@ void checkRects() //check rects
             println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
             totalScore -= deduction;
             break;
+          }
+          
+          if(m == 0) {
+            if( j == 0) {
+              varNamesHashMap.put("leftPaddleX", splitByCommas1[j]);
+            } else if( j == 1) {
+              varNamesHashMap.put("leftPaddleY", splitByCommas1[j]);
+            } else if( j == 2) {
+              varNamesHashMap.put("paddleWidth", splitByCommas1[j]);
+            } else if( j == 3) {
+              varNamesHashMap.put("paddleHeight", splitByCommas1[j]);
+            }
+          } else if(m == 1) {
+            if( j == 0) {
+              varNamesHashMap.put("rightPaddleX", splitByCommas1[j]);
+            } else if( j == 1) {
+              varNamesHashMap.put("rightPaddleY", splitByCommas1[j]);
+            }
           }
           j++;
         }
@@ -976,21 +998,21 @@ void checkRects() //check rects
           
           if(m == 0) {
             if(j == 0) {
-              txtSize = int(variablesHashMap.get(splitByCommas[j]));
+              varNamesHashMap.put("txtSize", splitByCommas[j]);
             }
           } else if(m == 1){
              if(j == 0) {
-              leftScore = int(variablesHashMap.get(splitByCommas[j]));
-            } else if(j == 0) {
-              leftScoreX = int(variablesHashMap.get(splitByCommas[j]));
-            } else if(j == 0) {
-              scoreY = int(variablesHashMap.get(splitByCommas[j]));
+              varNamesHashMap.put("leftScore", splitByCommas[j]);
+            } else if(j == 1) {
+              varNamesHashMap.put("leftScoreX", splitByCommas[j]);
+            } else if(j == 2) {
+              varNamesHashMap.put("scoreY", splitByCommas[j]);
             }
           } else if(m == 2){
              if(j == 0) {
-              rightScore = int(variablesHashMap.get(splitByCommas[j]));
+              varNamesHashMap.put("rightScore", splitByCommas[j]);
             } else if(j == 1) {
-              rightScoreX = int(variablesHashMap.get(splitByCommas[j]));
+              varNamesHashMap.put("rightScoreX", splitByCommas[j]);
             }
           }
           j++;
@@ -1069,9 +1091,7 @@ void checkRects() //check rects
 
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
-        { 
-          ball.add(splitByCommas[j]);
-          
+        {           
           //get all parameters for ellipse fnx
           if(variablesHashMap.containsKey(splitByCommas[j]))
           {
@@ -1086,10 +1106,19 @@ void checkRects() //check rects
             totalScore -= deduction;
           }
           
+          if(j == 0) {
+            varNamesHashMap.put("ballX", splitByCommas[j]);
+          } else if(j == 1) {
+            varNamesHashMap.put("ballY", splitByCommas[j]);
+          } else if(j == 2) {
+            varNamesHashMap.put("diameter", splitByCommas[j]);
+          }
+          
           j++;
         }
         max = max + j;
       }
+      
       
       if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
@@ -1222,8 +1251,15 @@ void checkRects() //check rects
         }
       }
       
-      output.println("float get(String x) { return float(x); } ") ;
-
+      //hasmap name gfg
+      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
+      {  
+        output.println("int " + entry.getKey() + "()");
+        output.println("{");
+        output.println("return int(" + entry.getValue() + ");");
+        output.println("}");
+      }
+      
       output.println("}");
 
       output.flush(); // Writes the remaining data to the file
@@ -1233,6 +1269,32 @@ void checkRects() //check rects
     {
       println("couldnt create file " + e);
     }
+  }
+  
+  void getGameOn() 
+  {
+    try
+    {
+      String[] splitBySemiColon;
+      String[] splitBySpace;
+      
+      for (int m = 0; m < linesFiltered.size(); m++) 
+      {         
+        if(match(linesFiltered.get(m), "boolean") != null) {
+          
+          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
+          
+          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
+          
+          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
+        }
+      }
+    }
+    catch(Exception e)
+    {
+      println("couldnt get boolean vars" + e);
+    }
+    
   }
   
   void reset() 
@@ -1274,8 +1336,9 @@ void checkRects() //check rects
     checkRects();
     checkScores();
     shapeColorInteractions();
+    getGameOn();
     createFile();
-	  printResults();
+	  //printResults();
     reset();
   }
 }
