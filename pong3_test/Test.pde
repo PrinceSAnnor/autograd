@@ -14,9 +14,7 @@ Password: Suacodefacilitators10!
 */
 
 class Test {
-  
-  PrintWriter output = createWriter("Code.pde");
-  
+
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
   ArrayList<Integer> backgrounds = new ArrayList<Integer>(); //background lines
@@ -38,14 +36,8 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
-  
-  int leftScore, leftScoreX, rightScore, rightScoreX, scoreY, txtSize; //variables for scores
     
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
-
-  
-  
-  ArrayList<String> ball = new ArrayList<String>();
   
   Test() { //empty constructor for class
   }
@@ -1220,56 +1212,56 @@ void checkRects() //check rects
     println("Total score: ", totalScore);
   }
   
-  void createFile() {
-    try
-    {
-      output.println("class Code {");
+  //void createFile() {
+  //  try
+  //  {
+  //    output.println("class Code {");
 
-      for (int i = 0; i < fileLines.length; i++)
-      {
-        if (match(fileLines[i], "size\\(") != null) {
-          String[] tokens = trim(splitTokens(fileLines[i], "//"));
-          if (match(tokens[0], "size") != null) {
-            output.println("//" + tokens[0]);
-          } else {
-            output.println(tokens[0] + "  //" + tokens[1]);
-          }
-        } else if (match(fileLines[i], "void") != null) {
+  //    for (int i = 0; i < fileLines.length; i++)
+  //    {
+  //      if (match(fileLines[i], "size\\(") != null) {
+  //        String[] tokens = trim(splitTokens(fileLines[i], "//"));
+  //        if (match(tokens[0], "size") != null) {
+  //          output.println("//" + tokens[0]);
+  //        } else {
+  //          output.println(tokens[0] + "  //" + tokens[1]);
+  //        }
+  //      } else if (match(fileLines[i], "void") != null) {
 
-          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void once() {");
-          } else if (match(fileLines[i], "setup") != null) {
-            output.println("void once()");
-          }
-          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void forever() {");
-          } else if (match(fileLines[i], "draw") != null) {
-            output.println("void forever()");
-          }
-        } else {
-          output.println(fileLines[i]);
-        }
-      }
+  //        if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
+  //          output.println("void once() {");
+  //        } else if (match(fileLines[i], "setup") != null) {
+  //          output.println("void once()");
+  //        }
+  //        if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+  //          output.println("void forever() {");
+  //        } else if (match(fileLines[i], "draw") != null) {
+  //          output.println("void forever()");
+  //        }
+  //      } else {
+  //        output.println(fileLines[i]);
+  //      }
+  //    }
       
-      //hasmap name gfg
-      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-      {  
-        output.println("int " + entry.getKey() + "()");
-        output.println("{");
-        output.println("return int(" + entry.getValue() + ");");
-        output.println("}");
-      }
+  //    //hasmap name gfg
+  //    for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
+  //    {  
+  //      output.println("int " + entry.getKey() + "()");
+  //      output.println("{");
+  //      output.println("return int(" + entry.getValue() + ");");
+  //      output.println("}");
+  //    }
       
-      output.println("}");
+  //    output.println("}");
 
-      output.flush(); // Writes the remaining data to the file
-      output.close(); // Finishes the file
-    }
-    catch(Exception e)
-    {
-      println("couldnt create file " + e);
-    }
-  }
+  //    output.flush(); // Writes the remaining data to the file
+  //    output.close(); // Finishes the file
+  //  }
+  //  catch(Exception e)
+  //  {
+  //    println("couldnt create file " + e);
+  //  }
+  //}
   
   void getGameOn() 
   {
@@ -1297,28 +1289,6 @@ void checkRects() //check rects
     
   }
   
-  void reset() 
-  {
-    
-    try
-    {
-      output.println("class Code {");
-      output.println("void once() {");
-
-      output.println("}");
-      output.println("void forever() {");
-
-      output.println("}");
-      output.println("}");
-
-      output.flush(); // Writes the remaining data to the file
-      output.close(); // Finishes the file
-    }
-    catch(Exception e)
-    {
-      println("couldnt reset file ");
-    }
-  }
 
   void run() {
     getLines();
@@ -1337,8 +1307,5 @@ void checkRects() //check rects
     checkScores();
     shapeColorInteractions();
     getGameOn();
-    createFile();
-	  //printResults();
-    reset();
   }
 }

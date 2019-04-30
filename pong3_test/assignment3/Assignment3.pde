@@ -71,7 +71,7 @@ void draw ()
   //Check if ball completely exits right side of the screen 
   if (xBall - radius > screenWidth) //if the ball exits the right side of the screen 
   {
-    leftScore = leftScore + 1; //increment the right player's score by one
+    leftScore = leftScore; //increment the right player's score by one
     xBall = screenWidth/2; //set the horizontal position of the ball to half of the width
     yBall = screenHeight/2; //set the vertical position of the ball to half of the height 
     gameOn = false;

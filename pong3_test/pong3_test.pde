@@ -8,18 +8,22 @@ int ballSpeedX;
 
 boolean once; // used to check if gameOn is true when mousePressed is true
 
-Test test1 = new Test();
+GetCode getCode;
+Test test1;
 Code code = new Code();
 
 void setup ()
 {
+  getCode = new GetCode();
+  getCode.run();
+  
   test1 = new Test();
   test1.run();
   
   gameWidth = test1.screenWidth;
   gameHeight = test1.screenHeight;
   
-  radius = code.diameter()/2;
+  //radius = code.diameter()/2;
   
   size(1920, 1080); //sets the width and height of the program  
 
@@ -35,11 +39,9 @@ void setup ()
     println("Code runtime error");
     test1.totalScore = 0;
     test1.printResults();
-    test1.reset();
     exit();
   }
-  
-  
+    
   if(code.leftScore() == 0  && code.rightScore() == 0)
   { 
     mousePressed = true;
@@ -121,27 +123,4 @@ void checkRightExit() {
     } 
   }
 }
-
-
-//void checkMovement() {
-//  while(x == 1) {
-//    if(code.gameOn() != 1) {  
-//      test1.totalScore -= test1.deduction;
-//      println("Ball moves even if gameOn is off");
-//    }
-//    x++;
-//  }
-//}
-
-//void checkScoring() {
-//  while(x == 1) { 
-//    if(code.ballX() + code.diameter()/2 > gameWidth && code.leftScore() == 1)
-//    { 
-//      println(pLeftScore + " " + code.leftScore());
-//      println(test1.totalScore);
-//      mousePressed = false;
-//    }
-//    x++;
-//  }
-//}
   
