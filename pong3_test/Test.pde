@@ -37,7 +37,6 @@ class Test {
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
     
-  HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
   
   Test() { //empty constructor for class
   }
@@ -435,24 +434,6 @@ void checkRects() //check rects
             println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
             totalScore -= deduction;
             break;
-          }
-          
-          if(m == 0) {
-            if( j == 0) {
-              varNamesHashMap.put("leftPaddleX", splitByCommas1[j]);
-            } else if( j == 1) {
-              varNamesHashMap.put("leftPaddleY", splitByCommas1[j]);
-            } else if( j == 2) {
-              varNamesHashMap.put("paddleWidth", splitByCommas1[j]);
-            } else if( j == 3) {
-              varNamesHashMap.put("paddleHeight", splitByCommas1[j]);
-            }
-          } else if(m == 1) {
-            if( j == 0) {
-              varNamesHashMap.put("rightPaddleX", splitByCommas1[j]);
-            } else if( j == 1) {
-              varNamesHashMap.put("rightPaddleY", splitByCommas1[j]);
-            }
           }
           j++;
         }
@@ -988,25 +969,6 @@ void checkRects() //check rects
             }
           }
           
-          if(m == 0) {
-            if(j == 0) {
-              varNamesHashMap.put("txtSize", splitByCommas[j]);
-            }
-          } else if(m == 1){
-             if(j == 0) {
-              varNamesHashMap.put("leftScore", splitByCommas[j]);
-            } else if(j == 1) {
-              varNamesHashMap.put("leftScoreX", splitByCommas[j]);
-            } else if(j == 2) {
-              varNamesHashMap.put("scoreY", splitByCommas[j]);
-            }
-          } else if(m == 2){
-             if(j == 0) {
-              varNamesHashMap.put("rightScore", splitByCommas[j]);
-            } else if(j == 1) {
-              varNamesHashMap.put("rightScoreX", splitByCommas[j]);
-            }
-          }
           j++;
         }
         max = max + j;
@@ -1061,11 +1023,6 @@ void checkRects() //check rects
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-      
-      //String[] splitByEquals;
-      //int noOfMatches = 0;
-      //ArrayList<String> matches = new ArrayList<String>();    
-
      
       for (int i = 0; i < linesFiltered.size(); i++)
       {
@@ -1097,15 +1054,6 @@ void checkRects() //check rects
             println("Use of magic numbers as params for ellipse");
             totalScore -= deduction;
           }
-          
-          if(j == 0) {
-            varNamesHashMap.put("ballX", splitByCommas[j]);
-          } else if(j == 1) {
-            varNamesHashMap.put("ballY", splitByCommas[j]);
-          } else if(j == 2) {
-            varNamesHashMap.put("diameter", splitByCommas[j]);
-          }
-          
           j++;
         }
         max = max + j;
@@ -1210,85 +1158,7 @@ void checkRects() //check rects
       totalScore = 0;
     }
     println("Total score: ", totalScore);
-  }
-  
-  //void createFile() {
-  //  try
-  //  {
-  //    output.println("class Code {");
-
-  //    for (int i = 0; i < fileLines.length; i++)
-  //    {
-  //      if (match(fileLines[i], "size\\(") != null) {
-  //        String[] tokens = trim(splitTokens(fileLines[i], "//"));
-  //        if (match(tokens[0], "size") != null) {
-  //          output.println("//" + tokens[0]);
-  //        } else {
-  //          output.println(tokens[0] + "  //" + tokens[1]);
-  //        }
-  //      } else if (match(fileLines[i], "void") != null) {
-
-  //        if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
-  //          output.println("void once() {");
-  //        } else if (match(fileLines[i], "setup") != null) {
-  //          output.println("void once()");
-  //        }
-  //        if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
-  //          output.println("void forever() {");
-  //        } else if (match(fileLines[i], "draw") != null) {
-  //          output.println("void forever()");
-  //        }
-  //      } else {
-  //        output.println(fileLines[i]);
-  //      }
-  //    }
-      
-  //    //hasmap name gfg
-  //    for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-  //    {  
-  //      output.println("int " + entry.getKey() + "()");
-  //      output.println("{");
-  //      output.println("return int(" + entry.getValue() + ");");
-  //      output.println("}");
-  //    }
-      
-  //    output.println("}");
-
-  //    output.flush(); // Writes the remaining data to the file
-  //    output.close(); // Finishes the file
-  //  }
-  //  catch(Exception e)
-  //  {
-  //    println("couldnt create file " + e);
-  //  }
-  //}
-  
-  void getGameOn() 
-  {
-    try
-    {
-      String[] splitBySemiColon;
-      String[] splitBySpace;
-      
-      for (int m = 0; m < linesFiltered.size(); m++) 
-      {         
-        if(match(linesFiltered.get(m), "boolean") != null) {
-          
-          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
-          
-          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
-          
-          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
-        }
-      }
-    }
-    catch(Exception e)
-    {
-      println("couldnt get boolean vars" + e);
-    }
-    
-  }
-  
+  }  
 
   void run() {
     getLines();
@@ -1306,6 +1176,6 @@ void checkRects() //check rects
     checkRects();
     checkScores();
     shapeColorInteractions();
-    getGameOn();
+
   }
 }

@@ -1,28 +1,21 @@
 class Code {
-  //maxX = ... 1920  .., maxY = 1080
-  
-  void once()
-  {
-    //size(1920, 1080);
-    background(0); //set background black
-  }
-  void forever()
-  {
-    fill(45, 6, 233); 
-    ellipse(960, 540, 50, 50); //draw circle at center
-  
-    //fill(255);
-    fill(66, 227, 90);
-    rect(0, 0, 48, 216); //left paddle at top left 
-  
-    //Draw paddles
-    fill(66, 227, 90);
-     
-    rect(1872, 864, 48, 216); //right paddle at the bottom right
-    //Draw scores on screen
-    stroke (0, 25, 255); //use a blue outline for all shapes
-    textSize(40);  //size of the text
-    text(0, 480, 540); //left score at the left corner of the screen
-    text(5, 1440, 540); //right score at right corner of the screen
-  }
+void once()
+{
+  fullScreen(); //sets full screen
+  background(0);//sets background colour to black
+  fill(0,255,0);//sets colour of ellipse and numbers to green
+  stroke(0,0,255);//sets outline colour to blue
+  textSize(50);//sets text size 
+  text("0",600,height/1.9);//sets text position to left of ellipse 
+  text("5",1250,height/2);//sets text position to right of ellipse 
+  ellipse(width/2,height/2,100,100); 
+}
+
+void forever()
+{
+  fill(255,0,0);//sets colour of paddles to Red
+  stroke(0,0,255);//sets colour of outline to blue 
+  rect(width/45,height/45,width/40,height/5); //sets size of paddle at top left corner 
+  rect(width/1.05,height/1.3,width/40,height/5);//sets size of paddle at lower bottom corner 
+}
 }

@@ -11,6 +11,7 @@ Uncomment line 42 and comment line 41 in getLines function if using with APDE
  */
 
 class Test {
+  //PrintWriter result = createWriter("result.txt");
   PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
@@ -24,13 +25,13 @@ class Test {
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
 
   float totalScore = 20; // total score of the student
-  float majorExceptions = 20; //deductions that generate exceptions, ie code that won't likely compile
+  float majorExceptions = 2; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
-
+  
   Test() { //empty constructor for class
   }
 
@@ -40,7 +41,7 @@ class Test {
   void getLines() { //reads file
     try
     {
-      //fileLines = loadStrings("tests/test/test.pde");
+      //fileLines = loadStrings("tests/test1/test1.pde");
       fileLines = loadStrings("assignment1/assignment1.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
@@ -132,8 +133,6 @@ class Test {
         println("improper code grouping");
         totalScore -= deduction;
       }
-      
-      
     }
     catch (Exception e) //catch exception
     {
@@ -182,7 +181,7 @@ class Test {
     catch (Exception e) 
     {
       println("Error: couldn't check statements per line");
-      totalScore -= majorExceptions;
+      //totalScore -= majorExceptions;
     }
   } 
 
@@ -236,46 +235,7 @@ class Test {
     catch (Exception e)
     {
       println("Error: check syntax of width and height at first line of code");
-      totalScore -= majorExceptions;
-    }
-  }
-
-  /*
-   This function basically verifies the values gotten from the first comment are the same as the values in the size function 
-   Follow the name of the variables to understand what's going on with each splitTokens
-   */
-
-  void checkSize() //verify screen width and height in size function
-  {
-    boolean sizeFlag = false;
-    try
-    {
-      String[] splitByLeftBrace;
-      String[] splitByCommas;
-      for (int i = 0; i < linesFiltered.size(); i++) //loop through lines
-      {
-        if (match(linesFiltered.get(i), "^size.*$") != null) //look for size with regex
-        {
-          splitByLeftBrace = splitTokens(linesFiltered.get(i), "(");
-          splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-          if (screenWidth != int(trim(splitByCommas[0])) || screenHeight != int(trim(splitByCommas[1]))) //if invalid width and height
-          {
-            sizeFlag = true;
-            screenWidth = int(trim(splitByCommas[0]));
-            screenHeight = int(trim(splitByCommas[1]));
-          }
-        }
-      }
-      if (sizeFlag)
-      {
-        println("check the size function width and height");  
-        totalScore -= deduction;
-      }
-    }
-    catch (Exception e) 
-    {
-      println("Error: couldn't verify size function");
-      totalScore -= majorExceptions;
+      //totalScore -= majorExceptions;
     }
   }
 
@@ -854,7 +814,7 @@ class Test {
       println("Error: couldn't check fills");
       totalScore -= majorExceptions;
     }
-  }
+   }
 
   /*
   Finds the number of backgrounds within the code
@@ -917,6 +877,7 @@ class Test {
         totalScore -= deduction;
         println("text size not set");
       }
+      
       int j = 0;
       for (int m = 0; m < texts.size(); m++) {
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
@@ -1028,7 +989,51 @@ class Test {
       totalScore -= majorExceptions;
     }
   }
+  
+    
+  
+  void createFile() {
+    try
+    {
+      output.println("class Code {");
 
+      for (int i = 0; i < fileLines.length; i++)
+      {
+        if (match(fileLines[i], "^size.*$") != null) {
+          String[] tokens = trim(splitTokens(fileLines[i], "//"));
+          if (match(tokens[0], "size") != null) {
+            output.println("//" + tokens[0]);
+          } else {
+            output.println(tokens[0] + "  //" + tokens[1]);
+          }
+        } else if (match(fileLines[i], "void") != null) {
+
+          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void once() {");
+          } else if (match(fileLines[i], "setup") != null) {
+            output.println("void once()");
+          }
+          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void forever() {");
+          } else if (match(fileLines[i], "draw") != null) {
+            output.println("void forever()");
+          }
+        } else {
+          output.println(fileLines[i]);
+        }
+      }
+
+      output.println("}");
+
+      output.flush(); // Writes the remaining data to the file
+      output.close(); // Finishes the file
+    }
+    catch(Exception e)
+    {
+      println("Error: couldn't create file");
+    }
+  }
+  
   boolean charIsNum(char c)  //check ascii range of char
   {
     return 48<=c&&c<=57;
@@ -1059,59 +1064,15 @@ class Test {
     {
       totalScore = 0;
     }
-    println("Total Score: ", totalScore);
+    println("Total Score: " + totalScore);
   }
-
-  void createFile() {
-    try
-    {
-      output.println("class Code {");
-
-      for (int i = 0; i < fileLines.length; i++)
-      {
-        if (match(fileLines[i], "size") != null) {
-          String[] tokens = trim(splitTokens(fileLines[i], "//"));
-          if (match(tokens[0], "size") != null) {
-            output.println("    //" + tokens[0]);
-          } else {
-            output.println("    " + tokens[0] + "  //" + tokens[1]);
-          }
-        } else if (match(fileLines[i], "void") != null) {
-
-          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("  void once() {");
-          } else if (match(fileLines[i], "setup") != null) {
-            output.println("  void once()");
-          }
-          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("  void forever() {");
-          } else if (match(fileLines[i], "draw") != null) {
-            output.println("  void forever()");
-          }
-        } else {
-          output.println("  " + fileLines[i]);
-        }
-      }
-
-      output.println("}");
-
-      output.flush(); // Writes the remaining data to the file
-      output.close(); // Finishes the file
-    }
-    catch(Exception e)
-    {
-      println("Error: couldn't create file");
-    }
-  }
-
-
+  
   void run() {
     getLines();
     checkTabs();
     removeEmptyLines();
     checkStatementsPerLine();
     getScreenSize();
-    checkSize();
     checkComments();
     checkBackground();
     checkFills();

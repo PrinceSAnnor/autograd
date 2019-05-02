@@ -18,8 +18,8 @@ float leftScoreX = 480; //x coordinate of the left player's score
 float leftScoreY = 540; //y coordinate of the right player's score
 float rightScoreX = 1440; //x coordinate of the right player's score
 float rightScoreY = 540; //y coordinate of the right player's score
-float xSpeed = 1; //horizontal speed of the ball
-float ySpeed = 1; //vertical speed of the ball
+float xSpeed = 10; //horizontal speed of the ball
+float ySpeed = 10; //vertical speed of the ball
 float radius = 25; //radius of the ball
 int tSize = 30; //Sets the text size
 boolean gameOn = false;
@@ -56,7 +56,7 @@ void draw ()
   //Move ball if game is on 
   if (gameOn) {
     xBall = xBall + xSpeed; //increase the x position of the ball by x speed
-    yBall = yBall + ySpeed; //increase the y position of the ball by y speed
+    yBall = yBall - ySpeed; //increase the y position of the ball by y speed
   }
 
   //Check if ball completely exits left side of the screen 
@@ -71,7 +71,7 @@ void draw ()
   //Check if ball completely exits right side of the screen 
   if (xBall - radius > screenWidth) //if the ball exits the right side of the screen 
   {
-    leftScore = leftScore; //increment the right player's score by one
+    leftScore = leftScore + 1; //increment the right player's score by one
     xBall = screenWidth/2; //set the horizontal position of the ball to half of the width
     yBall = screenHeight/2; //set the vertical position of the ball to half of the height 
     gameOn = false;

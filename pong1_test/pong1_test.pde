@@ -1,18 +1,16 @@
 //Assignment 1: Make Pong Interface 
-//This program creates an interface for the Pong game
+//This program grades assignment 1
 
-Test test1 = new Test();
-//Code code = new Code();
+Test test1;
+//Code code;
 
 void setup ()
 {
-  //will change size params later
-  //size(1920, 1080); //sets the width and height of the program  
-
-  background(0);
   test1 = new Test();
   test1.run();
-
+  
+  //code = new Code();
+  
   try
   {
     //code.once();
@@ -24,10 +22,11 @@ void setup ()
     println("Code runtime error");
     exit();
   }
+  
   test1.printResults();
 }
 
 void draw()
 {
-  //code.forever();
+
 }

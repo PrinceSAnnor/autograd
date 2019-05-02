@@ -2,20 +2,22 @@
 int gameWidth, gameHeight; 
 int pLeftScore, pRightScore;
 int pGameOn;
-int pBallX;
+int pBallX, pBallY;
 int radius;
-int ballSpeedX;
+int ballSpeedX, ballSpeedY;
 
 boolean once; // used to check if gameOn is true when mousePressed is true
 
 GetCode getCode;
 Test test1;
-Code code = new Code();
+Code code;;
 
 void setup ()
 {
   getCode = new GetCode();
   getCode.run();
+  
+  code = new Code();
   
   test1 = new Test();
   test1.run();
@@ -23,7 +25,7 @@ void setup ()
   gameWidth = test1.screenWidth;
   gameHeight = test1.screenHeight;
   
-  //radius = code.diameter()/2;
+  radius = code.diameter()/2;
   
   size(1920, 1080); //sets the width and height of the program  
 
@@ -59,9 +61,13 @@ void draw()
   pLeftScore = code.leftScore();
   pRightScore = code.rightScore();
   pBallX = code.ballX();
+  pBallY = code.ballY();
   pGameOn = code.gameOn();
   
   code.forever();
+  
+  ballSpeedX = code.ballX() - pBallX;
+  ballSpeedY = code.ballY() - pBallY;
   
   if(once) {
     if(code.ballX() > pBallX) {
@@ -73,14 +79,14 @@ void draw()
     once = false;
   }
   
-  checkLeftExit();
-  checkRightExit();
+  int y = code.ballY() - radius;
+  //checkLeftExit();
+  //checkRightExit();
+  checkTopWall();
     
-  ballSpeedX = code.ballX() - pBallX;
+  //println("ballY => " + code.ballY() + " ballSpeedY => " + ballSpeedY + " y => " + y + " ballX + ballSpeedY => " + code.ballY() + ballSpeedY);
   
-  println(code.leftScore());
-  mousePressed = true;
-  //test1.printResults();
+  
   if (time >= 60000) {
     test1.printResults();
     exit();
@@ -122,5 +128,23 @@ void checkRightExit() {
       println("Left player should score 1 if ball exits right screen"); 
     } 
   }
+}
+
+void checkTopWall() {
+  
+  boolean topWallFlag = false;
+   
+  if((code.ballY() - radius) <= 0) // dont know why balls x speed is needed but... Probably because of draw
+  { 
+    if(ballSpeedY == (-1 * ballSpeedY)) {
+      println("Ball hit top wall but didnt change diretion"); 
+    }
+  }
+  
+  //if(topWallFlag) {
+  //  if(ballSpeedY != -1 * ballSpeedY) {
+  //    println("Ball hit top wall but didnt change diretion"); 
+  //  } 
+  //}
 }
   

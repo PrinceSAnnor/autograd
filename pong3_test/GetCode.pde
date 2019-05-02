@@ -71,7 +71,6 @@ void checkRects() //check rects
   {
     try
     {
-      ArrayList<Integer> parameters = new ArrayList<Integer>();     
       String[] splitByLeftBrace1;
       String[] splitByCommas1;
       int max = 0;      
@@ -92,21 +91,6 @@ void checkRects() //check rects
         j = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
         {  
-          //gets values all parameters(variables) for both rects
-          if(variablesHashMap.containsKey(splitByCommas1[j]))
-          {
-            parameters.add(int(variablesHashMap.get(splitByCommas1[j])));
-          } else {
-            parameters.add(int(splitByCommas1[j]));
-          }
-          
-          if(isNumeric(splitByCommas1[j])) // check for magic numbers
-          { 
-            println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
-            
-            break;
-          }
-          
           if(m == 0) {
             if( j == 0) {
               varNamesHashMap.put("leftPaddleX", splitByCommas1[j]);
@@ -261,30 +245,29 @@ void checkRects() //check rects
       println("Couldnt Check ellipses");
     }
   }
-
-  boolean charIsNum(char c)  //check ascii range of char
+   void getGameOn() 
   {
-    return 48<=c&&c<=57;
-  }
-
-  boolean isNumeric(String s) //check if a number
-  {
-    char [] ca = s.toCharArray();
-    int len = ca.length;
-    boolean first = charIsNum(ca[0]);
-    if (len==1) {
-      return first;
-    } else {
-      if ( !first && ca[0]!='-') { 
-        return false;
-      }
-      for (int i=1; i<len; i++) {
-        if (!charIsNum(ca[i])) {
-          return false;
+    try
+    {
+      String[] splitBySemiColon;
+      String[] splitBySpace;
+      
+      for (int m = 0; m < linesFiltered.size(); m++) 
+      {         
+        if(match(linesFiltered.get(m), "boolean") != null) {
+          
+          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
+          
+          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
+          
+          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
         }
       }
     }
-    return true;
+    catch(Exception e)
+    {
+      println("couldnt get boolean vars" + e);
+    }
   }
   
   void getVariables() 
@@ -378,31 +361,33 @@ void checkRects() //check rects
       println("couldnt create file " + e);
     }
   }
-  
-  void getGameOn() 
+ 
+  boolean charIsNum(char c)  //check ascii range of char
   {
-    try
-    {
-      String[] splitBySemiColon;
-      String[] splitBySpace;
-      
-      for (int m = 0; m < linesFiltered.size(); m++) 
-      {         
-        if(match(linesFiltered.get(m), "boolean") != null) {
-          
-          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
-          
-          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
-          
-          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
+    return 48<=c&&c<=57;
+  }
+
+  boolean isNumeric(String s) //check if a number
+  {
+    char [] ca = s.toCharArray();
+    int len = ca.length;
+    boolean first = charIsNum(ca[0]);
+    if (len==1) {
+      return first;
+    } else {
+      if ( !first && ca[0]!='-') { 
+        return false;
+      }
+      for (int i=1; i<len; i++) {
+        if (!charIsNum(ca[i])) {
+          return false;
         }
       }
     }
-    catch(Exception e)
-    {
-      println("couldnt get boolean vars" + e);
-    }
+    return true;
   }
+  
+  
 
   void run() {
     getLines();
