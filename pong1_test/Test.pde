@@ -11,7 +11,7 @@ Uncomment line 42 and comment line 41 in getLines function if using with APDE
  */
 
 class Test {
-  //PrintWriter result = createWriter("result.txt");
+
   PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
@@ -32,6 +32,9 @@ class Test {
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
   
+  boolean gotEllipses = true;  
+  ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();  
+  
   Test() { //empty constructor for class
   }
 
@@ -41,8 +44,8 @@ class Test {
   void getLines() { //reads file
     try
     {
-      //fileLines = loadStrings("tests/test1/test1.pde");
-      fileLines = loadStrings("assignment1/assignment1.pde"); //comment if you're using APDE
+      fileLines = loadStrings("tests/test1/test1.pde");
+      //fileLines = loadStrings("assignment1/assignment1.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
@@ -932,63 +935,80 @@ class Test {
    Makes sure the ellipse is at the center of the program
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
-
-  void checkEllipses()
+  void getEllipses()
   {
     try
     {
-      ArrayList<Integer> parameters = new ArrayList<Integer>();    
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-
+      
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
-        {
+          {
           ellipses.add(i);
+          }
         }
-      }
-
+      
       int j = 0;
       for (int m = 0; m < ellipses.size(); m++) {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-
+        
         j = 0;
         while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get ellipse's parameters
         {
-          parameters.add(int(trim(splitByCommas[j])));
+          ellipseParameters.add(int(trim(splitByCommas[j])));
           j++;
         }
         max = max + j;
       }
-
-      if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
-        (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
+    }
+    catch (Exception e) 
+    {
+      gotEllipses = false;
+      println("Error: couldn't get ellipses");
+    }
+  }
+ 
+  void checkEllipses()
+  {
+  try
+  { 
+    if(ellipseParameters.size() == 0)
+    {
+      println("Ellipse contains invalid parameters");
+      totalScore -= deduction;
+    } 
+    
+    else if(gotEllipses) {
+      if ((ellipseParameters.get(0) < (screenWidth/2 - gap) || ellipseParameters.get(0) > (screenWidth/2 + gap)) || 
+        (ellipseParameters.get(1) < (screenHeight/2 - gap) || ellipseParameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
         totalScore -= deduction;
         println("ball not at the center");
       }
-
-      if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
+  
+      if (int(ellipseParameters.get(2)) != int(ellipseParameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
         println("weird ball you got there lad | the ball should be a circle");
       }
-
-      if (parameters.size() > 4) //if more than one ball
+  
+      if (ellipseParameters.size() > 4) //if more than one ball
       {
         totalScore -= deduction;
         println("you have more than one ball?");
       }
     }
-    catch (Exception e) 
+  }
+  catch (Exception e) 
     {
-      println("Error: check ellipses");
-      totalScore -= majorExceptions;
+      println("Error: couldnt check ellipses " + e);
     }
   }
+  
   
     
   
@@ -1077,6 +1097,7 @@ class Test {
     checkBackground();
     checkFills();
     checkStrokes();
+    getEllipses();
     checkEllipses();
     checkRects();
     checkScores();
