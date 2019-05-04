@@ -935,7 +935,8 @@ class Test {
    Makes sure the ellipse is at the center of the program
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
- void checkEllipses()
+   
+   void checkEllipses()
   {
     try
     {
@@ -970,27 +971,28 @@ class Test {
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
         totalScore -= deduction;
-        println("ball not at the center");
+        println("Ball not at the center");
       }
 
       if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        println("weird ball you got there lad");
+        println("Weird ball you got there lad");
       }
 
       if (parameters.size() > 4) //if more than one ball
       {
         totalScore -= deduction;
-        println("you have more than one ball?");
+        println("You have more than one ball?");
       }
     }
     catch (Exception e) 
     {
-      println("Error: check ellipses");
+      println("Check ellipses");
       totalScore -= majorExceptions;
     }
   }
+   
   
     
   
@@ -1079,6 +1081,7 @@ class Test {
     checkBackground();
     checkFills();
     checkStrokes();
+    getEllipses();
     checkEllipses();
     checkRects();
     checkScores();
