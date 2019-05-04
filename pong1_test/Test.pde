@@ -11,7 +11,7 @@ Uncomment line 42 and comment line 41 in getLines function if using with APDE
  */
 
 class Test {
-  //PrintWriter result = createWriter("result.txt");
+
   PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
@@ -32,6 +32,9 @@ class Test {
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
   
+  boolean gotEllipses = true;  
+  ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();  
+  
   Test() { //empty constructor for class
   }
 
@@ -41,8 +44,8 @@ class Test {
   void getLines() { //reads file
     try
     {
-      //fileLines = loadStrings("tests/test1/test1.pde");
-      fileLines = loadStrings("assignment1/assignment1.pde"); //comment if you're using APDE
+      fileLines = loadStrings("tests/test1/test1.pde");
+      //fileLines = loadStrings("assignment1/assignment1.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
@@ -932,8 +935,7 @@ class Test {
    Makes sure the ellipse is at the center of the program
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
-
-  void checkEllipses()
+ void checkEllipses()
   {
     try
     {
@@ -974,7 +976,7 @@ class Test {
       if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        println("weird ball you got there lad | the ball should be a circle");
+        println("weird ball you got there lad");
       }
 
       if (parameters.size() > 4) //if more than one ball
