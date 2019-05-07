@@ -22,6 +22,7 @@ class Test {
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
   
+  File filePath;
   
   /* checkEllipses(); threw an error when there was string parameter
     Was trying to fix that by checking for the ellipse and analysing parameters in 
@@ -30,7 +31,8 @@ class Test {
   boolean gotEllipses = true;  
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();  
   
-  Test() { //empty constructor for class
+  Test(File x) { 
+    filePath = x;
   }
 
   /*
@@ -39,7 +41,7 @@ class Test {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("/assignment1/assignment1.pde");
+      fileLines = loadStrings(filePath);
     }
     catch (Exception e) //IO error
     {
@@ -1087,6 +1089,7 @@ class Test {
     checkRects();
     checkScores();
     shapeColorInteractions();
-    createFile();
+    //createFile();
+    printResults();
   }
 }
