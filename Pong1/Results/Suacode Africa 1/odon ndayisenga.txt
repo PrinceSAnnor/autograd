@@ -1,0 +1,8 @@
+Name: odon ndayisenga  TotalScore: 13.0  Group: 1
+
+
+
+ball not at the center
+Error: couldn't check rects
+Error: couldn't check scores
+Error: couldn't check shape color interactions

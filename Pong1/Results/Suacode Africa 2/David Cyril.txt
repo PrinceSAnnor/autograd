@@ -1,0 +1,9 @@
+Name: David Cyril  TotalScore: 15.0  Group: 2
+
+
+
+code not indented properly
+use at least one stroke function
+right paddle not at right bottom position
+size not set before text called
+paddles have different colors

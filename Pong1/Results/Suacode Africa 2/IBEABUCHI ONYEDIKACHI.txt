@@ -1,0 +1,10 @@
+Name: IBEABUCHI ONYEDIKACHI  TotalScore: 15.0  Group: 2
+
+
+
+code not indented properly
+Error: check syntax of width and height at first line of code
+use at least one stroke function
+ball not at the center
+right paddle not at right bottom position
+left score not at left position

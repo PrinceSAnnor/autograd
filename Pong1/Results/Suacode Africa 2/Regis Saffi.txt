@@ -1,0 +1,8 @@
+Name: Regis Saffi  TotalScore: 16.0  Group: 2
+
+
+
+code not indented properly
+use at least one stroke function
+ball not at the center
+size not set before text called
