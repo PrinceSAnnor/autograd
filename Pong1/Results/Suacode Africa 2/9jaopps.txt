@@ -1,7 +1,0 @@
-Name: 9jaopps  TotalScore: 16.0  Group: 2
-
-
-
-right paddle not at right bottom position
-paddles don't have the same dimensions
-Error: couldn't check shape color interactions

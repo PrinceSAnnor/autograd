@@ -1,7 +1,0 @@
-Name: Dennis Essuman  TotalScore: 17.0  Group: 2
-
-
-
-left paddle not at 0,0
-right paddle not at right bottom position
-size not set before text called

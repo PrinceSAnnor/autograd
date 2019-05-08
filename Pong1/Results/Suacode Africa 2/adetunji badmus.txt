@@ -1,5 +1,0 @@
-Name: adetunji badmus  TotalScore: 19.0  Group: 2
-
-
-
-right paddle not at right bottom position

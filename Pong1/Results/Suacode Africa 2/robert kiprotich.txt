@@ -1,7 +1,0 @@
-Name: robert kiprotich  TotalScore: 17.0  Group: 2
-
-
-
-use at least one stroke function
-ball not at the center
-right paddle not at right bottom position

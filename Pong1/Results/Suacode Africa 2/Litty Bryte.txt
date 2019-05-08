@@ -1,8 +1,0 @@
-Name: Litty Bryte  TotalScore: 15.0  Group: 2
-
-
-
-code not indented properly
-ball not at the center
-right paddle not at right bottom position
-Error: couldn't check shape color interactions

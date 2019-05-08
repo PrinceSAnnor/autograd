@@ -1,9 +1,0 @@
-Name: manaf sulemana  TotalScore: 12.0  Group: 2
-
-
-
-code not indented properly
-ball not at the center
-Error: couldn't check rects
-Error: couldn't check scores
-Error: couldn't check shape color interactions

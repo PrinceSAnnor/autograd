@@ -1,8 +1,0 @@
-Name: AFOLABI DANIEL  TotalScore: 15.0  Group: 1
-
-
-
-left paddle not at 0,0
-right paddle not at right bottom position
-left score not at left position
-Error: couldn't check shape color interactions

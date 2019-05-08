@@ -1,6 +1,0 @@
-Name: Van troy Edem  TotalScore: 18.0  Group: 1
-
-
-
-code not indented properly
-left paddle not at 0,0
