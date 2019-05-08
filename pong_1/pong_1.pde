@@ -19,46 +19,45 @@ void setup ()
   }
 
   /* This block doeas a number of things
-    For each group:
-    1. Get the file that contains the list the most recent file edited
-    2. Get the addresses (paths) and create file objects for the files going to be graded
-    3. Get the name of the student
-    4. Grade each file using an array of Test objs
+    for each group:
+    1. Get student names from dirs
+    2. get first file
+    4, grade the flies
   */
   int k = 0;
-  while(k < groups.size()){
-    java.util.List<java.io.File> codes = new ArrayList<File>();
-    ArrayList<String> studentNames = new ArrayList<String>();
+  while(k < groups.size())
+  {
+    ArrayList<String> studentNames = new ArrayList<String>(); // stores list of stident names in each group
+    ArrayList<String> studentFiles = new ArrayList<String>(); // stores list of student's codes
+    java.util.List<File> codes = new ArrayList<File>(); // stores files to be graded
 
-    String file = path + "\\" + groups.get(k) + "\\Assignment 1\\latest_files.txt";
-    String[] fileLines = loadStrings(file);
-
-    int j = 0;
-    for (int i = 0; i < fileLines.length; i++) {
-      if (trim(fileLines[i]) != null) {
-        String address = path + "\\" + groups.get(k) + "\\Assignment 1\\" + fileLines[i];
-        File code = new File(address);
-        codes.add(code);
+    //get dirs with students names
+    String url = path + groups.get(k) + "\\Assignment 1" ;
+    File[] names = listFiles(url);
+    for (int i = 0; i < names.length; i++) {
+      File f = names[i];
+      if (f.isDirectory())
+      {
+        studentNames.add(f.getName());
       }
-
-      while(j < fileLines.length) {
-        String[] splitBySlash = trim(splitTokens(fileLines[j], "\\"));
-        studentNames.add(splitBySlash[0]);
-        j++;
-      }
+    }
+    
+    //Get the first file
+    for (int i = 0; i < studentNames.size(); i++) {
+      String address = path + "\\" + groups.get(k) + "\\Assignment 1\\" + studentNames.get(i) + "\\1.pde";
+      File code = new File(address);
+      codes.add(code);
     }
 
     Test[] tests = new Test[codes.size() ];
-
+    
     for (int i = 0; i < codes.size(); i++) {
       tests[i] = new Test(codes.get(i), studentNames.get(i), k+1);
       tests[i].run();
     }
-    codes.clear();
-    studentNames.clear();
     k++;
   }
-  noLoop(); // draw doesn't have to run
+  // noLoop(); // draw doesn't have to run
 }
 
 void draw()
