@@ -1,0 +1,10 @@
+# Do not add Code Folders
+SuaCode Africa 1/
+SuaCode Africa 2/
+SuaCode Africa 3/
+
+# Ignore credentials file
+mycreds.txt
+
+# Igonore token file
+token.pickle
