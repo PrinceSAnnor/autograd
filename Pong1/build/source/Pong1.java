@@ -21,7 +21,7 @@ ArrayList<String> groups = new ArrayList<String>(); // Stores names of Suaode Af
 public void setup ()
 {
   // set the path to the Codes dir where the python code will eventually put the downloaded codes
-  String path = sketchPath() + "\\Codes";
+  String path = sketchPath() + "\\..\\autograd_py\\";
 
   //Get group folder names ie
   //Suacode Africa 1,  Suacode Africa 2 & Suacode Africa 3
@@ -105,7 +105,7 @@ class Test {
   ArrayList<Integer> lines = new ArrayList<Integer>(); //line lines
   ArrayList<Integer> fills = new ArrayList<Integer>(); //fill lines
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
-  
+
   ArrayList<String> errors = new ArrayList<String>(); //stroke lines
 
   float totalScore = 20; // total score of the student
@@ -115,19 +115,19 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3f; //percentage error for floatation divisions
   int tabLength = 2;
-  
+
   File filePath;
   String studentName;
   int groupNumber;
-    
+
   /* checkEllipses(); threw an error when there was string parameter
-    Was trying to fix that by checking for the ellipse and analysing parameters in 
+    Was trying to fix that by checking for the ellipse and analysing parameters in
     2 different functions, checkEllipse and getEllipse
   */
-  boolean gotEllipses = true;  
-  ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();  
-  
-  Test(File x, String name, int group) { 
+  boolean gotEllipses = true;
+  ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();
+
+  Test(File x, String name, int group) {
     filePath = x;
     studentName = name;
     groupNumber = group;
@@ -221,10 +221,10 @@ class Test {
         if (trim(fileLines[i]).length() == 0) {//if lines have no content or a null string
           emptyLines++;
         } else {
-         linesFiltered.add(trim(fileLines[i]));          
+         linesFiltered.add(trim(fileLines[i]));
         }
       }
-      
+
       if (emptyLines < 2) //if at least two lines are empty
       {
         errors.add("improper code grouping");
@@ -258,7 +258,7 @@ class Test {
             {
               statementsFlag = true;
             } else {
-              
+
               String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
 
               if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
@@ -275,12 +275,12 @@ class Test {
         totalScore -= deduction;
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check statements per line");
       //totalScore -= majorExceptions;
     }
-  } 
+  }
 
   /*
   This line parses the first comment in the line and gets the size of the screen used by the device, it just keeps splitting by tokens
@@ -291,7 +291,7 @@ class Test {
   {
     try
     {
-      String[] splitByComma = splitTokens(linesFiltered.get(0), ","); 
+      String[] splitByComma = splitTokens(linesFiltered.get(0), ",");
 
       String[] splitByEqualsLeft = splitTokens(splitByComma[0], "=");
       String[] splitByEqualsRight = splitTokens(splitByComma[splitByComma.length - 1], "=");
@@ -328,7 +328,7 @@ class Test {
       }
 
       screenHeight = PApplet.parseInt(trim(splitBySpacesRight[i])); //get screen height
-    } 
+    }
     catch (Exception e)
     {
       errors.add("Error: check syntax of width and height at first line of code");
@@ -358,7 +358,7 @@ class Test {
         totalScore -= deduction;
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check comments");
       totalScore -= majorExceptions;
@@ -403,9 +403,9 @@ class Test {
           j++;
         }
       }
-      
+
       int parameterSize = parameters.size();
-      
+
       if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
         for (int m = 0; m < strokes.size() - 1; m++) {
@@ -430,7 +430,7 @@ class Test {
         errors.add("shapes have different outline colors");
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: check stroke function");
       totalScore -= majorExceptions;
@@ -445,13 +445,13 @@ class Test {
   {
     try
     {
-      ArrayList<Integer> parameters = new ArrayList<Integer>();     
+      ArrayList<Integer> parameters = new ArrayList<Integer>();
       String[] splitByLeftBrace1;
       String[] splitByCommas1;
-      int max = 0;      
+      int max = 0;
       int coordinateFlag = 0;
 
-      for (int i = 0; i < linesFiltered.size(); i++) 
+      for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
         {
@@ -512,7 +512,7 @@ class Test {
         errors.add("you have more than two paddles? use only two rectangles before grade is released");
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check rects");
       totalScore -= majorExceptions;
@@ -530,7 +530,7 @@ class Test {
 
   /*
    This funciton assumes that if the parameter count for fill/stroke are different then the colors have to be different
-   This is not necessarily the case as fill(0) = fill(0,0,0) and fill(255) = fill(255,255,255) 
+   This is not necessarily the case as fill(0) = fill(0,0,0) and fill(255) = fill(255,255,255)
    but I don't expect the students to go to that length to try and beat the system, I mean, at what cost??
    */
 
@@ -641,7 +641,7 @@ class Test {
       /*This section is for the color interactions between paddles and with backgrounds */
 
       if (closest1 != 0 && closest2 != 0) //if there're two fills beside both paddles
-      {      
+      {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
         splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
         splitByLeftBrace2 = splitTokens(linesFiltered.get(fills.get(cl2_index)), "(");
@@ -705,7 +705,7 @@ class Test {
       if (closest != 0) //fill before ellipse
       {
         if (closest1 != 0)//fill before paddle1
-        {      
+        {
           splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
           splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
 
@@ -747,7 +747,7 @@ class Test {
         {
           if (t == j)
           {
-            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0))) 
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0)))
             {
               totalScore -= deduction;
               errors.add("ball has same color as left paddle");
@@ -773,7 +773,7 @@ class Test {
         {
           if (t == k)
           {
-            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect2FillParameters.get(0)) && PApplet.parseInt(ellipseFillParameters.get(1)) == PApplet.parseInt(rect2FillParameters.get(1)) 
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect2FillParameters.get(0)) && PApplet.parseInt(ellipseFillParameters.get(1)) == PApplet.parseInt(rect2FillParameters.get(1))
               &&  PApplet.parseInt(ellipseFillParameters.get(2)) == PApplet.parseInt(rect2FillParameters.get(2)))
             {
               totalScore -= deduction;
@@ -782,7 +782,7 @@ class Test {
           }
           if (t == j)
           {
-            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0)) && PApplet.parseInt(ellipseFillParameters.get(1)) == PApplet.parseInt(rect1FillParameters.get(1)) 
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0)) && PApplet.parseInt(ellipseFillParameters.get(1)) == PApplet.parseInt(rect1FillParameters.get(1))
               &&  PApplet.parseInt(ellipseFillParameters.get(2)) == PApplet.parseInt(rect1FillParameters.get(2)))
             {
               totalScore -= deduction;
@@ -805,7 +805,7 @@ class Test {
 
       /*left paddle and background.*/
       if (closest1 != 0 && !closestFlag) //fill before paddle 1
-      {      
+      {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
         splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
 
@@ -837,7 +837,7 @@ class Test {
 
       /*right paddle and background*/
       if (closest2 != 0 && !closestFlag) //fill right paddle
-      {      
+      {
         splitByLeftBrace2 = splitTokens(linesFiltered.get(fills.get(cl2_index)), "(");
         splitByCommas2 = splitTokens(splitByLeftBrace2[1], ",)");
 
@@ -874,7 +874,7 @@ class Test {
         errors.add("paddle and ball have the same color");
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check shape color interactions");
       totalScore -= majorExceptions;
@@ -897,7 +897,7 @@ class Test {
         }
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check fills");
       totalScore -= majorExceptions;
@@ -920,7 +920,7 @@ class Test {
         }
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check background");
       totalScore -= majorExceptions;
@@ -930,13 +930,13 @@ class Test {
   /*
   Finds the number of texts within the code
    Makes sure two texts are on either side of the screen
-   Follow the name of the variables to understand what's going on with each splitTokens  
+   Follow the name of the variables to understand what's going on with each splitTokens
    */
   public void checkScores() //check for text
   {
     try
-    {        
-      ArrayList<Integer> parameters = new ArrayList<Integer>();     
+    {
+      ArrayList<Integer> parameters = new ArrayList<Integer>();
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
@@ -965,7 +965,7 @@ class Test {
         totalScore -= deduction;
         errors.add("text size not set");
       }
-      
+
       int j = 0;
       for (int m = 0; m < texts.size(); m++) {
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
@@ -1008,7 +1008,7 @@ class Test {
         }
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       errors.add("Error: couldn't check scores");
       totalScore -= majorExceptions;
@@ -1018,7 +1018,7 @@ class Test {
   /*
   Finds the number of ellipses within the code
    Makes sure the ellipse is at the center of the program
-   Follow the name of the variables to understand what's going on with each splitTokens  
+   Follow the name of the variables to understand what's going on with each splitTokens
    */
   public void getEllipses()
   {
@@ -1027,7 +1027,7 @@ class Test {
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-      
+
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
@@ -1035,12 +1035,12 @@ class Test {
           ellipses.add(i);
           }
         }
-      
+
       int j = 0;
       for (int m = 0; m < ellipses.size(); m++) {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-        
+
         j = 0;
         while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get ellipse's parameters
         {
@@ -1050,37 +1050,37 @@ class Test {
         max = max + j;
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
       gotEllipses = false;
       errors.add("Error: couldn't get ellipses");
     }
   }
- 
+
   public void checkEllipses()
   {
   try
-  { 
+  {
     if(ellipseParameters.size() == 0)
     {
       errors.add("Ellipse contains invalid parameters");
       totalScore -= deduction;
-    } 
-    
+    }
+
     else if(gotEllipses) {
-      if ((ellipseParameters.get(0) < (screenWidth/2 - gap) || ellipseParameters.get(0) > (screenWidth/2 + gap)) || 
+      if ((ellipseParameters.get(0) < (screenWidth/2 - gap) || ellipseParameters.get(0) > (screenWidth/2 + gap)) ||
         (ellipseParameters.get(1) < (screenHeight/2 - gap) || ellipseParameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
         totalScore -= deduction;
         errors.add("ball not at the center");
       }
-  
+
       if (PApplet.parseInt(ellipseParameters.get(2)) != PApplet.parseInt(ellipseParameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
         errors.add("weird ball you got there lad | the ball should be a circle");
       }
-  
+
       if (ellipseParameters.size() > 4) //if more than one ball
       {
         totalScore -= deduction;
@@ -1088,18 +1088,18 @@ class Test {
       }
     }
   }
-  catch (Exception e) 
+  catch (Exception e)
     {
       errors.add("Error: couldnt check ellipses " + e);
     }
   }
-  
-  
-    
-  
+
+
+
+
   public void createFile() {
-    
-    PrintWriter output = createWriter("/Results/Suacode Africa " + groupNumber + "/" + studentName + ".txt");
+
+    PrintWriter output = createWriter("/results/Suacode Africa " + groupNumber + "/" + studentName + ".txt");
     try
     {
       output.println("Name: " + studentName + "  TotalScore: " + totalScore + "  Group: " + groupNumber + "\n\n\n");
@@ -1115,7 +1115,7 @@ class Test {
       errors.add("Error: couldn't create resultsfile");
     }
   }
-  
+
   public boolean charIsNum(char c)  //check ascii range of char
   {
     return 48<=c&&c<=57;
@@ -1129,7 +1129,7 @@ class Test {
     if (len==1) {
       return first;
     } else {
-      if ( !first && ca[0]!='-') { 
+      if ( !first && ca[0]!='-') {
         return false;
       }
       for (int i=1; i<len; i++) {
@@ -1148,7 +1148,7 @@ class Test {
   //  }
   //  println("Name: " + studentName + " Total Score: " + totalScore);
   //}
-  
+
   public void run() {
     getLines();
     checkTabs();

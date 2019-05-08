@@ -1005,10 +1005,10 @@ class Test {
 
   void createFile() {
 
-    PrintWriter output = createWriter("/results/Suacode Africa " + groupNumber + "/" + studentName + ".txt");
+    PrintWriter output = createWriter("/Results/Suacode Africa " + groupNumber + "/" + studentName + ".txt");
     try
     {
-      output.println("Name: " + studentName + "  TotalScore: " + totalScore + "  Group: " + groupNumber + "\n\n\n");
+      output.println("Name: " + studentName + "  TotalScore: " + totalScore + "  Group: " + groupNumber + "\n");
 
       for (int i = 0; i < errors.size(); i++) {
         output.println(errors.get(i));

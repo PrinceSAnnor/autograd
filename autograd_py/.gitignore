@@ -8,3 +8,6 @@ mycreds.txt
 
 # Igonore token file
 token.pickle
+
+#Ignore ipynb_checkpoints
+.ipynb_checkpoints/

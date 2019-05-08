@@ -3,3 +3,6 @@
 
 #do no add .java files
 build/
+
+#do not add results folder
+results/

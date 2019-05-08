@@ -4,7 +4,7 @@ ArrayList<String> groups = new ArrayList<String>(); // Stores names of Suaode Af
 
 void setup ()
 {
-  // set the path to the Codes dir where the python code will eventually put the downloaded codes
+  // set the path to the where the python code will  put the downloaded codes
   String path = sketchPath() + "\\..\\autograd_py\\";
 
   //Get group folder names ie
