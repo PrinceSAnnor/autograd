@@ -1,2 +1,5 @@
 #do not push .autosave files
 *.autosave
+
+#do no add .java files
+*.java
