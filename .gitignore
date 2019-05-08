@@ -2,4 +2,4 @@
 *.autosave
 
 #do no add .java files
-*.java
+build/
