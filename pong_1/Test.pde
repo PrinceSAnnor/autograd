@@ -1,3 +1,5 @@
+import java.io.BufferedWriter;
+import java.io.FileWriter;
 //class for autoGrad assignment 1
 
 class Test {
@@ -388,7 +390,7 @@ class Test {
       } else //pinalize if none are at left position
       {
         totalScore -= deduction;
-        errors.add("left paddle not at 0,0");
+        errors.add("left paddle not at 0 0");
       }
       if (coordinateFlag == 1 || coordinateFlag == 0) //check second paddle
       {
@@ -436,7 +438,7 @@ class Test {
 
   /*
    This funciton assumes that if the parameter count for fill/stroke are different then the colors have to be different
-   This is not necessarily the case as fill(0) = fill(0,0,0) and fill(255) = fill(255,255,255)
+   This is not necessarily the case as fill(0) = fill(0 0 0) and fill(255) = fill(255,255,255)
    but I don't expect the students to go to that length to try and beat the system, I mean, at what cost??
    */
 
@@ -1004,23 +1006,41 @@ class Test {
 
 
   void createFile() {
-
-    PrintWriter output = createWriter("/Results/Suacode Africa " + groupNumber + "/" + studentName + ".txt");
+    String fileName = "/Results/Suacode Africa " + groupNumber + "/results.csv";
     try
     {
-      output.println("Name: " + studentName + "  TotalScore: " + totalScore + "  Group: " + groupNumber + "\n");
-
+     appendTextToFile(fileName, studentName + "," + totalScore + ",Errors: \n");
       for (int i = 0; i < errors.size(); i++) {
-        output.println(errors.get(i));
+        appendTextToFile(fileName, "  ,  ," + errors.get(i) + "\n");
       }
-      output.flush();
-      output.close();
+     appendTextToFile(fileName, "\n");
     }
     catch(Exception e)
     {
       errors.add("Error: couldn't create resultsfile");
     }
   }
+  
+  void appendTextToFile(String filename, String text){
+    File f = new File( sketchPath() + filename);
+    try {
+      PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
+      out.print(text);
+      out.close();
+    }catch (IOException e){
+        e.printStackTrace();
+    }
+  }
+  
+  void createFile(File f){
+    File parentDir = f.getParentFile();
+    try{
+      parentDir.mkdirs(); 
+      f.createNewFile();
+    }catch(Exception e){
+      e.printStackTrace();
+    }
+  } 
 
   boolean charIsNum(char c)  //check ascii range of char
   {

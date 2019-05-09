@@ -41,7 +41,7 @@ void setup ()
         studentNames.add(f.getName());
       }
     }
-    
+
     //Get the first file
     for (int i = 0; i < studentNames.size(); i++) {
       String address = path + "\\" + groups.get(k) + "\\Assignment 1\\" + studentNames.get(i) + "\\1.pde";
@@ -50,14 +50,15 @@ void setup ()
     }
 
     Test[] tests = new Test[codes.size() ];
-    
+
     for (int i = 0; i < codes.size(); i++) {
       tests[i] = new Test(codes.get(i), studentNames.get(i), k+1);
       tests[i].run();
     }
     k++;
   }
-  // noLoop(); // draw doesn't have to run
+  noLoop(); // draw doesn't have to run
+  exit(); // quit the program
 }
 
 void draw()
