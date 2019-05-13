@@ -11,3 +11,5 @@ token.pickle
 
 #Ignore ipynb_checkpoints
 .ipynb_checkpoints/
+
+client_secrets.json
