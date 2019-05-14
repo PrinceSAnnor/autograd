@@ -1002,10 +1002,7 @@ class Test {
     }
   }
 
-
-
-
-  void createFile() {
+  void createResultsCsvFile() {
     String fileName = "/Results/Suacode Africa " + groupNumber + "/results.csv";
     try
     {
@@ -1023,21 +1020,24 @@ class Test {
   
   void appendTextToFile(String filename, String text){
     File f = new File( sketchPath() + filename);
+    if(!f.exists()){
+      createFile(f);
+    }
     try {
       PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
       out.print(text);
       out.close();
-    }catch (IOException e){
+    } catch (IOException e) {
         e.printStackTrace();
     }
   }
   
   void createFile(File f){
     File parentDir = f.getParentFile();
-    try{
+    try {
       parentDir.mkdirs(); 
       f.createNewFile();
-    }catch(Exception e){
+    } catch(Exception e) {
       e.printStackTrace();
     }
   } 
@@ -1067,14 +1067,6 @@ class Test {
     return true;
   }
 
-  //void printResults() {
-  //  if (totalScore < 0)
-  //  {
-  //    totalScore = 0;
-  //  }
-  //  println("Name: " + studentName + " Total Score: " + totalScore);
-  //}
-
   void run() {
     getLines();
     checkTabs();
@@ -1090,7 +1082,7 @@ class Test {
     checkRects();
     checkScores();
     shapeColorInteractions();
-    createFile();
+    createResultsCsvFile();
     //printResults();
   }
 }
