@@ -6,3 +6,5 @@ build/
 
 #do not add results folder
 results/
+
+private_key.txt
