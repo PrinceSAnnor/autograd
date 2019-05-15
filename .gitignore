@@ -1,3 +1,24 @@
+# IDE files
+.idea
+.vscode
+
+# Do not add Code Folders
+SuaCode Africa 1/
+SuaCode Africa 2/
+SuaCode Africa 3/
+
+# Ignore credentials file
+mycreds.txt
+
+# Igonore token file
+token.pickle
+
+#Ignore ipynb_checkpoints
+.ipynb_checkpoints/
+
+client_secrets.json
+
+#
 #do not push .autosave files
 *.autosave
 
@@ -8,3 +29,12 @@ build/
 results/
 
 private_key.txt
+
+# venv
+env
+
+#credentials
+credentials.json
+
+#temp 
+temp.txt
