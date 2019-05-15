@@ -68,7 +68,7 @@ class Teacher(object):
         try:
             course = self.service.courses().get(id=course_id).execute()
             s = u'Course "{0}" found.'.format(course.get('name'))
-            print(s)
+            # print(s)
         except HttpError as e:
             error = json.loads(e.content).get('error')
             if(error.get('code') == 404):
@@ -102,15 +102,6 @@ class Teacher(object):
                 print(s)
             else:
                 print('Could not add alias')
-
-
-    def get_all_assignments(self, course_id):
-        try:
-            results = self.service.courses().courseWork().list(courseId=course_id).execute()
-            return results
-        except HttpError as e:
-            error = json.loads(e.content).get('error')
-            return error 
 
 
     def get_student_submissions_for_course(self, course_id, coursework_id):
@@ -153,35 +144,56 @@ class Teacher(object):
         """
         course = self.service.courses().create(body=course).execute()
         s = u'Course created: {0} ({1})'.format(course.get('name'), course.get('id'))
-        print(s)
+        # print(s)
         return course.get('id')
 
+
+    def create_assignment(self, course_id, course_work):
+        course_work = self.service.courses().courseWork().create(courseId=course_id, body=course_work).execute()
+        # print('Assignment created with ID {0}'.format(course_work.get('id')))
+        return course_work.get('id')
     
-    
+
+    def get_all_assignments(self, course_id):
+        try:
+            results = self.service.courses().courseWork().list(courseId=course_id).execute()
+            return results
+        except HttpError as e:
+            error = json.loads(e.content).get('error')
+            return error 
+
+
+    def get_assignment(self, course_id, assignment_id):
+        try:
+            results = self.service.courses().courseWork().get(id=assignment_id, courseId=course_id).execute()
+            return results
+        except HttpError as e:
+            error = json.loads(e.content).get('error')
+            return error 
+
+    def get_all_students(self):
+        pass
+
 
 if __name__ == '__main__':
-    """
-    # GET ALL COURSES
-    get_all_courses(service) 
-
-    # RETRIEVE COURSE DETAILS
-    retrieve_course_details(course_id)
-
-    # CREATE NEW COURSE
-    create_new_course(course)
-    """
-
     # Login to Classroom
     teacher = Teacher()
+    print('Teacher is in the building')
 
-    # Get Suacode Cohort 1 details
-    suacode_id = '28433114707'
-    
-    subs = teacher.get_all_assignments(suacode_id)
-    print(subs)
+    course_id = '28433114707' # '36751632090'
+    assignment_id = '36751794254'
 
-   
-   
+    # Get all assignments
+    all = teacher.get_all_assignments(course_id)
+
+    # Get this assignment from this class and grade
+    # assignment = teacher.get_assignment(course_id, assignment_id)
+
+    f = open('students.json', 'w+')
+    f.write(json.dumps(all))
+    f.close()
+
+    # Grade the assignment
 
 
  
