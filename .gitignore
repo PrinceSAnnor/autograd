@@ -2,31 +2,25 @@
 .idea
 .vscode
 
-# Do not add Code Folders
-SuaCode Africa 1/
-SuaCode Africa 2/
-SuaCode Africa 3/
-
 # Ignore credentials file
 mycreds.txt
 
 # Igonore token file
 token.pickle
 
-#Ignore ipynb_checkpoints
+#ipynb_checkpoints
 .ipynb_checkpoints/
 
 client_secrets.json
 
-#
 #do not push .autosave files
 *.autosave
 
-#do no add .java files
+#do no add build folder
 build/
 
 #do not add results folder
-results/
+assets/
 
 private_key.txt
 
@@ -36,7 +30,7 @@ env
 #credentials
 credentials.json
 
-#temp 
+#temp
 temp.txt
 courses.json
 assignments.json
