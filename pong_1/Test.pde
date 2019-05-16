@@ -1003,7 +1003,7 @@ class Test {
   }
 
   void createResultsCsvFile() {
-    String fileName = "/Results/Suacode Africa " + groupNumber + "/results.csv";
+    String fileName = "/../assets/results/Suacode Africa " + groupNumber + "/results.csv";
     try
     {
      appendTextToFile(fileName, studentName + "," + totalScore + ",Errors: \n");

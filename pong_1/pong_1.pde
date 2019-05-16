@@ -5,7 +5,7 @@ ArrayList<String> groups = new ArrayList<String>(); // Stores names of Suaode Af
 void setup ()
 {
   // set the path to the where the python code will  put the downloaded codes
-  String path = sketchPath() + "/../autograd_py/";
+  String path = sketchPath() + "/../assets/code/";
 
   //Get group folder names ie
   //Suacode Africa 1,  Suacode Africa 2 & Suacode Africa 3
@@ -28,7 +28,6 @@ void setup ()
   while(k < groups.size())
   {
     ArrayList<String> studentNames = new ArrayList<String>(); // stores list of stident names in each group
-    ArrayList<String> studentFiles = new ArrayList<String>(); // stores list of student's codes
     java.util.List<File> codes = new ArrayList<File>(); // stores files to be graded
 
     //get dirs with students names

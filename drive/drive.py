@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[1]:
+# In[7]:
 
 
 import glob
@@ -9,14 +9,14 @@ import os
 import shutil
 
 
-# In[2]:
+# In[8]:
 
 
 from pydrive.auth import GoogleAuth
 from pydrive.drive import GoogleDrive
 
 
-# In[3]:
+# In[9]:
 
 
 gauth = GoogleAuth()
@@ -37,24 +37,24 @@ gauth.SaveCredentialsFile("mycreds.txt")
 drive = GoogleDrive(gauth)
 
 
-# In[4]:
+# In[10]:
 
 
 def get_files(group_name, assignment_name):
 # Create target Directory if don't exist
-    loc = group_name + "/" + assignment_name
+    loc = "../assets/code/" + group_name + "/" + assignment_name
 
     if not os.path.exists(loc):
         os.makedirs(loc)
         print("Directory " , loc ,  " Created")
-    else:
-        print("Directory " , loc ,  " already exists, \n i'll delete and create a new one beacause i don't have time to come up with a better algorithm")
+    else:    
+        print("Directory " , loc ,  " already exists, \ni'll delete and create a new one beacause i don't have time to come up with a better algorithm")
         shutil.rmtree(loc)
         os.makedirs(loc)
     os.chdir(loc)
-
+    
     print("Running...")
-
+    
     file_list = drive.ListFile({'q': "'0B_r2YwxNRUHmfndfT3l5aGw5bzY1Rzd0NkNDemhnc0lxZWtuWUpEcHJDZ2pOY1pYWHdTZ0E' in parents and trashed=false"}).GetList()
     for file1 in file_list:
         if group_name in file1['title']:
@@ -78,59 +78,41 @@ def get_files(group_name, assignment_name):
                                 file.GetContentFile(file['title'])
                                 os.rename(file['title'], "1.pde")
                                 print("%s, %s, %s" % (file['lastModifyingUserName'], "1.pde", file['modifiedDate']))
-                            os.chdir("../")
-
-    os.chdir("../../")
+                            os.chdir("../")   
+        
+    os.chdir("../../../../drive")#bad code... but using jupyter, will fix later
     print('Done!')
 
 
-# In[5]:
+# In[11]:
 
 
 get_files('SuaCode Africa 1', 'Assignment 1')
 
 
-# In[6]:
+# In[5]:
 
 
 get_files('SuaCode Africa 2', 'Assignment 1')
 
 
-# In[ ]:
+# In[7]:
 
 
 get_files('SuaCode Africa 3', 'Assignment 1')
 
 
-# In[ ]:
+# In[13]:
 
 
-myCmd = 'processing-java --sketch="' + os.getcwd() + '\..\\pong_1" --output="' + os.getcwd() + '\..\\pong_1\\build"' + ' --force --run'
-newMyCmd = myCmd.replace("\\", "\\\\")
+#myCmd = 'processing-java --sketch="' + os.getcwd() + '\..\\pong_1" --output="' + os.getcwd() + '\..\\pong_1\\build"' + ' --force --run'
+#newMyCmd = myCmd.replace("\\", "/")
 
-os.system(newMyCmd)
-
-
-# In[ ]:
+#os.system(newMyCmd)
 
 
-#def get_latest_files():
-
-    #dirs = os.listdir(os.getcwd())
-    #for name in dirs:
-        #list_of_files = glob.glob(name + "/*.pde")
-        #latest_file = max(list_of_files, key=file['modifiedDate'])
-
-        #print (latest_file)
-
-        #f = open("latest_files.txt","a+")
-        #f.write("%s \n" % (latest_file))
-
-
-# In[ ]:
+# In[12]:
 
 
 os.getcwd()
 
-
-# In[ ]:
