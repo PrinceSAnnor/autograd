@@ -20,7 +20,7 @@ class Teacher(object):
 
 
     def __str__(self):
-        pass
+        print('Teacher is in the building')
 
 
     def boot(self):
@@ -103,22 +103,18 @@ class Teacher(object):
                 print('Could not add alias')
 
 
-    def get_student_submissions_for_course(self, course_id, coursework_id):
+    def get_student_submissions(self, course_id, coursework_id, user_id):
+        request = self.service.courses().courseWork().studentSubmissions().list( \
+            courseId=course_id, courseWorkId=coursework_id)
+        if user_id: 
+            request = self.service.courses().courseWork().studentSubmissions().list( \
+            courseId=course_id, courseWorkId=coursework_id, userId = user_id)
+            
         try:
-            studentSubmissions = self.service.courses.courseWork.studentSubmissions().list( \
-            courseId=course_id, courseWorkId=coursework_id).execute()
+            studentSubmissions = request.execute()
             return studentSubmissions
 
             # print(studentSubmissions)
-        except HttpError as e:
-            error = json.loads(e.content).get('error')
-            return error
-
-
-    def get_student_submissions(self, course_id):
-        try:
-            studentSubmissions = self.service.courses.courseWork.studentSubmissions().get(courseId=course_id).execute()
-            return studentSubmissions
         except HttpError as e:
             error = json.loads(e.content).get('error')
             return error
@@ -171,8 +167,18 @@ class Teacher(object):
             return error 
 
 
-    def get_all_students(self):
-        pass
+    def grade_submissions(self, course_id, assignment_id, student_submission_id, submission):
+        try:
+            success = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
+            courseWorkId=assignment_id, \
+            id=student_submission_id, \
+            updateMask='assignedGrade,draftGrade', \
+            body=submission) \
+            .execute() 
+
+            return success
+        except HttpError as e:
+            return json.loads(e.content).get('error')
 
 
 if __name__ == "__main__":

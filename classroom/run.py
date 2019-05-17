@@ -7,26 +7,37 @@ if __name__ == '__main__':
     # Login to Classroom
     teacher = Teacher()
     print('Teacher is in the building')
-
-    course_id = '28433114707' # '36751632090'
-    assignment_id = '36751794254'
+    
+    # Mini docs using Teacher
 
     # Get all assignments
-    all = teacher.get_all_assignments(course_id)
+    # all = teacher.get_all_assignments(course_id)
 
     # Get this assignment from this class and grade
     # assignment = teacher.get_assignment(course_id, assignment_id)
 
-    # Sorts the assignments by IDs. the recently created in this course has a larger value.
-    asg_ids = []
-    for asg in all['courseWork']:
-        if asg['id'][:8] == course_id[:8]:
-            asg_ids.append(asg['id'][8:])
-    print(sorted(asg_ids))
+    # Get all student submissions for particular assignment 
+    # Takes an extra user_id parameter to get for a particular student
+
+    # USE first OR second expression
+    # subs = teacher.get_student_submissions(course_id, assignment_id)
+    #       OR
+    # subs = teacher.get_student_submissions(course_id, assignment_id, user_id)
+    
+    # Grade a student: draftGrade is a temporary grade visible to teachers;
+    # assignedGrade is the final one
+
+    # submission = { 'assignedGrade': 10, 'draftGrade': 10 }
 
 
-    # Grade the assignment
+    # Response in `graded` contains an instance of the new submission
+    # graded = teacher.grade_submissions(course_id, assignment_id, \
+    #     student_submission_id, submission)
+    
 
+    
+ 
+    
 
  
   
