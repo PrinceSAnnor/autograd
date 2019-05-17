@@ -20,12 +20,11 @@ class Teacher(object):
 
 
     def __str__(self):
-        pass
+        print('Teacher is in the building')
 
 
     def boot(self):
-        """Shows basic usage of the Classroom API.
-        Prints the names of the first 10 courses the user has access to.
+        """Authenticates the user if there's no token.pickle. Allows you to use GoogleAPIs
         """
         creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is
@@ -46,7 +45,7 @@ class Teacher(object):
             with open('token.pickle', 'wb') as token:
                 pickle.dump(creds, token)
 
-        # Store on obj     
+        # Store on the created object, in our case Teacher.   
         self.service = build('classroom', 'v1', credentials=creds)
 
 
@@ -104,22 +103,18 @@ class Teacher(object):
                 print('Could not add alias')
 
 
-    def get_student_submissions_for_course(self, course_id, coursework_id):
+    def get_student_submissions(self, course_id, coursework_id, user_id):
+        request = self.service.courses().courseWork().studentSubmissions().list( \
+            courseId=course_id, courseWorkId=coursework_id)
+        if user_id: 
+            request = self.service.courses().courseWork().studentSubmissions().list( \
+            courseId=course_id, courseWorkId=coursework_id, userId = user_id)
+            
         try:
-            studentSubmissions = self.service.courses.courseWork.studentSubmissions().list( \
-            courseId=course_id, courseWorkId=coursework_id).execute()
+            studentSubmissions = request.execute()
             return studentSubmissions
 
             # print(studentSubmissions)
-        except HttpError as e:
-            error = json.loads(e.content).get('error')
-            return error
-
-
-    def get_student_submissions(self, course_id):
-        try:
-            studentSubmissions = self.service.courses.courseWork.studentSubmissions().get(courseId=course_id).execute()
-            return studentSubmissions
         except HttpError as e:
             error = json.loads(e.content).get('error')
             return error
@@ -171,31 +166,21 @@ class Teacher(object):
             error = json.loads(e.content).get('error')
             return error 
 
-    def get_all_students(self):
-        pass
+
+    def grade_submissions(self, course_id, assignment_id, student_submission_id, submission):
+        try:
+            success = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
+            courseWorkId=assignment_id, \
+            id=student_submission_id, \
+            updateMask='assignedGrade,draftGrade', \
+            body=submission) \
+            .execute() 
+
+            return success
+        except HttpError as e:
+            return json.loads(e.content).get('error')
 
 
-if __name__ == '__main__':
-    # Login to Classroom
-    teacher = Teacher()
-    print('Teacher is in the building')
-
-    course_id = '28433114707' # '36751632090'
-    assignment_id = '36751794254'
-
-    # Get all assignments
-    all = teacher.get_all_assignments(course_id)
-
-    # Get this assignment from this class and grade
-    # assignment = teacher.get_assignment(course_id, assignment_id)
-
-    f = open('students.json', 'w+')
-    f.write(json.dumps(all))
-    f.close()
-
-    # Grade the assignment
-
-
- 
-  
-    
+if __name__ == "__main__":
+    print("You ran this module directly and did not import it.")
+    input("Press the enter key to exit.")

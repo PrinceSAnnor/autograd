@@ -27,10 +27,10 @@ private_key.txt
 # venv
 env
 
-#credentials
-credentials.json
+# python caches
+__pycache__
 
 #temp
-temp.txt
-courses.json
-assignments.json
+classroom/*.txt
+classroom/*.json
+
