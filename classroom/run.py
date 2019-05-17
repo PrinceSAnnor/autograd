@@ -17,6 +17,7 @@ if __name__ == '__main__':
     # Get this assignment from this class and grade
     # assignment = teacher.get_assignment(course_id, assignment_id)
 
+    # Sorts the assignments by IDs. the recently created in this course has a larger value.
     asg_ids = []
     for asg in all['courseWork']:
         if asg['id'][:8] == course_id[:8]:
