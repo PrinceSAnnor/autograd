@@ -17,7 +17,7 @@ wks = gc.open('SuaCode Test').sheet1
 #print(wks.get_all_records())
 
 #wks.append_row(['First Name','Last Name','Other Name', 'Met Deadline','Submitted','Original Total Score','Converted Score','Criteria Missed','Resubmitted' ])
-wks.append_row(['First Name','Last Name','Group Name', 'Grade','Error 1', 'Error 2', 'Error 3', 'Error 4', 'Error 5']);
+wks.append_row(['First Name','Grade','Errors']);
 
 with open('results.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
