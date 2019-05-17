@@ -1,0 +1,892 @@
+Abbah Felix,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+
+Abdulmutalab Musa,19.0,Errors: 
+  ,  ,paddles don't have the same dimensions
+
+ademola ademuyiwa,18.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+AFOLABI DANIEL,15.0,Errors: 
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+  ,  ,Error: couldn't check shape color interactions
+
+Aimé Iradukunda,17.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,paddles don't have the same dimensions
+  ,  ,size not set before text called
+
+Akomeah Akomeah 2019,13.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+Albert Atta Bekoe,13.0,Errors: 
+  ,  ,improper code grouping
+  ,  ,insufficient comments
+  ,  ,use at least one stroke function
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+Aldo Adomati,14.0,Errors: 
+  ,  ,use at least one stroke function
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,size not set before text called
+  ,  ,ball has same color as right paddle
+  ,  ,ball has same color as left paddle
+
+Alfred Ogada,19.0,Errors: 
+  ,  ,code not indented properly
+
+alice nkhoma,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+
+Alieu Suwaneh,19.0,Errors: 
+  ,  ,code not indented properly
+
+Alpha Ambari,20.0,Errors: 
+
+Antony,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+Augustine Noah,17.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Awanto Magaret,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,use at least one stroke function
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Awura Precious,19.0,Errors: 
+  ,  ,size not set before text called
+
+Bakambwe Joel,15.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,left score not at left position
+
+Bankole Samuel,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,size not set before text called
+  ,  ,ball has same color as right paddle
+  ,  ,ball has same color as left paddle
+  ,  ,Error: couldn't check shape color interactions
+
+Bebe Ngb,10.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,insufficient comments
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,size not set before text called
+  ,  ,size not set before text called
+  ,  ,size not set before text called
+  ,  ,left score not at left position
+
+Berkia Banda,19.0,Errors: 
+  ,  ,code not indented properly
+
+Bikorimana Desire,20.0,Errors: 
+
+Bockarie Lahai,20.0,Errors: 
+
+Brian Chesney,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,Error: couldn't check shape color interactions
+
+Brian Oballa,18.0,Errors: 
+  ,  ,ball has same color as right paddle
+  ,  ,ball has same color as left paddle
+
+Bright Eru,17.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Casino Temidayograil,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,paddles don't have the same dimensions
+
+Chila Kasonde,15.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,left score not at left position
+
+Christopher Thomaz Ebosie,11.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,Ellipse contains invalid parameters
+  ,  ,Error: couldn't check rects
+  ,  ,text size not set
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+Cornelius Otchere,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check rects
+
+DOMINIC TANUI,17.0,Errors: 
+  ,  ,size not set before text called
+  ,  ,Error: couldn't check shape color interactions
+
+edem boniface,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+
+Edwin Meria,11.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,Ellipse contains invalid parameters
+  ,  ,Error: couldn't check rects
+  ,  ,text size not set
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+Elizabeth Fio,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check shape color interactions
+
+Elochukwu Uzim,16.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,weird ball you got there lad | the ball should be a circle
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Emery Abel-Achinulo,20.0,Errors: 
+
+Emmanuel Alexander,18.0,Errors: 
+  ,  ,Error: couldn't check shape color interactions
+
+Emmanuel Lulu Chaciga,20.0,Errors: 
+
+esther mueni,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,text size not set
+
+Fanga Angie,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+
+Fiston Munyampeta,16.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,left score not at left position
+
+GANDEPUUN PHILIP TERKURA,19.0,Errors: 
+  ,  ,code not indented properly
+
+Gashaw Assefa,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check shape color interactions
+
+Hanna Daniel,20.0,Errors: 
+
+Hayford Ecliz,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check shape color interactions
+
+Henry Jcil,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,Error: couldn't check shape color interactions
+
+Huawi Peace,18.0,Errors: 
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+IBRAHIM ISAH,17.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Izabayo Dieudonne,19.0,Errors: 
+  ,  ,size not set before text called
+
+James Owusu-Appiah,18.0,Errors: 
+  ,  ,Error: couldn't check shape color interactions
+
+Jessica Tweneboah,17.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+John Oluwasola,12.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,right score not at right position
+  ,  ,Error: couldn't check shape color interactions
+
+JOHN SAMUEL,19.0,Errors: 
+  ,  ,code not indented properly
+
+JONAS ACCAM,19.0,Errors: 
+  ,  ,code not indented properly
+
+JOSEPH ASARE AWUAH,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,weird ball you got there lad | the ball should be a circle
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+
+Junior Chimbala,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Kanyankore Niyigaba Joseph,10.0,Errors: 
+  ,  ,improper code grouping
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,Ellipse contains invalid parameters
+  ,  ,Error: couldn't check rects
+  ,  ,text size not set
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+kez sam,13.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,Error: couldn't check shape color interactions
+
+linder achie,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+
+Liz Gathura,20.0,Errors: 
+
+Manga Clémence,14.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,left score not at left position
+  ,  ,Error: couldn't check shape color interactions
+
+Mawuli Mensah,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,insufficient comments
+  ,  ,right paddle not at right bottom position
+  ,  ,text size not set
+
+Million Mulugeta,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+Miracle Obi,19.0,Errors: 
+  ,  ,use at least one stroke function
+
+Mouhamadou Sakhir Yade,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Nahom Kiros,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,Error: check stroke function
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+nalubega geraldine Grace,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+
+Norma Mkhize,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+odon ndayisenga,18.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,paddles don't have the same dimensions
+
+Ogochukwu Okeke,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,Error: couldn't check shape color interactions
+
+Okemiri Chibueze,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,insufficient comments
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+OLASUPO OLUSEGUN,16.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,right score not at right position
+
+OSELUESE AKHIMIEN,16.0,Errors: 
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Osmond Martey,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Ozavize Alabi,19.0,Errors: 
+  ,  ,size not set before text called
+
+Precious Chimbala,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,Error: couldn't check shape color interactions
+
+Premier Dan Accelerated Venture,20.0,Errors: 
+
+Samuel Faith,18.0,Errors: 
+  ,  ,Error: couldn't check shape color interactions
+
+samuel whyte,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Ellipse contains invalid parameters
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+skyper gee,14.0,Errors: 
+  ,  ,Error: check stroke function
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,Error: couldn't check shape color interactions
+
+Sylvester Agyei,17.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+The Word Of God Is Spirit And Life,19.0,Errors: 
+  ,  ,right paddle not at right bottom position
+
+tiwonge lwara,16.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Ubah Rita Chisom,15.0,Errors: 
+  ,  ,insufficient comments
+  ,  ,use at least one stroke function
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+Uyioghosasere Daniel Obasuyi,18.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+
+Van troy Edem,19.0,Errors: 
+  ,  ,code not indented properly
+
+Victor Iheduru,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+
+Wiam Fouaz,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,insufficient comments
+
+Wisdom Okwen,20.0,Errors: 
+
+Wogu Nnodim Eliot,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,right score not at right position
+  ,  ,Error: couldn't check shape color interactions
+
+Abbah Felix,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+
+Abdulmutalab Musa,19.0,Errors: 
+  ,  ,paddles don't have the same dimensions
+
+ademola ademuyiwa,18.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+AFOLABI DANIEL,15.0,Errors: 
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+  ,  ,Error: couldn't check shape color interactions
+
+Aimé Iradukunda,17.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,paddles don't have the same dimensions
+  ,  ,size not set before text called
+
+Akomeah Akomeah 2019,13.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+Albert Atta Bekoe,13.0,Errors: 
+  ,  ,improper code grouping
+  ,  ,insufficient comments
+  ,  ,use at least one stroke function
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+Aldo Adomati,14.0,Errors: 
+  ,  ,use at least one stroke function
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,size not set before text called
+  ,  ,ball has same color as right paddle
+  ,  ,ball has same color as left paddle
+
+Alfred Ogada,19.0,Errors: 
+  ,  ,code not indented properly
+
+alice nkhoma,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+
+Alieu Suwaneh,19.0,Errors: 
+  ,  ,code not indented properly
+
+Alpha Ambari,20.0,Errors: 
+
+Antony,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+Augustine Noah,17.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Awanto Magaret,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,use at least one stroke function
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Awura Precious,19.0,Errors: 
+  ,  ,size not set before text called
+
+Bakambwe Joel,15.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,left score not at left position
+
+Bankole Samuel,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,size not set before text called
+  ,  ,ball has same color as right paddle
+  ,  ,ball has same color as left paddle
+  ,  ,Error: couldn't check shape color interactions
+
+Bebe Ngb,10.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,insufficient comments
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,size not set before text called
+  ,  ,size not set before text called
+  ,  ,size not set before text called
+  ,  ,left score not at left position
+
+Berkia Banda,19.0,Errors: 
+  ,  ,code not indented properly
+
+Bikorimana Desire,20.0,Errors: 
+
+Bockarie Lahai,20.0,Errors: 
+
+Brian Chesney,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,Error: couldn't check shape color interactions
+
+Brian Oballa,18.0,Errors: 
+  ,  ,ball has same color as right paddle
+  ,  ,ball has same color as left paddle
+
+Bright Eru,17.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Casino Temidayograil,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,paddles don't have the same dimensions
+
+Chila Kasonde,15.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,left score not at left position
+
+Christopher Thomaz Ebosie,11.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,Ellipse contains invalid parameters
+  ,  ,Error: couldn't check rects
+  ,  ,text size not set
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+Cornelius Otchere,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check rects
+
+DOMINIC TANUI,17.0,Errors: 
+  ,  ,size not set before text called
+  ,  ,Error: couldn't check shape color interactions
+
+edem boniface,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+
+Edwin Meria,11.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,Ellipse contains invalid parameters
+  ,  ,Error: couldn't check rects
+  ,  ,text size not set
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+Elizabeth Fio,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check shape color interactions
+
+Elochukwu Uzim,16.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,weird ball you got there lad | the ball should be a circle
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Emery Abel-Achinulo,20.0,Errors: 
+
+Emmanuel Alexander,18.0,Errors: 
+  ,  ,Error: couldn't check shape color interactions
+
+Emmanuel Lulu Chaciga,20.0,Errors: 
+
+esther mueni,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,text size not set
+
+Fanga Angie,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+
+Fiston Munyampeta,16.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,left score not at left position
+
+GANDEPUUN PHILIP TERKURA,19.0,Errors: 
+  ,  ,code not indented properly
+
+Gashaw Assefa,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check shape color interactions
+
+Hanna Daniel,20.0,Errors: 
+
+Hayford Ecliz,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: couldn't check shape color interactions
+
+Henry Jcil,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,Error: couldn't check shape color interactions
+
+Huawi Peace,18.0,Errors: 
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+IBRAHIM ISAH,17.0,Errors: 
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Izabayo Dieudonne,19.0,Errors: 
+  ,  ,size not set before text called
+
+James Owusu-Appiah,18.0,Errors: 
+  ,  ,Error: couldn't check shape color interactions
+
+Jessica Tweneboah,17.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+John Oluwasola,12.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,right score not at right position
+  ,  ,Error: couldn't check shape color interactions
+
+JOHN SAMUEL,19.0,Errors: 
+  ,  ,code not indented properly
+
+JONAS ACCAM,19.0,Errors: 
+  ,  ,code not indented properly
+
+JOSEPH ASARE AWUAH,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,weird ball you got there lad | the ball should be a circle
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+
+Junior Chimbala,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Kanyankore Niyigaba Joseph,10.0,Errors: 
+  ,  ,improper code grouping
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,use at least one stroke function
+  ,  ,Ellipse contains invalid parameters
+  ,  ,Error: couldn't check rects
+  ,  ,text size not set
+  ,  ,Error: couldn't check scores
+  ,  ,Error: couldn't check shape color interactions
+
+kez sam,13.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,Error: couldn't check shape color interactions
+
+linder achie,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+
+Liz Gathura,20.0,Errors: 
+
+Manga Clémence,14.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,left score not at left position
+  ,  ,Error: couldn't check shape color interactions
+
+Mawuli Mensah,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,insufficient comments
+  ,  ,right paddle not at right bottom position
+  ,  ,text size not set
+
+Million Mulugeta,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+Miracle Obi,19.0,Errors: 
+  ,  ,use at least one stroke function
+
+Mouhamadou Sakhir Yade,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Nahom Kiros,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,Error: check stroke function
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+nalubega geraldine Grace,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+
+Norma Mkhize,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+odon ndayisenga,18.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,paddles don't have the same dimensions
+
+Ogochukwu Okeke,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,Error: couldn't check shape color interactions
+
+Okemiri Chibueze,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,insufficient comments
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+OLASUPO OLUSEGUN,16.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+  ,  ,right score not at right position
+
+OSELUESE AKHIMIEN,16.0,Errors: 
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Osmond Martey,17.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,right paddle not at right bottom position
+  ,  ,size not set before text called
+
+Ozavize Alabi,19.0,Errors: 
+  ,  ,size not set before text called
+
+Precious Chimbala,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,Error: couldn't check shape color interactions
+
+Premier Dan Accelerated Venture,20.0,Errors: 
+
+Samuel Faith,18.0,Errors: 
+  ,  ,Error: couldn't check shape color interactions
+
+samuel whyte,15.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,Ellipse contains invalid parameters
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+skyper gee,14.0,Errors: 
+  ,  ,Error: check stroke function
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+  ,  ,Error: couldn't check shape color interactions
+
+Sylvester Agyei,17.0,Errors: 
+  ,  ,Error: check syntax of width and height at first line of code
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,left score not at left position
+
+The Word Of God Is Spirit And Life,19.0,Errors: 
+  ,  ,right paddle not at right bottom position
+
+tiwonge lwara,16.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,Error: couldn't check shape color interactions
+
+Ubah Rita Chisom,15.0,Errors: 
+  ,  ,insufficient comments
+  ,  ,use at least one stroke function
+  ,  ,ball not at the center
+  ,  ,left paddle not at 0 0
+  ,  ,right paddle not at right bottom position
+
+Uyioghosasere Daniel Obasuyi,18.0,Errors: 
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+
+Van troy Edem,19.0,Errors: 
+  ,  ,code not indented properly
+
+Victor Iheduru,16.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,paddles don't have the same dimensions
+
+Wiam Fouaz,18.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,insufficient comments
+
+Wisdom Okwen,20.0,Errors: 
+
+Wogu Nnodim Eliot,14.0,Errors: 
+  ,  ,code not indented properly
+  ,  ,ball not at the center
+  ,  ,right paddle not at right bottom position
+  ,  ,right score not at right position
+  ,  ,Error: couldn't check shape color interactions
+
