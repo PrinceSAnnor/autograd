@@ -4,6 +4,9 @@ ArrayList<String> groups = new ArrayList<String>(); // Stores names of Suaode Af
 
 void setup ()
 {
+  Test test1 = new Test();
+  test1.run();
+  /*
   // set the path to the where the python code will  put the downloaded codes
   String path = sketchPath() + "/../assets/code/";
 
@@ -24,6 +27,7 @@ void setup ()
     2. get first file
     4, grade the flies
   */
+  /*
   int k = 0;
   while(k < groups.size())
   {
@@ -58,6 +62,8 @@ void setup ()
   }
   noLoop(); // draw doesn't have to run
   exit(); // quit the program
+  */
+  
 }
 
 void draw()

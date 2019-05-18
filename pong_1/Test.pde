@@ -24,7 +24,8 @@ class Test {
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
 
-  File filePath;
+  String filePath;
+  //File filePath;
   String studentName;
   int groupNumber;
 
@@ -34,11 +35,17 @@ class Test {
   */
   boolean gotEllipses = true;
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();
-
+/*
   Test(File x, String name, int group) {
     filePath = x;
     studentName = name;
     groupNumber = group;
+  }
+  */
+  Test() {
+    filePath = "../test/test/test.pde";
+    studentName = "lol";
+    groupNumber = 1;
   }
 
   /*
@@ -105,7 +112,7 @@ class Test {
       }
       if (tabsFlag) //wrong indentation
       {
-        errors.add("code not indented properly");
+        errors.add("Code not indented properly: 1 tab at start of all code in setup() and draw()");
         totalScore -= deduction;
       }
     }
@@ -179,7 +186,7 @@ class Test {
 
       if (statementsFlag)
       {
-        errors.add("2 or more ;s on a line");
+        errors.add("Two or more semicolons on a line");
         totalScore -= deduction;
       }
     }
@@ -218,7 +225,7 @@ class Test {
 
       if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
       {
-        errors.add("check width in code");
+        errors.add("Check maxX definition in code");
         totalScore = 0;
       }
 
@@ -231,7 +238,7 @@ class Test {
 
       if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
       {
-        errors.add("check height in code");
+        errors.add("Check maxY definition in code");
         totalScore = 0;
       }
 
@@ -513,7 +520,6 @@ class Test {
           }
         }
       }
-
 
       for (int i = 0; i < fills.size(); i++) //get closest fill to ellipse
       {

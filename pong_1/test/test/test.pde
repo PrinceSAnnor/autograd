@@ -2,7 +2,7 @@
 
 void setup() //runs once
 {
-  size(1920, 108); //sets the width and height of the program
+  size(1920, 1080); //sets the width and height of the program
   background(0); //set background black
 }
 
@@ -12,11 +12,12 @@ void draw()
   ellipse(960, 540, 50, 50); //draw circle at center
   
   //fill(255);
-  fill(66, 227, 90);
+  fill(255, 255, 255);
   rect(0, 0, 48, 216); //left paddle at top left 
   
   //Draw paddles
   fill(66, 227, 90);
+  fill(255, 255, 255);
 
   rect(1872, 864, 48, 216); //right paddle at the bottom right
 
