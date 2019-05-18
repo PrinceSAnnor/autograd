@@ -1004,13 +1004,14 @@ class Test {
 
   void createResultsCsvFile() {
     String fileName = "/../assets/results/Suacode Africa " + groupNumber + "/results.csv";
+    String[] mistakes = new String[errors.size()];
     try
     {
-     appendTextToFile(fileName, studentName + "," + totalScore + ",Errors: \n");
+       appendTextToFile(fileName, studentName + "," + totalScore + ",");
       for (int i = 0; i < errors.size(); i++) {
-        appendTextToFile(fileName, "  ,  ," + errors.get(i) + "\n");
+        appendTextToFile(fileName, errors.get(i) +",");
       }
-     appendTextToFile(fileName, "\n");
+      appendTextToFile(fileName, "\n");
     }
     catch(Exception e)
     {
