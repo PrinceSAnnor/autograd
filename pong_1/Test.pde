@@ -42,8 +42,8 @@ class Test {
   }
 
   /*
-  In the function below, I'm reading the file into an array of strings. Each element in the array is a line in the file
-   */
+    In the function below, I'm reading the file into an array of strings. Each element in the array is a line in the file
+  */
   void getLines() { //reads file
     try
     {
@@ -118,7 +118,7 @@ class Test {
 
   /*
     Loops through the lines in the file and removes white lines
-   Also check for at least two empty lines to assume grouped sections of code
+    Also check for at least two empty lines to assume grouped sections of code
    */
 
   void removeEmptyLines() { //removes empty lines
