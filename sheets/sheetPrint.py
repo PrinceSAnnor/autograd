@@ -1,5 +1,6 @@
 import gspread
 import csv
+import time
 from oauth2client.service_account import ServiceAccountCredentials
 
 #For the json file you'll need to share the client email provided with desired sheet file you want to edit
@@ -23,10 +24,11 @@ with open('results.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
         wks.append_row(row)
+
         #print(row[0])
         #print(row[0],row[1],row[2],)
 
-sh = gc.open('SuaCode Test')
+"""sh = gc.open('SuaCode Test')
 worksheet = sh.add_worksheet(title="Sheet 2", rows="100", cols="20")
 worksheet.append_row(['First Name','Grade','Error 1','Error 2','Error 3','Error 4','Error 5' ]);
 
@@ -34,3 +36,4 @@ with open('results.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
         worksheet.append_row(row)
+        time.sleep(1) """
