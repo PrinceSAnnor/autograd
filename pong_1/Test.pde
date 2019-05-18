@@ -24,8 +24,7 @@ class Test {
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
 
-  String filePath;
-  //File filePath;
+  File filePath;
   String studentName;
   int groupNumber;
 
@@ -35,17 +34,11 @@ class Test {
   */
   boolean gotEllipses = true;
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();
-/*
+
   Test(File x, String name, int group) {
     filePath = x;
     studentName = name;
     groupNumber = group;
-  }
-  */
-  Test() {
-    filePath = "../test/test/test.pde";
-    studentName = "lol";
-    groupNumber = 1;
   }
 
   /*
@@ -269,7 +262,7 @@ class Test {
       }
       if (float(comments)/linesFiltered.size() < commentPercentage) //check comment percentage
       {
-        errors.add("insufficient comments");
+        errors.add("Code not well commented: 2 backslashes come after semicolon in each line of code or 2 backslashes above blocks of code + description about that line of code");
         totalScore -= deduction;
       }
     }
@@ -303,7 +296,7 @@ class Test {
       if (strokes.size() == 0) //if no stroke
       {
         totalScore -= deduction;
-        errors.add("use at least one stroke function");
+        errors.add("Use at least one stroke function");
       }
 
       int j = 0;
@@ -342,7 +335,7 @@ class Test {
       if (wrongFlag)
       {
         totalScore -= deduction;
-        errors.add("shapes have different outline colors");
+        errors.add("Outlines of all shapes have different colors");
       }
     }
     catch (Exception e)
@@ -397,34 +390,34 @@ class Test {
       } else //pinalize if none are at left position
       {
         totalScore -= deduction;
-        errors.add("left paddle not at 0 0");
+        errors.add("Left paddle not at 0 0");
       }
       if (coordinateFlag == 1 || coordinateFlag == 0) //check second paddle
       {
         if (int(parameters.get(4)) != int(screenWidth-parameters.get(2)) || int(parameters.get(5)) != int(screenHeight-parameters.get(3))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          errors.add("right paddle not at right bottom position");
+          errors.add("Right paddle not at right bottom position");
         }
       } else if (coordinateFlag == 2 || coordinateFlag == 0) //check second paddle
       {
         if (int(parameters.get(0)) != int(screenWidth-parameters.get(6)) || int(parameters.get(1)) != int(screenHeight-parameters.get(7))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          errors.add("right paddle not at right bottom position");
+          errors.add("Right paddle not at right bottom position");
         }
       }
 
       if (int(parameters.get(2)) != int(parameters.get(6)) || int(parameters.get(3)) != int(parameters.get(7))) //check paddle dimensions
       {
         totalScore -= deduction;
-        errors.add("paddles don't have the same dimensions");
+        errors.add("Paddles don't have the same dimensions");
       }
 
       if (parameters.size() > 8) //if more than two paddles
       {
         totalScore -= deduction;
-        errors.add("you have more than two paddles? use only two rectangles before grade is released");
+        errors.add("You have more than two paddles? use only two rectangles before grade is released");
       }
     }
     catch (Exception e)
@@ -578,7 +571,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(1)))
           {
             totalScore -= deduction;
-            errors.add("paddles have different colors");
+            errors.add("Paddles have different colors");
           }
           if (n == 1)
           {
@@ -586,7 +579,7 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("paddle has color the same color as background");
+              errors.add("Paddle has color the same color as background");
             }
           }
         } else if (j == 3 && k == 3) //triple parameter
@@ -594,7 +587,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(3)) || int(fillParameters.get(1)) != int(fillParameters.get(4)) || int(fillParameters.get(2)) != int(fillParameters.get(5)))
           {
             totalScore -= deduction;
-            errors.add("paddles have different colors");
+            errors.add("Paddles have different colors");
           }
           if (n == 3)
           {
@@ -604,13 +597,13 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("paddle has same color as background");
+              errors.add("PPaddle has same color as background");
             }
           }
         } else
         {
           totalScore -= deduction;
-          errors.add("paddles have different colors");
+          errors.add("Paddles have different colors");
         }
       }
 
@@ -664,7 +657,7 @@ class Test {
             if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as left paddle");
+              errors.add("Ball has same color as left paddle");
             }
           }
           if (t == k)
@@ -672,7 +665,7 @@ class Test {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle");
             }
           }
           if (n == 1)
@@ -680,7 +673,7 @@ class Test {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0))))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as background");
+              errors.add("Ball has same color as background");
             }
           }
         } else if (t == 3) //triple parameters
@@ -691,7 +684,7 @@ class Test {
               &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle");
             }
           }
           if (t == j)
@@ -700,7 +693,7 @@ class Test {
               &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as left paddle");
+              errors.add("Ball has same color as left paddle");
             }
           }
           if (n == 3)
@@ -710,7 +703,7 @@ class Test {
               int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as background");
+              errors.add("Ball has same color as background");
             }
           }
         }
@@ -735,7 +728,7 @@ class Test {
           if ((backgroundParameters.get(0) == rect1FillParameters.get(0)))
           {
             totalScore -= deduction;
-            errors.add("left paddle has same color as background");
+            errors.add("Left paddle has same color as background");
           }
         }
         if (j == 3 && n == 3)
@@ -744,7 +737,7 @@ class Test {
             int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            errors.add("left paddle has same color as background");
+            errors.add("Left paddle has same color as background");
           }
         }
       }
@@ -767,7 +760,7 @@ class Test {
           if ((int(backgroundParameters.get(0)) == int(rect1FillParameters.get(0))))
           {
             totalScore -= deduction;
-            errors.add("right paddle has same color as background");
+            errors.add("Right paddle has same color as background");
           }
         }
         if (k == 3 && n == 3)
@@ -776,7 +769,7 @@ class Test {
             int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            errors.add("right paddle has same color as background");
+            errors.add("Right paddle has same color as background");
           }
         }
       }
@@ -785,7 +778,7 @@ class Test {
       if (closest == 0 && closest1 == 0 && closest2 == 0)
       {
         totalScore -= deduction;
-        errors.add("paddle and ball have the same color");
+        errors.add("Paddle and ball have the same color");
       }
     }
     catch (Exception e)
@@ -986,13 +979,13 @@ class Test {
         (ellipseParameters.get(1) < (screenHeight/2 - gap) || ellipseParameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
         totalScore -= deduction;
-        errors.add("ball not at the center");
+        errors.add("Ball not at the center");
       }
 
       if (int(ellipseParameters.get(2)) != int(ellipseParameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        errors.add("weird ball you got there lad | the ball should be a circle");
+        errors.add("Weird ball you got there lad | the ball should be a circle");
       }
 
       if (ellipseParameters.size() > 4) //if more than one ball

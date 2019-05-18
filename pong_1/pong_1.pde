@@ -4,9 +4,7 @@ ArrayList<String> groups = new ArrayList<String>(); // Stores names of Suaode Af
 
 void setup ()
 {
-  Test test1 = new Test();
-  test1.run();
-  /*
+
   // set the path to the where the python code will  put the downloaded codes
   String path = sketchPath() + "/../assets/code/";
 
@@ -22,14 +20,14 @@ void setup ()
   }
 
   /* This block doeas a number of things
-    for each group:
-    1. Get student names from dirs
-    2. get first file
-    4, grade the flies
-  */
-  /*
+   for each group:
+   1. Get student names from dirs
+   2. get first file
+   4, grade the flies
+   */
+
   int k = 0;
-  while(k < groups.size())
+  while (k < groups.size())
   {
     ArrayList<String> studentNames = new ArrayList<String>(); // stores list of stident names in each group
     java.util.List<File> codes = new ArrayList<File>(); // stores files to be graded
@@ -62,8 +60,6 @@ void setup ()
   }
   noLoop(); // draw doesn't have to run
   exit(); // quit the program
-  */
-  
 }
 
 void draw()
