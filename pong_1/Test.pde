@@ -597,7 +597,7 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("PPaddle has same color as background");
+              errors.add("Paddle has same color as background");
             }
           }
         } else
