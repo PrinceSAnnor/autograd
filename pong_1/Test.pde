@@ -17,7 +17,7 @@ class Test {
   ArrayList<String> errors = new ArrayList<String>(); //stroke lines
 
   float totalScore = 20; // total score of the student
-  float majorExceptions = 2; //deductions that generate exceptions, ie code that won't likely compile
+  float majorExceptions = totalScore; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
@@ -1011,7 +1011,7 @@ class Test {
       for (int i = 0; i < errors.size(); i++) {
         appendTextToFile(fileName, errors.get(i) +",");
       }
-      appendTextToFile(fileName, "\n");
+      //appendTextToFile(fileName, "\n");
     }
     catch(Exception e)
     {
