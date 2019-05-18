@@ -22,6 +22,6 @@ wks2.append_row(['First Name','Grade','Error 1','Error 2','Error 3','Error 4','E
 with open('results.csv') as csvfile:
     readCSV = csv.reader(csvfile, delimiter=',')
     for row in readCSV:
-        wks.append_row(row)
+        wks2.append_row(row)
         #print(row[0])
         #print(row[0],row[1],row[2],)
