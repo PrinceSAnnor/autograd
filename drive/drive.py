@@ -106,7 +106,7 @@ def get_latest_files(group_name, assignment_name):
                                     os.chdir("../");
                                 except:
                                     os.chdir("../")
-    os.chdir(os.path.dirname(os.path.realpath(__file__))) #bad code... but using jupyter, will fix later
+    os.chdir("../../../../drive") #bad code... but using jupyter, will fix later
     print('Done!')
 
 get_latest_files("SuaCode Africa 1", "Assignment 1")
@@ -114,6 +114,7 @@ get_latest_files("SuaCode Africa 1", "Assignment 1")
 get_latest_files("SuaCode Africa 2", "Assignment 1")
 
 get_latest_files("SuaCode Africa 3", "Assignment 1")
+
 
 # def get_files(group_name, assignment_name):
 # # Create target Directory if don't exist
