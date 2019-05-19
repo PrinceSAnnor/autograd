@@ -32,4 +32,5 @@ sheets/*.pickle
 
 # others
 drive/my_drive.py
+autograd_py/
 

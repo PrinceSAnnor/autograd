@@ -1,5 +1,8 @@
 import java.io.BufferedWriter;
 import java.io.FileWriter;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.DateFormat;
 //class for autoGrad assignment 1
 
 class Test {
@@ -25,10 +28,7 @@ class Test {
   int tabLength = 2;
 
   File filePath;
-  String studentName;
-  int groupNumber;
-  String stuAddress;
-  String stuId;
+  String[] studentDetails;
 
   /* checkEllipses(); threw an error when there was string parameter
     Was trying to fix that by checking for the ellipse and analysing parameters in
@@ -37,12 +37,9 @@ class Test {
   boolean gotEllipses = true;
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();
 
-  Test(File x, String name, String address, String id, int group) {
+  Test(File x, String[] details) {
     filePath = x;
-    studentName = name;
-    groupNumber = group;
-    stuAddress = address;
-    stuId = id;
+    studentDetails = details;
   }
 
   /*
@@ -1006,14 +1003,30 @@ class Test {
   }
 
   void createResultsCsvFile() {
-    String fileName = "/../assets/results/Suacode Africa " + groupNumber + "/Assignment 1/results.csv";
+    //constrain totalScore to 0 before grading
+    if(totalScore < 0)
+    {
+      totalScore=0;
+    }
+    
+    String fileName = "/../assets/results/" + studentDetails[2] + "/Assignment 1/results.csv";
+    
+    //File f = new File( sketchPath() + fileName);
+    //if(f.exists()){
+    //  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+    //  Date date = new Date();
+    //  String newName = dateFormat.format(date);
+    //  f.renameTo(new File(sketchPath() + "/../assets/results/Suacode Africa " + groupNumber + "/Assignment 1/" + newName + ".csv"));
+    //} 
+    
     try
     {
-      appendTextToFile(fileName, studentName + "," + stuAddress + "," + stuId + "," + totalScore + ",");
+      //name, id, score, errors
+      appendTextToFile(fileName, studentDetails[0] + "," + studentDetails[1] + "," + totalScore + ",");
       for (int i = 0; i < errors.size(); i++) {
         appendTextToFile(fileName, errors.get(i) +"|");
       }
-      //appendTextToFile(fileName, "\n");
+      appendTextToFile(fileName, "\n");
     }
     catch(Exception e)
     {
@@ -1023,8 +1036,9 @@ class Test {
   
   void appendTextToFile(String filename, String text){
     File f = new File( sketchPath() + filename);
-    if(!f.exists()){
+    if(!f.exists()) {
       createFile(f);
+      //appendTextToFile(filename, "name,address,id,score,errors\n");
     }
     try {
       PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(f, true)));
