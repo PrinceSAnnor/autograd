@@ -68,35 +68,39 @@ void setup ()
       }
     }
     
-    //Match student names to their email addreses
-    String[] lines = loadStrings(path + "email-lists/" + groups.get(k) + ".csv");
-    for(int m = 0; m < studentNames.size(); m++) 
-    {
-      for (int n = 0; n < lines.length; n++) {
-        String[] parts = trim(splitTokens(lines[n], ","));
+    ////Match student names to their email addreses
+    //String[] lines = loadStrings(path + "email-lists/" + groups.get(k) + ".csv");
+    //for(int m = 0; m < studentNames.size(); m++) 
+    //{
+    //  for (int n = 0; n < lines.length; n++) {
+    //    String[] parts = trim(splitTokens(lines[n], ","));
         
-        if(parts.length > 2) {
-          String name = parts[1] + " " + parts[0];
-          if(name.equals(studentNames.get(m)))
-          {  
-            emailAddresses.put(name, parts[2]);
-          }
-        } else if(parts.length == 2) {
-          String name = parts[0];
-          if(name.equals(studentNames.get(m)))
-          {
-            emailAddresses.put(name, parts[1]);
-          }
-        }
-      }
-    }
-    
-    println(studentNames.size(), emailAddresses.size());
+    //    if(parts.length > 2) {
+    //      String name = parts[1] + " " + parts[0];
+    //      if(name.equals(studentNames.get(m)))
+    //      {  
+    //        emailAddresses.put(name, parts[2]);
+    //      }
+    //    } else if(parts.length == 2) {
+    //      String name = parts[0];
+    //      if(name.equals(studentNames.get(m)))
+    //      {
+    //        emailAddresses.put(name, parts[1]);
+    //      }
+    //    }
+    //  }
+    //}
     
     Test[] tests = new Test[codes.size()];
-
+    
     for (int i = 0; i < codes.size(); i++) {
-      tests[i] = new Test(codes.get(i), studentNames.get(i), emailAddresses.get(studentNames.get(i)), ids.get(studentNames.get(i)), k+1);
+      String[] details = new String[3];
+      
+      details[0] = studentNames.get(i);
+      details[1] = ids.get(studentNames.get(i));
+      details[2] = groups.get(k);
+      
+      tests[i] = new Test(codes.get(i), details);
       tests[i].run();
     }
     k++;

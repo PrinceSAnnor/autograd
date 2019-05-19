@@ -121,6 +121,23 @@ class Teacher(object):
             error = json.loads(e.content).get('error')
             return error
 
+    def get_student_submission_id(self, course_id, coursework_id, user_id):
+        try:
+            submission = {}
+            results = self.service.courses().courseWork().studentSubmissions().list( \
+                courseId=course_id, courseWorkId=coursework_id, userId=user_id).execute()
+
+            submissions = results.get('studentSubmissions', [])
+
+            if not submissions:
+                print('No submission found.')
+            else:
+                return submissions[0]['id']
+
+        except HttpError as e:
+            error = json.loads(e.content).get('error')
+            return error
+
 
     def create_new_course(self, course):
         """
@@ -158,6 +175,24 @@ class Teacher(object):
         except HttpError as e:
             error = json.loads(e.content).get('error')
             return error 
+
+    def get_all_assignment_ids(self, course_id):
+        try:
+            assignments_list = {}
+            results = self.service.courses().courseWork().list(courseId=course_id).execute()
+            assignments = results.get('courseWork', [])
+
+            if not assignments:
+                print('No assignments found.')
+            else:
+                for assignment in assignments:
+                    assignments_list[assignment['title']] = assignment['id']
+
+            return assignments_list
+        except HttpError as e:
+            error = json.loads(e.content).get('error')
+            return error 
+
 
 
     def get_assignment(self, course_id, assignment_id):

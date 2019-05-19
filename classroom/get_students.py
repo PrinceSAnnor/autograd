@@ -1,6 +1,8 @@
 from modules.Teacher import Teacher
 
-import json
+# For functions at the bottom;
+import os, os.path
+import errno
 
 
 if __name__ == '__main__':
@@ -8,7 +10,7 @@ if __name__ == '__main__':
     teacher = Teacher()
 
     # Download the list of students
-    my_courses = [ 'SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
+    my_courses = ['Test Class']
 
     # Return a dict of courses and their ids
     id = teacher.get_all_courses()
@@ -20,7 +22,7 @@ if __name__ == '__main__':
         results = response.get('students', [])
 
         for entry in results:
-            path = '../assets/list/' + course +'.csv'
+            path = '../assets/id-lists/' + course +'.csv'
             f = open(path, 'a+', encoding='utf-8')
             stu_name = entry['profile']['name']['fullName']
             stu_id = entry['profile']['id']
@@ -53,27 +55,19 @@ if __name__ == '__main__':
             else:
                 break
 
-    # print(token)
-    # koo = teacher.get_students(id[course], None)
-    # results = koo.get('students', [])
 
-    # # for s in results:
-    # #     path = '../assets/list/' + course +'.csv'
-    # #     f = open(path, 'a+')
-    # #     f.write(s['profile']['name']['fullName'] + ',' + s['profile']['id'] + '\n')
-    # #     f.close()
-    # token=koo['nextPageToken']
-    # print(token)
-    # while token:
-    #     koo1 = teacher.get_students(id[course], koo['nextPageToken'])
-    #     results1 = koo1.get('students', [])
+# #Helper functions to open files that dont exist
+# # Taken from https://stackoverflow.com/a/600612/119527
+# def mkdir_p(path):
+#     try:
+#         os.makedirs(path)
+#     except OSError as exc: # Python >2.5
+#         if exc.errno == errno.EEXIST and os.path.isdir(path):
+#             pass
+#         else: raise
 
-    #     # for s in results1:
-    #     #     path1 = '../assets/list/' + course +'.csv'
-    #     #     f1 = open(path1, 'a+')
-    #     #     f1.write(s['profile']['name']['fullName'] + ',' + s['profile']['id'] + '\n')
-    #     #     f1.close()
-
-    #     token=koo1['nextPageToken']
-    #     print(token)
-    
+# def safe_open(path, type, encoding):
+#     ''' Open "path" for writing, creating any parent directories as needed.
+#     '''
+#     mkdir_p(os.path.dirname(path))
+#     return open(path, type, encoding)
