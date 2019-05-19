@@ -42,12 +42,3 @@ if __name__ == '__main__':
     # Response in `graded` contains an instance of the new submission
     # graded = teacher.grade_submissions(course_id, assignment_id, \
     #     student_submission_id, submission)
-    
-
-    
- 
-    
-
- 
-  
-    

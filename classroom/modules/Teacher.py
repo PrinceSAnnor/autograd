@@ -7,7 +7,8 @@ from google.auth.transport.requests import Request
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/classroom.courses', 
-'https://www.googleapis.com/auth/classroom.coursework.students'] \
+'https://www.googleapis.com/auth/classroom.coursework.students',
+'https://www.googleapis.com/auth/classroom.rosters'] \
 
 
 class Teacher(object):
@@ -51,16 +52,17 @@ class Teacher(object):
 
     def get_all_courses(self):
         # Call the Classroom API
+        courses_list = {}
         results = self.service.courses().list(pageSize=10).execute()
         courses = results.get('courses', [])
 
         if not courses:
             print('No courses found.')
         else:
-            print('Courses:')
             for course in courses:
-                print(course['name'])
+                courses_list[course['name']] = course['id']
 
+        return courses_list
 
     def get_course_details(self, course_id):
         # course_id = '28433114707' # Suacode Cohort 1 ID
@@ -180,6 +182,16 @@ class Teacher(object):
         except HttpError as e:
             return json.loads(e.content).get('error')
 
+    def get_students(self, course_id, next_page_token):
+        try:
+            results = self.service.courses().students().list(
+                courseId=course_id,
+                pageToken=next_page_token,
+            ).execute()
+            return results
+        except HttpError as e:
+            error = json.loads(e.content).get('error')
+            return error 
 
 if __name__ == "__main__":
     print("You ran this module directly and did not import it.")

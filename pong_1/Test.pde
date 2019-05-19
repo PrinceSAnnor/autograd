@@ -27,6 +27,8 @@ class Test {
   File filePath;
   String studentName;
   int groupNumber;
+  String stuAddress;
+  String stuId;
 
   /* checkEllipses(); threw an error when there was string parameter
     Was trying to fix that by checking for the ellipse and analysing parameters in
@@ -35,10 +37,12 @@ class Test {
   boolean gotEllipses = true;
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();
 
-  Test(File x, String name, int group) {
+  Test(File x, String name, String address, String id, int group) {
     filePath = x;
     studentName = name;
     groupNumber = group;
+    stuAddress = address;
+    stuId = id;
   }
 
   /*
@@ -1003,13 +1007,12 @@ class Test {
   }
 
   void createResultsCsvFile() {
-    String fileName = "/../assets/results/Suacode Africa " + groupNumber + "/results.csv";
-    String[] mistakes = new String[errors.size()];
+    String fileName = "/../assets/results/Suacode Africa " + groupNumber + "/Assignment 1/results.csv";
     try
     {
-       appendTextToFile(fileName, studentName + "," + totalScore + ",");
+      appendTextToFile(fileName, studentName + "," + stuAddress + "," + stuId + "," + totalScore + ",");
       for (int i = 0; i < errors.size(); i++) {
-        appendTextToFile(fileName, errors.get(i) +",");
+        appendTextToFile(fileName, errors.get(i) +"|");
       }
       appendTextToFile(fileName, "\n");
     }
@@ -1084,6 +1087,5 @@ class Test {
     checkScores();
     shapeColorInteractions();
     createResultsCsvFile();
-    //printResults();
   }
 }
