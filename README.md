@@ -8,8 +8,12 @@ Email: suacode.app@gmail.com
 ## Install the latest version of Python 3. 
 Latest release can be found at (https://python.org)
 
+**Install Python and make sure you select 'add to PATH' especially on Windows. Linux and Mac tend to do that by default.**
+
 ## Install Processing Java on your target machine. 
 Processing Java, latest release can be found at (https://processing.org)
+
+**After installing, add Processing Java to your PATH.**
 
 ## Install project dependencies
 Execute this from your command-line/terminal in the root directory (where requirements.txt is found)
