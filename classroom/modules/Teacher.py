@@ -26,7 +26,7 @@ class Teacher(object):
 
     def boot(self):
         """Authenticates the user if there's no token.pickle. Allows you to use GoogleAPIs
-        """
+        """ 
         creds = None
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
@@ -211,7 +211,7 @@ class Teacher(object):
             id=student_submission_id, \
             updateMask='assignedGrade,draftGrade', \
             body=submission) \
-            .execute() 
+            .execute()  
 
             return success
         except HttpError as e:

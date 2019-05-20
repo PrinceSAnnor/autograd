@@ -1021,8 +1021,8 @@ class Test {
     
     try
     {
-      //name, id, score, errors
-      appendTextToFile(fileName, studentDetails[0] + "," + studentDetails[1] + "," + totalScore + ",");
+      //name, id, email, score, errors
+      appendTextToFile(fileName, studentDetails[0] + "," + studentDetails[1] + "," + studentDetails[2] + "," + totalScore + ",");
       for (int i = 0; i < errors.size(); i++) {
         appendTextToFile(fileName, errors.get(i) +"|");
       }

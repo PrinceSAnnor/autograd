@@ -15,23 +15,16 @@ if __name__ == '__main__':
     print(courses)
 
     # Assisinment doc forma [id, title, url]
-<<<<<<< HEAD
     instructions_material = ['1uNwWfBI9-JTlcmh4OZ8W9s7xPc9EuoupEIx6inne9iQ','Assignment 1 - Make Pong Interface','https://drive.google.com/open?id=1uNwWfBI9-JTlcmh4OZ8W9s7xPc9EuoupEIx6inne9iQ']
     # reading_material = ['1unJWDGheh0vIjFXSvWHdjAl1T-C13PWvyDHL8CHKkAM','Basic concepts in programming','https://drive.google.com/open?id=1unJWDGheh0vIjFXSvWHdjAl1T-C13PWvyDHL8CHKkAM']
 
     title = "Assignment 1 - Make Pong Intergface"
-=======
-    attachment = ['1uNwWfBI9-JTlcmh4OZ8W9s7xPc9EuoupEIx6inne9iQ','Assignment 1 - Make Pong Interface','https://drive.google.com/open?id=1uNwWfBI9-JTlcmh4OZ8W9s7xPc9EuoupEIx6inne9iQ']
-
-    title = "Assignment 1"
->>>>>>> 6d24245c6ec3c20e5521d4c469e9ea6768c03fb0
     description = "Testing"
     max_points = 20
     materials = [
             {
                 "driveFile": {
                     "driveFile": {
-<<<<<<< HEAD
                         "id": instructions_material[0],
                         "title": instructions_material[1],
                         "alternateLink": instructions_material[2],
@@ -52,16 +45,6 @@ if __name__ == '__main__':
                 # }
             }
          ]
-=======
-                        "id": attachment[0],
-                        "title": attachment[1],
-                        "alternateLink": attachment[2],
-                    },
-                    "shareMode": "VIEW" #Possible values UNKNOWN_SHARE_MODE, VIEW, EDIT, STUDENT_COPY
-                },
-            }
-        ]
->>>>>>> 6d24245c6ec3c20e5521d4c469e9ea6768c03fb0
     state = "PUBLISHED"     # Possible values, PUBLISHED, DRAFT, DELETED, COURSE_WORK_STATE_UNSPECIFIED
     due_date = {
             'year': 2019,
