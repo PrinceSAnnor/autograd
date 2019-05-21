@@ -19,8 +19,8 @@ class Test {
 
   ArrayList<String> errors = new ArrayList<String>(); //stroke lines
 
-  float totalScore = 20; // total score of the student
-  float majorExceptions = totalScore; //deductions that generate exceptions, ie code that won't likely compile
+  int totalScore = 20; // total score of the student
+  float majorExceptions = 2; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
@@ -28,7 +28,6 @@ class Test {
   int tabLength = 2;
 
   File filePath;
-  String[] studentDetails;
 
   /* checkEllipses(); threw an error when there was string parameter
     Was trying to fix that by checking for the ellipse and analysing parameters in
@@ -37,9 +36,8 @@ class Test {
   boolean gotEllipses = true;
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>();
 
-  Test(File x, String[] details) {
-    filePath = x;
-    studentDetails = details;
+  Test(File path) {
+    filePath = path;
   }
 
   /*
@@ -240,8 +238,8 @@ class Test {
     }
     catch (Exception e)
     {
-      errors.add("Error: check syntax of width and height at first line of code");
-      //totalScore -= majorExceptions;
+      errors.add("Error: check syntax of width and height at first line of code ");
+      totalScore -= 20;
     }
   }
 
@@ -784,7 +782,7 @@ class Test {
     }
     catch (Exception e)
     {
-      errors.add("Error: couldn't check shape color interactions");
+      errors.add("Error: Make sure you followed the instructions for color in the assignment");
       totalScore -= majorExceptions;
     }
   }
@@ -1002,37 +1000,40 @@ class Test {
     }
   }
 
-  void createResultsCsvFile() {
-    //constrain totalScore to 0 before grading
-    if(totalScore < 0)
-    {
-      totalScore=0;
-    }
+  //void createResultsCsvFile() {
+  //  //constrain totalScore to 0 before grading
+  //  if(totalScore < 0)
+  //  {
+  //    totalScore=0;
+  //  }
     
-    String fileName = "/../assets/results/" + studentDetails[2] + "/Assignment 1/results.csv";
+  //  String fileName = "/../assets/results/" + studentDetails[3] + "/Assignment 1/results.csv";
     
-    //File f = new File( sketchPath() + fileName);
-    //if(f.exists()){
-    //  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-    //  Date date = new Date();
-    //  String newName = dateFormat.format(date);
-    //  f.renameTo(new File(sketchPath() + "/../assets/results/Suacode Africa " + groupNumber + "/Assignment 1/" + newName + ".csv"));
-    //} 
+  //  //File f = new File( sketchPath() + fileName);
+  //  //if(f.exists()){
+  //  //  DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
+  //  //  Date date = new Date();
+  //  //  String newName = dateFormat.format(date);
+  //  //  f.renameTo(new File(sketchPath() + "/../assets/results/Suacode Africa " + groupNumber + "/Assignment 1/" + newName + ".csv"));
+  //  //} 
     
-    try
-    {
-      //name, id, email, score, errors
-      appendTextToFile(fileName, studentDetails[0] + "," + studentDetails[1] + "," + studentDetails[2] + "," + totalScore + ",");
-      for (int i = 0; i < errors.size(); i++) {
-        appendTextToFile(fileName, errors.get(i) +"|");
-      }
-      appendTextToFile(fileName, "\n");
-    }
-    catch(Exception e)
-    {
-      errors.add("Error: couldn't create resultsfile");
-    }
-  }
+  //  try
+  //  {
+  //    //name, id, email, score, errors
+  //    appendTextToFile(fileName, studentDetails[0] + "," + studentDetails[1] + "," + studentDetails[2] + "," + totalScore + ",");
+      
+  //    println(totalScore);
+      
+  //    for (int i = 0; i < errors.size(); i++) {
+  //      appendTextToFile(fileName, errors.get(i) +"|");
+  //    }
+  //    appendTextToFile(fileName, "\n");
+  //  }
+  //  catch(Exception e)
+  //  {
+  //    errors.add("Error: couldn't create resultsfile");
+  //  }
+  //}
   
   void appendTextToFile(String filename, String text){
     File f = new File( sketchPath() + filename);
@@ -1083,6 +1084,19 @@ class Test {
     }
     return true;
   }
+  
+  void printResults() 
+  {
+    try {
+      if (totalScore < 0)
+      {
+        totalScore = 0;
+      }
+      print(totalScore);
+    } catch(Exception e) {
+      //
+    }
+  }
 
   void run() {
     getLines();
@@ -1099,6 +1113,7 @@ class Test {
     checkRects();
     checkScores();
     shapeColorInteractions();
-    createResultsCsvFile();
+    //createResultsCsvFile();
+    printResults();
   }
 }

@@ -11,6 +11,7 @@
 #do no add build folder
 build/
 assets/
+credentials/
 
 # venv
 env
@@ -21,10 +22,8 @@ __pycache__
 #temp
 classroom/*.txt
 classroom/*.json
-classroom/*.pickle
 
 drive/*.json
-drive/*.pickle
 drive/*.txt
 
 sheets/*.json

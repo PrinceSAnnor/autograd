@@ -16,7 +16,7 @@ class Teacher(object):
     
     def __init__(self):
         self.service = None
-        self.boot()
+        self.boot() 
         self.suacode = None # TODO: This is here for testing, remove later
 
 
@@ -31,8 +31,10 @@ class Teacher(object):
         # The file token.pickle stores the user's access and refresh tokens, and is
         # created automatically when the authorization flow completes for the first
         # time.
-        if os.path.exists('token.pickle'):
-            with open('token.pickle', 'rb') as token:
+        token_f = os.getcwd() + '/credentials/classroom-token.pickle' # path to tooken file
+        creds_f = os.getcwd() + '/credentials/credentials.json' # path to credentials.json file
+        if os.path.exists(token_f):
+            with open(token_f, 'rb') as token:
                 creds = pickle.load(token)
         # If there are no (valid) credentials available, let the user log in.
         if not creds or not creds.valid:
@@ -40,10 +42,10 @@ class Teacher(object):
                 creds.refresh(Request())
             else:
                 flow = InstalledAppFlow.from_client_secrets_file(
-                    'credentials.json', SCOPES)
+                    creds_f, SCOPES)
                 creds = flow.run_local_server()
             # Save the credentials for the next run
-            with open('token.pickle', 'wb') as token:
+            with open(token_f, 'wb') as token:
                 pickle.dump(creds, token)
 
         # Store on the created object, in our case Teacher.   
@@ -192,8 +194,6 @@ class Teacher(object):
         except HttpError as e:
             error = json.loads(e.content).get('error')
             return error 
-
-
 
     def get_assignment(self, course_id, assignment_id):
         try:
