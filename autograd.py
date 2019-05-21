@@ -161,8 +161,8 @@ with open('/assets/id-lists/%s.csv' % course_name) as csvfile:
                         # two = one[1].split(']')
                         # convert grade_str to grade_int
                         # grade = int(grade_str)
-                        print(type(grade), type(two))
-                        print(grade, two)
+                        # print(type(grade), type(two))
+                        # print(grade, two)
 
                         # send grade to sheets
                         #wks.append_row([grade])
