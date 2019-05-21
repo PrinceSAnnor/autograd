@@ -95,16 +95,16 @@ class Test {
 
       if (tabs < 0) //unmatched }
       {
-        errors.add("unmatched }");
+        errors.add("There is an unmatched '}' To fix this, look through your code and put one where it rightfully belongs");
         totalScore -= deduction;
       } else if (tabs != 0) //unmatched {
       {
-        errors.add("unmatched {");
+        errors.add("There is an unmatched unmatched '{'. To fix this, look through your code and put one where it rightfully belongs");
         totalScore -= deduction;
       }
       if (tabsFlag) //wrong indentation
       {
-        errors.add("Code not indented properly: 1 tab at start of all code in setup() and draw()");
+        errors.add("Code not indented properly. This means you are missing a tab(8 spaces) at the start of all code in setup() and draw(). To fix this please put 1 tab at start of all code in setup() and draw()");
         totalScore -= deduction;
       }
     }
@@ -134,7 +134,7 @@ class Test {
 
       if (emptyLines < 2) //if at least two lines are empty
       {
-        errors.add("improper code grouping");
+        errors.add("improper code grouping. This means you did not space your code properly. To fix this, please look through your code and ensure there are at least two empty lines between sections of your code. ");
         totalScore -= deduction;
       }
     }
@@ -178,7 +178,7 @@ class Test {
 
       if (statementsFlag)
       {
-        errors.add("Two or more semicolons on a line");
+        errors.add("Two or more semicolons on a line. This means you may have multiple statements on the same line. To fix this, please ensure that each line has one statement only.");
         totalScore -= deduction;
       }
     }
@@ -217,7 +217,7 @@ class Test {
 
       if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
       {
-        errors.add("Check maxX definition in code");
+        errors.add("Check maxX definition in code. Only replace *** with your maxX value and nothing else.");
         totalScore = 0;
       }
 
@@ -230,7 +230,7 @@ class Test {
 
       if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
       {
-        errors.add("Check maxY definition in code");
+        errors.add("Check maxY definition in code. Only replace *** with your maxY value and nothing else.");
         totalScore = 0;
       }
 
@@ -238,7 +238,7 @@ class Test {
     }
     catch (Exception e)
     {
-      errors.add("Error: check syntax of width and height at first line of code ");
+      errors.add("Error: check syntax of width and height at first line of code. This happens because you didn't do what is expected for the first line of code in this assignment. To fix this, check the first line of your code and replace *** with your maxX and maxY values and nothing else. Any additions will cause a similar error ");
       totalScore -= 20;
     }
   }
@@ -261,7 +261,7 @@ class Test {
       }
       if (float(comments)/linesFiltered.size() < commentPercentage) //check comment percentage
       {
-        errors.add("Code not well commented: 2 backslashes come after semicolon in each line of code or 2 backslashes above blocks of code + description about that line of code");
+        errors.add("Code not well commented. This means you did not comment your code properly. To fix this, 2 backslashes should come after the semicolon in each line of code or 2 backslashes above blocks of code + description about that line of code");
         totalScore -= deduction;
       }
     }
@@ -295,7 +295,7 @@ class Test {
       if (strokes.size() == 0) //if no stroke
       {
         totalScore -= deduction;
-        errors.add("Use at least one stroke function");
+        errors.add("Use at least one stroke function. This means you didn't use the stroke function as required. Please fix this by appropriately using the stroke function where necessary");
       }
 
       int j = 0;
@@ -334,7 +334,7 @@ class Test {
       if (wrongFlag)
       {
         totalScore -= deduction;
-        errors.add("Outlines of all shapes have different colors");
+        errors.add("Outlines of all shapes have different colors. To fix this, check the instruction document and follow the required color coordination.");
       }
     }
     catch (Exception e)
@@ -389,28 +389,28 @@ class Test {
       } else //pinalize if none are at left position
       {
         totalScore -= deduction;
-        errors.add("Left paddle not at 0 0");
+        errors.add("Left paddle not at 0 0. To fix this please ensure that your left paddle is positioned properly at coordinates 0 0.");
       }
       if (coordinateFlag == 1 || coordinateFlag == 0) //check second paddle
       {
         if (int(parameters.get(4)) != int(screenWidth-parameters.get(2)) || int(parameters.get(5)) != int(screenHeight-parameters.get(3))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          errors.add("Right paddle not at right bottom position");
+          errors.add("Right paddle not at right bottom position. To fix this, please check the coordinates of your right paddle and make sure it's at the bottom right position.");
         }
       } else if (coordinateFlag == 2 || coordinateFlag == 0) //check second paddle
       {
         if (int(parameters.get(0)) != int(screenWidth-parameters.get(6)) || int(parameters.get(1)) != int(screenHeight-parameters.get(7))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          errors.add("Right paddle not at right bottom position");
+          errors.add("Right paddle not at right bottom position. To fix this, please check the coordinates of your right paddle and make sure it's at the bottom right position.");
         }
       }
 
       if (int(parameters.get(2)) != int(parameters.get(6)) || int(parameters.get(3)) != int(parameters.get(7))) //check paddle dimensions
       {
         totalScore -= deduction;
-        errors.add("Paddles don't have the same dimensions");
+        errors.add("Paddles don't have the same dimensions. To fix this, please ensure that both the left and right paddles have the same dimensions.");
       }
 
       if (parameters.size() > 8) //if more than two paddles
@@ -570,7 +570,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(1)))
           {
             totalScore -= deduction;
-            errors.add("Paddles have different colors");
+            errors.add("Paddles have different colors. Both paddles are supposed to have the same color. Please fix this.");
           }
           if (n == 1)
           {
@@ -578,7 +578,7 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("Paddle has color the same color as background");
+              errors.add("Paddle has color the same color as background. To fix this, change either the background color or the paddle color.");
             }
           }
         } else if (j == 3 && k == 3) //triple parameter
@@ -596,13 +596,13 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("Paddle has same color as background");
+              errors.add("Paddle has same color as background. To fix this, change either the background color or the paddle color.");
             }
           }
         } else
         {
           totalScore -= deduction;
-          errors.add("Paddles have different colors");
+          errors.add("Paddles have different colors. Both paddles are supposed to have the same color. Please fix this.");
         }
       }
 
@@ -656,7 +656,7 @@ class Test {
             if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)))
             {
               totalScore -= deduction;
-              errors.add("Ball has same color as left paddle");
+              errors.add("Ball has same color as left paddle. Please change either the color of the ball or the paddles.");
             }
           }
           if (t == k)
@@ -664,7 +664,7 @@ class Test {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
             {
               totalScore -= deduction;
-              errors.add("Ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle. Please change either the color of the ball or the paddles.");
             }
           }
           if (n == 1)
@@ -672,7 +672,7 @@ class Test {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0))))
             {
               totalScore -= deduction;
-              errors.add("Ball has same color as background");
+              errors.add("Ball has same color as background. Please change either the color of the ball or the paddles.");
             }
           }
         } else if (t == 3) //triple parameters
@@ -683,7 +683,7 @@ class Test {
               &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
             {
               totalScore -= deduction;
-              errors.add("Ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle. Please change either the color of the ball or the paddles.");
             }
           }
           if (t == j)
@@ -692,7 +692,7 @@ class Test {
               &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
             {
               totalScore -= deduction;
-              errors.add("Ball has same color as left paddle");
+              errors.add("Ball has same color as left paddle. Please change either the color of the ball or the paddles.");
             }
           }
           if (n == 3)
@@ -702,7 +702,7 @@ class Test {
               int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
             {
               totalScore -= deduction;
-              errors.add("Ball has same color as background");
+              errors.add("Ball has same color as background. Please change either the color of the background or the ball");
             }
           }
         }
@@ -727,7 +727,7 @@ class Test {
           if ((backgroundParameters.get(0) == rect1FillParameters.get(0)))
           {
             totalScore -= deduction;
-            errors.add("Left paddle has same color as background");
+            errors.add("Left paddle has same color as background.");
           }
         }
         if (j == 3 && n == 3)
@@ -857,7 +857,7 @@ class Test {
           if (texts.size() != 0)
           {
             totalScore -= deduction;
-            errors.add("size not set before text called");
+            errors.add("size not set before text called. To fix this, make sure you set the text size before calling text.");
           }
         }
         if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
@@ -869,7 +869,7 @@ class Test {
       if (sizeFlag) //if no textSize was used
       {
         totalScore -= deduction;
-        errors.add("text size not set");
+        errors.add("text size not set. To  fix this, please  make sure you  set the text size before calling text.");
       }
 
       int j = 0;
@@ -984,13 +984,13 @@ class Test {
       if (int(ellipseParameters.get(2)) != int(ellipseParameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        errors.add("Weird ball you got there lad | the ball should be a circle");
+        errors.add("Weird ball you got there lad: the ball should be a circle");
       }
 
       if (ellipseParameters.size() > 4) //if more than one ball
       {
         totalScore -= deduction;
-        errors.add("you have more than one ball?");
+        errors.add("you have more than one ball? You're only supposed to have one. Please fix this.");
       }
     }
   }
