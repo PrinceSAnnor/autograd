@@ -139,25 +139,30 @@ with open('/assets/id-lists/%s.csv' % course_name) as csvfile:
                             os.makedirs(file_path)
 
                         os.chdir(file_path)
-                        drive.get_file(file_id, file_name) 
                         new_name = str(number) + '-' + file_id + '-' + file_name 
-                        os.rename(file_name, new_name)
+                        if not os.path.exists(new_name):
+                            drive.get_file(file_id, file_name) 
+                            os.rename(file_name, new_name)
                         os.chdir('../../../../')
 
                         # # call processing with filename as argument
-                        args = file_path + '/' + new_name
+                        args = '"' + file_path + '/' + new_name + '"'
                         prosessing_cmd = 'processing-java --sketch="' + os.getcwd() + '/pong_1" --output="' + os.getcwd() + '/pong_1/build"' + ' --force --run ' + args
                         
-                        # # run processing and get result form the command line
-                        # result = subprocess.check_output(prosessing_cmd, shell=True)
+                        # run processing and get result form the command line
+                        comments = subprocess.check_output(prosessing_cmd, shell=True)
 
-                        # # getting score from cmdline
-                        string_form = result.decode("UTF-8")
-                        grade_str = string_form.replace('Finished.', '')
+                        # getting score from cmdline
+                        # decoded = comments.decode("UTF-8")
+                        # results = decoded.replace('Finished.', '')
 
+                        # grade = int(results.split()[0])
+                        # one = results.split('[')
+                        # two = one[1].split(']')
                         # convert grade_str to grade_int
-                        grade = int(grade_str)
-                        print(grade)
+                        # grade = int(grade_str)
+                        print(type(grade), type(two))
+                        print(grade, two)
 
                         # send grade to sheets
                         #wks.append_row([grade])

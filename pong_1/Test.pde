@@ -1092,7 +1092,7 @@ class Test {
       {
         totalScore = 0;
       }
-      print(totalScore);
+      print(totalScore + " " + errors);
     } catch(Exception e) {
       //
     }
