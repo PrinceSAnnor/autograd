@@ -10,10 +10,13 @@ if __name__ == '__main__':
     teacher = Teacher()
 
     # Download the list of students
-    my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
+    my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3', 'Test Class']
 
     # Return a dict of courses and their ids
     id = teacher.get_all_courses()
+
+    if not os.path.exists('assets/id-lists'):
+        os.makedirs('assets/id-lists')
 
     for course in my_courses:
         token = None
@@ -22,7 +25,7 @@ if __name__ == '__main__':
         results = response.get('students', [])
 
         for entry in results:
-            path = '../assets/id-lists/' + course +'.csv'
+            path = 'assets/id-lists/' + course +'.csv'
             f = open(path, 'a+', encoding='utf-8')
             stu_name = entry['profile']['name']['fullName']
             stu_id = entry['profile']['id']
@@ -41,7 +44,7 @@ if __name__ == '__main__':
                 results = response.get('students', [])
 
                 for entry in results:
-                    path = '../assets/id-lists/' + course +'.csv'
+                    path = 'assets/id-lists/' + course +'.csv'
                     stu_name = entry['profile']['name']['fullName'] #Somenes name is arabic
                     stu_id = entry['profile']['id']
 
