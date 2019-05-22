@@ -177,7 +177,10 @@ for course in my_courses:
 
                                         for error in errors:
                                             data.append(error)
+                                        """
+                                        # uncomment this section to add grades to sheets file
                                         wks.append_row(data)
+                                        """
                                         
                                         print("Done! \n")
                                         # uncomment the part that uploads the results f you need it
