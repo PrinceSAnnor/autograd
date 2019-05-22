@@ -47,10 +47,10 @@ if not os.path.exists("assets/id-lists"):
 # TODO: optimise the process
 """
 # Real
-# my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2' 'SuaCode Africa 3'] #TODO: change courses to actual courses
+my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2' 'SuaCode Africa 3'] #TODO: change courses to actual courses
 
 # testing
-my_courses = ['SuaCode Africa 3']
+# my_courses = ['SuaCode Africa 3']
 
 
 # Get dict of course name and course id
