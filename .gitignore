@@ -20,17 +20,6 @@ env
 __pycache__
 
 #temp
-classroom/*.txt
-classroom/*.json
-
-drive/*.json
-drive/*.txt
-
-sheets/*.json
-sheets/*.pickle
 
 # others
-drive/my_drive.py
-drive/run.py
-autograd_py/
 credentials.zip

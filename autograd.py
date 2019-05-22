@@ -6,6 +6,8 @@ import os, subprocess, sys, csv
 import gspread 
 from oauth2client.service_account import ServiceAccountCredentials
 
+
+
 """
 The sheets part is not much so ill not export is as a module
 """
@@ -18,78 +20,80 @@ credentials = ServiceAccountCredentials.from_json_keyfile_name(creds_f, scope)
 
 gc = gspread.authorize(credentials)
 
+# open google sheet
+wks = gc.open('SuaCode Test').sheet1
+
+
+
+
 # create a teacher and drive instance
 teacher = Teacher()
 drive = Drive()
 
-
-# TODO: 
-"""
-Get submission if there is one
-Grade
-Return results
-
-Autograd run Every night***/Just Twice***
-For each course
-It gets all the students ids
-For each id
-if there is a submission for the week's assignment
-Calls processing to grade.
-Processing prints results to console
-Python reads results from console
-Uploads results
-
-Handle errors better
-
-"""
-
-my_courses = ['Test Class'] #TODO: change courses to actual courses
+my_courses = ['Test Class', 'SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3', 'Test Class'] #TODO: change courses to actual courses
 
 # For Testing
 course_name = 'SuaCode Africa 1'
-# ass_name = 'Assignment 1'
 ass_name = 'Assignment 1 - Make Pong Interface'
+# ass_name = 'Assignment 1'
 
-# open google sheet
-wks = gc.open('SuaCode Test').sheet1
-
-# Get course id
+# Get dict of course name and course id
 courses = teacher.get_all_courses()
-course_id = courses[course_name]
+# Get course id 
+course_id = courses[course_name] 
 
-# Get Assignmnet id
+# Get dict of assignment names and assignmnet id
 assignments = teacher.get_all_assignment_ids(courses[course_name])
 ass_id = assignments[ass_name]
 
-# Get profiles of all students that take the course
-#TODO: find a better way, found a better way, read from csv
+# Download all students names and ids as csv if it doesnt exist
+# Probably a mistake to do this here
+if not os.path.exists('assets/id-lists'):
+    os.makedirs('assets/id-lists')
 
-# students_arr = []
-# response = teacher.get_students(course_id, None)
-# students = response.get('students', [])
+    for course in my_courses:
+        token = None
 
-# for student in students:
-#     students_arr.append(student['profile']) # append each studetns profile to the students array
+        response = teacher.get_students(courses[course], None)
+        results = response.get('students', [])
 
-# if response.get('nextPageToken'):
-#     token = response['nextPageToken']
-# else:
-#     token = None
+        for entry in results:
+            path = '/assets/id-lists/' + course +'.csv'
+            f = open(path, 'a+', encoding='utf-8')
+            stu_name = entry['profile']['name']['fullName']
+            stu_id = entry['profile']['id']
 
-# while True:
-#     if token:
-#         response = teacher.get_students(course_id, token)
-#         students = response.get('students', [])
+            f.write('%s , %s \n' % (stu_name, stu_id))
+            f.close()
 
-#         for student in students:
-#             students_arr.append(student['profile']) # append each studetns profile to the students array
+        if response.get('nextPageToken'):
+            token = response['nextPageToken']
+        else:
+            token = None
 
-#         if response.get('nextPageToken'):
-#             token = response['nextPageToken']
-#         else:
-#             token = None
-#     else:
-#         break
+        while True:
+            if token:
+                response = teacher.get_students(courses[course], token)
+                results = response.get('students', [])
+
+                for entry in results:
+                    path = '/assets/id-lists/' + course +'.csv'
+                    stu_name = entry['profile']['name']['fullName'] #Somenes name is arabic
+                    stu_id = entry['profile']['id']
+
+                    f = open(path, 'a+', encoding='utf-8')
+                    f.write('%s , %s \n' % (stu_name, stu_id))
+                    f.close()
+                if response.get('nextPageToken'):
+                    token = response['nextPageToken']
+                else:
+                    token = None
+            else:
+                break
+
+
+
+
 
 
 # Grade assignment for each student
