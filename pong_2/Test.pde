@@ -1,14 +1,3 @@
-/*
-Uncomment line 42 and comment line 41 in getLines function if using with APDE
- In apde, the students assignment file has to be stored in a folder called data
- the data folder should be inside the class's folder and the path should be the
- filename. 
- APDE clone details
- Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
- Local: autoGrad
- Username: Suacodefacilitators
- Password: Suacodefacilitators10!
- */
 
 class Test {
   PrintWriter output = createWriter("Code.pde");
@@ -45,7 +34,7 @@ class Test {
     try
     {
       //fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
-      fileLines = loadStrings("assignment2/assignment2.pde"); //uncomment if you're using APDE
+      fileLines = loadStrings("assignment_2/assignment_2.pde"); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
     {
