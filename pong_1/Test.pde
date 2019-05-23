@@ -194,7 +194,7 @@ class Test {
    Follow the name of the variables to understand what's going on with each splitTokens
    */
 
-  void getScreenSize() //gets first comment line
+  boolean getScreenSize() //gets first comment line
   {
     try
     {
@@ -235,11 +235,13 @@ class Test {
       }
 
       screenHeight = int(trim(splitBySpacesRight[i])); //get screen height
+      return true;
     }
     catch (Exception e)
     {
       errors.add("Error: check syntax of width and height at first line of code ");
-      totalScore -= 20;
+      totalScore = 0;
+      return false;
     }
   }
 
@@ -1100,20 +1102,20 @@ class Test {
 
   void run() {
     getLines();
-    checkTabs();
     removeEmptyLines();
-    getScreenSize();
-    checkStatementsPerLine(); 
-    checkComments();
-    checkBackground();
-    checkFills();
-    checkStrokes();
-    getEllipses();
-    checkEllipses();
-    checkRects();
-    checkScores();
-    shapeColorInteractions();
-    //createResultsCsvFile();
+    if(getScreenSize()) {
+      checkTabs();
+      checkStatementsPerLine(); 
+      checkComments();
+      checkBackground();
+      checkFills();
+      checkStrokes();
+      getEllipses();
+      checkEllipses();
+      checkRects();
+      checkScores();
+      shapeColorInteractions();
+    }
     printResults();
   }
 }

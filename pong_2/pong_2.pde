@@ -13,7 +13,7 @@ void setup ()
   //  println("args == null");
   //}
   
-  File f = new File(sketchPath() + "/assignment_2/assignment_2.pde");
+  File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 1\\Assignment 2 - Move ball\\esther mueni\\0-15Y8QBQjg_lr5jkGAxqZnJlXw7_8x3gmP-Assignment2.pde");
   Test test = new Test(f);
   test.run();
   

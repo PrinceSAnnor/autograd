@@ -11,13 +11,19 @@ from oauth2client.service_account import ServiceAccountCredentials
 # Google
 from googleapiclient.errors import HttpError
 
+
+#  VERY NECESSARY!!
+
+# when testinG set testing to true
+TESTING = True
 # you should know what these do, In Short DONT MESS WITH THEM!!!
 ADD_TO_SHEETS = False
 ADD_TO_CLASSROOM = False
 
-"""
-The sheets part is not much so ill not export is as a module
-"""
+#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+#The sheets part is not much so ill not export is as a module
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 #For the json file you'll need to share the client email provided with desired sheet file you want to edit
 #scope for spreadsheets and for drive
 scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive' ]
@@ -31,10 +37,11 @@ gc = gspread.authorize(credentials)
 teacher = Teacher()
 drive = Drive()
 
-"""
+
+#""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 # Download all students names and ids as csv if it doesnt exist
 # Probably a mistake to do this here
-"""
+#"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 if not os.path.exists("assets/id-lists"):
 
     os.makedirs("assets/id-lists")
@@ -44,10 +51,10 @@ if not os.path.exists("assets/id-lists"):
     print("Done")
 
 
-"""
+#""""""""""""""""""""""""""""""""""
 # Grade assignment for each student
 # TODO: optimise the process
-"""
+#"""""""""""""""""""""""""""""""""""
 # Real
 my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3'] #TODO: change courses to actual courses
 
@@ -61,6 +68,7 @@ courses = teacher.get_all_courses()
 for course in my_courses:
     course_name = course
     ass_name = 'Assignment 1 - Make Pong Interface'
+    # ass_name = 'Assignment 2 - Move ball'
 
     # Get course id 
     course_id = courses[course_name] 
@@ -78,6 +86,11 @@ for course in my_courses:
         row = []
         row.append(date)
         wks.append_row(row)
+
+    if TESTING:
+        f = open("results.txt", "a+")
+        f.write(course_name + "\n\n")
+        f.close() 
 
     no_attachments = open("assets/no-attachments.txt", 'a+')
     no_attachments.write(course + '\n\n')
@@ -153,11 +166,11 @@ for course in my_courses:
                                             
                                         os.chdir('../../../../../')
 
-                                        if os.path.isfile(file_path + "/" + new_name) and os.path.getsize(file_name):
+                                        if os.path.isfile(file_path + "/" + new_name):
                                             # call processing with filename as argument
                                             print("Grading...")
                                             args = '"' + file_path + '/' + new_name + '"'
-                                            prosessing_cmd = 'processing-java --sketch="' + os.getcwd() + '/pong_1" --output="' + os.getcwd() + '/pong_1/build"' + ' --force --run ' + args
+                                            prosessing_cmd = 'processing-java --sketch="' + os.getcwd() + '/pong_2" --output="' + os.getcwd() + '/pong_1/build"' + ' --force --run ' + args
                                             
                                             # run processing and get result form the command line
                                             comments = subprocess.check_output(prosessing_cmd, shell=True)
@@ -188,6 +201,11 @@ for course in my_courses:
                                             for error in errors:
                                                 data.append(error)
                                             
+                                            if TESTING:
+                                                f = open("results.txt", "a+")
+                                                f.write(str(data) + "\n")
+                                                f.close()    
+                                                
                                             # Only run if the ADD_TO_SHEETS var is set to true 
                                             if ADD_TO_SHEETS:
                                                 print("Uploading results to google sheets")
