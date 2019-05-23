@@ -1,13 +1,19 @@
 from classroom.modules.Teacher import Teacher
 from modules.Drive import Drive
 
-import os, subprocess, sys, csv
+import os, subprocess, sys, csv, json
 from datetime import datetime
 
+# Sheets
 import gspread 
 from oauth2client.service_account import ServiceAccountCredentials
 
+# Google
+from googleapiclient.errors import HttpError
 
+# you should know what these do, In Short DONT MESS WITH THEM!!!
+ADD_TO_SHEETS = False
+ADD_TO_CLASSROOM = False
 
 """
 The sheets part is not much so ill not export is as a module
@@ -20,10 +26,6 @@ creds_f = os.getcwd() + '/credentials/SuaCode Africa-f482d6649058.json'
 credentials = ServiceAccountCredentials.from_json_keyfile_name(creds_f, scope)
 
 gc = gspread.authorize(credentials)
-
-
-
-
 
 # create a teacher and drive instance
 teacher = Teacher()
@@ -70,11 +72,12 @@ for course in my_courses:
     ass_id = assignments[ass_name]
 
     # open google sheet and add timestamp
-    wks = gc.open(course_name).sheet1
-    date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
-    row = []
-    row.append(date)
-    wks.append_row(row)
+    if ADD_TO_SHEETS:
+        wks = gc.open(course_name).sheet1
+        date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+        row = []
+        row.append(date)
+        wks.append_row(row)
 
     no_attachments = open("assets/no-attachments.txt", 'a+')
     no_attachments.write(course + '\n\n')
@@ -123,16 +126,16 @@ for course in my_courses:
                             # download the .pde file 
                             for attachment in submission[0]['assignmentSubmission']['attachments']:
                                 if attachment.get("driveFile"):
-                                    
+
                                     sub_id = submission[0]['id']
                                     file_name = attachment['driveFile']['title']
                                     file_id = attachment['driveFile']['id']
 
-                                    if '.pde' in file_name:
+                                    if file_name[-4:] == ".pde":
 
                                         print("Student: %s" % student_name)
 
-                                        file_path = 'assets/code/%s/%s' % (course_name, student_name)
+                                        file_path = 'assets/code/%s/%s/%s' % (course_name, ass_name, student_name)
                                         if not os.path.exists(file_path):
                                             os.makedirs(file_path)
 
@@ -140,68 +143,100 @@ for course in my_courses:
                                         new_name = str(number) + '-' + file_id + '-' + file_name 
                                         if not os.path.exists(new_name):
                                             print("Downloading assignment file...")
-                                            drive.get_file(file_id, file_name) 
-                                            os.rename(file_name, new_name)
-                                        os.chdir('../../../../')
+                                            try:
+                                                drive.get_file(file_id, file_name) 
+                                                os.rename(file_name, new_name)
+                                            except HttpError as e:
+                                                print("Couldn't download...")
+                                                error = json.loads(e.content).get('error')
+                                                print(error)
+                                            
+                                        os.chdir('../../../../../')
 
-                                        # # call processing with filename as argument
-                                        print("Grading...")
-                                        args = '"' + file_path + '/' + new_name + '"'
-                                        prosessing_cmd = 'processing-java --sketch="' + os.getcwd() + '/pong_1" --output="' + os.getcwd() + '/pong_1/build"' + ' --force --run ' + args
-                                        
-                                        # run processing and get result form the command line
-                                        comments = subprocess.check_output(prosessing_cmd, shell=True)
-                                        
-                                        # getting score and errors from cmdline
-                                        decoded = comments.decode("UTF-8")
-                                        results = decoded.replace('Finished.', '')
+                                        if os.path.isfile(file_path + "/" + new_name) and os.path.getsize(file_name):
+                                            # call processing with filename as argument
+                                            print("Grading...")
+                                            args = '"' + file_path + '/' + new_name + '"'
+                                            prosessing_cmd = 'processing-java --sketch="' + os.getcwd() + '/pong_1" --output="' + os.getcwd() + '/pong_1/build"' + ' --force --run ' + args
+                                            
+                                            # run processing and get result form the command line
+                                            comments = subprocess.check_output(prosessing_cmd, shell=True)
+                                            
+                                            # getting score and errors from cmdline
+                                            decoded = comments.decode("UTF-8")
+                                            results = decoded.replace('Finished.', '')
 
-                                        grade = int(results.split()[0])
+                                            grade = int(results.split()[0])
 
-                                        one = decoded.split('[')
-                                        errors = one[1].split(']')
-                                        del errors[-1]
-                                        
-                                        print("Done Grading, Uploading results...")
-                                        
+                                            one = decoded.split('[')
+                                            errors = one[1].split(']')
+                                            del errors[-1]
+                                            
+                                            print("Done Grading, Uploading results...")
+                                            
 
-                                        # prepae dataand upload
-                                        data = []
-                                        data.append(student_name)
-                                        data.append(grade)
+                                            # prepae data and upload to sheets
+                                            data = []
+                                            data.append(student_name)
+                                            data.append(grade)
 
-                                        if number == 0:
-                                            data.append("First Submission")
-                                        elif number == 1:
-                                            data.append("Resubmitted")
+                                            if number == 0:
+                                                data.append("First Submission")
+                                            elif number == 1:
+                                                data.append("Resubmitted")
 
-                                        for error in errors:
-                                            data.append(error)
-                                        """
-                                        # uncomment this section to add grades to sheets file
-                                        wks.append_row(data)
-                                        """
-                                        
-                                        print("Done! \n")
-                                        # uncomment the part that uploads the results f you need it
-                                        """
-                                        # upload the results
-                                        body={ 'assignedGrade': grade, 'draftGrade': grade }
-                                        results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
+                                            for error in errors:
+                                                data.append(error)
+                                            
+                                            # Only run if the ADD_TO_SHEETS var is set to true 
+                                            if ADD_TO_SHEETS:
+                                                print("Uploading results to google sheets")
+                                                try:
+                                                    wks.append_row(data)
+                                                    print("Successful")
+                                                except HttpError as e:
+                                                    print("Unccessful")
+                                                    error = json.loads(e.content).get('error')
+                                                    print(error)       
+                                            else:
+                                                # User not allowed to upload results
+                                                print("Not allowed to upload to google sheets")
+                                            
+                                            # run if ADD_TO_CLASSROOM var is set to true
+                                            if ADD_TO_CLASSROOM:
+                                                # upload the results
+                                                print("Uploading results to classroom")
 
-                                        # TODO: you can do better than if(results), get the response that was sent and make meaning of it
-                                        if(results):
-                                            print('Successful')
+                                                try: 
+                                                    body={ 'assignedGrade': grade, 'draftGrade': grade }
+                                                    results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
+
+                                                    # TODO: you can do better than if(results), get the response that was sent and make meaning of it
+                                                    if(results):
+                                                        print('Successful')
+                                                    else:
+                                                        print('Unsuccessful')
+                                                
+                                                except HttpError as e:
+                                                    print("Unsuccessful")
+                                                    error = json.loads(e.content).get('error')
+                                                    print(error)
+                                            else:
+                                                # User not allowed to upload results
+                                                print("Not allowed to post to classroom")
+
+                                            print("Done! \n")
+
+                                            #TODO send errors as emails
                                         else:
-                                            print('unsuccessful')
-                                        """
-                                
-                                        # TODO: Get Errors/Comments and send them as well
+                                            # file does not exist
+                                            pass
                                     else:
-                                        no_drive_file.write("there are no gdrive attachments for %s's submission \n" % student_name)
+                                        pass
+                                        # not a sourcefile so dont grade
                                 else:
-                                    pass
-                                    # not a sourcefile so dont grade
+                                    no_drive_file.write("there are no gdrive attachments for %s's submission \n" % student_name)    
+                            # End of for loop 
                         else: 
                             # student didnt attach files
                             #TODO: do approriate thing

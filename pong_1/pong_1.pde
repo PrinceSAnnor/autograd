@@ -13,6 +13,11 @@ void setup ()
     println("args == null");
   }
   
+  //FOR TESTING
+  //File f = new File(sketchPath() + "/assignment_1/assignment_1.pde");
+  //Test test = new Test(f);
+  //test.run();
+  
   noLoop(); // draw doesn't have to run
   exit(); // quit the program
 }

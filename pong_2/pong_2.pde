@@ -1,34 +1,27 @@
 //Assignment 2: Move ball
 //This program should make the ball move
 
-Test test1 = new Test();
-Code code = new Code();
-
 void setup ()
 {
-  //will change size params later
-  //size(1920, 1080); //sets the width and height of the program  
-
-  background(0);
-  test1 = new Test();
-  test1.run();
-
-  try
-  {
-    code.once();
-    code.forever();
-  }
-  catch(Exception e)
-  {
-    println("Code runtime error");
-    test1.totalScore = 0;
-    test1.printResults();
-    exit();
-  }
-  test1.printResults();
+  //if (args != null) {
+    
+  //  File f = new File(sketchPath() + "/../" + args[0]);
+  //  Test tests = new Test(f);
+  //  tests.run();
+    
+  //} else {
+  //  println("args == null");
+  //}
+  
+  File f = new File(sketchPath() + "/assignment_2/assignment_2.pde");
+  Test test = new Test(f);
+  test.run();
+  
+  noLoop(); // draw doesn't have to run
+  exit(); // quit the program 
 }
 
 void draw()
 {
-  //code.forever();
+  
 }

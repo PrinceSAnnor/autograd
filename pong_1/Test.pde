@@ -1102,8 +1102,8 @@ class Test {
     getLines();
     checkTabs();
     removeEmptyLines();
-    checkStatementsPerLine();
     getScreenSize();
+    checkStatementsPerLine(); 
     checkComments();
     checkBackground();
     checkFills();

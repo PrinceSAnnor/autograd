@@ -23,8 +23,11 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
+  
+  File filePath;
 
-  Test() { //empty constructor for class
+  Test(File f) { 
+    filePath = f;
   }
 
   /*
@@ -34,7 +37,7 @@ class Test {
     try
     {
       //fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
-      fileLines = loadStrings("assignment_2/assignment_2.pde"); //uncomment if you're using APDE
+      fileLines = loadStrings(filePath); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
     {
