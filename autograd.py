@@ -21,7 +21,7 @@ from googleapiclient.errors import HttpError
 # when testinG set testing to true
 TESTING = True
 # you should know what these do, In Short DONT MESS WITH THEM!!!
-ADD_TO_SHEETS = False
+ADD_TO_SHEETS = True
 ADD_TO_CLASSROOM = False
 
 #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -77,8 +77,8 @@ courses = teacher.get_all_courses()
 
 for course in my_courses:
     course_name = course
-    # ass_name = 'Assignment 1 - Make Pong Interface'
-    ass_name = 'Assignment 2 - Move ball'
+    ass_name = 'Assignment 1 - Make Pong Interface'
+    # ass_name = 'Assignment 2 - Move ball'
 
     # Get course id 
     course_id = courses[course_name] 
