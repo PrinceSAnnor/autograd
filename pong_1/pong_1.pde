@@ -1,22 +1,24 @@
-//Assignment 1: Make Pong Interface
-//This program grades assignment 1
-
+/**********************************************************************
+Assignment 1: Make Pong Interface - This program grades assignment 1
+Has two uses Autograd and Single file, coment the one oure not using
+************************************************************************/
 void setup ()
 {
-  if (args != null) {
+  ////For autograd
+  //if (args != null) {
     
-    File f = new File(sketchPath() + "/../" + args[0]);
-    Test tests = new Test(f);
-    tests.run();
+  //  File f = new File(sketchPath() + "/../" + args[0]);
+  //  Test tests = new Test(f);
+  //  tests.run();
     
-  } else {
-    println("args == null");
-  }
+  //} else {
+  //  println("args == null");
+  //}
   
-  //FOR TESTING
-  //File f = new File(sketchPath() + "/assignment_1/assignment_1.pde");
-  //Test test = new Test(f);
-  //test.run();
+  ////For single files
+  File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\Assignment1\\Thato.pde");
+  Test test = new Test(f);
+  test.run();
   
   noLoop(); // draw doesn't have to run
   exit(); // quit the program
