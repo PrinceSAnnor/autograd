@@ -279,7 +279,7 @@ class Test {
       boolean wrongFlag = false;
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^stroke\\(.*$") != null)//look for stroke with regex
+        if (match(linesFiltered.get(i), "^stroke\\(.*$") != null || match(linesFiltered.get(i), "^stroke \\(.*$") != null)//look for stroke( or stroke ( with regex
         {
           strokes.add(i);
         }
@@ -351,7 +351,7 @@ class Test {
    Follow the name of the variables to understand what's going on with each splitTokens
    */
 
-   void checkRects() //check rects
+  void checkRects() //check rects
   {
     try
     {
@@ -373,7 +373,8 @@ class Test {
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
-
+        
+        
         j = 0;
         boolean magicFlag = false;
         int whichRect = 0;
@@ -386,12 +387,22 @@ class Test {
           } else {
             parameters.add(int(splitByCommas1[j]));
           }
-
-          if (!(isNumeric(splitByCommas1[j]))) // check for magic numbers
+          
+        
+          if ((isNumeric(splitByCommas1[j]))) // check for magic numbers
           { 
             magicFlag = true;
             whichRect = m+1;
           }
+          
+          // check for expressions as params
+          String[] param = splitTokens(splitByCommas1[j], " ");
+          
+          if(param.length > 1) {
+            magicFlag = true;
+            whichRect = m+1;
+          }
+          
           j++;
         }
         
@@ -876,7 +887,7 @@ class Test {
       //make sure size is set beore writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
+        if (match(linesFiltered.get(i), "^textSize\\(.*$") != null) //look for textSize with regex
         {
           sizeFlag = false;
           if (texts.size() != 0)
@@ -885,7 +896,7 @@ class Test {
             errors.add("size not set before text called");
           }
         }
-        if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
+        if (match(linesFiltered.get(i), "^text\\(.*$") != null) //look for text with regex
         {
           texts.add(i);
         }
@@ -1029,9 +1040,16 @@ class Test {
           {
             magicFlag = true;
           }
+          
+          // check for expressions aS PARAMS
+          String[] param = splitTokens(splitByCommas[j], " ");
+            
+          if(param.length > 1) {
+            magicFlag = true;
+          }
           j++;
         }
-        
+          
         if(magicFlag) {
           errors.add("use of magic numbers as params for ellipse()");
           totalScore -= deduction;
@@ -1229,7 +1247,7 @@ class Test {
     checkScores();
     checkMovingBall();
     shapeColorInteractions();
-    createFile();
+    //createFile();
     }
     printResults();
   }

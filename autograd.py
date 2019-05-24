@@ -1,5 +1,6 @@
 from classroom.modules.Teacher import Teacher
 from modules.Drive import Drive
+from modules.Records import Records
 
 import os, subprocess, sys, csv, json
 from datetime import datetime
@@ -13,6 +14,9 @@ from googleapiclient.errors import HttpError
 
 
 #  VERY NECESSARY!!
+# mode = input("\tWhat mode do you want to run, \n \t1. Tesing - Writes resuts to reults.txt file \n \t2. Grading - You know what this does \n")
+# if mode:
+#     auth()
 
 # when testinG set testing to true
 TESTING = True
@@ -36,6 +40,8 @@ gc = gspread.authorize(credentials)
 # create a teacher and drive instance
 teacher = Teacher()
 drive = Drive()
+recorder = Records()
+
 
 
 #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -58,6 +64,10 @@ if not os.path.exists("assets/id-lists"):
 # Real
 my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3'] #TODO: change courses to actual courses
 
+pong_code = {
+    'Assignment 1 - Make Pong Interface' : 'pong_1', 
+    'Assignment 2 - Move ball' : 'pong_2',
+}
 # testing
 # my_courses = ['SuaCode Africa 3']
 
@@ -67,8 +77,8 @@ courses = teacher.get_all_courses()
 
 for course in my_courses:
     course_name = course
-    ass_name = 'Assignment 1 - Make Pong Interface'
-    # ass_name = 'Assignment 2 - Move ball'
+    # ass_name = 'Assignment 1 - Make Pong Interface'
+    ass_name = 'Assignment 2 - Move ball'
 
     # Get course id 
     course_id = courses[course_name] 
@@ -78,6 +88,12 @@ for course in my_courses:
     # get asignment id
 
     ass_id = assignments[ass_name]
+
+    #log course details
+    recorder.log_no_attachments(course + ' ' + ass_name)
+    recorder.log_no_drive_file(course + ' '  +ass_name)
+    recorder.log_not_submitted(course + ' ' + ass_name)
+    recorder.log_results(course + ' ' + ass_name)
 
     # open google sheet and add timestamp
     if ADD_TO_SHEETS:
@@ -89,19 +105,10 @@ for course in my_courses:
 
     if TESTING:
         f = open("results.txt", "a+")
-        f.write(course_name + "\n\n")
+        f.write(course_name + "-" + ass_name + "\n\n")
         f.close() 
 
-    no_attachments = open("assets/no-attachments.txt", 'a+')
-    no_attachments.write(course + '\n\n')
-
-    not_submitted = open("assets/not-submitted.txt", 'a+')
-    not_submitted.write(course + '\n\n')
-
-    no_drive_file = open("assets/no-drive-file", 'a+')
-    no_drive_file.write(course + '\n\n')
-
-    print("grading %s... \n" % course)
+    print("Grading %s... %s... \n" % (course, ass_name))
     with open('assets/id-lists/%s.csv' % course_name) as csvfile:
         readCSV = csv.reader(csvfile, delimiter=',')
         for row in readCSV:
@@ -170,10 +177,10 @@ for course in my_courses:
                                             # call processing with filename as argument
                                             print("Grading...")
                                             args = '"' + file_path + '/' + new_name + '"'
-                                            prosessing_cmd = 'processing-java --sketch="' + os.getcwd() + '/pong_2" --output="' + os.getcwd() + '/pong_1/build"' + ' --force --run ' + args
+                                            processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/buiid"' + ' --force --run ' + args
                                             
                                             # run processing and get result form the command line
-                                            comments = subprocess.check_output(prosessing_cmd, shell=True)
+                                            comments = subprocess.check_output(processing_cmd, shell=True)
                                             
                                             # getting score and errors from cmdline
                                             decoded = comments.decode("UTF-8")
@@ -184,11 +191,13 @@ for course in my_courses:
                                             one = decoded.split('[')
                                             errors = one[1].split(']')
                                             del errors[-1]
+
+                                            #Godisgreat0021
                                             
                                             print("Done Grading, Uploading results...")
                                             
 
-                                            # prepae data and upload to sheets
+                                            # prepare data and upload to sheets
                                             data = []
                                             data.append(student_name)
                                             data.append(grade)
@@ -201,6 +210,11 @@ for course in my_courses:
                                             for error in errors:
                                                 data.append(error)
                                             
+                                            # log results
+                                            print("Logging results")
+                                            recorder.log_results(str(data))
+                                            print("Done.")
+
                                             if TESTING:
                                                 f = open("results.txt", "a+")
                                                 f.write(str(data) + "\n")
@@ -253,12 +267,12 @@ for course in my_courses:
                                         pass
                                         # not a sourcefile so dont grade
                                 else:
-                                    no_drive_file.write("there are no gdrive attachments for %s's submission \n" % student_name)    
+                                    recorder.log_no_drive_file("there are no gdrive attachments for %s's submission" % student_name)    
                             # End of for loop 
                         else: 
                             # student didnt attach files
                             #TODO: do approriate thing
-                            no_attachments.write('%s didnt attach files \n' % student_name)
+                            recorder.log_no_attachments('%s didnt attach files' % student_name)
                     else: 
                         # student has resubmitted already
                         print('Student has resubmitted already')
@@ -266,9 +280,33 @@ for course in my_courses:
                     # submission is not turned in for grading
                     pass
             else:
-                not_submitted.write("No submission for %s \n" % student_name)
+                recorder.log_not_submitted("No submission for %s" % student_name)
                 # theres no submission for that student
 
-    no_attachments.close()
-    not_submitted.close()
-    no_drive_file.close()
+
+# def auth():
+#     if mode == '1':
+#         TESTING = True
+#         ADD_TO_SHEETS = True
+#         ADD_TO_CLASSROOM = False
+#         print("\tTesting mode activated")
+#     elif mode == '2':
+#         print("\tSorry but you cant do that atm...")
+#         # TESTING = False
+#         # sheets = input("\tDo you want to upload resutls to Google sheets? Y/N ")
+#         # if sheets == "y":
+#         #     ADD_TO_SHEETS = True
+#         #     print("\tOkay... I hear you")
+#         # elif sheets == 'n':
+#         #     ADD_TO_SHEETS = False
+#         # else:
+#         #     print("\tEnter a right value")
+
+#         # classroom = input("\tDo you want to upload grade to Google classroom? Y/N ")
+#         # if classroom == "y":
+#         #     ADD_TO_CLASSROOM = False
+#         #     print("\tErrmm... Sorry not risking that.")
+#         # else:
+#         #     ADD_TO_CLASSROOM = False
+#     else: 
+#         print("\tEnter a right value")

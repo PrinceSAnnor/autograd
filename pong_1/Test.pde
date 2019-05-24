@@ -17,7 +17,7 @@ class Test {
   ArrayList<Integer> fills = new ArrayList<Integer>(); //fill lines
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
 
-  ArrayList<String> errors = new ArrayList<String>(); //stroke lines
+  ArrayList<String> errors = new ArrayList<String>(); //store errors
 
   int totalScore = 20; // total score of the student
   float majorExceptions = 2; //deductions that generate exceptions, ie code that won't likely compile

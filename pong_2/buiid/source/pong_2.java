@@ -1,19 +1,50 @@
-import java.util.Map;
-//class for autoGrad assignment 3
+import processing.core.*; 
+import processing.data.*; 
+import processing.event.*; 
+import processing.opengl.*; 
 
-/*
-Uncomment line 42 and comment line 41 in getLines function if using with APDE
-In apde, the students assignment file has to be stored in a folder called data
-the data folder should be inside the class's folder and the path should be the
-filename. 
-APDE clone details
-Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
-Local: autoGrad
-Username: Suacodefacilitators
-Password: Suacodefacilitators10!
-*/
+import java.util.HashMap; 
+import java.util.ArrayList; 
+import java.io.File; 
+import java.io.BufferedReader; 
+import java.io.PrintWriter; 
+import java.io.InputStream; 
+import java.io.OutputStream; 
+import java.io.IOException; 
+
+public class pong_2 extends PApplet {
+
+//Assignment 2: Move ball
+//This program should make the ball move
+
+public void setup ()
+{
+  if (args != null) {
+    
+    File f = new File(sketchPath() + "/../" + args[0]);
+    Test tests = new Test(f);
+    tests.run();
+    
+  } else {
+    println("args == null");
+  }
+  
+  //File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 2\\Assignment 2 - Move ball\\silas kolo\\0-19_A0IIriw2JmuSulHkDm10_BGvL3SjS3-Assignment2.pde");
+  //Test test = new Test(f);
+  //test.run();
+  
+  noLoop(); // draw doesn't have to run
+  exit(); // quit the program 
+}
+
+public void draw()
+{
+  
+}
+
 
 class Test {
+  PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -24,76 +55,82 @@ class Test {
   ArrayList<Integer> lines = new ArrayList<Integer>(); //line lines
   ArrayList<Integer> fills = new ArrayList<Integer>(); //fill lines
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
-  
+
   ArrayList<Integer> variableLines = new ArrayList<Integer>(); //lines with variables
-  HashMap<String,String> variablesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
+  HashMap<String, String> variablesHashMap = new HashMap<String, String>(); //Hashmap contaning variables
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
 
-  float totalScore = 20; // total score of the student
+  ArrayList<String> errors = new ArrayList<String>(); //store errors
+
+  int totalScore = 20; // total score of the student
   float majorExceptions = 20; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
-  float commentPercentage = 0.3; //percentage error for floatation divisions
+  float commentPercentage = 0.3f; //percentage error for floatation divisions
   int tabLength = 2;
-    
   
-  Test() { //empty constructor for class
+  File filePath;
+
+  Test(File f) { 
+    filePath = f;
   }
 
   /*
   In the function below, I'm reading the file into an array of strings. Each element in the array is a line in the file
    */
-  void getLines() { //reads file
+  public void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("assignment_3/assignment_3.pde"); //comment if you're using APDE
-      //fileLines = loadStrings("Assignment2.pde"); //uncomment if you're using APDE
-      //fileLines = loadStrings("../Assignment2/tests/test2/test2.pde"); //tests with pc
+      //fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
+      fileLines = loadStrings(filePath); //uncomment if you're using APDE
     }
     catch (Exception e) //IO error
     {
-      println("Couldn't load file");
+      errors.add("Error: couldn't load file");
       totalScore -= majorExceptions;
     }
   }
-  
- 
+
+
   /*
     Loops through the lines in the file and removes white lines
    Also check for at least two empty lines to assume grouped sections of code
    */
-  void removeEmptyLines() { //removes empty lines
+  public void removeEmptyLines() { //removes empty lines
     try
     {
       int emptyLines = 0;
       for (int i = 0; i < fileLines.length; i++) {
-        if (fileLines[i] != null && fileLines[i].length() > 0) //if lines have no content or a null string
-          linesFiltered.add(trim(fileLines[i]));
-        else
+        if (trim(fileLines[i]).length() == 0) {//if lines have no content or a null string
           emptyLines++;
+        } else {
+         linesFiltered.add(trim(fileLines[i]));          
+        }
       }
+      
       if (emptyLines < 2) //if at least two lines are empty
       {
-        println("Improper code grouping");
+        errors.add("improper code grouping");
         totalScore -= deduction;
       }
     }
     catch (Exception e) //catch exception
     {
-      println("Couldn't remove empty lines in file");
+      errors.add("Error: couldn't remove empty lines in file");
       totalScore -= majorExceptions;
     }
   }
-  
- /*
+
+  /*
    In the function below, I'm checking the student indented properly
    I have a var called tabs that increments when it sees a {
    And decrements when iit sees a }
    if at the end tabs < 0 there's an unmatched }
    if at the end tabs > 0 there's an unmatched {
    */
-  void checkTabs()
+
+  public void checkTabs()
   {
     boolean tabsFlag = false;
     int tabs = 0;
@@ -107,7 +144,7 @@ class Test {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
               tabsFlag = true;
-              println(i);
+              //errors.add(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {
@@ -126,22 +163,22 @@ class Test {
 
       if (tabs < 0) //unmatched }
       {
-        println("Unmatched }");
+        errors.add("unmatched }");
         totalScore -= deduction;
       } else if (tabs != 0) //unmatched {
       {
-        println("Unmatched {");
+        errors.add("unmatched {");
         totalScore -= deduction;
       }
       if (tabsFlag) //wrong indentation
       {
-        println("Code not indented properly");
+        errors.add("code not indented properly");
         totalScore -= deduction;
       }
     }
     catch (Exception e) //catch exception
     {
-      println("Check tabs in file");
+      errors.add("Error: check tabs in file");
       totalScore -= majorExceptions;
     }
   }
@@ -150,7 +187,7 @@ class Test {
     checks to see if there are more two semicolons on one line. That means there are two statements on one line.
    deduct points if the size of the array returned by matchAll is greater than 1
    */
-  void checkStatementsPerLine()
+  public void checkStatementsPerLine()
   {
     try
     {
@@ -176,16 +213,15 @@ class Test {
           }
         }
       }
-
       if (statementsFlag)
       {
-        println("Insufficient comments");
+        errors.add("insufficient comments");
         totalScore -= deduction;
       }
     }
     catch (Exception e) 
     {
-      println("Couldn't check statements per line");
+      errors.add("Error: couldn't check statements per line");
       totalScore -= majorExceptions;
     }
   } 
@@ -194,7 +230,7 @@ class Test {
   This line parses the first comment in the line and gets the size of the screen used by the device, it just keeps splitting by tokens
    Follow the name of the variables to understand what's going on with each splitTokens
    */
-  void getScreenSize() //gets first comment line
+  public boolean getScreenSize() //gets first comment line
   {
     try
     {
@@ -213,11 +249,11 @@ class Test {
         i++;
       }
 
-      screenWidth = int(trim(splitBySpacesLeft[i]));//get screen height
+      screenWidth = PApplet.parseInt(trim(splitBySpacesLeft[i]));//get screen height
 
       if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
       {
-        println("Check width in code");
+        errors.add("check width in code");
         totalScore = 0;
       }
 
@@ -230,61 +266,25 @@ class Test {
 
       if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
       {
-        println("Check height in code");
+        errors.add("check height in code");
         totalScore = 0;
       }
 
-      screenHeight = int(trim(splitBySpacesRight[i])); //get screen height
+      screenHeight = PApplet.parseInt(trim(splitBySpacesRight[i])); //get screen height
+      return true;
     } 
     catch (Exception e)
     {
-      println("Check sytax of width and height at first line of code");
-      totalScore -= majorExceptions;
-    }
-  }
-
-  /*
-   This function basically verifies the values gotten from the first comment are the same as the values in the size function 
-   Follow the name of the variables to understand what's going on with each splitTokens
-   */
-  void checkSize() //verify screen width and height in size function
-  {
-    boolean sizeFlag = false;
-    try
-    {
-      String[] splitByLeftBrace;
-      String[] splitByCommas;
-      for (int i = 0; i < linesFiltered.size(); i++) //loop through lines
-      {
-        if (match(linesFiltered.get(i), "^size.*$") != null) //look for size with regex
-        {
-          splitByLeftBrace = splitTokens(linesFiltered.get(i), "(");
-          splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-          if (screenWidth != int(trim(splitByCommas[0])) || screenHeight != int(trim(splitByCommas[1]))) //if invalid width and height
-          {
-            sizeFlag = true;
-            screenWidth = int(trim(splitByCommas[0]));
-            screenHeight = int(trim(splitByCommas[1]));
-          }
-        }
-      }
-      if (sizeFlag)
-      {
-        println("Check the size function width and height");  
-        totalScore -= deduction;
-      }
-    }
-    catch (Exception e) 
-    {
-      println("Couldn't verify size function");
-      totalScore -= majorExceptions;
+      errors.add("Error: check syntax of width and height at first line of code");
+      totalScore = 0;
+      return false;
     }
   }
 
   /*
   Counts the number of comments, finds the percentage of comments within the file
    */
-  void checkComments() //check number of comments
+  public void checkComments() //check number of comments
   {
     try
     {
@@ -296,15 +296,15 @@ class Test {
           comments++;
         }
       }
-      if (float(comments)/linesFiltered.size() < commentPercentage) //check comment percentage
+      if (PApplet.parseFloat(comments)/linesFiltered.size() < commentPercentage) //check comment percentage
       {
-        println("Insufficient comments");
+        errors.add("insufficient comments");
         totalScore -= deduction;
       }
     }
     catch (Exception e) 
     {
-      println("Couldn't check comments");
+      errors.add("Error: couldn't check comments");
       totalScore -= majorExceptions;
     }
   }
@@ -313,7 +313,7 @@ class Test {
   It just checks the number of strokes in the file and makes sure all the arguments are the same
    Follow the name of the variables to understand what's going on with each splitTokens
    */
-  void checkStrokes() //check strokes
+  public void checkStrokes() //check strokes
   {
     try
     {
@@ -323,7 +323,7 @@ class Test {
       boolean wrongFlag = false;
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^stroke.*$") != null)//look for stroke with regex
+        if (match(linesFiltered.get(i), "^stroke\\(.*$") != null || match(linesFiltered.get(i), "^stroke \\(.*$") != null)//look for stroke( or stroke ( with regex
         {
           strokes.add(i);
         }
@@ -332,7 +332,7 @@ class Test {
       if (strokes.size() == 0) //if no stroke
       {
         totalScore -= deduction;
-        println("Use at least one stroke function");
+        errors.add("use at least one stroke function");
       }
 
       splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(0)), "(");
@@ -342,7 +342,7 @@ class Test {
 
       while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
       {
-        parameters.add(int(trim(splitByCommas[j])));
+        parameters.add(PApplet.parseInt(trim(splitByCommas[j])));
         j++;
       }
       int parameterSize = 0;
@@ -355,14 +355,14 @@ class Test {
         j = 0;
         while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
         {
-          parameters.add(int(trim(splitByCommas[j])));
+          parameters.add(PApplet.parseInt(trim(splitByCommas[j])));
           j++;
         }
       }
       if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
         for (int m = 0; m < strokes.size() - 1; m++) {
-          if (int(parameters.get(m)) != int(parameters.get(m+1)))
+          if (PApplet.parseInt(parameters.get(m)) != PApplet.parseInt(parameters.get(m+1)))
           {
             wrongFlag = true;
           }
@@ -370,7 +370,7 @@ class Test {
       } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
       {
         for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
-          if (int(parameters.get(m)) != int(parameters.get(m+3)))
+          if (PApplet.parseInt(parameters.get(m)) != PApplet.parseInt(parameters.get(m+3)))
           {
             wrongFlag = true;
           }
@@ -380,12 +380,12 @@ class Test {
       if (wrongFlag)
       {
         totalScore -= deduction;
-        println("Shapes have different outline colors");
+        errors.add("shapes have different outline colors");
       }
     }
     catch (Exception e) 
     {
-      println("Check strokes function");
+      errors.add("check strokes function");
       totalScore -= majorExceptions;
     }
   }
@@ -395,7 +395,7 @@ class Test {
    Follow the name of the variables to understand what's going on with each splitTokens
    */
 
-void checkRects() //check rects
+  public void checkRects() //check rects
   {
     try
     {
@@ -407,7 +407,7 @@ void checkRects() //check rects
 
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
-        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
+        if (match(linesFiltered.get(i), "^rect\\(.*$") != null) //look for rect with regex
         {
           rects.add(i);
         }
@@ -418,73 +418,91 @@ void checkRects() //check rects
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
         
+        
         j = 0;
+        boolean magicFlag = false;
+        int whichRect = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
         {  
           //gets values all parameters(variables) for both rects
-          if(variablesHashMap.containsKey(splitByCommas1[j]))
+          if (variablesHashMap.containsKey(splitByCommas1[j]))
           {
-            parameters.add(int(variablesHashMap.get(splitByCommas1[j])));
+            parameters.add(PApplet.parseInt(variablesHashMap.get(splitByCommas1[j])));
           } else {
-            parameters.add(int(splitByCommas1[j]));
+            parameters.add(PApplet.parseInt(splitByCommas1[j]));
           }
           
-          if(isNumeric(splitByCommas1[j])) // check for magic numbers
+        
+          if ((isNumeric(splitByCommas1[j]))) // check for magic numbers
           { 
-            println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
-            totalScore -= deduction;
-            break;
+            magicFlag = true;
+            whichRect = m+1;
           }
+          
+          // check for expressions as params
+          String[] param = splitTokens(splitByCommas1[j], " ");
+          
+          if(param.length > 1) {
+            magicFlag = true;
+            whichRect = m+1;
+          }
+          
           j++;
+        }
+        
+        if(magicFlag) {
+          errors.add("use of magic numbers as parameters for rect " + whichRect ); // 'm + 1' indicates the affected rect or paddle
+          totalScore -= deduction;
         }
         max = max + j;
       }
-      
-      if (int(parameters.get(0)) == 0 && int(parameters.get(1)) == 0) //check which paddle is at left
+
+      if (PApplet.parseInt(parameters.get(0)) == 0 && PApplet.parseInt(parameters.get(1)) == 0) //check which paddle is at left
       {
         coordinateFlag = 1;
-      } else if (int(parameters.get(4)) == 0 && int(parameters.get(5)) == 0)
+      } else if (PApplet.parseInt(parameters.get(4)) == 0 && PApplet.parseInt(parameters.get(5)) == 0)
       {
         coordinateFlag = 2;
       } else //pinalize if none are at left position
       {
         totalScore -= deduction;
-        println("Left paddle not at 0,0");
+        errors.add("left paddle not at 0,0");
       }
       if (coordinateFlag == 1 || coordinateFlag == 0) //check second paddle
       {
-        if (int(parameters.get(4)) != int(screenWidth-parameters.get(2)) || int(parameters.get(5)) != int(screenHeight-parameters.get(3))) //pinalize if wrong right paddle
+        if (PApplet.parseInt(parameters.get(4)) != PApplet.parseInt(screenWidth-parameters.get(2)) || PApplet.parseInt(parameters.get(5)) != PApplet.parseInt(screenHeight-parameters.get(3))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          println("Right paddle not at right bottom position");
+          errors.add("right paddle not at right bottom position");
         }
       } else if (coordinateFlag == 2 || coordinateFlag == 0) //check second paddle
       {
-        if (int(parameters.get(0)) != int(screenWidth-parameters.get(6)) || int(parameters.get(1)) != int(screenHeight-parameters.get(7))) //pinalize if wrong right paddle
+        if (PApplet.parseInt(parameters.get(0)) != PApplet.parseInt(screenWidth-parameters.get(6)) || PApplet.parseInt(parameters.get(1)) != PApplet.parseInt(screenHeight-parameters.get(7))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          println("Right paddle not at right bottom position");
+          errors.add("right paddle not at right bottom position");
         }
       }
 
-      if (int(parameters.get(2)) != int(parameters.get(6)) || int(parameters.get(3)) != int(parameters.get(7))) //check paddle dimensions
+      if (PApplet.parseInt(parameters.get(2)) != PApplet.parseInt(parameters.get(6)) || PApplet.parseInt(parameters.get(3)) != PApplet.parseInt(parameters.get(7))) //check paddle dimensions
       {
         totalScore -= deduction;
-        println("Paddles don't have the same dimensions");
+        errors.add("paddles don't have the same dimensions");
       }
 
       if (parameters.size() > 8) //if more than two paddles
       {
         totalScore -= deduction;
-        println("You have more than two paddles? Use only two rectangles before grade is released");
+        errors.add("you have more than two paddles? Use only two rectangles before grade is released");
       }
     }
     catch (Exception e) 
     {
-      println("Couldn't check rects");
+      errors.add("Error: couldn't check rects");
       totalScore -= majorExceptions;
     }
   }
+
 
   /*
   It checks the color interactions between the various shapes
@@ -501,7 +519,7 @@ void checkRects() //check rects
    but I don't expect the students to go to that length to try and beat the system, I mean, at what cost??
    */
 
-  void shapeColorInteractions()
+  public void shapeColorInteractions()
   {
     try
     {
@@ -601,7 +619,7 @@ void checkRects() //check rects
 
       while (isNumeric(trim(splitByCommas3[n])) && n < splitByCommas3.length) //get background's parameters
       {
-        backgroundParameters.add(int(trim(splitByCommas3[n])));
+        backgroundParameters.add(PApplet.parseInt(trim(splitByCommas3[n])));
         n++;
       }
 
@@ -617,53 +635,53 @@ void checkRects() //check rects
         k = 0;
         while (isNumeric(trim(splitByCommas1[j])) && j < splitByCommas1.length) //get fill parameters for paddle1
         {
-          fillParameters.add(int(trim(splitByCommas1[j])));
+          fillParameters.add(PApplet.parseInt(trim(splitByCommas1[j])));
           j++;
         }
         while (isNumeric(trim(splitByCommas2[k])) && k < splitByCommas2.length) //get fill parameters for paddle2
         {
-          fillParameters.add(int(trim(splitByCommas2[k])));
+          fillParameters.add(PApplet.parseInt(trim(splitByCommas2[k])));
           k++;
         }
 
         if (j == 1 && k == 1) //single parameter
         {
-          if (int(fillParameters.get(0)) != int(fillParameters.get(1)))
+          if (PApplet.parseInt(fillParameters.get(0)) != PApplet.parseInt(fillParameters.get(1)))
           {
             totalScore -= deduction;
-            println("Paddles have different colors");
+            errors.add("paddles have different colors");
           }
           if (n == 1)
           {
-            if ((int(backgroundParameters.get(0)) == int(fillParameters.get(0))) || int(backgroundParameters.get(0)) == int(fillParameters.get(1)))
+            if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(fillParameters.get(0))) || PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(fillParameters.get(1)))
             {
               closestFlag = true;
               totalScore -= deduction;
-              println("Paddle has color as background");
+              errors.add("paddle has color as background");
             }
           }
         } else if (j == 3 && k == 3) //triple parameter
         {
-          if (int(fillParameters.get(0)) != int(fillParameters.get(3)) || int(fillParameters.get(1)) != int(fillParameters.get(4)) || int(fillParameters.get(2)) != int(fillParameters.get(5)))
+          if (PApplet.parseInt(fillParameters.get(0)) != PApplet.parseInt(fillParameters.get(3)) || PApplet.parseInt(fillParameters.get(1)) != PApplet.parseInt(fillParameters.get(4)) || PApplet.parseInt(fillParameters.get(2)) != PApplet.parseInt(fillParameters.get(5)))
           {
             totalScore -= deduction;
-            println("Paddles have different colors");
+            errors.add("paddles have different colors");
           }
           if (n == 3)
           {
-            if ((int(backgroundParameters.get(0)) == int(fillParameters.get(0)) && int(backgroundParameters.get(1)) == int(fillParameters.get(1)) &&
-              int(backgroundParameters.get(2)) == int(fillParameters.get(2))) || (int(backgroundParameters.get(0)) == int(fillParameters.get(3)) &&
-              int(backgroundParameters.get(1)) == int(fillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(fillParameters.get(5))))
+            if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(fillParameters.get(0)) && PApplet.parseInt(backgroundParameters.get(1)) == PApplet.parseInt(fillParameters.get(1)) &&
+              PApplet.parseInt(backgroundParameters.get(2)) == PApplet.parseInt(fillParameters.get(2))) || (PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(fillParameters.get(3)) &&
+              PApplet.parseInt(backgroundParameters.get(1)) == PApplet.parseInt(fillParameters.get(4)) &&  PApplet.parseInt(backgroundParameters.get(2)) == PApplet.parseInt(fillParameters.get(5))))
             {
               closestFlag = true;
               totalScore -= deduction;
-              println("Paddle has color as background");
+              errors.add("Paddle has color as background");
             }
           }
         } else
         {
           totalScore -= deduction;
-          println("Paddles have different colors");
+          errors.add("paddles have different colors");
         }
       }
 
@@ -680,7 +698,7 @@ void checkRects() //check rects
 
           while (isNumeric(trim(splitByCommas1[j])) && j < splitByCommas1.length) //get paddle1 parameters
           {
-            rect1FillParameters.add(int(trim(splitByCommas1[j])));
+            rect1FillParameters.add(PApplet.parseInt(trim(splitByCommas1[j])));
             j++;
           }
         } else
@@ -694,7 +712,7 @@ void checkRects() //check rects
           k = 0;
           while (isNumeric(trim(splitByCommas2[k])) && k < splitByCommas2.length) //get paddle2 parameters
           {
-            rect2FillParameters.add(int(trim(splitByCommas2[k])));
+            rect2FillParameters.add(PApplet.parseInt(trim(splitByCommas2[k])));
             k++;
           }
         } else
@@ -706,7 +724,7 @@ void checkRects() //check rects
         int t = 0;
         while (isNumeric(trim(splitByCommas[t])) && t < splitByCommas.length) //get ellipse parameters
         {
-          ellipseFillParameters.add(int(trim(splitByCommas[t])));
+          ellipseFillParameters.add(PApplet.parseInt(trim(splitByCommas[t])));
           t++;
         }
 
@@ -714,56 +732,56 @@ void checkRects() //check rects
         {
           if (t == j)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0))) 
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0))) 
             {
               totalScore -= deduction;
-              println("Ball has same color as left paddle");
+              errors.add("ball has same color as left paddle");
             }
           }
           if (t == k)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect2FillParameters.get(0)))
             {
               totalScore -= deduction;
-              println("Ball has same color as right paddle");
+              errors.add("ball has same color as right paddle");
             }
           }
           if (n == 1)
           {
-            if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0))))
+            if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(ellipseFillParameters.get(0))))
             {
               totalScore -= deduction;
-              println("Ball has color as background");
+              errors.add("ball has color as background");
             }
           }
         } else if (t == 3) //triple parameters
         {
           if (t == k)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1)) 
-              &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect2FillParameters.get(0)) && PApplet.parseInt(ellipseFillParameters.get(1)) == PApplet.parseInt(rect2FillParameters.get(1)) 
+              &&  PApplet.parseInt(ellipseFillParameters.get(2)) == PApplet.parseInt(rect2FillParameters.get(2)))
             {
               totalScore -= deduction;
-              println("Ball has same color as right paddle");
+              errors.add("ball has same color as right paddle");
             }
           }
           if (t == j)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1)) 
-              &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
+            if (PApplet.parseInt(ellipseFillParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0)) && PApplet.parseInt(ellipseFillParameters.get(1)) == PApplet.parseInt(rect1FillParameters.get(1)) 
+              &&  PApplet.parseInt(ellipseFillParameters.get(2)) == PApplet.parseInt(rect1FillParameters.get(2)))
             {
               totalScore -= deduction;
-              println("Ball has same colors as left paddle");
+              errors.add("ball has same colors as left paddle");
             }
           }
           if (n == 3)
           {
-            if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0)) && int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(1)) &&
-              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))) || (int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(3)) &&
-              int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
+            if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(ellipseFillParameters.get(0)) && PApplet.parseInt(backgroundParameters.get(1)) == PApplet.parseInt(ellipseFillParameters.get(1)) &&
+              PApplet.parseInt(backgroundParameters.get(2)) == PApplet.parseInt(ellipseFillParameters.get(2))) || (PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(ellipseFillParameters.get(3)) &&
+              PApplet.parseInt(backgroundParameters.get(1)) == PApplet.parseInt(ellipseFillParameters.get(4)) &&  PApplet.parseInt(backgroundParameters.get(2)) == PApplet.parseInt(ellipseFillParameters.get(5))))
             {
               totalScore -= deduction;
-              println("Ball has color as background");
+              errors.add("ball has color as background");
             }
           }
         }
@@ -780,7 +798,7 @@ void checkRects() //check rects
 
         while (isNumeric(trim(splitByCommas1[j])) && j < splitByCommas1.length)
         {
-          rect1FillParameters.add(int(trim(splitByCommas1[j])));
+          rect1FillParameters.add(PApplet.parseInt(trim(splitByCommas1[j])));
           j++;
         }
         if (j == 1 && n == 1)
@@ -788,16 +806,16 @@ void checkRects() //check rects
           if ((backgroundParameters.get(0) == rect1FillParameters.get(0)))
           {
             totalScore -= deduction;
-            println("Left Paddle has color as background");
+            errors.add("left paddle has color as background");
           }
         }
         if (j == 3 && n == 3)
         {
-          if ((int(backgroundParameters.get(0)) == int(rect1FillParameters.get(0)) && int(backgroundParameters.get(1)) == int(rect1FillParameters.get(1)) &&
-            int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
+          if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0)) && PApplet.parseInt(backgroundParameters.get(1)) == PApplet.parseInt(rect1FillParameters.get(1)) &&
+            PApplet.parseInt(backgroundParameters.get(2)) == PApplet.parseInt(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            println("Left Paddle has color as background");
+            errors.add("left paddle has color as background");
           }
         }
       }
@@ -812,24 +830,24 @@ void checkRects() //check rects
 
         while (isNumeric(trim(splitByCommas2[k])) && k < splitByCommas2.length)
         {
-          rect1FillParameters.add(int(trim(splitByCommas2[k])));
+          rect1FillParameters.add(PApplet.parseInt(trim(splitByCommas2[k])));
           k++;
         }
         if (k == 1 && n == 1)
         {
-          if ((int(backgroundParameters.get(0)) == int(rect1FillParameters.get(0))))
+          if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0))))
           {
             totalScore -= deduction;
-            println("Right Paddle has color as background");
+            errors.add("right paddle has color as background");
           }
         }
         if (k == 3 && n == 3)
         {
-          if ((int(backgroundParameters.get(0)) == int(rect1FillParameters.get(0)) && int(backgroundParameters.get(1)) == int(rect1FillParameters.get(1)) &&
-            int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
+          if ((PApplet.parseInt(backgroundParameters.get(0)) == PApplet.parseInt(rect1FillParameters.get(0)) && PApplet.parseInt(backgroundParameters.get(1)) == PApplet.parseInt(rect1FillParameters.get(1)) &&
+            PApplet.parseInt(backgroundParameters.get(2)) == PApplet.parseInt(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            println("Right Paddle has color as background");
+            errors.add("right paddle has color as background");
           }
         }
       }
@@ -838,12 +856,12 @@ void checkRects() //check rects
       if (closest == 0 && closest1 == 0 && closest2 == 0)
       {
         totalScore -= deduction;
-        println("Paddle and ball have the same color");
+        errors.add("paddle and ball have the same color");
       }
     }
     catch (Exception e) 
     {
-      println("Couldn't check shape color interactions");
+      errors.add("Error: couldn't check shape color interactions");
       totalScore -= majorExceptions;
     }
   }
@@ -852,13 +870,13 @@ void checkRects() //check rects
   Finds the number of fills within the code
    */
 
-  void checkFills() //check for fill
+  public void checkFills() //check for fill
   {
     try
     {
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^fill.*$") != null) //look for fill with regex
+        if (match(linesFiltered.get(i), "^fill\\(.*$") != null) //look for fill with regex
         {
           fills.add(i);
         }
@@ -866,7 +884,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      println("Couldn't check fills");
+      errors.add("Error: couldn't check fills");
       totalScore -= majorExceptions;
     }
   }
@@ -875,7 +893,7 @@ void checkRects() //check rects
   Finds the number of backgrounds within the code
    */
 
-  void checkBackground() //check for background
+  public void checkBackground() //check for background
   {
     try
     {
@@ -889,7 +907,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      println("Couldn't check background");
+      errors.add("Error: couldn't check background");
       totalScore -= majorExceptions;
     }
   }
@@ -899,7 +917,7 @@ void checkRects() //check rects
    Makes sure two texts are on either side of the screen
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
-  void checkScores() //check for text
+  public void checkScores() //check for text
   {
     try
     {        
@@ -909,20 +927,20 @@ void checkRects() //check rects
       int max = 0;
       int coordinateFlag = 0;
       boolean sizeFlag = true;
-      
+
       //make sure size is set beore writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
+        if (match(linesFiltered.get(i), "^textSize\\(.*$") != null) //look for textSize with regex
         {
           sizeFlag = false;
           if (texts.size() != 0)
           {
             totalScore -= deduction;
-            println("size not set before text called");
+            errors.add("size not set before text called");
           }
         }
-        if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
+        if (match(linesFiltered.get(i), "^text\\(.*$") != null) //look for text with regex
         {
           texts.add(i);
         }
@@ -931,49 +949,55 @@ void checkRects() //check rects
       if (sizeFlag) //if no textSize was used
       {
         totalScore -= deduction;
-        println("text size not set");
+        errors.add("text size not set");
       }
-      
+
       int j = 0;
-      for(int m = 0; m < texts.size(); m++) 
+      for (int m = 0; m < texts.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-        
+
         j = 0;
-        while(j < splitByCommas.length) // 
+        boolean magicFlag = false;
+        int score  = 0;
+        while (j < splitByCommas.length) // 
         {         
-          if(m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
+          if (m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
-            println("Use of magic numbers as parameters for textSize()");
+            errors.add("use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
             break;
           }
-          
-          if(m > 0 && j < 3) // check for magic numbers for both text() fxns 'scores' 
+
+          if (m > 0 && j < 3) // check for magic numbers for both text() fxns 'scores' 
           { 
-            if(j > 0) 
+            if (j > 0) 
             {               
-              if(variablesHashMap.containsKey(splitByCommas[j]))
+              if (variablesHashMap.containsKey(splitByCommas[j]))
               {
-                parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+                parameters.add(PApplet.parseInt(variablesHashMap.get(splitByCommas[j])));
               } else {
-                parameters.add(int(splitByCommas[j]));
-              } 
+                parameters.add(PApplet.parseInt(splitByCommas[j]));
+              }
             }
-            
-            if(isNumeric(splitByCommas[j])) { 
-              println("Use of magic numbers as parameters for text() " + m); // 'm' indicates the affected text fnx
-              totalScore -= deduction;
-              break;
+
+            if (isNumeric(splitByCommas[j])) { 
+              magicFlag = true;
+              score = m;
             }
           }
-          
+
           j++;
+        }
+        
+        if(magicFlag) {
+          errors.add("use of magic numbers as parameters for text() " + score ); // 'm' indicates the affected text fnx
+          totalScore -= deduction;
         }
         max = max + j;
       }
-      
+
       if (parameters.get(0) < (screenWidth/2)) //check left score
       {
         coordinateFlag = 1;
@@ -983,7 +1007,7 @@ void checkRects() //check rects
       } else
       {
         totalScore -= deduction;
-        println("Left score not at left position");
+        errors.add("left score not at left position");
       }
 
       if (coordinateFlag == 1) //check right score
@@ -991,20 +1015,20 @@ void checkRects() //check rects
         if (parameters.get(2) < (screenWidth/2))
         {
           totalScore -= deduction;
-          println("Right score not at right position");
+          errors.add("right score not at right position");
         }
       } else if (coordinateFlag == 2)
       {
         if (parameters.get(0) < (screenWidth/2))
         {
           totalScore -= deduction;
-          println("Right score not at right position");
+          errors.add("right score not at right position");
         }
       }
     }
     catch (Exception e) 
     {
-      println("Couldn't check scores");
+      errors.add("Error: couldn't check scores");
       totalScore -= majorExceptions;
     }
   }
@@ -1015,7 +1039,7 @@ void checkRects() //check rects
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
 
-  void checkEllipses()
+  public void checkEllipses()
   {
     try
     {
@@ -1023,75 +1047,91 @@ void checkRects() //check rects
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-     
+
+      //String[] splitByEquals;
+      //int noOfMatches = 0;
+      //ArrayList<String> matches = new ArrayList<String>();    
+
+
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
+        if (match(linesFiltered.get(i), "^ellipse\\(.*$") != null) //look for ellipse with regex
         {
           ellipses.add(i);
         }
       }
-  
+
       int j = 0;
-      for(int m = 0; m < ellipses.size(); m++) 
+      for (int m = 0; m < ellipses.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-
+        
+        boolean magicFlag = false; // for magic numbers
+        
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
-        {           
+        { 
           //get all parameters for ellipse fnx
-          if(variablesHashMap.containsKey(splitByCommas[j]))
+          if (variablesHashMap.containsKey(splitByCommas[j]))
           {
-            parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+            parameters.add(PApplet.parseInt(variablesHashMap.get(splitByCommas[j])));
           } else {
-            parameters.add(int(splitByCommas[j]));
+            parameters.add(PApplet.parseInt(splitByCommas[j]));
           }
 
-          if(isNumeric(splitByCommas[j])) // check for magic numbers
+          if (isNumeric(splitByCommas[j])) // check for magic numbers
           {
-            println("Use of magic numbers as params for ellipse");
-            totalScore -= deduction;
+            magicFlag = true;
+          }
+          
+          // check for expressions aS PARAMS
+          String[] param = splitTokens(splitByCommas[j], " ");
+            
+          if(param.length > 1) {
+            magicFlag = true;
           }
           j++;
         }
+          
+        if(magicFlag) {
+          errors.add("use of magic numbers as params for ellipse()");
+          totalScore -= deduction;
+        }
         max = max + j;
       }
-      
-      
       if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
         totalScore -= deduction;
-        println("Ball not at the center");
+        errors.add("ball not at the center");
       }
 
-      if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
+      if (PApplet.parseInt(parameters.get(2)) != PApplet.parseInt(parameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        println("Weird ball you got there lad");
+        errors.add("weird ball you got there lad");
       }
 
       if (parameters.size() > 4) //if more than one ball
       {
         totalScore -= deduction;
-        println("You have more than one ball?");
+        errors.add("you have more than one ball?");
       }
     }
     catch (Exception e) 
     {
-      println("Couldnt Check ellipses");
+      errors.add("Error: couldn't Check ellipses");
       totalScore -= majorExceptions;
     }
   }
 
-  boolean charIsNum(char c)  //check ascii range of char
+  public boolean charIsNum(char c)  //check ascii range of char
   {
     return 48<=c&&c<=57;
   }
 
-  boolean isNumeric(String s) //check if a number
+  public boolean isNumeric(String s) //check if a number
   {
     char [] ca = s.toCharArray();
     int len = ca.length;
@@ -1110,64 +1150,138 @@ void checkRects() //check rects
     }
     return true;
   }
-  
-  void getVariables() 
+
+  public void getVariables() 
   { 
     String[] splitByEquals;
     String[] splitBySemiColon;
     String[] splitBySpace;
-    
+
     try
     {
-      for(int i = 0; i < linesFiltered.size(); i++)
+      for (int i = 0; i < linesFiltered.size(); i++)
       {  
         if (match(linesFiltered.get(i), "=") != null)
         {
           variableLines.add(i);
         }
       }
-      
+
       for (int m = 0; m < variableLines.size(); m++) 
       {
         splitByEquals = splitTokens(linesFiltered.get(variableLines.get(m)), "="); // 
         splitBySpace = trim(splitTokens(splitByEquals[0], " ")); //get variable name
-        
+
         String varName = splitBySpace[splitBySpace.length-1];
-        
+
         splitBySemiColon = trim(splitTokens(splitByEquals[1], ";")); //get the value of the varaible 
-        
+
         String varValue = splitBySemiColon[0];
-        
-        if(isNumeric(varValue)) {
-           variablesHashMap.put(varName, varValue); 
-           varKeys.add(varName);
-        } else {
-          //println("The value for the variable " + varName + " is not a number");
+
+        if (isNumeric(varValue)) {
+          variablesHashMap.put(varName, varValue); 
+          varKeys.add(varName);
         }
       }
     }
     catch(Exception e)
     {
-      println("Could not get variables"); 
+      errors.add("Error: couldn't get variables");
     }
   }
-  
-  void printResults() {
+
+  public void checkMovingBall()
+  {
+    try
+    {
+      int noOfMatches = 0;
+      String[] splitByEquals;
+
+      for (int k = 0; k < variableLines.size(); k++)
+      {
+        splitByEquals = trim(splitTokens(linesFiltered.get(variableLines.get(k)), "="));
+
+        if ((match(splitByEquals[1], splitByEquals[0])) != null) //look with regex
+        {
+          for (int l = 0; l < varKeys.size(); l++) {
+            if (varKeys.get(l).equals(varKeys.get(l))) {
+              noOfMatches++;
+            }
+          }
+        }
+      }
+
+      if (noOfMatches < 2)
+      {
+        totalScore -= deduction;
+        errors.add("ball not moving the right way");
+      }
+      //End of checking if the ball is moving
+    }
+    catch(Exception e)
+    {
+      errors.add("Error: couldn't get moving ball");
+    }
+  }
+
+  public void printResults() {
     if (totalScore < 0)
     {
       totalScore = 0;
     }
-    println("Total score: ", totalScore);
-  }  
+    println(totalScore, errors);
+  }
 
-  void run() {
+  public void createFile() {
+    try
+    {
+      output.println("class Code {");
+
+      for (int i = 0; i < fileLines.length; i++)
+      {
+        if (match(fileLines[i], "size\\(") != null) {
+          String[] tokens = trim(splitTokens(fileLines[i], "//"));
+          if (match(tokens[0], "size") != null) {
+            output.println("//" + tokens[0]);
+          } else {
+            output.println(tokens[0] + "  //" + tokens[1]);
+          }
+        } else if (match(fileLines[i], "void") != null) {
+
+          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void once() {");
+          } else if (match(fileLines[i], "setup") != null) {
+            output.println("void once()");
+          }
+          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+            output.println("void forever() {");
+          } else if (match(fileLines[i], "draw") != null) {
+            output.println("void forever()");
+          }
+        } else {
+          output.println(fileLines[i]);
+        }
+      }
+
+      output.println("}");
+
+      output.flush(); // Writes the remaining data to the file
+      output.close(); // Finishes the file
+    }
+    catch(Exception e)
+    {
+      errors.add("Error: couldn't create file");
+    }
+  }
+
+  public void run() {
     getLines();
-    checkTabs();
+    
     removeEmptyLines();
+    checkTabs();
+    if(getScreenSize()) {
     getVariables();
     checkStatementsPerLine();
-    getScreenSize();
-    checkSize();
     checkComments();
     checkBackground();
     checkFills();
@@ -1175,7 +1289,19 @@ void checkRects() //check rects
     checkEllipses();
     checkRects();
     checkScores();
+    checkMovingBall();
     shapeColorInteractions();
-
+    //createFile();
+    }
+    printResults();
+  }
+}
+  static public void main(String[] passedArgs) {
+    String[] appletArgs = new String[] { "pong_2" };
+    if (passedArgs != null) {
+      PApplet.main(concat(appletArgs, passedArgs));
+    } else {
+      PApplet.main(appletArgs);
+    }
   }
 }

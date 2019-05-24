@@ -26,7 +26,7 @@ class GetCode {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("assignment3/assignment3.pde"); //comment if you're using APDE
+      fileLines = loadStrings("assignment_3/assignment_3.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
