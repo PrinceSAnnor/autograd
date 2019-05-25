@@ -1,3 +1,5 @@
+#main autograd script
+
 from classroom.modules.Teacher import Teacher
 from modules.Drive import Drive
 from modules.Records import Records
@@ -250,8 +252,6 @@ if __name__ == "__main__":
                                                 one = decoded.split('[')
                                                 errors = one[1].split(']')
                                                 del errors[-1]
-
-                                                #Godisgreat0021
                                                 
                                                 print("Done Grading, Uploading results...")
                                                 
