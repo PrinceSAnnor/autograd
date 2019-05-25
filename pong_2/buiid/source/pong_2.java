@@ -1297,7 +1297,7 @@ class Test {
   }
 }
   static public void main(String[] passedArgs) {
-    String[] appletArgs = new String[] { "pong_2" };
+    String[] appletArgs = new String[] { "--present", "--window-color=#666666", "--stop-color=#cccccc", "pong_2" };
     if (passedArgs != null) {
       PApplet.main(concat(appletArgs, passedArgs));
     } else {
