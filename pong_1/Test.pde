@@ -1084,7 +1084,7 @@ class Test {
       printResults();
     }
     else {
-      print(0 + "['Could not grade assignment: check you maxX and maxY values']" );
+      print("0 ['Could not grade assignment: check you maxX and maxY values']" );
     }
   }
 }

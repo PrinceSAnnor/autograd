@@ -38,8 +38,7 @@ class Test {
   void getLines() { //reads file
     try
     {
-      //fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
-      fileLines = loadStrings(filePath); //uncomment if you're using APDE
+      fileLines = loadStrings(filePath);
     }
     catch (Exception e) //IO error
     {
@@ -887,7 +886,7 @@ class Test {
       //make sure size is set beore writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^textSize\\(.*$") != null) //look for textSize with regex
+        if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
         {
           sizeFlag = false;
           if (texts.size() != 0)
@@ -896,7 +895,7 @@ class Test {
             errors.add("size not set before text called");
           }
         }
-        if (match(linesFiltered.get(i), "^text\\(.*$") != null) //look for text with regex
+        if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
         {
           texts.add(i);
         }
@@ -1003,11 +1002,6 @@ class Test {
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-
-      //String[] splitByEquals;
-      //int noOfMatches = 0;
-      //ArrayList<String> matches = new ArrayList<String>();    
-
 
       for (int i = 0; i < linesFiltered.size(); i++)
       {
@@ -1230,25 +1224,31 @@ class Test {
     }
   }
 
+  /***************************************************************
+  main method that calls all other methods to grade the assigment
+  checks wheter screenWith and sreenHeight were gotten 
+  grades if true and doesnt if false
+  ****************************************************************/
   void run() {
     getLines();
-    
     removeEmptyLines();
-    checkTabs();
     if(getScreenSize()) {
-    getVariables();
-    checkStatementsPerLine();
-    checkComments();
-    checkBackground();
-    checkFills();
-    checkStrokes();
-    checkEllipses();
-    checkRects();
-    checkScores();
-    checkMovingBall();
-    shapeColorInteractions();
-    //createFile();
+      checkTabs();
+      getVariables();
+      checkStatementsPerLine();
+      checkComments();
+      checkBackground();
+      checkFills();
+      checkStrokes();
+      checkEllipses();
+      checkRects();
+      checkScores();
+      checkMovingBall();
+      shapeColorInteractions();
+      printResults();
     }
-    printResults();
+    else {
+      print("0 ['Could not grade assignment: check you maxX and maxY values']" );
+    }
   }
 }

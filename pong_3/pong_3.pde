@@ -190,9 +190,10 @@ void checkTopWall() {
   }
   
   if(topWallFlag) {
-    if(ballSpeedY != -1 * ballSpeedY) {
+    if(ballSpeedY == -ballSpeedY) {
       test1.totalScore -= test1.deduction;
       println("Ball hit top wall but didnt change diretion"); 
+      println(test1.totalScore);
     }
   }
   

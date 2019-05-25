@@ -1,5 +1,7 @@
-//Assignment 2: Move ball
-//This program should make the ball move
+/**********************************************************************
+Assignment 2: Move Ball - This program grades assignment 2
+Has two uses Autograd and Single file, coment the one oure not using
+************************************************************************/
 
 void setup ()
 {
@@ -13,7 +15,7 @@ void setup ()
     println("args == null");
   }
   
-  //File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 2\\Assignment 2 - Move ball\\silas kolo\\0-19_A0IIriw2JmuSulHkDm10_BGvL3SjS3-Assignment2.pde");
+  //File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 1\\Assignment 2 - Move ball\\purity maritim\\0-1C7lN8RUWuqIi-YzX-5lsUar6Wlj7w0TR-Assignment2[1].pde");
   //Test test = new Test(f);
   //test.run();
   
