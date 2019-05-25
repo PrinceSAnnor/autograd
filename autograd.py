@@ -236,7 +236,7 @@ if __name__ == "__main__":
                                                 # call processing with filename as argument
                                                 print("Grading...")
                                                 args = '"' + file_path + '/' + new_name + '"'
-                                                processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/buiid"' + ' --force --run ' + args
+                                                processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/build"' + ' --force --run ' + args
                                                 
                                                 # run processing and get result form the command line
                                                 comments = subprocess.check_output(processing_cmd, shell=True)
