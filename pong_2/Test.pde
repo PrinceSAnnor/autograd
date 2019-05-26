@@ -25,7 +25,7 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
-  
+
   File filePath;
 
   Test(File f) { 
@@ -60,10 +60,10 @@ class Test {
         if (trim(fileLines[i]).length() == 0) {//if lines have no content or a null string
           emptyLines++;
         } else {
-         linesFiltered.add(trim(fileLines[i]));          
+          linesFiltered.add(trim(fileLines[i]));
         }
       }
-      
+
       if (emptyLines < 2) //if at least two lines are empty
       {
         errors.add("improper code grouping");
@@ -158,10 +158,10 @@ class Test {
             {
               statementsFlag = true;
             } else {
-              
+
               String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
 
-              if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
+              if (tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
                 statementsFlag = true;
               }
             }
@@ -372,8 +372,8 @@ class Test {
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
-        
-        
+
+
         j = 0;
         boolean magicFlag = false;
         int whichRect = 0;
@@ -386,26 +386,26 @@ class Test {
           } else {
             parameters.add(int(splitByCommas1[j]));
           }
-          
-        
+
+
           if ((isNumeric(splitByCommas1[j]))) // check for magic numbers
           { 
             magicFlag = true;
             whichRect = m+1;
           }
-          
+
           // check for expressions as params
           String[] param = splitTokens(splitByCommas1[j], " ");
-          
-          if(param.length > 1) {
+
+          if (param.length > 1) {
             magicFlag = true;
             whichRect = m+1;
           }
-          
+
           j++;
         }
-        
-        if(magicFlag) {
+
+        if (magicFlag) {
           errors.add("use of magic numbers as parameters for rect " + whichRect ); // 'm + 1' indicates the affected rect or paddle
           totalScore -= deduction;
         }
@@ -546,7 +546,6 @@ class Test {
         }
       }
 
-
       for (int i = 0; i < fills.size(); i++) //get closest fill to ellipse
       {
         if (fills.get(i) < ellipses.get(0))
@@ -581,7 +580,7 @@ class Test {
       /*This section is for the color interactions between paddles and with backgrounds */
 
       if (closest1 != 0 && closest2 != 0) //if there're two fills beside both paddles
-      {      
+      {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
         splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
         splitByLeftBrace2 = splitTokens(linesFiltered.get(fills.get(cl2_index)), "(");
@@ -604,7 +603,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(1)))
           {
             totalScore -= deduction;
-            errors.add("paddles have different colors");
+            errors.add("Paddles have different colors");
           }
           if (n == 1)
           {
@@ -612,7 +611,7 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("paddle has color as background");
+              errors.add("Paddle has color the same color as background");
             }
           }
         } else if (j == 3 && k == 3) //triple parameter
@@ -620,7 +619,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(3)) || int(fillParameters.get(1)) != int(fillParameters.get(4)) || int(fillParameters.get(2)) != int(fillParameters.get(5)))
           {
             totalScore -= deduction;
-            errors.add("paddles have different colors");
+            errors.add("Paddles have different colors");
           }
           if (n == 3)
           {
@@ -630,13 +629,13 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              errors.add("Paddle has color as background");
+              errors.add("Paddle has same color as background");
             }
           }
         } else
         {
           totalScore -= deduction;
-          errors.add("paddles have different colors");
+          errors.add("Paddles have different colors");
         }
       }
 
@@ -645,7 +644,7 @@ class Test {
       if (closest != 0) //fill before ellipse
       {
         if (closest1 != 0)//fill before paddle1
-        {      
+        {
           splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
           splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
 
@@ -685,20 +684,20 @@ class Test {
 
         if (t == 1) //single parameter
         {
-          if (t == j)
+          if (j == 1)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0))) 
+            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as left paddle");
+              errors.add("Ball has same color as left paddle");
             }
           }
-          if (t == k)
+          if (k == 1)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle");
             }
           }
           if (n == 1)
@@ -706,46 +705,44 @@ class Test {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0))))
             {
               totalScore -= deduction;
-              errors.add("ball has color as background");
+              errors.add("Ball has same color as background");
             }
           }
         } else if (t == 3) //triple parameters
         {
-          if (t == k)
+          if (k == 3)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1)) 
+            if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1))
               &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
             {
               totalScore -= deduction;
-              errors.add("ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle");
             }
           }
-          if (t == j)
+          if (j == 3)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1)) 
+            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1))
               &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
             {
               totalScore -= deduction;
-              errors.add("ball has same colors as left paddle");
+              errors.add("Ball has same color as left paddle");
             }
           }
           if (n == 3)
           {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0)) && int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(1)) &&
-              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))) || (int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(3)) &&
-              int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
+              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))))
             {
               totalScore -= deduction;
-              errors.add("ball has color as background");
+              errors.add("Ball has same color as background");
             }
           }
         }
       }
 
-
       /*left paddle and background.*/
       if (closest1 != 0 && !closestFlag) //fill before paddle 1
-      {      
+      {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
         splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
 
@@ -761,7 +758,7 @@ class Test {
           if ((backgroundParameters.get(0) == rect1FillParameters.get(0)))
           {
             totalScore -= deduction;
-            errors.add("left paddle has color as background");
+            errors.add("Left paddle has same color as background");
           }
         }
         if (j == 3 && n == 3)
@@ -770,14 +767,14 @@ class Test {
             int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            errors.add("left paddle has color as background");
+            errors.add("Left paddle has same color as background");
           }
         }
       }
 
       /*right paddle and background*/
       if (closest2 != 0 && !closestFlag) //fill right paddle
-      {      
+      {
         splitByLeftBrace2 = splitTokens(linesFiltered.get(fills.get(cl2_index)), "(");
         splitByCommas2 = splitTokens(splitByLeftBrace2[1], ",)");
 
@@ -793,7 +790,7 @@ class Test {
           if ((int(backgroundParameters.get(0)) == int(rect1FillParameters.get(0))))
           {
             totalScore -= deduction;
-            errors.add("right paddle has color as background");
+            errors.add("Right paddle has same color as background");
           }
         }
         if (k == 3 && n == 3)
@@ -802,7 +799,7 @@ class Test {
             int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            errors.add("right paddle has color as background");
+            errors.add("Right paddle has same color as background");
           }
         }
       }
@@ -811,15 +808,16 @@ class Test {
       if (closest == 0 && closest1 == 0 && closest2 == 0)
       {
         totalScore -= deduction;
-        errors.add("paddle and ball have the same color");
+        errors.add("Paddle and ball have the same color");
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
-      errors.add("Error: couldn't check shape color interactions");
+      errors.add("Error: Make sure you followed the instructions for color in the assignment");
       totalScore -= majorExceptions;
     }
   }
+
 
   /*
   Finds the number of fills within the code
@@ -945,8 +943,8 @@ class Test {
 
           j++;
         }
-        
-        if(magicFlag) {
+
+        if (magicFlag) {
           errors.add("use of magic numbers as parameters for text() " + score ); // 'm' indicates the affected text fnx
           totalScore -= deduction;
         }
@@ -1016,9 +1014,9 @@ class Test {
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-        
+
         boolean magicFlag = false; // for magic numbers
-        
+
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
         { 
@@ -1034,17 +1032,17 @@ class Test {
           {
             magicFlag = true;
           }
-          
+
           // check for expressions aS PARAMS
           String[] param = splitTokens(splitByCommas[j], " ");
-            
-          if(param.length > 1) {
+
+          if (param.length > 1) {
             magicFlag = true;
           }
           j++;
         }
-          
-        if(magicFlag) {
+
+        if (magicFlag) {
           errors.add("use of magic numbers as params for ellipse()");
           totalScore -= deduction;
         }
@@ -1225,14 +1223,14 @@ class Test {
   }
 
   /***************************************************************
-  main method that calls all other methods to grade the assigment
-  checks wheter screenWith and sreenHeight were gotten 
-  grades if true and doesnt if false
-  ****************************************************************/
+   main method that calls all other methods to grade the assigment
+   checks wheter screenWith and sreenHeight were gotten 
+   grades if true and doesnt if false
+   ****************************************************************/
   void run() {
     getLines();
     removeEmptyLines();
-    if(getScreenSize()) {
+    if (getScreenSize()) {
       checkTabs();
       getVariables();
       checkStatementsPerLine();
@@ -1246,8 +1244,7 @@ class Test {
       checkMovingBall();
       shapeColorInteractions();
       printResults();
-    }
-    else {
+    } else {
       print("0 ['Could not grade assignment: check you maxX and maxY values']" );
     }
   }

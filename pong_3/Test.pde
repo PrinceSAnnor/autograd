@@ -3,15 +3,15 @@ import java.util.Map;
 
 /*
 Uncomment line 42 and comment line 41 in getLines function if using with APDE
-In apde, the students assignment file has to be stored in a folder called data
-the data folder should be inside the class's folder and the path should be the
-filename. 
-APDE clone details
-Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
-Local: autoGrad
-Username: Suacodefacilitators
-Password: Suacodefacilitators10!
-*/
+ In apde, the students assignment file has to be stored in a folder called data
+ the data folder should be inside the class's folder and the path should be the
+ filename. 
+ APDE clone details
+ Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
+ Local: autoGrad
+ Username: Suacodefacilitators
+ Password: Suacodefacilitators10!
+ */
 
 class Test {
 
@@ -24,9 +24,9 @@ class Test {
   ArrayList<Integer> lines = new ArrayList<Integer>(); //line lines
   ArrayList<Integer> fills = new ArrayList<Integer>(); //fill lines
   ArrayList<Integer> strokes = new ArrayList<Integer>(); //stroke lines
-  
+
   ArrayList<Integer> variableLines = new ArrayList<Integer>(); //lines with variables
-  HashMap<String,String> variablesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
+  HashMap<String, String> variablesHashMap = new HashMap<String, String>(); //Hashmap contaning variables
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
 
   float totalScore = 20; // total score of the student
@@ -36,8 +36,8 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
-    
-  
+
+
   Test() { //empty constructor for class
   }
 
@@ -57,8 +57,8 @@ class Test {
       totalScore -= majorExceptions;
     }
   }
-  
- 
+
+
   /*
     Loops through the lines in the file and removes white lines
    Also check for at least two empty lines to assume grouped sections of code
@@ -85,8 +85,8 @@ class Test {
       totalScore -= majorExceptions;
     }
   }
-  
- /*
+
+  /*
    In the function below, I'm checking the student indented properly
    I have a var called tabs that increments when it sees a {
    And decrements when iit sees a }
@@ -166,10 +166,10 @@ class Test {
             {
               statementsFlag = true;
             } else {
-              
+
               String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
 
-              if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
+              if (tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
                 statementsFlag = true;
               }
             }
@@ -395,7 +395,7 @@ class Test {
    Follow the name of the variables to understand what's going on with each splitTokens
    */
 
-void checkRects() //check rects
+  void checkRects() //check rects
   {
     try
     {
@@ -417,19 +417,19 @@ void checkRects() //check rects
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
-        
+
         j = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
         {  
           //gets values all parameters(variables) for both rects
-          if(variablesHashMap.containsKey(splitByCommas1[j]))
+          if (variablesHashMap.containsKey(splitByCommas1[j]))
           {
             parameters.add(int(variablesHashMap.get(splitByCommas1[j])));
           } else {
             parameters.add(int(splitByCommas1[j]));
           }
-          
-          if(isNumeric(splitByCommas1[j])) // check for magic numbers
+
+          if (isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
             println("Use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
             totalScore -= deduction;
@@ -439,7 +439,7 @@ void checkRects() //check rects
         }
         max = max + j;
       }
-      
+
       if (int(parameters.get(0)) == 0 && int(parameters.get(1)) == 0) //check which paddle is at left
       {
         coordinateFlag = 1;
@@ -712,7 +712,7 @@ void checkRects() //check rects
 
         if (t == 1) //single parameter
         {
-          if (t == j)
+          if (j == 1)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0))) 
             {
@@ -720,7 +720,7 @@ void checkRects() //check rects
               println("Ball has same color as left paddle");
             }
           }
-          if (t == k)
+          if (k == 1)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
             {
@@ -738,7 +738,7 @@ void checkRects() //check rects
           }
         } else if (t == 3) //triple parameters
         {
-          if (t == k)
+          if (k == 3)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1)) 
               &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
@@ -747,7 +747,7 @@ void checkRects() //check rects
               println("Ball has same color as right paddle");
             }
           }
-          if (t == j)
+          if (j == 3)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1)) 
               &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
@@ -759,8 +759,7 @@ void checkRects() //check rects
           if (n == 3)
           {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0)) && int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(1)) &&
-              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))) || (int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(3)) &&
-              int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
+              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))))
             {
               totalScore -= deduction;
               println("Ball has color as background");
@@ -909,7 +908,7 @@ void checkRects() //check rects
       int max = 0;
       int coordinateFlag = 0;
       boolean sizeFlag = true;
-      
+
       //make sure size is set beore writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
@@ -933,47 +932,47 @@ void checkRects() //check rects
         totalScore -= deduction;
         println("text size not set");
       }
-      
+
       int j = 0;
-      for(int m = 0; m < texts.size(); m++) 
+      for (int m = 0; m < texts.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-        
+
         j = 0;
-        while(j < splitByCommas.length) // 
+        while (j < splitByCommas.length) // 
         {         
-          if(m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
+          if (m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
             println("Use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
             break;
           }
-          
-          if(m > 0 && j < 3) // check for magic numbers for both text() fxns 'scores' 
+
+          if (m > 0 && j < 3) // check for magic numbers for both text() fxns 'scores' 
           { 
-            if(j > 0) 
+            if (j > 0) 
             {               
-              if(variablesHashMap.containsKey(splitByCommas[j]))
+              if (variablesHashMap.containsKey(splitByCommas[j]))
               {
                 parameters.add(int(variablesHashMap.get(splitByCommas[j])));
               } else {
                 parameters.add(int(splitByCommas[j]));
-              } 
+              }
             }
-            
-            if(isNumeric(splitByCommas[j])) { 
+
+            if (isNumeric(splitByCommas[j])) { 
               println("Use of magic numbers as parameters for text() " + m); // 'm' indicates the affected text fnx
               totalScore -= deduction;
               break;
             }
           }
-          
+
           j++;
         }
         max = max + j;
       }
-      
+
       if (parameters.get(0) < (screenWidth/2)) //check left score
       {
         coordinateFlag = 1;
@@ -1023,7 +1022,7 @@ void checkRects() //check rects
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-     
+
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
@@ -1031,9 +1030,9 @@ void checkRects() //check rects
           ellipses.add(i);
         }
       }
-  
+
       int j = 0;
-      for(int m = 0; m < ellipses.size(); m++) 
+      for (int m = 0; m < ellipses.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
@@ -1042,14 +1041,14 @@ void checkRects() //check rects
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
         {           
           //get all parameters for ellipse fnx
-          if(variablesHashMap.containsKey(splitByCommas[j]))
+          if (variablesHashMap.containsKey(splitByCommas[j]))
           {
             parameters.add(int(variablesHashMap.get(splitByCommas[j])));
           } else {
             parameters.add(int(splitByCommas[j]));
           }
 
-          if(isNumeric(splitByCommas[j])) // check for magic numbers
+          if (isNumeric(splitByCommas[j])) // check for magic numbers
           {
             println("Use of magic numbers as params for ellipse");
             totalScore -= deduction;
@@ -1058,8 +1057,8 @@ void checkRects() //check rects
         }
         max = max + j;
       }
-      
-      
+
+
       if ((parameters.get(0) < (screenWidth/2 - gap) || parameters.get(0) > (screenWidth/2 + gap)) || 
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
@@ -1110,37 +1109,37 @@ void checkRects() //check rects
     }
     return true;
   }
-  
+
   void getVariables() 
   { 
     String[] splitByEquals;
     String[] splitBySemiColon;
     String[] splitBySpace;
-    
+
     try
     {
-      for(int i = 0; i < linesFiltered.size(); i++)
+      for (int i = 0; i < linesFiltered.size(); i++)
       {  
         if (match(linesFiltered.get(i), "=") != null)
         {
           variableLines.add(i);
         }
       }
-      
+
       for (int m = 0; m < variableLines.size(); m++) 
       {
         splitByEquals = splitTokens(linesFiltered.get(variableLines.get(m)), "="); // 
         splitBySpace = trim(splitTokens(splitByEquals[0], " ")); //get variable name
-        
+
         String varName = splitBySpace[splitBySpace.length-1];
-        
+
         splitBySemiColon = trim(splitTokens(splitByEquals[1], ";")); //get the value of the varaible 
-        
+
         String varValue = splitBySemiColon[0];
-        
-        if(isNumeric(varValue)) {
-           variablesHashMap.put(varName, varValue); 
-           varKeys.add(varName);
+
+        if (isNumeric(varValue)) {
+          variablesHashMap.put(varName, varValue); 
+          varKeys.add(varName);
         } else {
           //println("The value for the variable " + varName + " is not a number");
         }
@@ -1148,10 +1147,10 @@ void checkRects() //check rects
     }
     catch(Exception e)
     {
-      println("Could not get variables"); 
+      println("Could not get variables");
     }
   }
-  
+
   void printResults() {
     if (totalScore < 0)
     {
@@ -1176,6 +1175,5 @@ void checkRects() //check rects
     checkRects();
     checkScores();
     shapeColorInteractions();
-
   }
 }

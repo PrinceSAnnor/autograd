@@ -24,9 +24,9 @@ class Test {
   File filePath; //file to be graded
 
   /* checkEllipses(); threw an error when there was string parameter
-    Was trying to fix that by checking for the ellipse and analysing parameters in
-    2 different functions, checkEllipse and getEllipse
-  */
+   Was trying to fix that by checking for the ellipse and analysing parameters in
+   2 different functions, checkEllipse and getEllipse
+   */
   boolean gotEllipses = true; // if getEllipses doesnt throw an error
   ArrayList<Integer> ellipseParameters = new ArrayList<Integer>(); // stores ellipse parmaeters
 
@@ -36,9 +36,9 @@ class Test {
   }
 
   /**********************************************************************
-    In the function below, I'm reading the file into an array of strings. 
-    Each element in the array is a line in the file
-  ***********************************************************************/
+   In the function below, I'm reading the file into an array of strings. 
+   Each element in the array is a line in the file
+   ***********************************************************************/
   void getLines() { //reads file
     try
     {
@@ -57,7 +57,7 @@ class Test {
    And decrements when it sees a }
    if at the end tabs < 0 there's an unmatched }
    if at the end tabs > 0 there's an unmatched {
-  *******************************************************************/
+   *******************************************************************/
 
   void checkTabs()
   {
@@ -112,11 +112,11 @@ class Test {
   }
 
   /*******************************************************************************************************************
-    Loops through the lines in the file and removes white lines 
-    Takes input from the fileLines array that contains all lines in student's file
-    Also check for at least two empty lines to assume grouped sections of code
-    Grouped means separated code, eg. {drawing} {writing scores} {moving ball} as a group separated by empty lines
-  ********************************************************************************************************************/
+   Loops through the lines in the file and removes white lines 
+   Takes input from the fileLines array that contains all lines in student's file
+   Also check for at least two empty lines to assume grouped sections of code
+   Grouped means separated code, eg. {drawing} {writing scores} {moving ball} as a group separated by empty lines
+   ********************************************************************************************************************/
 
   void removeEmptyLines() { //removes empty lines
     try
@@ -126,7 +126,7 @@ class Test {
         if (trim(fileLines[i]).length() == 0) { //if lines have no content or a null string
           emptyLines++;
         } else {
-         linesFiltered.add(trim(fileLines[i]));
+          linesFiltered.add(trim(fileLines[i]));
         }
       }
 
@@ -144,8 +144,8 @@ class Test {
   }
 
   /*******************************************************************************
-    checks to see if there are more two semicolons on one line. 
-    That means there are two statements on one line.
+   checks to see if there are more two semicolons on one line. 
+   That means there are two statements on one line.
    deduct points if the size of the array returned by matchAll is greater than 1
    *******************************************************************************/
   void checkStatementsPerLine()
@@ -166,7 +166,7 @@ class Test {
 
               String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
 
-              if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
+              if (tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
                 statementsFlag = true;
               }
             }
@@ -188,7 +188,7 @@ class Test {
   }
 
   /*******************************************************************************************************
-  This method parses the first comment in the line and gets the size of the screen used by the device used
+   This method parses the first comment in the line and gets the size of the screen used by the device used
    it just keeps splitting by tokens
    Follow the name of the variables to understand what's going on with each splitTokens
    //maxX = 1920, maxY = 1080 {right} 
@@ -247,9 +247,9 @@ class Test {
   }
 
   /***********************************************
-  Counts the number of comments, 
-  finds the percentage of comments within the file
-  ************************************************/
+   Counts the number of comments, 
+   finds the percentage of comments within the file
+   ************************************************/
 
   void checkComments() 
   {
@@ -277,7 +277,7 @@ class Test {
   }
 
   /*********************************************************************************************
-  It just checks the number of strokes in the file and makes sure all the arguments are the same
+   It just checks the number of strokes in the file and makes sure all the arguments are the same
    Follow the name of the variables to understand what's going on with each splitTokens
    *********************************************************************************************/
 
@@ -350,10 +350,10 @@ class Test {
   }
 
   /**************************************************************************************
-  gets the parameters of the rects into an array
-  uses the parameters to check is all is good
-  Follow the name of the variables to understand what's going on with each splitTokens
-  ***************************************************************************************/
+   gets the parameters of the rects into an array
+   uses the parameters to check is all is good
+   Follow the name of the variables to understand what's going on with each splitTokens
+   ***************************************************************************************/
 
   void checkRects() //check rects
   {
@@ -434,7 +434,7 @@ class Test {
   }
 
   /*************************************************************************************
-  It checks the color interactions between the various shapes
+   It checks the color interactions between the various shapes
    Very long function and doing a number of things
    1. Two rects should have the same color
    2. Rects and shapes should have different colors
@@ -658,7 +658,7 @@ class Test {
 
         if (t == 1) //single parameter
         {
-          if (t == j)
+          if (j == 1)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)))
             {
@@ -666,7 +666,7 @@ class Test {
               errors.add("Ball has same color as left paddle");
             }
           }
-          if (t == k)
+          if (k == 1)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
             {
@@ -684,7 +684,7 @@ class Test {
           }
         } else if (t == 3) //triple parameters
         {
-          if (t == k)
+          if (k == 3)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1))
               &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
@@ -693,7 +693,7 @@ class Test {
               errors.add("Ball has same color as right paddle");
             }
           }
-          if (t == j)
+          if (j == 3)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1))
               &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
@@ -705,8 +705,7 @@ class Test {
           if (n == 3)
           {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0)) && int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(1)) &&
-              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))) || (int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(3)) &&
-              int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
+              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))))
             {
               totalScore -= deduction;
               errors.add("Ball has same color as background");
@@ -714,7 +713,6 @@ class Test {
           }
         }
       }
-
 
       /*left paddle and background.*/
       if (closest1 != 0 && !closestFlag) //fill before paddle 1
@@ -794,6 +792,7 @@ class Test {
     }
   }
 
+
   /*
   Finds the number of fills within the code
    */
@@ -815,7 +814,7 @@ class Test {
       errors.add("Error: couldn't check fills");
       totalScore -= majorExceptions;
     }
-   }
+  }
 
   /*
   Finds the number of backgrounds within the code
@@ -929,7 +928,7 @@ class Test {
   }
 
   /*************************************************************************************
-  Finds the number of ellipses within the code
+   Finds the number of ellipses within the code
    Follow the name of the variables to understand what's going on with each splitTokens
    ***************************************************************************************/
   void getEllipses()
@@ -943,10 +942,10 @@ class Test {
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
-          {
+        {
           ellipses.add(i);
-          }
         }
+      }
 
       int j = 0;
       for (int m = 0; m < ellipses.size(); m++) {
@@ -970,21 +969,19 @@ class Test {
   }
 
   /*****************************************************************************************
-  Makes sure the ellipse is at the center of the program
-  Makes sure the ball is a circle
-  Makes sure the ball is just one
-  ******************************************************************************************/
+   Makes sure the ellipse is at the center of the program
+   Makes sure the ball is a circle
+   Makes sure the ball is just one
+   ******************************************************************************************/
   void checkEllipses()
   {
     try
     {
-      if(ellipseParameters.size() == 0)
+      if (ellipseParameters.size() == 0)
       {
         errors.add("Ellipse contains invalid parameters");
         totalScore -= deduction;
-      }
-
-      else if(gotEllipses) {
+      } else if (gotEllipses) {
         if ((ellipseParameters.get(0) < (screenWidth/2 - gap) || ellipseParameters.get(0) > (screenWidth/2 + gap)) ||
           (ellipseParameters.get(1) < (screenHeight/2 - gap) || ellipseParameters.get(1) > (screenHeight/2 + gap))) //ball at the center
         {
@@ -1012,18 +1009,18 @@ class Test {
   }
 
   /******************************************************* 
-  checks is a charater is a number 
-  returns true if yes and false otherwise
-  *******************************************************/
+   checks is a charater is a number 
+   returns true if yes and false otherwise
+   *******************************************************/
   boolean charIsNum(char c)  //check ascii range of char
   {
     return 48<=c&&c<=57;
   }
 
   /*************************************************************
-  checks if a string is a number
-  returns true if yes and false otherwise
-  ***************************************************************/
+   checks if a string is a number
+   returns true if yes and false otherwise
+   ***************************************************************/
   boolean isNumeric(String s) //check if a number
   {
     char [] ca = s.toCharArray();
@@ -1045,9 +1042,9 @@ class Test {
   }
 
   /*******************************************************
-  prints results to the console for python code to read
-  print 0 is totalScore < 0
-  ********************************************************/
+   prints results to the console for python code to read
+   print 0 is totalScore < 0
+   ********************************************************/
   void printResults() 
   {
     try {
@@ -1056,20 +1053,21 @@ class Test {
         totalScore = 0;
       }
       print(totalScore + " " + errors);
-    } catch(Exception e) {
+    } 
+    catch(Exception e) {
       //do nothing #FIXME
     }
   }
 
   /***************************************************************
-  main method that calls all other methods to grade the assigment
-  checks wheter screenWith and sreenHeight were gotten 
-  grades if true and doesnt if false
-  ****************************************************************/
+   main method that calls all other methods to grade the assigment
+   checks wheter screenWith and sreenHeight were gotten 
+   grades if true and doesnt if false
+   ****************************************************************/
   void run() {
     getLines();
     removeEmptyLines();
-    if(getScreenSize()) {
+    if (getScreenSize()) {
       checkTabs();
       checkStatementsPerLine(); 
       checkComments();
@@ -1082,8 +1080,7 @@ class Test {
       checkScores();
       shapeColorInteractions();
       printResults();
-    }
-    else {
+    } else {
       print("0 ['Could not grade assignment: check you maxX and maxY values']" );
     }
   }
