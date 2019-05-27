@@ -1,18 +1,14 @@
 #main autograd script
-
 from classroom.modules.Teacher import Teacher
 from modules.Drive import Drive
+from modules.Mail import Mail
 from modules.Records import Records
+from modules.Sheets import Sheets
 
 import os, subprocess, sys, csv, json
 from datetime import datetime
-
-# Sheets
-import gspread 
-from oauth2client.service_account import ServiceAccountCredentials
-
-# Google
 from googleapiclient.errors import HttpError
+
 
 
 # get the courses the user want to grade
@@ -46,9 +42,13 @@ def assigment_to_grade():
     ass_names = {
         '1': 'Assignment 1 - Make Pong Interface',
         '2': 'Assignment 2 - Move ball',
+        '3': 'Assignment 3 - Bounce Ball',
+        '4': 'Assignment 4 - Move Paddles',
+        '5': 'Assignment 5 - Add Extra Ball',
+        '6': 'Assignment 6 - Add More Balls'
     }
 
-    result = input("\tWhich assignment do you want to grade?\n\t1. Assignment 1\n\t2. Assignment 2\n\t")
+    result = input("\tWhich assignment do you want to grade?\n\t1. Assignment 1\n\t2. Assignment 2\n\t3. Assignment 3\n\t4. Assignment 4\n\t5. Assignment 5\n\t6. Assignment 6\n\t")
 
     try:
         ass_name = ass_names[result]
@@ -69,9 +69,70 @@ def assigment_to_grade():
 
     return ass_name
 
+def add_to_sheets():
+    print("Uploading results to google sheets")
+    try:
+        wks.append_row(data)
+        print("Successful")
+    except HttpError as e:
+        print("Unccessful")
+        error = json.loads(e.content).get('error')
+        print(error)
+
+def send_mail():
+    # upload the results
+    print("Sending mail...")
+    try: 
+        # mailer.send_message(student_email, "Assignment 2 results", message)
+        print("Successful")
+    except HttpError as e:
+        print("Unsuccessful")
+        error = json.loads(e.content).get('error')
+        print(error)
+        
+def add_to_classroom():
+    # upload the results
+    print("Uploading results to classroom")
+
+    try: 
+        body={ 'assignedGrade': grade, 'draftGrade': grade }
+        results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
+
+        # TODO: you can do better than if(results), get the response that was sent and make meaning of it
+        if(results):
+            print('Successful')
+        else:
+            print('Unsuccessful')
+    
+    except HttpError as e:
+        print("Unsuccessful")
+        error = json.loads(e.content).get('error')
+        print(error)
+
+def log_student_history():
+    # write message to a file
+    f_path = "assets/history/%s/%s" % (course_name, ass_name)
+    if not os.path.exists(f_path):
+        os.makedirs(f_path)
+
+    f = open(f_path + "/" + student_name + ".txt", "a+")
+    f.write("%s \n" % date)
+    f.write("No of submissions: %d \n" % number)
+    f.write("Grade: %d \n" % grade)
+    f.write(message + "\n\n\n")
+    f.close()
+
+
+
+
+
+
+
+
 
 if __name__ == "__main__":
     #  VERY NECESSARY!!
+    date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
 
     # when testinG set testing to true
     TESTING = True
@@ -79,64 +140,58 @@ if __name__ == "__main__":
     # you should know what these do, In Short DONT MESS WITH THEM!!!
     ADD_TO_SHEETS = False
     ADD_TO_CLASSROOM = False
+    SEND_MAIL = False
+    STUDENT_HISTORY = False
 
+    """
+    Download all students names and ids as csv if it doesnt exist
+    Probably a mistake to do this here
+    """
+    if not os.path.exists("assets/students-details"):
 
+        os.makedirs("assets/students-details")
 
-    #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    #The sheets part is not much so ill not export is as a module
-    #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-    #For the json file you'll need to share the client email provided with desired sheet file you want to edit
-    #scope for spreadsheets and for drive
-    scope = ['https://spreadsheets.google.com/feeds', 'https://www.googleapis.com/auth/drive' ]
-
-    creds_f = os.getcwd() + '/credentials/SuaCode Africa-f482d6649058.json'
-    credentials = ServiceAccountCredentials.from_json_keyfile_name(creds_f, scope)
-
-    gc = gspread.authorize(credentials)
-
-    #""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    # Download all students names and ids as csv if it doesnt exist
-    # Probably a mistake to do this here
-    #"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    if not os.path.exists("assets/id-lists"):
-
-        os.makedirs("assets/id-lists")
-
-        print("Downloading Students lists")
+        print("Downloading and setting up students details...")
         os.system("python classroom/get_students.py")
         print("Done")
 
-    # Things that need to be done
-
+    """
+    Things that need to be done
+    """
     #map pong code to corres ponding assignment
     pong_code = {
         'Assignment 1 - Make Pong Interface' : 'pong_1', 
         'Assignment 2 - Move ball' : 'pong_2',
+        'Assignment 3 - Bounce Ball' : 'pong_3',
+        'Assignment 4 - Move Paddles': 'pong_4',
+        'Assignment 5 - Add Extra Ball' : 'pong_5',
+        'Assignment 6 - Add More Balls' : 'pong_6'
     }
 
-
-
     # Get the courses to grade
-    # my_courses = courses_to_grade()
-    my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
+    my_courses =  ['SuaCode Africa 1','SuaCode Africa 2', 'SuaCode Africa 3'] # 'SuaCode Africa 1',
 
     # get which asignment to grade
     ass_name =  assigment_to_grade()
     
     
-    # create a teacher and drive instance
+    # create a required instances
     teacher = Teacher()
     drive = Drive()
     recorder = Records()
+    mailer = Mail()
+    sheet = Sheets()
+
 
     # Get dict of course name and course id
     courses = teacher.get_all_courses()
 
-    #""""""""""""""""""""""""""""""""""
-    # Grade assignment for each student
-    # TODO: optimise the process
-    #"""""""""""""""""""""""""""""""""""
+
+
+    """
+    Grade assignment for each student
+    TODO: optimise the process
+    """
 
     for course in my_courses:
         course_name = course
@@ -158,8 +213,7 @@ if __name__ == "__main__":
 
         # open google sheet and add timestamp
         if ADD_TO_SHEETS:
-            wks = gc.open(course_name).sheet1
-            date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+            wks = sheet.get_worksheet(course)
             row = []
             row.append(date)
             wks.append_row(row)
@@ -170,11 +224,14 @@ if __name__ == "__main__":
             f.close() 
 
         print("Grading %s... %s... \n" % (course, ass_name))
-        with open('assets/id-lists/%s.csv' % course_name) as csvfile:
+        with open('assets/students-details/%s.csv' % course_name) as csvfile:
             readCSV = csv.reader(csvfile, delimiter=',')
             for row in readCSV:
-                student_id = f'{row[1]}'.strip()
-                student_name = f'{row[0]}'.strip()
+                student_firstname = f'{row[0]}'.strip()
+                student_lastname = f'{row[1]}'.strip()
+                student_name = f'{row[2]}'.strip()
+                student_id = f'{row[3]}'.strip()
+                student_email = f'{row[4]}'.strip()
 
                 # Get submissions made by student
                 results = teacher.get_student_submissions(course_id, ass_id, student_id)
@@ -231,8 +288,8 @@ if __name__ == "__main__":
                                                     print("Couldn't download...")
                                                     error = json.loads(e.content).get('error')
                                                     print(error)
-                                                
                                             os.chdir('../../../../../')
+
 
                                             if os.path.isfile(file_path + "/" + new_name):
                                                 # call processing with filename as argument
@@ -269,56 +326,58 @@ if __name__ == "__main__":
                                                 for error in errors:
                                                     data.append(error)
                                                 
+                                                data.append(new_name)
+
+                                                #prepare mail message
+                                                mail = []
+                                                mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % student_firstname)
+                                                    
+                                                errs = " ".join(errors)
+                                                errs1 = errs.split(',')
+                                                for err in errs1:
+                                                    mail.append(err + '\n')
+                                                
+                                                message = ''.join(mail)
+                                                data.append(message)
+
+                                                if STUDENT_HISTORY:
+                                                    log_student_history()
+                                                else:
+                                                    # User not allowed to upload results
+                                                    print("Results History not logged") 
+
+                                        
                                                 # log results
                                                 print("Logging results")
-                                                recorder.log_results(str(data))
+                                                # recorder.log_results(str(data))
                                                 print("Done.")
 
                                                 if TESTING:
                                                     f = open("results.txt", "a+")
                                                     f.write(str(data) + "\n")
-                                                    f.close()    
+                                                    f.close()  
+
+                                                if SEND_MAIL:
+                                                    send_mail()
+                                                else:
+                                                    # User not allowed to upload results
+                                                    print("Not allowed to send mail")  
                                                     
                                                 # Only run if the ADD_TO_SHEETS var is set to true 
                                                 if ADD_TO_SHEETS:
-                                                    print("Uploading results to google sheets")
-                                                    try:
-                                                        wks.append_row(data)
-                                                        print("Successful")
-                                                    except HttpError as e:
-                                                        print("Unccessful")
-                                                        error = json.loads(e.content).get('error')
-                                                        print(error)       
+                                                    add_to_sheets()       
                                                 else:
                                                     # User not allowed to upload results
                                                     print("Not allowed to upload to google sheets")
                                                 
                                                 # run if ADD_TO_CLASSROOM var is set to true
                                                 if ADD_TO_CLASSROOM:
-                                                    # upload the results
-                                                    print("Uploading results to classroom")
-
-                                                    try: 
-                                                        body={ 'assignedGrade': grade, 'draftGrade': grade }
-                                                        results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
-
-                                                        # TODO: you can do better than if(results), get the response that was sent and make meaning of it
-                                                        if(results):
-                                                            print('Successful')
-                                                        else:
-                                                            print('Unsuccessful')
-                                                    
-                                                    except HttpError as e:
-                                                        print("Unsuccessful")
-                                                        error = json.loads(e.content).get('error')
-                                                        print(error)
+                                                    add_to_classroom()
                                                 else:
                                                     # User not allowed to upload results
                                                     print("Not allowed to post to classroom")
 
                                                 print("Done! \n")
-
-                                                #TODO send errors as emails
                                             else:
                                                 # file does not exist
                                                 pass

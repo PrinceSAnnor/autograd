@@ -15,10 +15,10 @@ void setup ()
     println("args == null");
   }
   
-  //////For single files
-  //File f = new File(sketchPath() + "/assignment_1/assignment_1.pde");
-  //Test test = new Test(f);
-  //test.run();
+  ////For single files
+  File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\Assignment1\\Ebinbin.pde");
+  Test test = new Test(f);
+  test.run();
   
   noLoop(); // draw doesn't have to run
   exit(); // quit the program

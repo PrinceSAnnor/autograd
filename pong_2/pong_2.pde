@@ -15,9 +15,9 @@ void setup ()
     println("args == null");
   }
   
-  //File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 1\\Assignment 2 - Move ball\\purity maritim\\0-1C7lN8RUWuqIi-YzX-5lsUar6Wlj7w0TR-Assignment2[1].pde");
-  //Test test = new Test(f);
-  //test.run();
+  File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 1\\Assignment 2 - Move ball\\Cornelius Otchere\\0-1WA6Aigs6nFTjeKSxDtgrbxWNAaUgDOPl-Assignment2.pde");
+  Test test = new Test(f);
+  test.run();
   
   noLoop(); // draw doesn't have to run
   exit(); // quit the program 

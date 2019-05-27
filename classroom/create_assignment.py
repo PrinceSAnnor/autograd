@@ -15,9 +15,9 @@ if __name__ == '__main__':
     print(courses)
 
     # Assisinment doc forma [id, title, url]
-    instructions_material = ['1Hxsg67pB8A7o4uTtmWK4219-tmAcAYscQbzL1cTohTw','Assignment 2 - Move Ball','https://drive.google.com/open?id=1Hxsg67pB8A7o4uTtmWK4219-tmAcAYscQbzL1cTohTw']
+    instructions_material = ['1gAJCekLfsulZZ5Jicy5wj1-Z2SVk3zt6y1ZgkFNVnRo','Assignment 4 - Move Paddles','https://drive.google.com/open?id=1gAJCekLfsulZZ5Jicy5wj1-Z2SVk3zt6y1ZgkFNVnRo']
 
-    title = "Assignment 2 - Move ball"
+    title = "Assignment 4 - Move Paddles"
     description = ""
     max_points = 20
     materials = [
@@ -35,8 +35,8 @@ if __name__ == '__main__':
     state = "DRAFT"     # Possible values, PUBLISHED, DRAFT, DELETED, COURSE_WORK_STATE_UNSPECIFIED
     due_date = {
             'year': 2019,
-            'month': 5,
-            'day' : 26,
+            'month': 6,
+            'day' : 7,
         }
     due_time = {
             "hours": 23,
@@ -60,8 +60,9 @@ if __name__ == '__main__':
         "submissionModificationMode": submission_modification_mode,
     }
 
-    assignment_id = teacher.create_assignment(courses['SuaCode Africa 3'], body)
+    for course in my_courses:
+        assignment_id = teacher.create_assignment(courses[course], body)
 
-    if assignment_id:
-        print(assignment_id)
-        print('success')
+        if assignment_id:
+            print(assignment_id)
+            print('success')

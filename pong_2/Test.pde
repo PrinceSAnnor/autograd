@@ -1,6 +1,5 @@
 
 class Test {
-  PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -17,9 +16,10 @@ class Test {
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
 
   ArrayList<String> errors = new ArrayList<String>(); //store errors
-
+  ArrayList<String> majorError = new ArrayList<String>(); //store the ultimate error
+  
   int totalScore = 20; // total score of the student
-  float majorExceptions = 20; //deductions that generate exceptions, ie code that won't likely compile
+  float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
@@ -278,7 +278,7 @@ class Test {
       boolean wrongFlag = false;
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^stroke\\(.*$") != null || match(linesFiltered.get(i), "^stroke \\(.*$") != null)//look for stroke( or stroke ( with regex
+        if (match(linesFiltered.get(i), "^stroke.*$") != null)//look for stroke( or stroke ( with regex
         {
           strokes.add(i);
         }
@@ -288,59 +288,63 @@ class Test {
       {
         totalScore -= deduction;
         errors.add("use at least one stroke function");
-      }
+      } 
+      else { //stroke exists 
 
-      splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(0)), "(");
-      splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-
-      int j = 0;
-
-      while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
-      {
-        parameters.add(int(trim(splitByCommas[j])));
-        j++;
-      }
-      int parameterSize = 0;
-      parameterSize = parameters.size();
-      parameters.clear();
-      for (int m = 0; m < strokes.size(); m++) {
-        splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(m)), "(");
+        splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(0)), "(");
         splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-
-        j = 0;
+  
+        int j = 0;
+  
         while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
         {
           parameters.add(int(trim(splitByCommas[j])));
           j++;
         }
-      }
-      if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
-      {
-        for (int m = 0; m < strokes.size() - 1; m++) {
-          if (int(parameters.get(m)) != int(parameters.get(m+1)))
+        int parameterSize = 0;
+        parameterSize = parameters.size();
+        parameters.clear();
+        for (int m = 0; m < strokes.size(); m++) {
+          splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(m)), "(");
+          splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
+  
+          j = 0;
+          while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
           {
-            wrongFlag = true;
+            parameters.add(int(trim(splitByCommas[j])));
+            j++;
           }
         }
-      } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
-      {
-        for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
-          if (int(parameters.get(m)) != int(parameters.get(m+3)))
-          {
-            wrongFlag = true;
+  
+        
+        if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
+        {
+          for (int m = 0; m < strokes.size() - 1; m++) {
+            if (int(parameters.get(m)) != int(parameters.get(m+1)))
+            {
+              wrongFlag = true;
+            }
+          }
+        } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
+        {
+          for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
+            if (int(parameters.get(m)) != int(parameters.get(m+3)))
+            {
+              wrongFlag = true;
+            }
           }
         }
-      }
-
-      if (wrongFlag)
-      {
-        totalScore -= deduction;
-        errors.add("shapes have different outline colors");
+  
+        if (wrongFlag)
+        {
+          totalScore -= deduction;
+          errors.add("shapes have different outline colors");
+        }
       }
     }
     catch (Exception e) 
     {
-      errors.add("check strokes function");
+      errors.add("Error: Check strokes function");
       totalScore -= majorExceptions;
     }
   }
@@ -362,7 +366,7 @@ class Test {
 
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
-        if (match(linesFiltered.get(i), "^rect\\(.*$") != null) //look for rect with regex
+        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect( or rect ( with regex 
         {
           rects.add(i);
         }
@@ -372,7 +376,6 @@ class Test {
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
-
 
         j = 0;
         boolean magicFlag = false;
@@ -388,7 +391,7 @@ class Test {
           }
 
 
-          if ((isNumeric(splitByCommas1[j]))) // check for magic numbers
+          if (isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
             magicFlag = true;
             whichRect = m+1;
@@ -411,7 +414,7 @@ class Test {
         }
         max = max + j;
       }
-
+      
       if (int(parameters.get(0)) == 0 && int(parameters.get(1)) == 0) //check which paddle is at left
       {
         coordinateFlag = 1;
@@ -829,7 +832,7 @@ class Test {
     {
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^fill\\(.*$") != null) //look for fill with regex
+        if (match(linesFiltered.get(i), "^fill\\(.*$") != null || match(linesFiltered.get(i), "^fill \\(.*$") != null) //look for fill( or fill ( with regex
         {
           fills.add(i);
         }
@@ -1003,7 +1006,7 @@ class Test {
 
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^ellipse\\(.*$") != null) //look for ellipse with regex
+        if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse( or ellipse ( with regex
         {
           ellipses.add(i);
         }
@@ -1180,48 +1183,6 @@ class Test {
     println(totalScore, errors);
   }
 
-  void createFile() {
-    try
-    {
-      output.println("class Code {");
-
-      for (int i = 0; i < fileLines.length; i++)
-      {
-        if (match(fileLines[i], "size\\(") != null) {
-          String[] tokens = trim(splitTokens(fileLines[i], "//"));
-          if (match(tokens[0], "size") != null) {
-            output.println("//" + tokens[0]);
-          } else {
-            output.println(tokens[0] + "  //" + tokens[1]);
-          }
-        } else if (match(fileLines[i], "void") != null) {
-
-          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void once() {");
-          } else if (match(fileLines[i], "setup") != null) {
-            output.println("void once()");
-          }
-          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void forever() {");
-          } else if (match(fileLines[i], "draw") != null) {
-            output.println("void forever()");
-          }
-        } else {
-          output.println(fileLines[i]);
-        }
-      }
-
-      output.println("}");
-
-      output.flush(); // Writes the remaining data to the file
-      output.close(); // Finishes the file
-    }
-    catch(Exception e)
-    {
-      errors.add("Error: couldn't create file");
-    }
-  }
-
   /***************************************************************
    main method that calls all other methods to grade the assigment
    checks wheter screenWith and sreenHeight were gotten 
@@ -1245,7 +1206,9 @@ class Test {
       shapeColorInteractions();
       printResults();
     } else {
-      print("0 ['Could not grade assignment: check you maxX and maxY values']" );
+      totalScore = 0;
+      majorError.add("Could not grade assignment: check you maxX and maxY values");
+      print(totalScore, majorError);
     }
   }
 }

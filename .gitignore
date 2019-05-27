@@ -8,10 +8,11 @@
 #do not push .autosave files
 *.autosave
 
-#do no add build folder
+#folders
 build/
 assets/
 credentials/
+email-lists/
 
 # venv
 env
