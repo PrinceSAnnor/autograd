@@ -1,0 +1,16 @@
+pong_2/Test.pde
+
+checkstroke() throws errr when firts stroke fnx has 3 params and second has just 1
+
+float ballWidth = 
+100;
+Couldnt get variales
+Couldnt get moving ball
+
+text("4                                 2",350,450);
+
+unecessary space, 
+only one text functions intead of 2
+
+ellipse(ellipseX,ellipseY,ellipseWidth,ellipseHeight);// draws the ellipse 
+threw an error because of the variable name

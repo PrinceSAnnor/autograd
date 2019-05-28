@@ -2,72 +2,12 @@
 from classroom.modules.Teacher import Teacher
 from modules.Drive import Drive
 from modules.Mail import Mail
-from modules.Records import Records
 from modules.Sheets import Sheets
 
 import os, subprocess, sys, csv, json
 from datetime import datetime
 from googleapiclient.errors import HttpError
 
-
-
-# get the courses the user want to grade
-def courses_to_grade():
-
-    my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
-
-    to_grade = []
-
-    for course in my_courses:
-        result = input("\tDo you want to grade %s ? y/n\n\t" % course)
-        if result == 'y':
-            to_grade.append(course)
-        elif result == 'n':
-            print("\tSure, your choice") 
-
-    while result != 'y' or 'Y' or 'n' or 'N':
-        print('\t Please enter y or n.... I can go all day ')
-        for course in my_courses:
-            result = input("\tDo you want to grade %s y/n\n\t" % course)
-            if result == 'y' or 'Y':
-                to_grade.append(course)
-            elif result == 'n' or 'N':
-                print("\tSure, your choice") 
-
-    return to_grade
-            
-def assigment_to_grade():
-
-    # all assignments
-    ass_names = {
-        '1': 'Assignment 1 - Make Pong Interface',
-        '2': 'Assignment 2 - Move ball',
-        '3': 'Assignment 3 - Bounce Ball',
-        '4': 'Assignment 4 - Move Paddles',
-        '5': 'Assignment 5 - Add Extra Ball',
-        '6': 'Assignment 6 - Add More Balls'
-    }
-
-    result = input("\tWhich assignment do you want to grade?\n\t1. Assignment 1\n\t2. Assignment 2\n\t3. Assignment 3\n\t4. Assignment 4\n\t5. Assignment 5\n\t6. Assignment 6\n\t")
-
-    try:
-        ass_name = ass_names[result]
-        in_list = True
-    except:
-        in_list = False
-        
-            
-    while not in_list:
-        print('\tPlease enter the right number.... I can go all day ')
-        result = input("\t1. Assignment 1\n\t2. Assignment 2\n\t")
-
-        try:
-            ass_name = ass_names[result]
-            in_list = True
-        except:
-            pass
-
-    return ass_name
 
 def add_to_sheets():
     print("Uploading results to google sheets")
@@ -83,7 +23,7 @@ def send_mail():
     # upload the results
     print("Sending mail...")
     try: 
-        # mailer.send_message(student_email, "Assignment 2 results", message)
+        mailer.send_message(student_email, "Assignment 2 results", message)
         print("Successful")
     except HttpError as e:
         print("Unsuccessful")
@@ -100,7 +40,9 @@ def add_to_classroom():
 
         # TODO: you can do better than if(results), get the response that was sent and make meaning of it
         if(results):
-            print('Successful')
+            # returned = teacher.return_submission(course_id, ass_id, sub_id)
+            # if returned:
+            print("Successful")
         else:
             print('Unsuccessful')
     
@@ -109,28 +51,47 @@ def add_to_classroom():
         error = json.loads(e.content).get('error')
         print(error)
 
-def log_student_history():
-    # write message to a file
-    f_path = "assets/history/%s/%s" % (course_name, ass_name)
-    if not os.path.exists(f_path):
-        os.makedirs(f_path)
-
-    f = open(f_path + "/" + student_name + ".txt", "a+")
-    f.write("%s \n" % date)
-    f.write("No of submissions: %d \n" % number)
-    f.write("Grade: %d \n" % grade)
-    f.write(message + "\n\n\n")
-    f.close()
+def switch_group(argument):
+    switcher = {
+        '1': "SuaCode Africa 1",
+        '2': "SuaCode Africa 2",
+        '3': "SuaCode Africa 3",
+    }
+    print (switcher.get(argument, "Invalid course"))
+    return switcher.get(argument, "Invalid course")
 
 
+def switch_ass(argument):
+    switcher = {
+        '1': 'Assignment 1 - Make Pong Interface',
+        '2': 'Assignment 2 - Move ball',
+        '3': 'Assignment 3 - Bounce Ball',
+        '4': 'Assignment 4 - Move Paddles',
+        '5': 'Assignment 5 - Add Extra Ball',
+        '6': 'Assignment 6 - Add More Balls'
+    }
+    print (switcher.get(argument, "Invalid assignment"))
+    return switcher.get(argument, "Invalid assignment")
 
 
-
-
-
-
+def switch_submission(argument):
+    switcher = {
+        'first': 0,
+        'second': 1
+    }
+    print (switcher.get(argument, "Invalid assignment"))
+    return switcher.get(argument, "Invalid assignment")
 
 if __name__ == "__main__":
+
+    # Get the courses to grade
+    my_courses =  [] 
+
+    # get cli args
+    my_courses.append(switch_group(sys.argv[1]))
+    ass_name = switch_ass(sys.argv[2])
+    sub_number = switch_submission(sys.argv[3])
+
     #  VERY NECESSARY!!
     date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
 
@@ -138,10 +99,9 @@ if __name__ == "__main__":
     TESTING = True
 
     # you should know what these do, In Short DONT MESS WITH THEM!!!
-    ADD_TO_SHEETS = False
-    ADD_TO_CLASSROOM = False
-    SEND_MAIL = False
-    STUDENT_HISTORY = False
+    ADD_TO_SHEETS = True
+    ADD_TO_CLASSROOM = True
+    SEND_MAIL = True
 
     """
     Download all students names and ids as csv if it doesnt exist
@@ -168,24 +128,15 @@ if __name__ == "__main__":
         'Assignment 6 - Add More Balls' : 'pong_6'
     }
 
-    # Get the courses to grade
-    my_courses =  ['SuaCode Africa 1','SuaCode Africa 2', 'SuaCode Africa 3'] # 'SuaCode Africa 1',
-
-    # get which asignment to grade
-    ass_name =  assigment_to_grade()
-    
-    
     # create a required instances
     teacher = Teacher()
     drive = Drive()
-    recorder = Records()
     mailer = Mail()
     sheet = Sheets()
 
 
     # Get dict of course name and course id
     courses = teacher.get_all_courses()
-
 
 
     """
@@ -204,12 +155,6 @@ if __name__ == "__main__":
         # get asignment id
 
         ass_id = assignments[ass_name]
-
-        #log course details
-        recorder.log_no_attachments(course + ' ' + ass_name)
-        recorder.log_no_drive_file(course + ' '  +ass_name)
-        recorder.log_not_submitted(course + ' ' + ass_name)
-        recorder.log_results(course + ' ' + ass_name)
 
         # open google sheet and add timestamp
         if ADD_TO_SHEETS:
@@ -239,7 +184,7 @@ if __name__ == "__main__":
 
                 if submission: # if there is a submisison
 
-                    if submission[0]['state'] == 'TURNED_IN': # grade only turned in assignments
+                    if submission[0]['state'] == "TURNED_IN": # grade only turned in assignments
                         # check if student has resubnmited already, they're only allowed to resubmit once
                         submission_history = submission[0]['submissionHistory']
                         
@@ -257,7 +202,9 @@ if __name__ == "__main__":
                                 # student doesnt have a stateHistory which is weird
                         number = states.count('RETURNED')
                         
-                        if number < 2:
+                        print(number)
+                        
+                        if number == sub_number:
                             # check if submission has attachments
                             if submission[0]['assignmentSubmission'].get('attachments'):                    
                                 
@@ -279,7 +226,12 @@ if __name__ == "__main__":
 
                                             os.chdir(file_path)
                                             new_name = str(number) + '-' + file_id + '-' + file_name 
+
+                                            # flag for if file exixts
+                                            should_grade = False
+
                                             if not os.path.exists(new_name):
+                                                should_grade = True
                                                 print("Downloading assignment file...")
                                                 try:
                                                     drive.get_file(file_id, file_name) 
@@ -290,113 +242,108 @@ if __name__ == "__main__":
                                                     print(error)
                                             os.chdir('../../../../../')
 
-
-                                            if os.path.isfile(file_path + "/" + new_name):
-                                                # call processing with filename as argument
-                                                print("Grading...")
-                                                args = '"' + file_path + '/' + new_name + '"'
-                                                processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/build"' + ' --force --run ' + args
-                                                
-                                                # run processing and get result form the command line
-                                                comments = subprocess.check_output(processing_cmd, shell=True)
-                                                
-                                                # getting score and errors from cmdline
-                                                decoded = comments.decode("UTF-8")
-                                                results = decoded.replace('Finished.', '')
-
-                                                grade = int(results.split()[0])
-
-                                                one = decoded.split('[')
-                                                errors = one[1].split(']')
-                                                del errors[-1]
-                                                
-                                                print("Done Grading, Uploading results...")
-                                                
-
-                                                # prepare data and upload to sheets
-                                                data = []
-                                                data.append(student_name)
-                                                data.append(grade)
-
-                                                if number == 0:
-                                                    data.append("First Submission")
-                                                elif number == 1:
-                                                    data.append("Resubmitted")
-
-                                                for error in errors:
-                                                    data.append(error)
-                                                
-                                                data.append(new_name)
-
-                                                #prepare mail message
-                                                mail = []
-                                                mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % student_firstname)
+                                            if should_grade:
+                                                if os.path.isfile(file_path + "/" + new_name):
+                                                    # call processing with filename as argument
+                                                    print("Grading...")
+                                                    args = '"' + file_path + '/' + new_name + '"'
+                                                    processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/build"' + ' --force --run ' + args
                                                     
-                                                errs = " ".join(errors)
-                                                errs1 = errs.split(',')
-                                                for err in errs1:
-                                                    mail.append(err + '\n')
-                                                
-                                                message = ''.join(mail)
-                                                data.append(message)
-
-                                                if STUDENT_HISTORY:
-                                                    log_student_history()
-                                                else:
-                                                    # User not allowed to upload results
-                                                    print("Results History not logged") 
-
-                                        
-                                                # log results
-                                                print("Logging results")
-                                                # recorder.log_results(str(data))
-                                                print("Done.")
-
-                                                if TESTING:
-                                                    f = open("results.txt", "a+")
-                                                    f.write(str(data) + "\n")
-                                                    f.close()  
-
-                                                if SEND_MAIL:
-                                                    send_mail()
-                                                else:
-                                                    # User not allowed to upload results
-                                                    print("Not allowed to send mail")  
+                                                    # run processing and get result form the command line
+                                                    comments = subprocess.check_output(processing_cmd, shell=True)
                                                     
-                                                # Only run if the ADD_TO_SHEETS var is set to true 
-                                                if ADD_TO_SHEETS:
-                                                    add_to_sheets()       
-                                                else:
-                                                    # User not allowed to upload results
-                                                    print("Not allowed to upload to google sheets")
-                                                
-                                                # run if ADD_TO_CLASSROOM var is set to true
-                                                if ADD_TO_CLASSROOM:
-                                                    add_to_classroom()
-                                                else:
-                                                    # User not allowed to upload results
-                                                    print("Not allowed to post to classroom")
+                                                    # getting score and errors from cmdline
+                                                    decoded = comments.decode("UTF-8")
+                                                    results = decoded.replace('Finished.', '')
 
-                                                print("Done! \n")
+                                                    grade = int(results.split()[0])
+
+                                                    one = decoded.split('[')
+                                                    errors = one[1].split(']')
+                                                    del errors[-1]
+                                                    
+                                                    print("Done Grading, Uploading results...")
+                                                    
+
+                                                    # prepare data and upload to sheets
+                                                    data = []
+                                                    data.append(student_name)
+                                                    data.append(grade)
+
+                                                    if number == 0:
+                                                        data.append("First Submission")
+                                                    elif number == 1:
+                                                        data.append("Resubmitted")
+
+                                                    for error in errors:
+                                                        data.append(error)
+                                                    
+                                                    data.append(new_name)
+
+                                                    #prepare mail message
+                                                    mail = []
+                                                    mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % student_firstname)
+                                                        
+                                                    errs = " ".join(errors)
+                                                    errs1 = errs.split(',')
+                                                    for err in errs1:
+                                                        mail.append(err + '\n')
+                                                    
+                                                    message = ''.join(mail)
+                                                    data.append(message) 
+                                            
+                                                    # log results
+                                                    print("Logging results")
+                                                    # recorder.log_results(str(data))
+                                                    print("Done.")
+
+                                                    if TESTING:
+                                                        f = open("results.txt", "a+")
+                                                        f.write(str(data) + "\n")
+                                                        f.close()  
+
+                                                    if SEND_MAIL:
+                                                        send_mail()
+                                                    else:
+                                                        # User not allowed to upload results
+                                                        print("Not allowed to send mail")  
+                                                        
+                                                    # Only run if the ADD_TO_SHEETS var is set to true 
+                                                    if ADD_TO_SHEETS:
+                                                        add_to_sheets()       
+                                                    else:
+                                                        # User not allowed to upload results
+                                                        print("Not allowed to upload to google sheets")
+                                                    
+                                                    # run if ADD_TO_CLASSROOM var is set to true
+                                                    if ADD_TO_CLASSROOM:
+                                                        add_to_classroom()
+                                                    else:
+                                                        # User not allowed to upload results
+                                                        print("Not allowed to post to classroom")
+
+                                                    print("Done! \n")
+                                                else:
+                                                    # file does not exist
+                                                    pass
                                             else:
-                                                # file does not exist
-                                                pass
+                                                print("Graded file already %s" % new_name)
+                                                # end for when file exists
                                         else:
                                             pass
                                             # not a sourcefile so dont grade
                                     else:
-                                        recorder.log_no_drive_file("there are no gdrive attachments for %s's submission" % student_name)    
+                                        pass
                                 # End of for loop 
                             else: 
                                 # student didnt attach files
-                                #TODO: do approriate thing
-                                recorder.log_no_attachments('%s didnt attach files' % student_name)
+                               pass
                         else: 
                             # student has resubmitted already
-                            print('Student has resubmitted already')
+                            pass
                     else: 
                         # submission is not turned in for grading
                         pass
                 else:
-                    recorder.log_not_submitted("No submission for %s" % student_name)
+                    pass                    
                     # theres no submission for that student

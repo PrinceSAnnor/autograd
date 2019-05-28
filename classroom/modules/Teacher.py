@@ -217,6 +217,15 @@ class Teacher(object):
         except HttpError as e:
             return json.loads(e.content).get('error')
 
+    def return_submission(self, course_id, assignment_id, student_submission_id):
+        try:
+            # success = self.service.courses().courseWork().studentSubmissions().return(courseId=course_id, courseWorkId=assignment_id, id=student_submission_id).execute()  
+
+            return success
+        except HttpError as e:
+            return json.loads(e.content).get('error')
+    
+
     def get_students(self, course_id, next_page_token):
         try:
             results = self.service.courses().students().list(
