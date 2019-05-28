@@ -92,6 +92,12 @@ if __name__ == "__main__":
     ass_name = switch_ass(sys.argv[2])
     sub_number = switch_submission(sys.argv[3])
 
+    if sys.argv[4]:
+        if sys.argv[4] == "test" or "TEST" or "Test":
+            ADD_TO_SHEETS = False
+            ADD_TO_CLASSROOM = False
+            SEND_MAIL = False
+
     #  VERY NECESSARY!!
     date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
 
@@ -201,8 +207,6 @@ if __name__ == "__main__":
                                 pass
                                 # student doesnt have a stateHistory which is weird
                         number = states.count('RETURNED')
-                        
-                        print(number)
                         
                         if number == sub_number:
                             # check if submission has attachments
