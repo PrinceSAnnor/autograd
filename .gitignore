@@ -8,9 +8,11 @@
 #do not push .autosave files
 *.autosave
 
-#do no add build folder
+#folders
 build/
 assets/
+credentials/
+email-lists/
 
 # venv
 env
@@ -19,18 +21,7 @@ env
 __pycache__
 
 #temp
-classroom/*.txt
-classroom/*.json
-classroom/*.pickle
-
-drive/*.json
-drive/*.pickle
-drive/*.txt
-
-sheets/*.json
-sheets/*.pickle
 
 # others
-drive/my_drive.py
-autograd_py/
-
+credentials.zip
+results.txt

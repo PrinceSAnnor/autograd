@@ -2,7 +2,7 @@ import java.util.Map;
 
 class GetCode {
   
-  PrintWriter output = createWriter("Code.pde");
+  PrintWriter output = createWriter("../Code.pde");
   
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -17,7 +17,10 @@ class GetCode {
       
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
     
-  GetCode() { //empty constructor for class
+   File filePath;
+   
+  GetCode(File f) { //empty constructor for class
+    filePath = f;
   }
 
   /*
@@ -26,7 +29,7 @@ class GetCode {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("assignment_3/assignment_3.pde"); //comment if you're using APDE
+      fileLines = loadStrings(filePath); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
@@ -318,9 +321,9 @@ void checkRects() //check rects
 
       for (int i = 0; i < fileLines.length; i++)
       {
-        if (match(fileLines[i], "size\\(") != null) {
+        if (match(fileLines[i], "fullScreen\\(") != null) {
           String[] tokens = trim(splitTokens(fileLines[i], "//"));
-          if (match(tokens[0], "size") != null) {
+          if (match(tokens[0], "fullScreen") != null) {
             output.println("//" + tokens[0]);
           } else {
             output.println(tokens[0] + "  //" + tokens[1]);
@@ -396,7 +399,6 @@ void checkRects() //check rects
     checkEllipses();
     checkRects();
     checkScores();
-    getGameOn();
     createFile();
   }
 }

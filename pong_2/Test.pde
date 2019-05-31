@@ -1,17 +1,5 @@
-/*
-Uncomment line 42 and comment line 41 in getLines function if using with APDE
- In apde, the students assignment file has to be stored in a folder called data
- the data folder should be inside the class's folder and the path should be the
- filename. 
- APDE clone details
- Remote: https://Suacode@bitbucket.org/Suacode/automaticgradingsystem.git  
- Local: autoGrad
- Username: Suacodefacilitators
- Password: Suacodefacilitators10!
- */
 
 class Test {
-  PrintWriter output = createWriter("Code.pde");
 
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -27,15 +15,21 @@ class Test {
   HashMap<String, String> variablesHashMap = new HashMap<String, String>(); //Hashmap contaning variables
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
 
-  float totalScore = 20; // total score of the student
-  float majorExceptions = 20; //deductions that generate exceptions, ie code that won't likely compile
+  ArrayList<String> errors = new ArrayList<String>(); //store errors
+  ArrayList<String> majorError = new ArrayList<String>(); //store the ultimate error
+  
+  int totalScore = 20; // total score of the student
+  float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
   int screenWidth, screenHeight; //height and width of screen
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
 
-  Test() { //empty constructor for class
+  File filePath;
+
+  Test(File f) { 
+    filePath = f;
   }
 
   /*
@@ -44,12 +38,11 @@ class Test {
   void getLines() { //reads file
     try
     {
-      //fileLines = loadStrings("tests/test4f/test4f.pde"); //comment if you're using APDE
-      fileLines = loadStrings("assignment2/assignment2.pde"); //uncomment if you're using APDE
+      fileLines = loadStrings(filePath);
     }
     catch (Exception e) //IO error
     {
-      println("Error: couldn't load file");
+      errors.add("Error: couldn't load file");
       totalScore -= majorExceptions;
     }
   }
@@ -67,19 +60,19 @@ class Test {
         if (trim(fileLines[i]).length() == 0) {//if lines have no content or a null string
           emptyLines++;
         } else {
-         linesFiltered.add(trim(fileLines[i]));          
+          linesFiltered.add(trim(fileLines[i]));
         }
       }
-      
+
       if (emptyLines < 2) //if at least two lines are empty
       {
-        println("improper code grouping");
+        errors.add("improper code grouping");
         totalScore -= deduction;
       }
     }
     catch (Exception e) //catch exception
     {
-      println("Error: couldn't remove empty lines in file");
+      errors.add("Error: couldn't remove empty lines in file");
       totalScore -= majorExceptions;
     }
   }
@@ -106,7 +99,7 @@ class Test {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
               tabsFlag = true;
-              //println(i);
+              //errors.add(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {
@@ -125,22 +118,22 @@ class Test {
 
       if (tabs < 0) //unmatched }
       {
-        println("unmatched }");
+        errors.add("unmatched }");
         totalScore -= deduction;
       } else if (tabs != 0) //unmatched {
       {
-        println("unmatched {");
+        errors.add("unmatched {");
         totalScore -= deduction;
       }
       if (tabsFlag) //wrong indentation
       {
-        println("code not indented properly");
+        errors.add("code not indented properly");
         totalScore -= deduction;
       }
     }
     catch (Exception e) //catch exception
     {
-      println("Error: check tabs in file");
+      errors.add("Error: check tabs in file");
       totalScore -= majorExceptions;
     }
   }
@@ -165,10 +158,10 @@ class Test {
             {
               statementsFlag = true;
             } else {
-              
+
               String[] tokens  = trim(splitTokens(linesFiltered.get(i), "//"));
 
-              if(tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
+              if (tokens[0] != null && matchAll(tokens[0], ";").length > 1) {
                 statementsFlag = true;
               }
             }
@@ -177,13 +170,13 @@ class Test {
       }
       if (statementsFlag)
       {
-        println("insufficient comments");
+        errors.add("insufficient comments");
         totalScore -= deduction;
       }
     }
     catch (Exception e) 
     {
-      println("Error: couldn't check statements per line");
+      errors.add("Error: couldn't check statements per line");
       totalScore -= majorExceptions;
     }
   } 
@@ -192,7 +185,7 @@ class Test {
   This line parses the first comment in the line and gets the size of the screen used by the device, it just keeps splitting by tokens
    Follow the name of the variables to understand what's going on with each splitTokens
    */
-  void getScreenSize() //gets first comment line
+  boolean getScreenSize() //gets first comment line
   {
     try
     {
@@ -215,7 +208,7 @@ class Test {
 
       if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
       {
-        println("check width in code");
+        errors.add("check width in code");
         totalScore = 0;
       }
 
@@ -228,54 +221,18 @@ class Test {
 
       if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
       {
-        println("check height in code");
+        errors.add("check height in code");
         totalScore = 0;
       }
 
       screenHeight = int(trim(splitBySpacesRight[i])); //get screen height
+      return true;
     } 
     catch (Exception e)
     {
-      println("Error: check syntax of width and height at first line of code");
-      totalScore -= majorExceptions;
-    }
-  }
-
-  /*
-   This function basically verifies the values gotten from the first comment are the same as the values in the size function 
-   Follow the name of the variables to understand what's going on with each splitTokens
-   */
-  void checkSize() //verify screen width and height in size function
-  {
-    boolean sizeFlag = false;
-    try
-    {
-      String[] splitByLeftBrace;
-      String[] splitByCommas;
-      for (int i = 0; i < linesFiltered.size(); i++) //loop through lines
-      {
-        if (match(linesFiltered.get(i), "^size.*$") != null) //look for size with regex
-        {
-          splitByLeftBrace = splitTokens(linesFiltered.get(i), "(");
-          splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-          if (screenWidth != int(trim(splitByCommas[0])) || screenHeight != int(trim(splitByCommas[1]))) //if invalid width and height
-          {
-            sizeFlag = true;
-            screenWidth = int(trim(splitByCommas[0]));
-            screenHeight = int(trim(splitByCommas[1]));
-          }
-        }
-      }
-      if (sizeFlag)
-      {
-        println("check the size function width and height");  
-        totalScore -= deduction;
-      }
-    }
-    catch (Exception e) 
-    {
-      println("Error: couldn't verify size function");
-      totalScore -= majorExceptions;
+      errors.add("Error: check syntax of width and height at first line of code");
+      totalScore = 0;
+      return false;
     }
   }
 
@@ -296,13 +253,13 @@ class Test {
       }
       if (float(comments)/linesFiltered.size() < commentPercentage) //check comment percentage
       {
-        println("insufficient comments");
+        errors.add("insufficient comments");
         totalScore -= deduction;
       }
     }
     catch (Exception e) 
     {
-      println("Error: couldn't check comments");
+      errors.add("Error: couldn't check comments");
       totalScore -= majorExceptions;
     }
   }
@@ -321,7 +278,7 @@ class Test {
       boolean wrongFlag = false;
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^stroke.*$") != null)//look for stroke with regex
+        if (match(linesFiltered.get(i), "^stroke.*$") != null)//look for stroke( or stroke ( with regex
         {
           strokes.add(i);
         }
@@ -330,60 +287,64 @@ class Test {
       if (strokes.size() == 0) //if no stroke
       {
         totalScore -= deduction;
-        println("use at least one stroke function");
-      }
+        errors.add("use at least one stroke function");
+      } 
+      else { //stroke exists 
 
-      splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(0)), "(");
-      splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-
-      int j = 0;
-
-      while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
-      {
-        parameters.add(int(trim(splitByCommas[j])));
-        j++;
-      }
-      int parameterSize = 0;
-      parameterSize = parameters.size();
-      parameters.clear();
-      for (int m = 0; m < strokes.size(); m++) {
-        splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(m)), "(");
+        splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(0)), "(");
         splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
-
-        j = 0;
+  
+        int j = 0;
+  
         while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
         {
           parameters.add(int(trim(splitByCommas[j])));
           j++;
         }
-      }
-      if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
-      {
-        for (int m = 0; m < strokes.size() - 1; m++) {
-          if (int(parameters.get(m)) != int(parameters.get(m+1)))
+        int parameterSize = 0;
+        parameterSize = parameters.size();
+        parameters.clear();
+        for (int m = 0; m < strokes.size(); m++) {
+          splitByLeftBrace = splitTokens(linesFiltered.get(strokes.get(m)), "(");
+          splitByCommas = splitTokens(splitByLeftBrace[1], ",)");
+  
+          j = 0;
+          while (isNumeric(trim(splitByCommas[j])) && j < splitByCommas.length) //get parameters
           {
-            wrongFlag = true;
+            parameters.add(int(trim(splitByCommas[j])));
+            j++;
           }
         }
-      } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
-      {
-        for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
-          if (int(parameters.get(m)) != int(parameters.get(m+3)))
-          {
-            wrongFlag = true;
+  
+        
+        if (parameterSize == 1 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
+        {
+          for (int m = 0; m < strokes.size() - 1; m++) {
+            if (int(parameters.get(m)) != int(parameters.get(m+1)))
+            {
+              wrongFlag = true;
+            }
+          }
+        } else if (parameterSize == 3 && strokes.size() > 1) //compares the parameters in the subsequent stroke functions
+        {
+          for (int m = 0; m < ((3 * (strokes.size())) - 3); m++) {
+            if (int(parameters.get(m)) != int(parameters.get(m+3)))
+            {
+              wrongFlag = true;
+            }
           }
         }
-      }
-
-      if (wrongFlag)
-      {
-        totalScore -= deduction;
-        println("shapes have different outline colors");
+  
+        if (wrongFlag)
+        {
+          totalScore -= deduction;
+          errors.add("shapes have different outline colors");
+        }
       }
     }
     catch (Exception e) 
     {
-      println("check strokes function");
+      errors.add("Error: Check strokes function");
       totalScore -= majorExceptions;
     }
   }
@@ -393,7 +354,7 @@ class Test {
    Follow the name of the variables to understand what's going on with each splitTokens
    */
 
-   void checkRects() //check rects
+  void checkRects() //check rects
   {
     try
     {
@@ -405,7 +366,7 @@ class Test {
 
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
-        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
+        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect( or rect ( with regex 
         {
           rects.add(i);
         }
@@ -417,6 +378,8 @@ class Test {
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
 
         j = 0;
+        boolean magicFlag = false;
+        int whichRect = 0;
         while (j < splitByCommas1.length && j < 4) //get parameters
         {  
           //gets values all parameters(variables) for both rects
@@ -427,17 +390,31 @@ class Test {
             parameters.add(int(splitByCommas1[j]));
           }
 
+
           if (isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
-            println("use of magic numbers as parameters for rect " + (m + 1) ); // 'm + 1' indicates the affected rect or paddle
-            totalScore -= deduction;
-            break;
+            magicFlag = true;
+            whichRect = m+1;
           }
+
+          // check for expressions as params
+          String[] param = splitTokens(splitByCommas1[j], " ");
+
+          if (param.length > 1) {
+            magicFlag = true;
+            whichRect = m+1;
+          }
+
           j++;
+        }
+
+        if (magicFlag) {
+          errors.add("use of magic numbers as parameters for rect " + whichRect ); // 'm + 1' indicates the affected rect or paddle
+          totalScore -= deduction;
         }
         max = max + j;
       }
-
+      
       if (int(parameters.get(0)) == 0 && int(parameters.get(1)) == 0) //check which paddle is at left
       {
         coordinateFlag = 1;
@@ -447,39 +424,39 @@ class Test {
       } else //pinalize if none are at left position
       {
         totalScore -= deduction;
-        println("left paddle not at 0,0");
+        errors.add("left paddle not at 0,0");
       }
       if (coordinateFlag == 1 || coordinateFlag == 0) //check second paddle
       {
         if (int(parameters.get(4)) != int(screenWidth-parameters.get(2)) || int(parameters.get(5)) != int(screenHeight-parameters.get(3))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          println("right paddle not at right bottom position");
+          errors.add("right paddle not at right bottom position");
         }
       } else if (coordinateFlag == 2 || coordinateFlag == 0) //check second paddle
       {
         if (int(parameters.get(0)) != int(screenWidth-parameters.get(6)) || int(parameters.get(1)) != int(screenHeight-parameters.get(7))) //pinalize if wrong right paddle
         {
           totalScore -= deduction;
-          println("right paddle not at right bottom position");
+          errors.add("right paddle not at right bottom position");
         }
       }
 
       if (int(parameters.get(2)) != int(parameters.get(6)) || int(parameters.get(3)) != int(parameters.get(7))) //check paddle dimensions
       {
         totalScore -= deduction;
-        println("paddles don't have the same dimensions");
+        errors.add("paddles don't have the same dimensions");
       }
 
       if (parameters.size() > 8) //if more than two paddles
       {
         totalScore -= deduction;
-        println("you have more than two paddles? Use only two rectangles before grade is released");
+        errors.add("you have more than two paddles? Use only two rectangles before grade is released");
       }
     }
     catch (Exception e) 
     {
-      println("Error: couldn't check rects");
+      errors.add("Error: couldn't check rects");
       totalScore -= majorExceptions;
     }
   }
@@ -572,7 +549,6 @@ class Test {
         }
       }
 
-
       for (int i = 0; i < fills.size(); i++) //get closest fill to ellipse
       {
         if (fills.get(i) < ellipses.get(0))
@@ -607,7 +583,7 @@ class Test {
       /*This section is for the color interactions between paddles and with backgrounds */
 
       if (closest1 != 0 && closest2 != 0) //if there're two fills beside both paddles
-      {      
+      {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
         splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
         splitByLeftBrace2 = splitTokens(linesFiltered.get(fills.get(cl2_index)), "(");
@@ -630,7 +606,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(1)))
           {
             totalScore -= deduction;
-            println("paddles have different colors");
+            errors.add("Paddles have different colors");
           }
           if (n == 1)
           {
@@ -638,7 +614,7 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              println("paddle has color as background");
+              errors.add("Paddle has color the same color as background");
             }
           }
         } else if (j == 3 && k == 3) //triple parameter
@@ -646,7 +622,7 @@ class Test {
           if (int(fillParameters.get(0)) != int(fillParameters.get(3)) || int(fillParameters.get(1)) != int(fillParameters.get(4)) || int(fillParameters.get(2)) != int(fillParameters.get(5)))
           {
             totalScore -= deduction;
-            println("paddles have different colors");
+            errors.add("Paddles have different colors");
           }
           if (n == 3)
           {
@@ -656,13 +632,13 @@ class Test {
             {
               closestFlag = true;
               totalScore -= deduction;
-              println("Paddle has color as background");
+              errors.add("Paddle has same color as background");
             }
           }
         } else
         {
           totalScore -= deduction;
-          println("paddles have different colors");
+          errors.add("Paddles have different colors");
         }
       }
 
@@ -671,7 +647,7 @@ class Test {
       if (closest != 0) //fill before ellipse
       {
         if (closest1 != 0)//fill before paddle1
-        {      
+        {
           splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
           splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
 
@@ -711,20 +687,20 @@ class Test {
 
         if (t == 1) //single parameter
         {
-          if (t == j)
+          if (j == 1)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0))) 
+            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)))
             {
               totalScore -= deduction;
-              println("ball has same color as left paddle");
+              errors.add("Ball has same color as left paddle");
             }
           }
-          if (t == k)
+          if (k == 1)
           {
             if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)))
             {
               totalScore -= deduction;
-              println("ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle");
             }
           }
           if (n == 1)
@@ -732,46 +708,44 @@ class Test {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0))))
             {
               totalScore -= deduction;
-              println("ball has color as background");
+              errors.add("Ball has same color as background");
             }
           }
         } else if (t == 3) //triple parameters
         {
-          if (t == k)
+          if (k == 3)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1)) 
+            if (int(ellipseFillParameters.get(0)) == int(rect2FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect2FillParameters.get(1))
               &&  int(ellipseFillParameters.get(2)) == int(rect2FillParameters.get(2)))
             {
               totalScore -= deduction;
-              println("ball has same color as right paddle");
+              errors.add("Ball has same color as right paddle");
             }
           }
-          if (t == j)
+          if (j == 3)
           {
-            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1)) 
+            if (int(ellipseFillParameters.get(0)) == int(rect1FillParameters.get(0)) && int(ellipseFillParameters.get(1)) == int(rect1FillParameters.get(1))
               &&  int(ellipseFillParameters.get(2)) == int(rect1FillParameters.get(2)))
             {
               totalScore -= deduction;
-              println("ball has same colors as left paddle");
+              errors.add("Ball has same color as left paddle");
             }
           }
           if (n == 3)
           {
             if ((int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(0)) && int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(1)) &&
-              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))) || (int(backgroundParameters.get(0)) == int(ellipseFillParameters.get(3)) &&
-              int(backgroundParameters.get(1)) == int(ellipseFillParameters.get(4)) &&  int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(5))))
+              int(backgroundParameters.get(2)) == int(ellipseFillParameters.get(2))))
             {
               totalScore -= deduction;
-              println("ball has color as background");
+              errors.add("Ball has same color as background");
             }
           }
         }
       }
 
-
       /*left paddle and background.*/
       if (closest1 != 0 && !closestFlag) //fill before paddle 1
-      {      
+      {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(fills.get(cl1_index)), "(");
         splitByCommas1 = splitTokens(splitByLeftBrace1[1], ",)");
 
@@ -787,7 +761,7 @@ class Test {
           if ((backgroundParameters.get(0) == rect1FillParameters.get(0)))
           {
             totalScore -= deduction;
-            println("left paddle has color as background");
+            errors.add("Left paddle has same color as background");
           }
         }
         if (j == 3 && n == 3)
@@ -796,14 +770,14 @@ class Test {
             int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            println("left paddle has color as background");
+            errors.add("Left paddle has same color as background");
           }
         }
       }
 
       /*right paddle and background*/
       if (closest2 != 0 && !closestFlag) //fill right paddle
-      {      
+      {
         splitByLeftBrace2 = splitTokens(linesFiltered.get(fills.get(cl2_index)), "(");
         splitByCommas2 = splitTokens(splitByLeftBrace2[1], ",)");
 
@@ -819,7 +793,7 @@ class Test {
           if ((int(backgroundParameters.get(0)) == int(rect1FillParameters.get(0))))
           {
             totalScore -= deduction;
-            println("right paddle has color as background");
+            errors.add("Right paddle has same color as background");
           }
         }
         if (k == 3 && n == 3)
@@ -828,7 +802,7 @@ class Test {
             int(backgroundParameters.get(2)) == int(rect1FillParameters.get(2))))
           {
             totalScore -= deduction;
-            println("right paddle has color as background");
+            errors.add("Right paddle has same color as background");
           }
         }
       }
@@ -837,15 +811,16 @@ class Test {
       if (closest == 0 && closest1 == 0 && closest2 == 0)
       {
         totalScore -= deduction;
-        println("paddle and ball have the same color");
+        errors.add("Paddle and ball have the same color");
       }
     }
-    catch (Exception e) 
+    catch (Exception e)
     {
-      println("Error: couldn't check shape color interactions");
+      errors.add("Error: Make sure you followed the instructions for color in the assignment");
       totalScore -= majorExceptions;
     }
   }
+
 
   /*
   Finds the number of fills within the code
@@ -857,7 +832,7 @@ class Test {
     {
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^fill.*$") != null) //look for fill with regex
+        if (match(linesFiltered.get(i), "^fill\\(.*$") != null || match(linesFiltered.get(i), "^fill \\(.*$") != null) //look for fill( or fill ( with regex
         {
           fills.add(i);
         }
@@ -865,7 +840,7 @@ class Test {
     }
     catch (Exception e) 
     {
-      println("Error: couldn't check fills");
+      errors.add("Error: couldn't check fills");
       totalScore -= majorExceptions;
     }
   }
@@ -888,7 +863,7 @@ class Test {
     }
     catch (Exception e) 
     {
-      println("Error: couldn't check background");
+      errors.add("Error: couldn't check background");
       totalScore -= majorExceptions;
     }
   }
@@ -918,7 +893,7 @@ class Test {
           if (texts.size() != 0)
           {
             totalScore -= deduction;
-            println("size not set before text called");
+            errors.add("size not set before text called");
           }
         }
         if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
@@ -930,7 +905,7 @@ class Test {
       if (sizeFlag) //if no textSize was used
       {
         totalScore -= deduction;
-        println("text size not set");
+        errors.add("text size not set");
       }
 
       int j = 0;
@@ -940,11 +915,13 @@ class Test {
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
 
         j = 0;
+        boolean magicFlag = false;
+        int score  = 0;
         while (j < splitByCommas.length) // 
         {         
           if (m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
-            println("use of magic numbers as parameters for textSize()");
+            errors.add("use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
             break;
           }
@@ -962,13 +939,17 @@ class Test {
             }
 
             if (isNumeric(splitByCommas[j])) { 
-              println("use of magic numbers as parameters for text() " + m); // 'm' indicates the affected text fnx
-              totalScore -= deduction;
-              break;
+              magicFlag = true;
+              score = m;
             }
           }
 
           j++;
+        }
+
+        if (magicFlag) {
+          errors.add("use of magic numbers as parameters for text() " + score ); // 'm' indicates the affected text fnx
+          totalScore -= deduction;
         }
         max = max + j;
       }
@@ -982,7 +963,7 @@ class Test {
       } else
       {
         totalScore -= deduction;
-        println("left score not at left position");
+        errors.add("left score not at left position");
       }
 
       if (coordinateFlag == 1) //check right score
@@ -990,20 +971,20 @@ class Test {
         if (parameters.get(2) < (screenWidth/2))
         {
           totalScore -= deduction;
-          println("right score not at right position");
+          errors.add("right score not at right position");
         }
       } else if (coordinateFlag == 2)
       {
         if (parameters.get(0) < (screenWidth/2))
         {
           totalScore -= deduction;
-          println("right score not at right position");
+          errors.add("right score not at right position");
         }
       }
     }
     catch (Exception e) 
     {
-      println("Error: couldn't check scores");
+      errors.add("Error: couldn't check scores");
       totalScore -= majorExceptions;
     }
   }
@@ -1023,14 +1004,9 @@ class Test {
       String[] splitByCommas;
       int max = 0;
 
-      //String[] splitByEquals;
-      //int noOfMatches = 0;
-      //ArrayList<String> matches = new ArrayList<String>();    
-
-
       for (int i = 0; i < linesFiltered.size(); i++)
       {
-        if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse with regex
+        if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse( or ellipse ( with regex
         {
           ellipses.add(i);
         }
@@ -1041,6 +1017,8 @@ class Test {
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
         splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
+
+        boolean magicFlag = false; // for magic numbers
 
         j = 0;
         while (j < splitByCommas.length && j < 4) //get ellipse's parameters
@@ -1055,10 +1033,21 @@ class Test {
 
           if (isNumeric(splitByCommas[j])) // check for magic numbers
           {
-            println("use of magic numbers as params for ellipse");
-            totalScore -= deduction;
+            magicFlag = true;
+          }
+
+          // check for expressions aS PARAMS
+          String[] param = splitTokens(splitByCommas[j], " ");
+
+          if (param.length > 1) {
+            magicFlag = true;
           }
           j++;
+        }
+
+        if (magicFlag) {
+          errors.add("use of magic numbers as params for ellipse()");
+          totalScore -= deduction;
         }
         max = max + j;
       }
@@ -1066,24 +1055,24 @@ class Test {
         (parameters.get(1) < (screenHeight/2 - gap) || parameters.get(1) > (screenHeight/2 + gap))) //ball at the center
       {
         totalScore -= deduction;
-        println("ball not at the center");
+        errors.add("ball not at the center");
       }
 
       if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        println("weird ball you got there lad");
+        errors.add("weird ball you got there lad");
       }
 
       if (parameters.size() > 4) //if more than one ball
       {
         totalScore -= deduction;
-        println("you have more than one ball?");
+        errors.add("you have more than one ball?");
       }
     }
     catch (Exception e) 
     {
-      println("Error: couldn't Check ellipses");
+      errors.add("Error: couldn't Check ellipses");
       totalScore -= majorExceptions;
     }
   }
@@ -1148,7 +1137,7 @@ class Test {
     }
     catch(Exception e)
     {
-      println("Error: couldn't get variables");
+      errors.add("Error: couldn't get variables");
     }
   }
 
@@ -1176,13 +1165,13 @@ class Test {
       if (noOfMatches < 2)
       {
         totalScore -= deduction;
-        println("ball not moving the right way");
+        errors.add("ball not moving the right way");
       }
       //End of checking if the ball is moving
     }
     catch(Exception e)
     {
-      println("Error: couldn't get moving ball");
+      errors.add("Error: couldn't get moving ball");
     }
   }
 
@@ -1191,68 +1180,35 @@ class Test {
     {
       totalScore = 0;
     }
-    println("Total Score: ", totalScore);
+    println(totalScore, errors);
   }
 
-  void createFile() {
-    try
-    {
-      output.println("class Code {");
-
-      for (int i = 0; i < fileLines.length; i++)
-      {
-        if (match(fileLines[i], "size\\(") != null) {
-          String[] tokens = trim(splitTokens(fileLines[i], "//"));
-          if (match(tokens[0], "size") != null) {
-            output.println("//" + tokens[0]);
-          } else {
-            output.println(tokens[0] + "  //" + tokens[1]);
-          }
-        } else if (match(fileLines[i], "void") != null) {
-
-          if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void once() {");
-          } else if (match(fileLines[i], "setup") != null) {
-            output.println("void once()");
-          }
-          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
-            output.println("void forever() {");
-          } else if (match(fileLines[i], "draw") != null) {
-            output.println("void forever()");
-          }
-        } else {
-          output.println(fileLines[i]);
-        }
-      }
-
-      output.println("}");
-
-      output.flush(); // Writes the remaining data to the file
-      output.close(); // Finishes the file
-    }
-    catch(Exception e)
-    {
-      println("Error: couldn't create file");
-    }
-  }
-
+  /***************************************************************
+   main method that calls all other methods to grade the assigment
+   checks wheter screenWith and sreenHeight were gotten 
+   grades if true and doesnt if false
+   ****************************************************************/
   void run() {
     getLines();
-    checkTabs();
     removeEmptyLines();
-    getVariables();
-    checkStatementsPerLine();
-    getScreenSize();
-    checkSize();
-    checkComments();
-    checkBackground();
-    checkFills();
-    checkStrokes();
-    checkEllipses();
-    checkRects();
-    checkScores();
-    checkMovingBall();
-    shapeColorInteractions();
-    createFile();
+    if (getScreenSize()) {
+      checkTabs();
+      getVariables();
+      checkStatementsPerLine();
+      checkComments();
+      checkBackground();
+      checkFills();
+      checkStrokes();
+      checkEllipses();
+      checkRects();
+      checkScores();
+      checkMovingBall();
+      shapeColorInteractions();
+      printResults();
+    } else {
+      totalScore = 0;
+      majorError.add("Could not grade assignment: check you maxX and maxY values");
+      print(totalScore, majorError);
+    }
   }
 }

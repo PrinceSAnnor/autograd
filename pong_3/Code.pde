@@ -81,7 +81,7 @@ void forever()
   //Check if ball hits top and bottom sides of the screen 
   if (yBall - radius < 0 || yBall + radius > screenHeight) //if the ball hits the top or bottom sides of the screen 
   {
-    ySpeed = ySpeed * -1; //then reverse the polarity of the vertical speed so the ball moves in the opposite vertical direction
+    ySpeed = ySpeed + - ySpeed + 1; //then reverse the polarity of the vertical speed so the ball moves in the opposite vertical direction
   }
 }
 int rightPaddleY()

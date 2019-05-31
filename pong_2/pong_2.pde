@@ -1,34 +1,29 @@
-//Assignment 2: Move ball
-//This program should make the ball move
-
-Test test1 = new Test();
-//Code code = new Code();
+/**********************************************************************
+Assignment 2: Move Ball - This program grades assignment 2
+Has two uses Autograd and Single file, coment the one oure not using
+************************************************************************/
 
 void setup ()
 {
-  //will change size params later
-  //size(1920, 1080); //sets the width and height of the program  
-
-  background(0);
-  test1 = new Test();
-  test1.run();
-
-  try
-  {
-    //code.once();
-    //code.forever();
+  if (args != null) {
+    
+    File f = new File(sketchPath() + "/../" + args[0]);
+    Test tests = new Test(f);
+    tests.run();
+    
+  } else {
+    println("args == null");
   }
-  catch(Exception e)
-  {
-    println("Code runtime error");
-    test1.totalScore = 0;
-    //test1.printResults();
-    exit();
-  }
-  test1.printResults();
+  
+  File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\autograd\\assets\\code\\SuaCode Africa 1\\Assignment 2 - Move ball\\Cornelius Otchere\\0-1WA6Aigs6nFTjeKSxDtgrbxWNAaUgDOPl-Assignment2.pde");
+  Test test = new Test(f);
+  test.run();
+  
+  noLoop(); // draw doesn't have to run
+  exit(); // quit the program 
 }
 
 void draw()
 {
-  //code.forever();
+  
 }

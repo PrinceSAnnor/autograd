@@ -15,31 +15,31 @@ if __name__ == '__main__':
     print(courses)
 
     # Assisinment doc forma [id, title, url]
-    attachment = ['1uNwWfBI9-JTlcmh4OZ8W9s7xPc9EuoupEIx6inne9iQ','Assignment 1 - Make Pong Interface','https://drive.google.com/open?id=1uNwWfBI9-JTlcmh4OZ8W9s7xPc9EuoupEIx6inne9iQ']
+    instructions_material = ['1gAJCekLfsulZZ5Jicy5wj1-Z2SVk3zt6y1ZgkFNVnRo','Assignment 4 - Move Paddles','https://drive.google.com/open?id=1gAJCekLfsulZZ5Jicy5wj1-Z2SVk3zt6y1ZgkFNVnRo']
 
-    title = "Assignment 1"
-    description = "Testing"
+    title = "Assignment 4 - Move Paddles"
+    description = ""
     max_points = 20
     materials = [
             {
                 "driveFile": {
                     "driveFile": {
-                        "id": attachment[0],
-                        "title": attachment[1],
-                        "alternateLink": attachment[2],
+                        "id": instructions_material[0],
+                        "title": instructions_material[1],
+                        "alternateLink": instructions_material[2],
                     },
-                    "shareMode": "VIEW" #Possible values UNKNOWN_SHARE_MODE, VIEW, EDIT, STUDENT_COPY
+                    "shareMode": "VIEW"
                 },
             }
-        ]
-    state = "PUBLISHED"     # Possible values, PUBLISHED, DRAFT, DELETED, COURSE_WORK_STATE_UNSPECIFIED
+         ]
+    state = "DRAFT"     # Possible values, PUBLISHED, DRAFT, DELETED, COURSE_WORK_STATE_UNSPECIFIED
     due_date = {
             'year': 2019,
-            'month': 5,
-            'day' : 20,
+            'month': 6,
+            'day' : 7,
         }
     due_time = {
-            "hours": 11,
+            "hours": 23,
             "minutes": 59,
             "seconds": 00,
         }
@@ -60,63 +60,9 @@ if __name__ == '__main__':
         "submissionModificationMode": submission_modification_mode,
     }
 
-    assignment_id = teacher.create_assignment(courses['Test Class'], body)
+    for course in my_courses:
+        assignment_id = teacher.create_assignment(courses[course], body)
 
-    if assignment_id:
-        print(assignment_id)
-        print('success')
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    """ 
-    During grading we need the following:
-    the courseId, the courseWorkId (assignment_id), id of each 
-    student's studentSubmission object, and an dict sending the grades
-    ie. { 'assignedGrade': 90, 'draftGrade': 80 }
-
-    """
-    
-    # Mini docs using Teacher
-
-    # Get all assignments
-    # all = teacher.get_all_assignments(course_id)
-
-    # Get this assignment from this class and grade
-    # assignment = teacher.get_assignment(course_id, assignment_id)
-
-    # Get 
-
-    # Get all student submissions for particular assignment 
-    # Takes an extra user_id parameter to get for a particular student
-
-    # USE first OR second expression
-    # subs = teacher.get_student_submissions(course_id, assignment_id)
-    #       OR
-    # subs = teacher.get_student_submissions(course_id, assignment_id, user_id)
-    
-    # Grade a student: draftGrade is a temporary grade visible to teachers;
-    # assignedGrade is the final one
-
-    # submission = { 'assignedGrade': 10, 'draftGrade': 10 }
-
-    # Response in `graded` contains an instance of the new submission
-    # graded = teacher.grade_submissions(course_id, assignment_id, \
-    #     student_submission_id, submission)
+        if assignment_id:
+            print(assignment_id)
+            print('success')

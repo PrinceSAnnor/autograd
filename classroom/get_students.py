@@ -1,17 +1,16 @@
 from modules.Teacher import Teacher
+import csv
 
 # For functions at the bottom;
 import os, os.path
 import errno
 
+def get_id_lists():
 
-if __name__ == '__main__':
-    # Login to Classroom
-    teacher = Teacher()
+    if not os.path.exists('assets/students-details/id-lists/'):
+        os.makedirs('assets/students-details/id-lists/')
 
-    # Download the list of students
-    my_courses = ['Test Class']
-
+    
     # Return a dict of courses and their ids
     id = teacher.get_all_courses()
 
@@ -22,7 +21,7 @@ if __name__ == '__main__':
         results = response.get('students', [])
 
         for entry in results:
-            path = '../assets/id-lists/' + course +'.csv'
+            path = 'assets/students-details/id-lists/' + course +'.csv'
             f = open(path, 'a+', encoding='utf-8')
             stu_name = entry['profile']['name']['fullName']
             stu_id = entry['profile']['id']
@@ -41,7 +40,7 @@ if __name__ == '__main__':
                 results = response.get('students', [])
 
                 for entry in results:
-                    path = '../assets/list/' + course +'.csv'
+                    path = 'assets/students-details/id-lists/' + course +'.csv'
                     stu_name = entry['profile']['name']['fullName'] #Somenes name is arabic
                     stu_id = entry['profile']['id']
 
@@ -55,19 +54,38 @@ if __name__ == '__main__':
             else:
                 break
 
+def get_emails():
 
-# #Helper functions to open files that dont exist
-# # Taken from https://stackoverflow.com/a/600612/119527
-# def mkdir_p(path):
-#     try:
-#         os.makedirs(path)
-#     except OSError as exc: # Python >2.5
-#         if exc.errno == errno.EEXIST and os.path.isdir(path):
-#             pass
-#         else: raise
+    for course in my_courses:
 
-# def safe_open(path, type, encoding):
-#     ''' Open "path" for writing, creating any parent directories as needed.
-#     '''
-#     mkdir_p(os.path.dirname(path))
-#     return open(path, type, encoding)
+        with open('assets/students-details/id-lists/%s.csv' % course) as csvfile:
+            read_ids = csv.reader(csvfile, delimiter=',')
+            for row in read_ids:
+                stu_id = f'{row[1]}'.strip()
+                fullname = f'{row[0]}'.strip()
+                with open('email-lists/%s.csv' % course) as csvfile:
+                    read_emails = csv.reader(csvfile, delimiter=',')
+                    for row in read_emails: 
+                        surname = f'{row[0]}'.strip()
+                        firstname = f'{row[1]}'.strip()
+                        email = f'{row[2]}'.strip()
+
+                        if (firstname + ' ' + surname) == fullname: 
+                            f_path = "assets/students-details/%s.csv" % course 
+                            f = open(f_path, "a+" )
+                            f.write("%s, %s, %s, %s, %s, \n" % (firstname, surname, fullname, stu_id, email))
+                            f.close()
+
+                
+                        
+
+if __name__ == '__main__':
+    # Login to Classroom
+    teacher = Teacher()
+
+    # Download the list of students
+    my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
+
+    get_id_lists()
+
+    get_emails()
