@@ -55,6 +55,8 @@ void setup ()
   once = true;
   //noLoop();
   //exit();
+  
+  redraw();//draw should run only once.
 }
 
 void draw()
