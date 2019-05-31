@@ -8,24 +8,30 @@ int ballSpeedX, ballSpeedY;
 
 boolean once; // used to check if gameOn is true when mousePressed is true
 
-GetCode getCode;
-Test test1;
+Test test;
 Code code;
 
 void setup ()
 {
-  //frameRate(4);
-  
-  getCode = new GetCode();
-  getCode.run();
-  
   code = new Code();
   
-  test1 = new Test();
-  test1.run();
+  //get filename from command line for autograd
+  if (args != null) {
+    
+    File f = new File(sketchPath() + "/../" + args[0]);
+    Test test = new Test(f);
+    test.run();
+    
+  } else {
+    println("args == null");
+  }
   
-  gameWidth = test1.screenWidth;
-  gameHeight = test1.screenHeight;
+  //File f = new File(sketchPath() + "/assignment_3/assignment_3.pde");
+  //Test test = new Test(f);
+  //test.run();
+  
+  gameWidth = test.screenWidth;
+  gameHeight = test.screenHeight;
   
   radius = code.diameter()/2;
   
@@ -41,19 +47,9 @@ void setup ()
   catch(Exception e)
   {
     println("Code runtime error");
-    test1.totalScore = 0;
-    test1.printResults();
+    test.totalScore = 0;
+    test.printResults();
     exit();
-  }
-   
-  //if I'm right, you're trying check if the Scores start at 0 
-  //I'm writing a function checkStartZero() for this which we can call at the start of the test
-  if(code.leftScore() == 0  && code.rightScore() == 0)
-  { 
-    mousePressed = true;
-  } else {
-    test1.totalScore -= test1.deduction;
-    println("Iniial scores not 0");
   }
   
   once = true;
@@ -81,7 +77,7 @@ void draw()
   if(once) {//if gameOn is true when mousePressed
     if(code.ballX() > pBallX) {
       if(code.gameOn() == 0) {  
-        test1.totalScore -= test1.deduction;
+        test.totalScore -= test.deduction;
         println("Ball moves even if gameOn is off");
       }
     }
@@ -100,7 +96,7 @@ void draw()
   
   
   if (time >= 60000) {
-    test1.printResults();
+    test.printResults();
     exit();
   }
 }
@@ -110,17 +106,21 @@ void draw()
 void checkStartZero(){
   
   if(once){
-    //deduction
-    if(code.leftScore()!=0 || code.rightScore()!=0 ){
-      test1.totalScore -= test1.deduction;
-    }
-    //feedback
-    if(code.leftScore()!=0){
-      println("Left Player Score does not start at zero");
-    }
-    
-    if(code.rightScore()!=0){
-      println("Right Player score does not start at zero");
+    try {
+      //deduction
+      if(code.leftScore()!=0 || code.rightScore()!=0 ){
+        test.totalScore -= test.deduction;
+      }
+      //feedback
+      if(code.leftScore()!=0){
+        println("Left Player Score does not start at zero");
+      }
+      
+      if(code.rightScore()!=0){
+        println("Right Player score does not start at zero");
+      }
+    } catch(Expection e) {
+       test.errors.add("Error: Do you have variables for scores?"); 
     }
   }
   
@@ -141,7 +141,7 @@ void checkLeftExit() {
  //deducts a point if right score doesn't increase
   if(leftExitFlag) {
     if(code.rightScore() - pRightScore != 1) {
-      test1.totalScore -= test1.deduction;
+      test.totalScore -= test.deduction;
       println("Right player should score 1 if ball exits left screen"); 
     } 
   }
@@ -164,7 +164,7 @@ void checkRightExit() {
   //deduct a point otherwise
   if(rightExitFlag) {
     if(code.leftScore() - pLeftScore == 1) {
-      test1.totalScore -= test1.deduction;
+      test.totalScore -= test.deduction;
       println("Left player should score 1 if ball exits right screen"); 
     } 
   }
@@ -191,9 +191,9 @@ void checkTopWall() {
   
   if(topWallFlag) {
     if(ballSpeedY == -ballSpeedY) {
-      test1.totalScore -= test1.deduction;
+      test.totalScore -= test.deduction;
       println("Ball hit top wall but didnt change diretion"); 
-      println(test1.totalScore);
+      println(test.totalScore);
     }
   }
   
@@ -208,7 +208,7 @@ void checkTopWall() {
   //if(topWallFlag) {
   //  println(cBallSpeedY); 
   //  if(pBallSpeedY == cBallSpeedY ) {
-  //    test1.totalScore -= test1.deduction;
+  //    test.totalScore -= test.deduction;
   //    println("Ball hit top wall but didn't change diretion"); 
   //    noLoop();
   //  }
@@ -228,20 +228,12 @@ void checkBottomWall(){
   
   if(bottomWallFlag) {
     if(ballSpeedY != -1 * ballSpeedY) {
-      test1.totalScore -= test1.deduction;
+      test.totalScore -= test.deduction;
       println("Ball hit bottom wall but didnt change diretion"); 
     } 
   }
 }
 
-//void setup() {
-  
-//  GetCode getCode = new GetCode();
-//  getCode.run();
-//  noLoop();
-//  exit();
-//}
-//void draw() {}
 
 
 

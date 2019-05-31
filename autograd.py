@@ -35,7 +35,7 @@ def add_to_classroom():
     print("Uploading results to classroom")
 
     try: 
-        body={ 'assignedGrade': grade, 'draftGrade': grade }
+        body={ 'draftGrade': grade }
         results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
 
         # TODO: you can do better than if(results), get the response that was sent and make meaning of it
@@ -105,9 +105,9 @@ if __name__ == "__main__":
     TESTING = True
 
     # you should know what these do, In Short DONT MESS WITH THEM!!!
-    ADD_TO_SHEETS = True
-    ADD_TO_CLASSROOM = True
-    SEND_MAIL = True
+    ADD_TO_SHEETS = False
+    ADD_TO_CLASSROOM = False
+    SEND_MAIL = False
 
     """
     Download all students names and ids as csv if it doesnt exist
@@ -251,8 +251,17 @@ if __name__ == "__main__":
                                                     # call processing with filename as argument
                                                     print("Grading...")
                                                     args = '"' + file_path + '/' + new_name + '"'
+                                                    get_code_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '/get_code" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/get_code/build"' + ' --force --run ' + args
                                                     processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/build"' + ' --force --run ' + args
                                                     
+                                                    # Make Code.pde file
+                                                    if "Assignment 3" in ass_name:
+                                            
+                                                        print("Parsing and Preparing Code.pde file")
+                                                        results = subprocess.check_output(get_code_cmd , shell=True)
+                                                        output = results.decode("UTF-8")
+                                                        print(output)
+
                                                     # run processing and get result form the command line
                                                     comments = subprocess.check_output(processing_cmd, shell=True)
                                                     
@@ -286,7 +295,7 @@ if __name__ == "__main__":
 
                                                     #prepare mail message
                                                     mail = []
-                                                    mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % student_firstname)
+                                                    mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\n Grade: %d\n\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % (student_firstname, grade))
                                                         
                                                     errs = " ".join(errors)
                                                     errs1 = errs.split(',')

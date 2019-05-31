@@ -2,7 +2,7 @@ import java.util.Map;
 
 class GetCode {
   
-  PrintWriter output = createWriter("Code.pde");
+  PrintWriter output = createWriter("/../Code.pde");
   
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -16,8 +16,11 @@ class GetCode {
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
       
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
-    
-  GetCode() { //empty constructor for class
+   
+  File filePath;
+  
+  GetCode(File f) {
+    filePath = f;
   }
 
   /*
@@ -26,11 +29,11 @@ class GetCode {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings("assignment_3/assignment_3.pde"); //comment if you're using APDE
+      fileLines = loadStrings(filePath); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
-      println("Couldn't load file");
+      // println("Couldn't load file");
     }
   }
   
@@ -51,13 +54,13 @@ class GetCode {
       }
       if (emptyLines < 2) //if at least two lines are empty
       {
-        println("Improper code grouping");
+        // println("Improper code grouping");
         
       }
     }
     catch (Exception e) //catch exception
     {
-      println("Couldn't remove empty lines in file");
+      // println("Couldn't remove empty lines in file");
     }
   }
   
@@ -115,7 +118,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      println("Couldn't check rects");
+      // println("Couldn't check rects");
     }
   }
 
@@ -141,7 +144,7 @@ void checkRects() //check rects
           sizeFlag = false;
           if (texts.size() != 0)
           {
-            println("size not set before text called");
+            // println("size not set before text called");
           }
         }
         if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
@@ -152,7 +155,7 @@ void checkRects() //check rects
 
       if (sizeFlag) //if no textSize was used
       {
-        println("text size not set");
+        // println("text size not set");
       }
       
       int j = 0;
@@ -191,7 +194,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      println("Couldn't check scores");
+      // println("Couldn't check scores");
     }
   }
 
@@ -242,7 +245,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      println("Couldnt Check ellipses");
+      // println("Couldnt Check ellipses");
     }
   }
    void getGameOn() 
@@ -266,7 +269,7 @@ void checkRects() //check rects
     }
     catch(Exception e)
     {
-      println("couldnt get boolean vars" + e);
+      // println("couldnt get boolean vars" + e);
     }
   }
   
@@ -301,13 +304,13 @@ void checkRects() //check rects
            variablesHashMap.put(varName, varValue); 
            varKeys.add(varName);
         } else {
-          //println("The value for the variable " + varName + " is not a number");
+          //// println("The value for the variable " + varName + " is not a number");
         }
       }
     }
     catch(Exception e)
     {
-      println("Could not get variables"); 
+      // println("Could not get variables"); 
     }
   }
   
@@ -358,7 +361,7 @@ void checkRects() //check rects
     }
     catch(Exception e)
     {
-      println("couldnt create file " + e);
+      // println("couldnt create file " + e);
     }
   }
  
@@ -387,8 +390,6 @@ void checkRects() //check rects
     return true;
   }
   
-  
-
   void run() {
     getLines();
     removeEmptyLines();

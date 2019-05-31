@@ -209,7 +209,7 @@ class Teacher(object):
             success = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
             courseWorkId=assignment_id, \
             id=student_submission_id, \
-            updateMask='assignedGrade,draftGrade', \
+            updateMask='draftGrade', \
             body=submission) \
             .execute()  
 
