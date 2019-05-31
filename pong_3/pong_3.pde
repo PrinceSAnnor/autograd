@@ -10,10 +10,12 @@ boolean once; // used to check if gameOn is true when mousePressed is true
 
 GetCode getCode;
 Test test1;
-Code code;;
+Code code;
 
 void setup ()
 {
+  //frameRate(4);
+  
   getCode = new GetCode();
   getCode.run();
   
@@ -55,8 +57,10 @@ void setup ()
   }
   
   once = true;
+  //noLoop();
+  //exit();
   
-  redraw();//Draw should run only once
+  redraw();//draw should run only once.
 }
 
 void draw()
@@ -154,7 +158,7 @@ void checkRightExit() {
   if(code.ballX() - radius >= gameWidth - ballSpeedX) // dont know why balls x speed is needed but... Probably because of draw(Raymond's comment)
   { 
     mousePressed = false;
-    println(code.ballX() - radius + " " + gameWidth);
+    //println(code.ballX() - radius + " " + gameWidth);
     rightExitFlag = true;
   }
   
@@ -172,22 +176,46 @@ void checkRightExit() {
 void checkTopWall() {
   
   boolean topWallFlag = false;
+  //int pBallSpeedY = 0;
+  //int cBallSpeedY = 0;
   
-   //check if ball hits the top
+  //while(code.ballY() - radius <= 0 && ballSpeedY < 0 ) {
+  //    pBallSpeedY = ballSpeedY;
+  //    print(pBallSpeedY);
+  //    break; 
+  //}
+    
+  //check if ball hits the top
   if((code.ballY() - radius) <= 0) // dont know why balls x speed is needed but... Probably because of draw
-  { 
-    //if(ballSpeedY == (-1 * ballSpeedY)) {
-    //  println("Ball hit top wall but didnt change diretion"); 
-    //}
+  {  
     topWallFlag = true;
   }
   
   if(topWallFlag) {
-    if(ballSpeedY != -1 * ballSpeedY) {
+    if(ballSpeedY == -ballSpeedY) {
       test1.totalScore -= test1.deduction;
       println("Ball hit top wall but didnt change diretion"); 
-    } 
+      println(test1.totalScore);
+    }
   }
+  
+  //if(code.ballY() - radius > 0 && code.ballY() - radius <= gameHeight/4  && ballSpeedY > 0 ) {
+  //  cBallSpeedY = ballSpeedY;
+  //  cBallSpeedY *= -1;
+  //  print(cBallSpeedY); 
+  //  topWallFlag = true;
+  //}
+  
+  
+  //if(topWallFlag) {
+  //  println(cBallSpeedY); 
+  //  if(pBallSpeedY == cBallSpeedY ) {
+  //    test1.totalScore -= test1.deduction;
+  //    println("Ball hit top wall but didn't change diretion"); 
+  //    noLoop();
+  //  }
+  //}
+  
 }
 
 //check if ball reverses when it hits the bottom wall
@@ -197,7 +225,6 @@ void checkBottomWall(){
    //check if ball hits the bottom and set the flag to true
   if((code.ballY() - radius) >= gameHeight) // if the ball exceeds the bottom wall
   { 
-
     bottomWallFlag = true;
   }
   
@@ -209,6 +236,14 @@ void checkBottomWall(){
   }
 }
 
+//void setup() {
+  
+//  GetCode getCode = new GetCode();
+//  getCode.run();
+//  noLoop();
+//  exit();
+//}
+//void draw() {}
 
 
 
