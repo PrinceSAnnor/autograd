@@ -97,6 +97,11 @@ if __name__ == "__main__":
             ADD_TO_SHEETS = False
             ADD_TO_CLASSROOM = False
             SEND_MAIL = False
+            
+         elif sys.argv[4] == "run" or "RUN" or "Run":
+            ADD_TO_SHEETS = True
+            ADD_TO_CLASSROOM = True
+            SEND_MAIL = True
 
     #  VERY NECESSARY!!
     date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
