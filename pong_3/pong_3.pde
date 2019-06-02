@@ -121,7 +121,7 @@ void checkStartZero(){
       if(code.rightScore()!=0){
         println("Right Player score does not start at zero");
       }
-    } catch(Expection e) {
+    } catch(Exception e) {
        test.errors.add("Error: Do you have variables for scores?"); 
     }
   }
