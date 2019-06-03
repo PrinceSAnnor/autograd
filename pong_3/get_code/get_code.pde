@@ -24,7 +24,7 @@ void setup() {
     println("args == null");
   }
   
-  For Teasing (Single file)
+  //For Teasing (Single file)
   File f = new File("C:/Users/Raymond Tetteh/Desktop/autograd/assets/code/SuaCode Africa 1/Assignment 3 - Bounce Ball/Abdulmutalab Musa/0-1TvHNd96_6UxeikeB0Vtm0fNC_rJwZ2ey-Assignment3.pde");
   GetCode getCode = new GetCode(f);
   getCode.run();
