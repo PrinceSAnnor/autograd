@@ -96,8 +96,7 @@ if __name__ == "__main__":
         if sys.argv[4] == "test" or "TEST" or "Test":
             ADD_TO_SHEETS = False
             ADD_TO_CLASSROOM = False
-            SEND_MAIL = False
-            
+            SEND_MAIL = False  
          elif sys.argv[4] == "run" or "RUN" or "Run":
             ADD_TO_SHEETS = True
             ADD_TO_CLASSROOM = True
