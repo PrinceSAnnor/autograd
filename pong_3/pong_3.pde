@@ -15,27 +15,27 @@ void setup ()
 {
   code = new Code();
   
-  //get filename from command line for autograd
-  if (args != null) {
+  ////get filename from command line for autograd
+  //if (args != null) {
     
-    File f = new File(sketchPath() + "/../" + args[0]);
-    Test test = new Test(f);
-    test.run();
+  //  File f = new File(sketchPath() + "/../" + args[0]);
+  //  test = new Test(f);
+  //  test.run();
     
-  } else {
-    println("args == null");
-  }
+  //} else {
+  //  println("args == null");
+  //}
   
-  //File f = new File(sketchPath() + "/assignment_3/assignment_3.pde");
-  //Test test = new Test(f);
-  //test.run();
+  File f = new File("C:/Users/Raymond Tetteh/Desktop/autograd/assets/code/SuaCode Africa 1/Assignment 3 - Bounce Ball/Assignment 3 - Bounce Ball/Alfred Ogada/0-1R6N4KuVXfcQZemCuRVcNNJFKEpCdK9mv-Assignment3.pde");
+  test = new Test(f);
+  test.run();
   
   gameWidth = test.screenWidth;
   gameHeight = test.screenHeight;
   
   radius = code.diameter()/2;
   
-  size(1920, 1080); //sets the width and height of the program  
+  //size(1920, 1080); //sets the width and height of the program  
 
   background(0);
 
@@ -96,8 +96,7 @@ void draw()
     
   //println("ballY => " + code.ballY() + " ballSpeedY => " + ballSpeedY + " y => " + y + " ballX + ballSpeedY => " + code.ballY() + ballSpeedY);
   
-  
-  if (time >= 60000) {
+  if (time >= 20000) {
     test.printResults();
     exit();
   }

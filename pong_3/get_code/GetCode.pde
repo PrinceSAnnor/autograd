@@ -321,13 +321,8 @@ void checkRects() //check rects
 
       for (int i = 0; i < fileLines.length; i++)
       {
-        if (match(fileLines[i], "size\\(") != null) {
-          String[] tokens = trim(splitTokens(fileLines[i], "//"));
-          if (match(tokens[0], "size") != null) {
-            output.println("//" + tokens[0]);
-          } else {
-            output.println(tokens[0] + "  //" + tokens[1]);
-          }
+        if (match(fileLines[i], "fullScreen") != null) {
+            output.println("  //" + fileLines[i]);
         } else if (match(fileLines[i], "void") != null) {
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {

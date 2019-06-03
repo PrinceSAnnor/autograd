@@ -97,7 +97,7 @@ if __name__ == "__main__":
             ADD_TO_SHEETS = False
             ADD_TO_CLASSROOM = False
             SEND_MAIL = False  
-         elif sys.argv[4] == "run" or "RUN" or "Run":
+        elif sys.argv[4] == "run" or "RUN" or "Run":
             ADD_TO_SHEETS = True
             ADD_TO_CLASSROOM = True
             SEND_MAIL = True
@@ -107,11 +107,6 @@ if __name__ == "__main__":
 
     # when testinG set testing to true
     TESTING = True
-
-    # you should know what these do, In Short DONT MESS WITH THEM!!!
-    ADD_TO_SHEETS = False
-    ADD_TO_CLASSROOM = False
-    SEND_MAIL = False
 
     """
     Download all students names and ids as csv if it doesnt exist
@@ -236,7 +231,7 @@ if __name__ == "__main__":
                                             new_name = str(number) + '-' + file_id + '-' + file_name 
 
                                             # flag for if file exixts
-                                            should_grade = False
+                                            should_grade = True
 
                                             if not os.path.exists(new_name):
                                                 should_grade = True

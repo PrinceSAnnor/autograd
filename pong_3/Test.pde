@@ -1204,7 +1204,7 @@ class Test {
       checkScores();
       checkMovingBall();
       shapeColorInteractions();
-      //printResults(); // Dnt print results here
+      printResults(); // Dnt print results here
     } else {
       totalScore = 0;
       majorError.add("Could not grade assignment: check you maxX and maxY values");
