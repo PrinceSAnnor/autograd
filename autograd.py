@@ -35,7 +35,7 @@ def add_to_classroom():
     print("Uploading results to classroom")
 
     try: 
-        body={ 'draftGrade': grade }
+        body={ 'assignedGrade': grade }
         results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
 
         # TODO: you can do better than if(results), get the response that was sent and make meaning of it
@@ -94,9 +94,9 @@ if __name__ == "__main__":
 
     if sys.argv[4]:
         if sys.argv[4] == "test" or "TEST" or "Test":
-            ADD_TO_SHEETS = False
-            ADD_TO_CLASSROOM = False
-            SEND_MAIL = False  
+            ADD_TO_SHEETS = True
+            ADD_TO_CLASSROOM = True
+            SEND_MAIL = True  
         elif sys.argv[4] == "run" or "RUN" or "Run":
             ADD_TO_SHEETS = True
             ADD_TO_CLASSROOM = True
@@ -106,7 +106,7 @@ if __name__ == "__main__":
     date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
 
     # when testinG set testing to true
-    TESTING = True
+    TESTING = False
 
     """
     Download all students names and ids as csv if it doesnt exist
@@ -207,7 +207,7 @@ if __name__ == "__main__":
                                 # student doesnt have a stateHistory which is weird
                         number = states.count('RETURNED')
                         
-                        if number == sub_number:
+                        if number > 0:
                             # check if submission has attachments
                             if submission[0]['assignmentSubmission'].get('attachments'):                    
                                 
@@ -286,6 +286,8 @@ if __name__ == "__main__":
                                                         data.append("First Submission")
                                                     elif number == 1:
                                                         data.append("Resubmitted")
+                                                    else:
+                                                        data.append("Resubmitted")
 
                                                     for error in errors:
                                                         data.append(error)
@@ -294,7 +296,7 @@ if __name__ == "__main__":
 
                                                     #prepare mail message
                                                     mail = []
-                                                    mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\n Grade: %d\n\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % (student_firstname, grade))
+                                                    mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\n Grade: %d\n\nSee below the things you missed. You can fix them for future Assignments as you have reached the maximum number of submissions you can make.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % (student_firstname, grade))
                                                         
                                                     errs = " ".join(errors)
                                                     errs1 = errs.split(',')
