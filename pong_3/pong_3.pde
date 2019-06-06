@@ -26,19 +26,7 @@ Code code3 = new Code();
 
 void setup ()
 {
-  //code = new Code();
-  
-  ////get filename from command line for autograd
-  //if (args != null) {
-    
-  //  File f = new File(sketchPath() + "/../" + args[0]);
-  //  test = new Test(f);
-  //  test.run();
-    
-  //} else {
-  //  println("args == null");
-  //}
-  
+
   
   File f = new File(sketchPath()+"/assignment_3/assignment_3.pde");
   test = new Test(f);
@@ -61,16 +49,11 @@ void setup ()
   radius = code1.diameter()/2;
   
   mousePressed = true;
-  
-  //size(1920, 1080); //sets the width and height of the program  
-
-  //background(0);
+ 
 
   try
   {
-    //code.once();
-    //code.forever();
-    
+  
     //Simulate draw()
     for(int i=0; i<45;i++){
       //code1.forever();
@@ -84,8 +67,7 @@ void setup ()
      }
      
      //checkWallsBounce(yvalBounce);
-     
-     checkLeftExit(code2);
+    
      
      
      //checkRightExit(code3);
@@ -110,72 +92,6 @@ void setup ()
   
   //redraw();//draw should run only once.
 }
-
-void settings(){
-  //code.once();
-}
-
-//void draw()
-//{ 
-//  int time = millis();
-  
-//  if(time - old >= 1200){
-//    //println(time);
-//    toggle = false;
-//  } 
-  
-//  pLeftScore = code.leftScore();
-//  pRightScore = code.rightScore();
-//  pBallX = code.ballX();
-//  pBallY = code.ballY();
-//  pGameOn = code.gameOn();
-  
-//  code.forever();
-  
-//  //these get the X and Y speeds of the ball
-//  ballSpeedX = code.ballX() - pBallX;
-//  ballSpeedY = code.ballY() - pBallY;
-  
-//  //I think you're checking if the ball is moving after game is on
-//  //and deducting a point if gameOn is false while this happens
-//  if(once) {//if gameOn is true when mousePressed
-//    if(code.ballX() > pBallX) {
-//      if(code.gameOn() == 0) {  
-//        test.totalScore -= test.deduction;
-//        println("Ball moves even if gameOn is off");
-//      }
-//    }
-//    once = false;
-//  }
-  
-//  //int y = code.ballY() - radius;
- 
-//  if(code.gameOn && toggle) {
-    
-//   // yval.add(code.ballY());
-    
-//    //println(code.ballY());
-//    //println("yval:"+yval);
-//  }
-  
-//  //checkWallsBounce();
-//  //checkLeftExit();
-//  //checkRightExit();
-//  //checkStartZero();
-//  //checkTopWall();
-//  //checkBottomWall();
-  
-    
-//  //println("ballY => " + code.ballY() + " ballSpeedY => " + ballSpeedY + " y => " + y + " ballX + ballSpeedY => " + code.ballY() + ballSpeedY);
-  
-//  if (time >= 1500) {
-//    checkWallsBounce(yval);
-    
-//    test.printResults();
-//    exit();
-//  }
-//}
-
 
 void checkWallsBounce(ArrayList<Integer> yval){
     int minIndex = yval.indexOf(Collections.min(yval));
@@ -204,149 +120,4 @@ void checkWallsBounce(ArrayList<Integer> yval){
         test.totalScore -= test.deduction;
       }   
     
-}
-
-//void resetGame(){
-//  if(code.gameOn == true){
-//    code.gameOn = false;
-//    code.xBall = code.screenWidth / 2;
-//    code.yBall = code.screenHeight / 2;
-//    println("Game halted");
-//  }
-//}
-
-//the function checks if scores are zero at the start of the game
-//we can call it at the first iteration of forever()
-void checkStartZero(Code code){
-  
-  if(once){
-    try {
-      //deduction
-      if(code.leftScore()!=0 || code.rightScore()!=0 ){
-        test.totalScore -= test.deduction;
-      }
-      //feedback
-      if(code.leftScore()!=0){
-        println("Left Player Score does not start at zero");
-      }
-      
-      if(code.rightScore()!=0){
-        println("Right Player score does not start at zero");
-      }
-    } catch(Exception e) {
-       test.errors.add("Error: Do you have variables for scores?"); 
-    }
-  }
-  
-}
-  
-//I think you're checking whether the ball exits the left wall when it hits it
-// You're checking if the the right player score increases when this happens
-void checkLeftExit(Code code) {
-  
-  boolean leftExitFlag = false;
-   
-  if(code.ballX() + radius <= 0)
-  { 
-    mousePressed = false;
-    leftExitFlag = true;
-  }
- //check if right player score increases
- //deducts a point if right score doesn't increase
-  if(leftExitFlag) {
-    if(code.rightScore() - pRightScore != 1) {
-      test.totalScore -= test.deduction;
-      println("Right player should score 1 if ball exits left screen"); 
-    } 
-  }
-}
-
-//I think this function checks whether the ball exists the right wall when it hits it
-//
-void checkRightExit(Code code) {
-  
-  boolean rightExitFlag = false;
-   
-  if(code.ballX() - radius >= gameWidth - ballSpeedX) // dont know why balls x speed is needed but... Probably because of draw(Raymond's comment)
-  { 
-    mousePressed = false;
-    //println(code.ballX() - radius + " " + gameWidth);
-    rightExitFlag = true;
-  }
-  
-  //checks if  left player score increases
-  //deduct a point otherwise
-  if(rightExitFlag) {
-    if(code.leftScore() - pLeftScore == 1) {
-      test.totalScore -= test.deduction;
-      println("Left player should score 1 if ball exits right screen"); 
-    } 
-  }
-}
-
-//check if ball reverses when it hits the top wall
-void checkTopWall(Code code) {
-  
-  boolean topWallFlag = false;
-  //int pBallSpeedY = 0;
-  //int cBallSpeedY = 0;
-  
-  //while(code.ballY() - radius <= 0 && ballSpeedY < 0 ) {
-  //    pBallSpeedY = ballSpeedY;
-  //    print(pBallSpeedY);
-  //    break; 
-  //}
-    
-  //check if ball hits the top
-  if((code.ballY() - radius) <= 0) // dont know why balls x speed is needed but... Probably because of draw
-  {  
-    topWallFlag = true;
-  }
-  //println(topWallFlag);
-  //println("old:"+ballSpeedY);
-  if(topWallFlag) {
-    //println("new:"+ballSpeedY);
-    if(ballSpeedY == -ballSpeedY) {
-      //println(ballSpeedY);
-      test.totalScore -= test.deduction;
-      println("Ball hit top wall but didnt change diretion"); 
-      println(test.totalScore);
-    }
-  }
-  
-  //if(code.ballY() - radius > 0 && code.ballY() - radius <= gameHeight/4  && ballSpeedY > 0 ) {
-  //  cBallSpeedY = ballSpeedY;
-  //  cBallSpeedY *= -1;
-  //  print(cBallSpeedY); 
-  //  topWallFlag = true;
-  //}
-  
-  
-  //if(topWallFlag) {
-  //  println(cBallSpeedY); 
-  //  if(pBallSpeedY == cBallSpeedY ) {
-  //    test.totalScore -= test.deduction;
-  //    println("Ball hit top wall but didn't change diretion"); 
-  //    noLoop();
-  //  }
-  //}
-  
-}
-
-//check if ball reverses when it hits the bottom wall
-void checkBottomWall(Code code){
-  boolean bottomWallFlag = false;
-  
-   //check if ball hits the bottom and set the flag to true
-  if((code.ballY() - radius) >= gameHeight) // if the ball exceeds the bottom wall
-  { 
-    bottomWallFlag = true;
-  }
-  
-  if(bottomWallFlag) {
-    if(ballSpeedY != -1 * ballSpeedY) {
-      test.totalScore -= test.deduction;
-      println("Ball hit bottom wall but didnt change diretion"); 
-    } 
-  }
 }
