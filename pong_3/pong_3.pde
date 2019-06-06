@@ -60,16 +60,17 @@ void setup ()
       //yvalBounce.add(code1.ballY());
       
       
-      //Checks whether the scoring on the left works
-      code2.forever();
-      xvalLeft.add(code2.ballX());
+      //Generates the state for scoring on the left wall
+      //code2.forever();
+      //xvalLeft.add(code2.ballX());
       
-      //Checks whether the bounce works
-      //code3.forever();
-      //xvalRight.add(code3.ballX());
+      // Generaete the state for bouncing
+      code3.forever();
+      xvalRight.add(code3.ballX());
      }
      
-     //checkWallsBounce(yvalBounce);
+     //Checks whether the bounce works
+     checkWallsBounce(yvalBounce);
     
      
      
