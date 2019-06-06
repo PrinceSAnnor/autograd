@@ -59,11 +59,14 @@ void setup ()
       //code1.forever();
       //yvalBounce.add(code1.ballY());
       
+      
+      //Checks whether the scoring on the left works
       code2.forever();
       xvalLeft.add(code2.ballX());
       
+      //Checks whether the bounce works
       //code3.forever();
-      //xvalRight.add(code2.ballX());
+      //xvalRight.add(code3.ballX());
      }
      
      //checkWallsBounce(yvalBounce);
