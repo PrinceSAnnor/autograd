@@ -1195,6 +1195,23 @@ class Test {
     println(totalScore, errors);
   }
 
+  void debug(boolean mode){
+    if(mode = true){
+      println("----------------------");
+      println("Debug");
+      println("----------------------");
+      println(" ");
+       //Print states
+      println("State after 45 frames for scenario 1 - bounce"+yvalBounce);
+      println(" ");
+      println("State after 45 frames for scenario 2 - moveLeft"+xvalLeft);
+      println("rightScore:"+ scoresR);
+      println(" ");
+      println("State after 45 frames for scenario 3 - moveRight"+xvalRight);
+      println("leftScore:"+ scoresL);
+   
+    }
+  }
 
   void generateStates(){
     
@@ -1205,29 +1222,20 @@ class Test {
       
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
-        //Generates the state for scenario 1
-        code1.forever();
-        yvalBounce.add(code1.ballY());
-        
-        //Generates the state for scenario 2
-        code2.forever();
-        xvalLeft.add(code2.ballX());
-        scoresR.add(code2.rightScore());
-        
-        //Generates the state for scenario 3
-        code3.forever();
-        xvalRight.add(code3.ballX());
-        scoresL.add(code3.leftScore());
-      }
-      
-      //Print states
-      println("State after 45 frames for scenario 1 - bounce"+yvalBounce);
-      
-      println("State after 45 frames for scenario 2 - moveLeft"+xvalLeft);
-      println("rightScore:"+ scoresR);
-
-      println("State after 45 frames for scenario 3 - moveRight"+xvalRight);
-      println("leftScore:"+ scoresL);
+          //Generates the state for scenario 1
+          code1.forever();
+          yvalBounce.add(code1.ballY());
+          
+          //Generates the state for scenario 2
+          code2.forever();
+          xvalLeft.add(code2.ballX());
+          scoresR.add(code2.rightScore());
+          
+          //Generates the state for scenario 3
+          code3.forever();
+          xvalRight.add(code3.ballX());
+          scoresL.add(code3.leftScore());
+        }
       
       }
       catch(Exception e)
@@ -1241,6 +1249,8 @@ class Test {
   
 
   void checkLeftWall(ArrayList<Integer> xval){
+    boolean correct = true;
+
     // If the ball crosses the left it will have a value larger than the screenWidth
     int minVal = Collections.min(xval);
     int minValIndex = xval.indexOf(minVal);
@@ -1248,20 +1258,27 @@ class Test {
     int minValScore = scoresR.get(minValIndex);
     int nextScoreAfterMin = scoresR.get(minValIndex + 1);
 
-    println(minValScore+","+nextScoreAfterMin);
     boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
-    if(!rightScoreIncreased) errors.add("Check whether the scores change on crossing the left wall");
+    if(!rightScoreIncreased){
+      correct = false;
+      errors.add("Check whether the scores change on crossing the lefthand wall");
+    } 
 
+    // If ball leaves the screen, even a little
+    if( minVal < 0  ){
+        correct = false;
+        String err = "The game does not reset after crossing the left wall";
+        errors.add(err);
+      }
+      //return;
 
-    if( minVal < 0 && rightScoreIncreased ){
-      test.totalScore -= test.deduction;
-      println("Not crossing left");
-    }
-      return;
+      if(!correct) test.totalScore -= test.deduction;
     }
 
     
   void checkRightWall(ArrayList<Integer> xval){
+      boolean correct = true;
+
       // If the ball crosses the right it will have a value larger than the screenWidth
       int maxVal = Collections.max(xval);
       int maxValIndex = xval.indexOf(maxVal);
@@ -1269,16 +1286,21 @@ class Test {
       int maxValScore = scoresL.get(maxValIndex);
       int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
 
-      println(maxValScore+","+nextScoreAfterMax);
       boolean leftScoreIncreased = maxValScore < nextScoreAfterMax;
-      if(!leftScoreIncreased) errors.add("Check whether the scores change on crossing the right wall");
+      if(!leftScoreIncreased){
+        correct = false;
+        errors.add("Check whether the scores change on crossing the righthand wall");
+      } 
 
-
-      if( maxVal > screenWidth && leftScoreIncreased ){
-        test.totalScore -= test.deduction;
-        println("Not crossing right");
+      // If ball leaves the screen, even a little
+      if( maxVal > screenWidth ){
+        correct = false;
+        String err = "The game does not reset after crossing the right wall";
+        errors.add(err);
       }
-      return;
+
+      if(!correct) test.totalScore -= test.deduction;
+      //return;
     }
 
 
@@ -1309,29 +1331,27 @@ class Test {
       int maxIndex = yval.indexOf(Collections.max(yval));
       
       // Test upper wall bounce.  - If min is the first or last element it means there was no bounce.
-    
-      if(minIndex == (yval.size() - 1) || minIndex == 0 ){ 
-        test.totalScore -= test.deduction; // Do not go ahead to check ball will bounce below.
-        println("Not bouncing off top");
-        return;
+      if(minIndex == (yval.size()-1) || minIndex == 0 ){ 
+        test.totalScore -= test.deduction;
+        String err = "Ball does not bounce off top";
+        errors.add(err);
+        //return;
       }
-      if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
+      else if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
         count++; //Ball bounces above. Proceed to confirm for below.
       }
       
+
       //test lower wall bounce
       if(maxIndex == (yval.size()-1) || maxIndex == 0){
-        count--; //conclude bounce code is faulty
-        println("Not bouncing off bottom");
+        test.totalScore -= test.deduction;
+        String err = "Ball does not bounce off bottom";
+        errors.add(err);
       }
-      if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
+      else if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
         count++;
       }
-      
-      if(count < 2){
-          println("Not bouncing off one side");
-          test.totalScore -= test.deduction;
-        }    
+         
     }
 
   /***************************************************************
@@ -1364,10 +1384,12 @@ class Test {
       checkRightWall(xvalRight);
 
       printResults(); // Dnt print results here
+      debug(true);
     } else {
       totalScore = 0;
       majorError.add("Could not grade assignment: check you maxX and maxY values");
       print(totalScore, majorError);
     }
+    
   }
 }
