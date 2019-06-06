@@ -17,6 +17,13 @@ class Test {
 
   ArrayList<String> errors = new ArrayList<String>(); //store errors
   ArrayList<String> majorError = new ArrayList<String>(); //store the ultimate error
+
+  ArrayList<Integer> yvalBounce = new ArrayList<Integer>(); // Store ycoordinate states of ball 
+  ArrayList<Integer> xvalLeft = new ArrayList<Integer>(); // Store x coordinate states as it 
+  ArrayList<Integer> xvalRight = new ArrayList<Integer>();
+
+  ArrayList<Integer> scoresR = new ArrayList<Integer>();
+  ArrayList<Integer> scoresL = new ArrayList<Integer>();
   
   int totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
@@ -27,6 +34,11 @@ class Test {
   int tabLength = 2;
 
   File filePath;
+
+  //Parallel templates for different scenarios
+  Code code1 = new Code();
+  Code code2 = new Code();
+  Code code3 = new Code();
 
   Test(File f) { 
     filePath = f;
@@ -1183,9 +1195,148 @@ class Test {
     println(totalScore, errors);
   }
 
+
+  void generateStates(){
+    
+    try
+    {
+      //Start simulation
+      mousePressed = true;
+      
+      // Gather states of 45 frames
+      for(int i=0; i<45;i++){
+        //Generates the state for scenario 1
+        code1.forever();
+        yvalBounce.add(code1.ballY());
+        
+        //Generates the state for scenario 2
+        code2.forever();
+        xvalLeft.add(code2.ballX());
+        scoresR.add(code2.rightScore());
+        
+        //Generates the state for scenario 3
+        code3.forever();
+        xvalRight.add(code3.ballX());
+        scoresL.add(code3.leftScore());
+      }
+      
+      //Print states
+      println("State after 45 frames for scenario 1 - bounce"+yvalBounce);
+      
+      println("State after 45 frames for scenario 2 - moveLeft"+xvalLeft);
+      println("rightScore:"+ scoresR);
+
+      println("State after 45 frames for scenario 3 - moveRight"+xvalRight);
+      println("leftScore:"+ scoresL);
+      
+      }
+      catch(Exception e)
+      {
+        println("Code runtime error:" +e);
+        test.totalScore = 0;
+        test.printResults();
+        exit();
+      }
+  }
+  
+
+  void checkLeftWall(ArrayList<Integer> xval){
+    // If the ball crosses the left it will have a value larger than the screenWidth
+    int minVal = Collections.min(xval);
+    int minValIndex = xval.indexOf(minVal);
+
+    int minValScore = scoresR.get(minValIndex);
+    int nextScoreAfterMin = scoresR.get(minValIndex + 1);
+
+    println(minValScore+","+nextScoreAfterMin);
+    boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
+    if(!rightScoreIncreased) errors.add("Check whether the scores change on crossing the left wall");
+
+
+    if( minVal < 0 && rightScoreIncreased ){
+      test.totalScore -= test.deduction;
+      println("Not crossing left");
+    }
+      return;
+    }
+
+    
+  void checkRightWall(ArrayList<Integer> xval){
+      // If the ball crosses the right it will have a value larger than the screenWidth
+      int maxVal = Collections.max(xval);
+      int maxValIndex = xval.indexOf(maxVal);
+
+      int maxValScore = scoresL.get(maxValIndex);
+      int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
+
+      println(maxValScore+","+nextScoreAfterMax);
+      boolean leftScoreIncreased = maxValScore < nextScoreAfterMax;
+      if(!leftScoreIncreased) errors.add("Check whether the scores change on crossing the right wall");
+
+
+      if( maxVal > screenWidth && leftScoreIncreased ){
+        test.totalScore -= test.deduction;
+        println("Not crossing right");
+      }
+      return;
+    }
+
+
+    void setInitialConditions(){
+      // Place the ball at the center
+      code1.xBall = 0.5 * screenWidth;
+      code1.yBall = 0.5 * screenHeight;
+      
+      code3.xBall = code2.xBall = code1.xBall;
+      code3.yBall = code2.yBall = code1.yBall;    
+      
+      // Initial conditions for scenario 1 - Bounce
+      code1.ySpeed = 50;
+      code1.xSpeed = 0;
+      
+      // Initial conditions for scenario 2 - Move left
+      code2.ySpeed = 0;
+      code2.xSpeed = -50;
+      
+      // Initial conditions for scenario 3 - Move right
+      code3.ySpeed = 0;
+      code3.xSpeed = 50;
+    }
+
+  
+  void checkWallsBounce(ArrayList<Integer> yval){
+      int minIndex = yval.indexOf(Collections.min(yval));
+      int maxIndex = yval.indexOf(Collections.max(yval));
+      
+      // Test upper wall bounce.  - If min is the first or last element it means there was no bounce.
+    
+      if(minIndex == (yval.size() - 1) || minIndex == 0 ){ 
+        test.totalScore -= test.deduction; // Do not go ahead to check ball will bounce below.
+        println("Not bouncing off top");
+        return;
+      }
+      if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
+        count++; //Ball bounces above. Proceed to confirm for below.
+      }
+      
+      //test lower wall bounce
+      if(maxIndex == (yval.size()-1) || maxIndex == 0){
+        count--; //conclude bounce code is faulty
+        println("Not bouncing off bottom");
+      }
+      if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
+        count++;
+      }
+      
+      if(count < 2){
+          println("Not bouncing off one side");
+          test.totalScore -= test.deduction;
+        }    
+    }
+
   /***************************************************************
    main method that calls all other methods to grade the assigment
-   checks wheter screenWith and sreenHeight were gotten 
+   checks wheter screenWidth and sreenHeight were gotten 
    grades if true and doesnt if false
    ****************************************************************/
   void run() {
@@ -1204,11 +1355,19 @@ class Test {
       checkScores();
       checkMovingBall();
       shapeColorInteractions();
-      //printResults(); // Dnt print results here
+      
+      setInitialConditions();
+      generateStates();
+
+      checkWallsBounce(yvalBounce);
+      checkLeftWall(xvalLeft);
+      checkRightWall(xvalRight);
+
+      printResults(); // Dnt print results here
     } else {
       totalScore = 0;
       majorError.add("Could not grade assignment: check you maxX and maxY values");
-      //print(totalScore, majorError);
+      print(totalScore, majorError);
     }
   }
 }
