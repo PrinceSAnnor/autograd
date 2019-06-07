@@ -1,6 +1,8 @@
 
 class Test {
 
+  PrintWriter output = createWriter("error_logs.txt");
+
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
   ArrayList<Integer> backgrounds = new ArrayList<Integer>(); //background lines
@@ -24,6 +26,8 @@ class Test {
 
   ArrayList<Integer> scoresR = new ArrayList<Integer>();
   ArrayList<Integer> scoresL = new ArrayList<Integer>();
+  
+  int count = 0;
   
   int totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
@@ -1248,12 +1252,12 @@ class Test {
   }
   
 
-  void checkLeftWall(ArrayList<Integer> xval){
+  void checkLeftWall(){
     boolean correct = true;
 
     // If the ball crosses the left it will have a value larger than the screenWidth
-    int minVal = Collections.min(xval);
-    int minValIndex = xval.indexOf(minVal);
+    int minVal = Collections.min(xvalLeft);
+    int minValIndex = xvalLeft.indexOf(minVal);
 
     int minValScore = scoresR.get(minValIndex);
     int nextScoreAfterMin = scoresR.get(minValIndex + 1);
@@ -1276,12 +1280,12 @@ class Test {
     }
 
     
-  void checkRightWall(ArrayList<Integer> xval){
+  void checkRightWall(){
       boolean correct = true;
 
       // If the ball crosses the right it will have a value larger than the screenWidth
-      int maxVal = Collections.max(xval);
-      int maxValIndex = xval.indexOf(maxVal);
+      int maxVal = Collections.max(xvalRight);
+      int maxValIndex = xvalRight.indexOf(maxVal);
 
       int maxValScore = scoresL.get(maxValIndex);
       int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
@@ -1326,33 +1330,39 @@ class Test {
     }
 
   
-  void checkWallsBounce(ArrayList<Integer> yval){
-      int minIndex = yval.indexOf(Collections.min(yval));
-      int maxIndex = yval.indexOf(Collections.max(yval));
+  void checkWallsBounce(){
+      int minIndex = yvalBounce.indexOf(Collections.min(yvalBounce));
+      int maxIndex = yvalBounce.indexOf(Collections.max(yvalBounce));
       
       // Test upper wall bounce.  - If min is the first or last element it means there was no bounce.
-      if(minIndex == (yval.size()-1) || minIndex == 0 ){ 
+      if(minIndex == (yvalBounce.size()-1) || minIndex == 0 ){ 
         test.totalScore -= test.deduction;
         String err = "Ball does not bounce off top";
         errors.add(err);
         //return;
       }
-      else if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
+      else if ( yvalBounce.get(minIndex+1) > yvalBounce.get(minIndex) && yvalBounce.get(minIndex-1) > yvalBounce.get(minIndex)){
         count++; //Ball bounces above. Proceed to confirm for below.
       }
       
 
       //test lower wall bounce
-      if(maxIndex == (yval.size()-1) || maxIndex == 0){
+      if(maxIndex == (yvalBounce.size()-1) || maxIndex == 0){
         test.totalScore -= test.deduction;
         String err = "Ball does not bounce off bottom";
         errors.add(err);
       }
-      else if ( yval.get(minIndex+1) > yval.get(minIndex) && yval.get(minIndex-1) > yval.get(minIndex)){
+      else if ( yvalBounce.get(minIndex+1) > yvalBounce.get(minIndex) && yvalBounce.get(minIndex-1) > yvalBounce.get(minIndex)){
         count++;
       }
          
     }
+  
+  void logFilesWithErrors(){
+    output.println(filePath);
+    output.flush();
+    output.close();
+  } 
 
   /***************************************************************
    main method that calls all other methods to grade the assigment
@@ -1379,15 +1389,18 @@ class Test {
       setInitialConditions();
       generateStates();
 
-      checkWallsBounce(yvalBounce);
-      checkLeftWall(xvalLeft);
-      checkRightWall(xvalRight);
+      checkWallsBounce();
+      checkLeftWall();
+      checkRightWall();
 
       printResults(); // Dnt print results here
       debug(true);
     } else {
       totalScore = 0;
-      majorError.add("Could not grade assignment: check you maxX and maxY values");
+      String err = "Could not grade assignment: Check log at errors.txt. Skipping ...";
+      
+      logFilesWithErrors();
+      majorError.add(err);
       print(totalScore, majorError);
     }
     
