@@ -5,7 +5,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from email.mime.text import MIMEText
 
-from apiclient.errors import HttpError
+from googleapiclient.errors import HttpError
 
 
 # If modifying these scopes, delete the file token.pickle.
