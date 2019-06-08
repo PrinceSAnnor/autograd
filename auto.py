@@ -63,7 +63,7 @@ class AutoGrad(object):
         else: course_number = tuple(int(course_number))
 
         # Get course ids for selected courses eg. suacode 1 and 2 
-        course_ids = tuple(map(lambda cn: courses[self.course_names[cn-1], course_number))
+        course_ids = tuple(map(lambda cn: courses[self.course_names[cn-1]], course_number))
 
         for id in course_ids:      
             # Get dict of assignment names and assignment id
