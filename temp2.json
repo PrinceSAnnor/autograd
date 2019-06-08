@@ -1,0 +1,105 @@
+[
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36326931420",
+        "id": "Cg0Ikd_33nQQ3PeDqocB",
+        "userId": "104033770286552763608",
+        "creationTime": "2019-05-06T12:35:54.955Z",
+        "updateTime": "2019-06-05T01:48:54.271Z",
+        "state": "TURNED_IN",
+        "draftGrade": 17,
+        "assignedGrade": 17,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzYzMjY5MzE0MjBa/submissions/student/MzEzMzc2MDcwNTda",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1myltQgafksMnRy4idgeAGBx1EFQszjus",
+                        "title": "Assignment1.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1myltQgafksMnRy4idgeAGBx1EFQszjus",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1myltQgafksMnRy4idgeAGBx1EFQszjus&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "111bh66Eqevii8TEoCxhIyFQxQFExyP2g",
+                        "title": "Screenshot_20190522-155247.png",
+                        "alternateLink": "https://drive.google.com/open?id=111bh66Eqevii8TEoCxhIyFQxQFExyP2g",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=111bh66Eqevii8TEoCxhIyFQxQFExyP2g&sz=s200"
+                    }
+                }
+            ]
+        },
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-06T12:35:54.896Z",
+                    "actorUserId": "104033770286552763608"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-23T19:28:36.509Z",
+                    "actorUserId": "104033770286552763608"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 17,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-05-23T23:48:40.929Z",
+                    "actorUserId": "102816551806542645046",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-05-23T23:49:25.707Z",
+                    "actorUserId": "102816551806542645046"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 17,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-05-23T23:49:25.707Z",
+                    "actorUserId": "102816551806542645046",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-05T01:48:54.271Z",
+                    "actorUserId": "104033770286552763608"
+                }
+            }
+        ]
+    }
+]
+
+
+[
+    [
+        {
+            "driveFile": {
+                "id": "1myltQgafksMnRy4idgeAGBx1EFQszjus",
+                "title": "Assignment1.pde",
+                "alternateLink": "https://drive.google.com/open?id=1myltQgafksMnRy4idgeAGBx1EFQszjus",
+                "thumbnailUrl": "https://drive.google.com/thumbnail?id=1myltQgafksMnRy4idgeAGBx1EFQszjus&sz=s200"
+            }
+        },
+        {
+            "driveFile": {
+                "id": "111bh66Eqevii8TEoCxhIyFQxQFExyP2g",
+                "title": "Screenshot_20190522-155247.png",
+                "alternateLink": "https://drive.google.com/open?id=111bh66Eqevii8TEoCxhIyFQxQFExyP2g",
+                "thumbnailUrl": "https://drive.google.com/thumbnail?id=111bh66Eqevii8TEoCxhIyFQxQFExyP2g&sz=s200"
+            }
+        }
+    ]
+]
