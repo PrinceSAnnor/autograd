@@ -6,8 +6,9 @@ from oauth2client.service_account import ServiceAccountCredentials
 #scope for spreadsheets and for drive
 
 class Sheets(object):
-
+    
     def __init__(self):
+        self.gc = None
         self.boot()
     
     def boot(self):
@@ -19,5 +20,4 @@ class Sheets(object):
         self.gc = gspread.authorize(credentials)
 
     def get_worksheet(self, course):
-        wks = self.gc.open(course).sheet1
-        return wks
+        return self.gc.open(course).sheet1
