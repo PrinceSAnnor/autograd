@@ -25,6 +25,7 @@ class Test {
   float deduction = 1; //deduction for each section missed
   float commentPercentage = 0.3; //percentage error for floatation divisions
   int tabLength = 2;
+  boolean majorErrorFlag = false; // this checks if there's a major error and does not run GetCode as a result.
 
   File filePath;
 
@@ -209,6 +210,7 @@ class Test {
       if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
       {
         errors.add("check width in code");
+        majorError.add("check width in first line of code. Replace the *** with your maxX value and resubmit for grading.");
         totalScore = 0;
       }
 
@@ -221,7 +223,8 @@ class Test {
 
       if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
       {
-        errors.add("check height in code");
+        errors.add("check height in code.");
+        majorError.add("check height in first line of code. Replace the *** with your maxX and maxY values and resubmit for grading.");
         totalScore = 0;
       }
 
@@ -363,13 +366,30 @@ class Test {
       String[] splitByCommas1;
       int max = 0;      
       int coordinateFlag = 0;
-
+      
+      int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
         if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect( or rect ( with regex 
         {
           rects.add(i);
+          recCounter++;
         }
+      }
+      
+      //check if rects are used and break code otherwise.
+      if(recCounter < 2){   
+        //println("Student did not create a paddle or both paddles.");
+        if(recCounter == 0){
+          majorError.add("You did not create both paddles. Do so and resubmit for grading.");
+          totalScore = 0;
+          println("Student did not create both paddles");
+        }else if(recCounter == 1){
+          majorError.add("You did not create one of the paddes. Do so and resubmit for grading.");
+          totalScore = 0;
+          println("Student only created one paddle.");
+        }
+        
       }
 
       int j = 0;
@@ -883,6 +903,7 @@ class Test {
       int max = 0;
       int coordinateFlag = 0;
       boolean sizeFlag = true;
+      int textFlag = 0; // variable to check if required number of text functions are used and break code otherwise
 
       //make sure size is set beore writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
@@ -894,11 +915,24 @@ class Test {
           {
             totalScore -= deduction;
             errors.add("size not set before text called");
+            
           }
         }
         if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
         {
           texts.add(i);
+          textFlag++;
+        }
+      }
+      
+      //check if sufficient number of text() functions are used and break the code otherwise.
+      if(textFlag < 2){//if less than two text functions are used, this means our code will break because the won't have the required variables we need to create our getters, getLeftScore etc.
+        if(textFlag == 0){
+          majorError.add("Major Error: You didn't create both player scores using the text() function. Please fix this and resubmit for grading.");
+          totalScore = 0;
+        }else if(textFlag == 1){
+          majorError.add("Major Error: You didn't create one player scores using the text() function. Please fix this and resubmit for grading.");  
+          totalScore = 0;
         }
       }
 
@@ -906,6 +940,8 @@ class Test {
       {
         totalScore -= deduction;
         errors.add("text size not set");
+        majorError.add("text size not set. Please fix this by calling textSize() before text and resubmit for grading. Don't forget to use a variable as parameter.");
+        totalScore = 0;
       }
 
       int j = 0;
@@ -1182,6 +1218,15 @@ class Test {
     }
     println(totalScore, errors);
   }
+  
+  //Checks if there is a major Error and breaks code.
+  void checkMajorErrors(){
+    int errorFlag = majorError.size();
+    if(errorFlag > 0){
+      majorErrorFlag = true;
+      println("There's a major Error in student code... Should be fixed and resubmitted for a regrade!");
+    }
+  }
 
   /***************************************************************
    main method that calls all other methods to grade the assigment
@@ -1204,6 +1249,7 @@ class Test {
       checkScores();
       checkMovingBall();
       shapeColorInteractions();
+      checkMajorErrors();
       printResults(); // Dnt print results here
     } else {
       totalScore = 0;
