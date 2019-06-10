@@ -18,6 +18,8 @@ class Test {
   ArrayList<String> errors = new ArrayList<String>(); //store errors
   ArrayList<String> majorError = new ArrayList<String>(); //store the ultimate error
   
+  HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Strictly for checking GameOn
+  
   int totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
@@ -210,8 +212,9 @@ class Test {
       if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
       {
         errors.add("check width in code");
-        majorError.add("check width in first line of code. Replace the *** with your maxX value and resubmit for grading.");
+        majorError.add("Major Error: check width in first line of code. Replace the *** with your maxX value and resubmit for grading.");
         totalScore = 0;
+        majorErrorFlag = true;
       }
 
       //get height
@@ -224,8 +227,9 @@ class Test {
       if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
       {
         errors.add("check height in code.");
-        majorError.add("check height in first line of code. Replace the *** with your maxX and maxY values and resubmit for grading.");
+        majorError.add("Major Error: check height in first line of code. Replace the *** with your maxY value and resubmit for grading.");
         totalScore = 0;
+        majorErrorFlag = true;
       }
 
       screenHeight = int(trim(splitBySpacesRight[i])); //get screen height
@@ -234,7 +238,9 @@ class Test {
     catch (Exception e)
     {
       errors.add("Error: check syntax of width and height at first line of code");
+      majorError.add("Major Error: check syntax of width and height at first line of code. Replace the ** with your maxX and maXY values and resubmit for grading.");
       totalScore = 0;
+      majorErrorFlag = true;
       return false;
     }
   }
@@ -381,13 +387,13 @@ class Test {
       if(recCounter < 2){   
         //println("Student did not create a paddle or both paddles.");
         if(recCounter == 0){
-          majorError.add("You did not create both paddles. Do so and resubmit for grading.");
+          majorError.add("Major Error: You did not create both paddles. Do so and resubmit for grading.");
           totalScore = 0;
-          println("Student did not create both paddles");
+          //println("Student did not create both paddles");
         }else if(recCounter == 1){
-          majorError.add("You did not create one of the paddes. Do so and resubmit for grading.");
+          majorError.add("Major Error: You did not create one of the paddes. Do so and resubmit for grading.");
           totalScore = 0;
-          println("Student only created one paddle.");
+          //println("Student only created one paddle.");
         }
         
       }
@@ -930,9 +936,11 @@ class Test {
         if(textFlag == 0){
           majorError.add("Major Error: You didn't create both player scores using the text() function. Please fix this and resubmit for grading.");
           totalScore = 0;
+          majorErrorFlag = true;
         }else if(textFlag == 1){
           majorError.add("Major Error: You didn't create one player scores using the text() function. Please fix this and resubmit for grading.");  
           totalScore = 0;
+          majorErrorFlag = true;
         }
       }
 
@@ -940,8 +948,9 @@ class Test {
       {
         totalScore -= deduction;
         errors.add("text size not set");
-        majorError.add("text size not set. Please fix this by calling textSize() before text and resubmit for grading. Don't forget to use a variable as parameter.");
+        majorError.add("Major Error: text size not set. Please fix this by calling textSize() before text and resubmit for grading. Don't forget to use a variable as parameter.");
         totalScore = 0;
+        majorErrorFlag = true;
       }
 
       int j = 0;
@@ -1039,13 +1048,21 @@ class Test {
       String[] splitByLeftBrace;
       String[] splitByCommas;
       int max = 0;
-
+      int ellipseFlagSize = 0;//variable to check the number of ellipses and break the code if it's less than 1. (The need only one ellipse.)
+      //Also, if ball is not a circle that should be a major Error because diameter is one of the variables that has a getter which could break the code.
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^ellipse.*$") != null) //look for ellipse( or ellipse ( with regex
         {
           ellipses.add(i);
+          ellipseFlagSize++;
         }
+      }
+      
+      if(ellipseFlagSize < 1){
+        majorError.add("Major Error: You did not create a ball. Please do so and resubmit for grading.");
+        totalScore = 0;
+        majorErrorFlag = true;
       }
 
       int j = 0;
@@ -1098,6 +1115,9 @@ class Test {
       {
         totalScore -= deduction;
         errors.add("weird ball you got there lad");
+        majorError.add("Major Error: Your ball is not a circle. Please make sure both the width and height parameters of the ball are the same and resubmit for grading.");
+        totalScore = 0 ;
+        majorErrorFlag = true;
       }
 
       if (parameters.size() > 4) //if more than one ball
@@ -1210,6 +1230,38 @@ class Test {
       errors.add("Error: couldn't get moving ball");
     }
   }
+  
+  //This function checks if the boolean gameOn exists and breaks code otherwise.
+  void checkGameOn() 
+  {
+    try
+    {
+      String[] splitBySemiColon;
+      String[] splitBySpace;
+      
+      for (int m = 0; m < linesFiltered.size(); m++) 
+      {         
+        if(match(linesFiltered.get(m), "boolean") != null) {
+          
+          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
+          
+          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
+          
+          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
+        }
+      }
+      
+      if(varNamesHashMap.size() < 1){//if gameOn variable was not put in hashMap
+        majorError.add("You do not have the boolean variable gameOn. Please fix this and resubmit for grading.");
+        totalScore = 0;
+        
+      }
+    }
+    catch(Exception e)
+    {
+      // println("couldnt get boolean vars" + e);
+    }
+  }
 
   void printResults() {
     if (totalScore < 0)
@@ -1226,6 +1278,13 @@ class Test {
       majorErrorFlag = true;
       println("There's a major Error in student code... Should be fixed and resubmitted for a regrade!");
     }
+    
+    if(majorErrorFlag){
+      totalScore = 0;
+      print(totalScore, majorError);
+      exit();
+    }
+    
   }
 
   /***************************************************************
