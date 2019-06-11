@@ -1241,17 +1241,20 @@ class Test {
       
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
-        if(match(linesFiltered.get(m), "boolean") != null) {
+        if(match(linesFiltered.get(m), "^boolean.*$") != null) {
           
           splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
           
           splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
           
           varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
+          
         }
       }
       
-      if(varNamesHashMap.size() < 1){//if gameOn variable was not put in hashMap
+      
+      if(varNamesHashMap.size()!= 1){//if gameOn variable was not put in hashMap
+        
         majorError.add("You do not have the boolean variable gameOn. Please fix this and resubmit for grading.");
         totalScore = 0;
         
@@ -1274,12 +1277,14 @@ class Test {
   //Checks if there is a major Error and breaks code.
   void checkMajorErrors(){
     int errorFlag = majorError.size();
+    println(errorFlag);
     if(errorFlag > 0){
       majorErrorFlag = true;
       println("There's a major Error in student code... Should be fixed and resubmitted for a regrade!");
+      //println("Total Score =" + totalScore);
     }
     
-    if(majorErrorFlag){
+    if(majorErrorFlag == true){
       totalScore = 0;
       print(totalScore, majorError);
       exit();
@@ -1308,8 +1313,9 @@ class Test {
       checkScores();
       checkMovingBall();
       shapeColorInteractions();
+      checkGameOn();
       checkMajorErrors();
-      printResults(); // Dnt print results here
+      printResults(); // We probably would want to printResults after running Getcode and Pong_3.
     } else {
       totalScore = 0;
       majorError.add("Could not grade assignment: check you maxX and maxY values");

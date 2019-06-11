@@ -187,6 +187,6 @@ return int(text2X);
 }
 int gameOn()
 {
-return int(gameOn=);
+return int(gameOn);
 }
 }
