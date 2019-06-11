@@ -1,1 +1,2116 @@
-[{"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg0ImLSB9BIQwoz7zIkB", "userId": "108301598436263207762", "creationTime": "2019-05-28T06:45:44.029Z", "updateTime": "2019-06-09T21:52:07.806Z", "state": "TURNED_IN", "draftGrade": 12, "assignedGrade": 12, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/NTA3NTEzMDkwNFpa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1mTYrm4eizL6nwdcpfnADB9BXDLoXhaWD", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1mTYrm4eizL6nwdcpfnADB9BXDLoXhaWD", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1mTYrm4eizL6nwdcpfnADB9BXDLoXhaWD&sz=s200"}}, {"driveFile": {"id": "1VMMRB7fY0KuJREZn3gb9rPphGma4mizF", "title": "Screenshot_20190609-224546.png", "alternateLink": "https://drive.google.com/open?id=1VMMRB7fY0KuJREZn3gb9rPphGma4mizF", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1VMMRB7fY0KuJREZn3gb9rPphGma4mizF&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:43.940Z", "actorUserId": "108301598436263207762"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T22:26:58.809Z", "actorUserId": "108301598436263207762"}}, {"gradeHistory": {"pointsEarned": 12, "maxPoints": 20, "gradeTimestamp": "2019-06-05T09:11:09.728Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-05T09:12:21.859Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 12, "maxPoints": 20, "gradeTimestamp": "2019-06-05T09:12:21.860Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T21:42:57.946Z", "actorUserId": "108301598436263207762"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-09T21:44:42.333Z", "actorUserId": "108301598436263207762"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T21:52:07.805Z", "actorUserId": "108301598436263207762"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg0I3ta_uGwQwoz7zIkB", "userId": "113473970365651440432", "creationTime": "2019-05-28T06:45:42.141Z", "updateTime": "2019-06-08T15:44:14.914Z", "state": "TURNED_IN", "draftGrade": 12, "assignedGrade": 12, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MjkxMDk1MTMwNTRa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1q2saiAWQbF1VO62In20Nam13eKSfrJVR", "title": "Screenshot_20190604-180203.png", "alternateLink": "https://drive.google.com/open?id=1q2saiAWQbF1VO62In20Nam13eKSfrJVR", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1q2saiAWQbF1VO62In20Nam13eKSfrJVR&sz=s200"}}, {"driveFile": {"id": "1ag3Xxgv1EJGb9C0Nc6lhfJWbf2OQOLgR", "title": "Screenshot_20190608-182909.png", "alternateLink": "https://drive.google.com/open?id=1ag3Xxgv1EJGb9C0Nc6lhfJWbf2OQOLgR", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ag3Xxgv1EJGb9C0Nc6lhfJWbf2OQOLgR&sz=s200"}}, {"driveFile": {"id": "1qzm2dqYrrSpYKB6hZmXvIgU8HQchZvsy", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1qzm2dqYrrSpYKB6hZmXvIgU8HQchZvsy", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1qzm2dqYrrSpYKB6hZmXvIgU8HQchZvsy&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:42.071Z", "actorUserId": "113473970365651440432"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T15:03:50.999Z", "actorUserId": "113473970365651440432"}}, {"gradeHistory": {"pointsEarned": 12, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:46:14.474Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T12:46:26.623Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 12, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:46:26.623Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T15:44:14.913Z", "actorUserId": "113473970365651440432"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg0Ikd_33nQQwoz7zIkB", "userId": "104033770286552763608", "creationTime": "2019-05-28T06:45:44.200Z", "updateTime": "2019-06-08T23:32:03.083Z", "state": "TURNED_IN", "draftGrade": 8, "assignedGrade": 8, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzEzMzc2MDcwNTda", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1q-cwpnhbqu-btgRhUw0vPrs5MANRXGk8", "title": "Screenshot_20190604-132929.png", "alternateLink": "https://drive.google.com/open?id=1q-cwpnhbqu-btgRhUw0vPrs5MANRXGk8", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1q-cwpnhbqu-btgRhUw0vPrs5MANRXGk8&sz=s200"}}, {"driveFile": {"id": "1iIzlSMG8CmidmSx8dsGRK2VrudCITWIq", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1iIzlSMG8CmidmSx8dsGRK2VrudCITWIq", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1iIzlSMG8CmidmSx8dsGRK2VrudCITWIq&sz=s200"}}, {"driveFile": {"id": "1I9eJx35wiFq1uwMSs6-ZmQD_eAVCuV9m", "title": "Screenshot_20190608-233004.png", "alternateLink": "https://drive.google.com/open?id=1I9eJx35wiFq1uwMSs6-ZmQD_eAVCuV9m", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1I9eJx35wiFq1uwMSs6-ZmQD_eAVCuV9m&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:44.139Z", "actorUserId": "104033770286552763608"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T13:36:29.834Z", "actorUserId": "104033770286552763608"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-05T09:22:56.114Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-05T09:25:21.421Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-05T09:25:21.421Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T23:32:03.082Z", "actorUserId": "104033770286552763608"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg0I2p-IpXwQwoz7zIkB", "userId": "115689961756511554241", "creationTime": "2019-05-28T06:45:52.137Z", "updateTime": "2019-06-09T18:23:57.683Z", "state": "TURNED_IN", "draftGrade": 15, "assignedGrade": 15, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzMzNjM3MjYyOTha", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1ay7PBNbyy27l9C48Z57ADNiGjDr5NdgC", "title": "Screenshot_20190609-212128_APDE Sketch Preview.jpg", "alternateLink": "https://drive.google.com/open?id=1ay7PBNbyy27l9C48Z57ADNiGjDr5NdgC", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ay7PBNbyy27l9C48Z57ADNiGjDr5NdgC&sz=s200"}}, {"driveFile": {"id": "1yAJFRP9yz2MyFCmq44gGxRLrkTuMJ2J0", "title": "Screenshot_20190609-212140_APDE Sketch Preview.jpg", "alternateLink": "https://drive.google.com/open?id=1yAJFRP9yz2MyFCmq44gGxRLrkTuMJ2J0", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1yAJFRP9yz2MyFCmq44gGxRLrkTuMJ2J0&sz=s200"}}, {"driveFile": {"id": "12lrnQpOMokalVGvpkdllAMzqkcxXdGse", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=12lrnQpOMokalVGvpkdllAMzqkcxXdGse", "thumbnailUrl": "https://drive.google.com/thumbnail?id=12lrnQpOMokalVGvpkdllAMzqkcxXdGse&sz=s200"}}, {"driveFile": {"id": "1KfdFx06I0VH0T0lnHB8j5fVf3KJi2_vU", "title": "Screenshot_20190609-212139_APDE Sketch Preview.jpg", "alternateLink": "https://drive.google.com/open?id=1KfdFx06I0VH0T0lnHB8j5fVf3KJi2_vU", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1KfdFx06I0VH0T0lnHB8j5fVf3KJi2_vU&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:52.065Z", "actorUserId": "115689961756511554241"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T22:46:53.211Z", "actorUserId": "115689961756511554241"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-04T16:19:55.157Z", "actorUserId": "115689961756511554241"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T16:28:34.853Z", "actorUserId": "115689961756511554241"}}, {"gradeHistory": {"pointsEarned": 15, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:35:14.889Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T12:35:38.342Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 15, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:35:38.342Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T18:23:57.683Z", "actorUserId": "115689961756511554241"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg4I0_CI44cBEMKM-8yJAQ", "userId": "117392931796691688742", "creationTime": "2019-05-28T06:45:52.090Z", "updateTime": "2019-06-07T13:32:42.874Z", "state": "TURNED_IN", "draftGrade": 19, "assignedGrade": 19, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NDY1NTAwOTla", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1tLP68_rh8s7GVFryO8TwhJBGXlXCVY7c", "title": "Screenshot_20190531-200328.png", "alternateLink": "https://drive.google.com/open?id=1tLP68_rh8s7GVFryO8TwhJBGXlXCVY7c", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1tLP68_rh8s7GVFryO8TwhJBGXlXCVY7c&sz=s200"}}, {"driveFile": {"id": "1Lxm-1prEIx9gtH59K8M0IpNvftcRVQ48", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1Lxm-1prEIx9gtH59K8M0IpNvftcRVQ48", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Lxm-1prEIx9gtH59K8M0IpNvftcRVQ48&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:52.012Z", "actorUserId": "117392931796691688742"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T20:35:21.099Z", "actorUserId": "117392931796691688742"}}, {"gradeHistory": {"pointsEarned": 19, "maxPoints": 20, "gradeTimestamp": "2019-06-06T11:19:01.142Z", "actorUserId": "102816551806542645046", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T11:20:13.696Z", "actorUserId": "102816551806542645046"}}, {"gradeHistory": {"pointsEarned": 19, "maxPoints": 20, "gradeTimestamp": "2019-06-06T11:20:13.696Z", "actorUserId": "102816551806542645046", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-07T13:32:42.874Z", "actorUserId": "117392931796691688742"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg4I5OCK44cBEMKM-8yJAQ", "userId": "103837072563378112099", "creationTime": "2019-05-28T06:45:50.979Z", "updateTime": "2019-06-07T23:53:41.088Z", "state": "TURNED_IN", "draftGrade": 14, "assignedGrade": 14, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NDY1ODA4MzZa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1ASrqF0IbxfqDvC62WzEb7xmu9zp-Bvd1", "title": "Screenshot_20190607-233923.png", "alternateLink": "https://drive.google.com/open?id=1ASrqF0IbxfqDvC62WzEb7xmu9zp-Bvd1", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ASrqF0IbxfqDvC62WzEb7xmu9zp-Bvd1&sz=s200"}}, {"driveFile": {"id": "1jPjPzmW2P93suV4zQQYUsUseUXNNOSlx", "title": "Screenshot_20190607-233918.png", "alternateLink": "https://drive.google.com/open?id=1jPjPzmW2P93suV4zQQYUsUseUXNNOSlx", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1jPjPzmW2P93suV4zQQYUsUseUXNNOSlx&sz=s200"}}, {"driveFile": {"id": "1zOK20nL6pJ57SxHc79J-VDj-McyDWCng", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1zOK20nL6pJ57SxHc79J-VDj-McyDWCng", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1zOK20nL6pJ57SxHc79J-VDj-McyDWCng&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:50.912Z", "actorUserId": "103837072563378112099"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-30T14:17:27.531Z", "actorUserId": "103837072563378112099"}}, {"gradeHistory": {"pointsEarned": 14, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:27:18.209Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T12:28:33.333Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 14, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:28:33.334Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-07T23:53:41.087Z", "actorUserId": "103837072563378112099"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg4I2MmE5IcBEMKM-8yJAQ", "userId": "104055981933357383689", "creationTime": "2019-05-28T06:45:50.254Z", "updateTime": "2019-06-07T14:51:21.173Z", "state": "TURNED_IN", "draftGrade": 12, "assignedGrade": 12, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NDg1NzY3Mjha", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1NrFYOyvUpkNGRRiTdUzVjAM3qV32girA", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1NrFYOyvUpkNGRRiTdUzVjAM3qV32girA", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1NrFYOyvUpkNGRRiTdUzVjAM3qV32girA&sz=s200"}}, {"driveFile": {"id": "1RLErkVg5YdAOv980OFgYb-Fa98kfkoqZ", "title": "Screenshot_20190531-222849.png", "alternateLink": "https://drive.google.com/open?id=1RLErkVg5YdAOv980OFgYb-Fa98kfkoqZ", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1RLErkVg5YdAOv980OFgYb-Fa98kfkoqZ&sz=s200"}}, {"driveFile": {"id": "1oCUZ8sk7ZcBoI2YNhDr-HzLt_C0lgq6L", "title": "bounce ball.doc", "alternateLink": "https://drive.google.com/open?id=1oCUZ8sk7ZcBoI2YNhDr-HzLt_C0lgq6L", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1oCUZ8sk7ZcBoI2YNhDr-HzLt_C0lgq6L&sz=s200"}}, {"driveFile": {"id": "1QRIfFz49FDAFyLbzOrpnBXjFZZDBylMy", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1QRIfFz49FDAFyLbzOrpnBXjFZZDBylMy", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1QRIfFz49FDAFyLbzOrpnBXjFZZDBylMy&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:50.223Z", "actorUserId": "104055981933357383689"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-01T03:41:14.679Z", "actorUserId": "104055981933357383689"}}, {"gradeHistory": {"pointsEarned": 12, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:32:24.535Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T12:34:14.421Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 12, "maxPoints": 20, "gradeTimestamp": "2019-06-06T12:34:14.422Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-07T14:51:21.173Z", "actorUserId": "104055981933357383689"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg4IzNT15IcBEMKM-8yJAQ", "userId": "114452285791273659494", "creationTime": "2019-05-28T06:45:48.992Z", "updateTime": "2019-06-09T04:29:06.187Z", "state": "TURNED_IN", "draftGrade": 8, "assignedGrade": 8, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NTA0Mjk1MTZa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1AmkP_ps_hMwoX9JYkklj_w4KJ0cjHWtD", "title": "Assignment 3 comments.txt", "alternateLink": "https://drive.google.com/open?id=1AmkP_ps_hMwoX9JYkklj_w4KJ0cjHWtD", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1AmkP_ps_hMwoX9JYkklj_w4KJ0cjHWtD&sz=s200"}}, {"driveFile": {"id": "1SCe8BpX1FVIxZh-L1YrnGEKK3Nsz4Nbd", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1SCe8BpX1FVIxZh-L1YrnGEKK3Nsz4Nbd", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1SCe8BpX1FVIxZh-L1YrnGEKK3Nsz4Nbd&sz=s200"}}, {"driveFile": {"id": "1YN5s1evLK-UZGnFwliffk4MzqijM5JIT", "title": "Screenshot_20190609-052410.png", "alternateLink": "https://drive.google.com/open?id=1YN5s1evLK-UZGnFwliffk4MzqijM5JIT", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1YN5s1evLK-UZGnFwliffk4MzqijM5JIT&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:48.958Z", "actorUserId": "114452285791273659494"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T09:09:28.675Z", "actorUserId": "114452285791273659494"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T14:02:48.943Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T14:03:21.387Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T14:03:21.387Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T04:29:06.187Z", "actorUserId": "114452285791273659494"}}], "submissionNo": 2}, {"courseId": "36325932193", "courseWorkId": "36937057858", "id": "Cg4Ivp6y74cBEMKM-8yJAQ", "userId": "107140047152862095515", "creationTime": "2019-05-28T06:45:39.763Z", "updateTime": "2019-06-08T16:11:26.408Z", "state": "TURNED_IN", "draftGrade": 14, "assignedGrade": 14, "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NzIzOTM1MzRa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "13EZ-N4jXbgQIbt9lKlAG55CIlncx8OYP", "title": "Screenshot_20190531-193034.png", "alternateLink": "https://drive.google.com/open?id=13EZ-N4jXbgQIbt9lKlAG55CIlncx8OYP", "thumbnailUrl": "https://drive.google.com/thumbnail?id=13EZ-N4jXbgQIbt9lKlAG55CIlncx8OYP&sz=s200"}}, {"driveFile": {"id": "13vGQ2nHyeYOMdziSadQJxsJkmFL7jhVF", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=13vGQ2nHyeYOMdziSadQJxsJkmFL7jhVF", "thumbnailUrl": "https://drive.google.com/thumbnail?id=13vGQ2nHyeYOMdziSadQJxsJkmFL7jhVF&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:45:39.727Z", "actorUserId": "107140047152862095515"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T19:42:23.949Z", "actorUserId": "107140047152862095515"}}, {"gradeHistory": {"pointsEarned": 14, "maxPoints": 20, "gradeTimestamp": "2019-06-05T07:58:26.632Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-05T07:58:42.656Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 14, "maxPoints": 20, "gradeTimestamp": "2019-06-05T07:58:42.656Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T16:11:26.408Z", "actorUserId": "107140047152862095515"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4InZvd44cBEN-eiM2JAQ", "userId": "110285156332008711245", "creationTime": "2019-05-28T06:36:36.767Z", "updateTime": "2019-06-10T11:53:36.527Z", "state": "TURNED_IN", "draftGrade": 10, "assignedGrade": 10, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0NDc5MzE4MDVa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1LXmZxgxKjwO_ZeIFymuA1fHcJTh1miQF", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1LXmZxgxKjwO_ZeIFymuA1fHcJTh1miQF", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1LXmZxgxKjwO_ZeIFymuA1fHcJTh1miQF&sz=s200"}}, {"driveFile": {"id": "1G_QtkVmUSBa5BDb3vqL3c3T56edGGzAX", "title": "Screenshot_20190610-125153.png", "alternateLink": "https://drive.google.com/open?id=1G_QtkVmUSBa5BDb3vqL3c3T56edGGzAX", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1G_QtkVmUSBa5BDb3vqL3c3T56edGGzAX&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:36.683Z", "actorUserId": "110285156332008711245"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T18:53:48.638Z", "actorUserId": "110285156332008711245"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-04T20:08:23.286Z", "actorUserId": "110285156332008711245"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T20:17:22.670Z", "actorUserId": "110285156332008711245"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T15:43:38.535Z", "actorUserId": "110544833030086357366"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-07T11:25:28.465Z", "actorUserId": "110285156332008711245"}}, {"gradeHistory": {"pointsEarned": 10, "maxPoints": 20, "gradeTimestamp": "2019-06-07T11:45:27.069Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-07T11:45:40.181Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 10, "maxPoints": 20, "gradeTimestamp": "2019-06-07T11:45:40.181Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T22:25:52.570Z", "actorUserId": "110285156332008711245"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-10T11:52:27.025Z", "actorUserId": "110285156332008711245"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-10T11:53:36.526Z", "actorUserId": "110285156332008711245"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4I1I707YcBEN-eiM2JAQ", "userId": "105835584031171821990", "creationTime": "2019-05-28T06:36:38.416Z", "updateTime": "2019-06-09T17:28:53.880Z", "state": "TURNED_IN", "draftGrade": 18, "assignedGrade": 18, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0NjkyNzg1NDha", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1Wvzg0EhHVD5WPy-6MhEeBLQqIXDnKK11", "title": "Screenshot_20190531-170712.png", "alternateLink": "https://drive.google.com/open?id=1Wvzg0EhHVD5WPy-6MhEeBLQqIXDnKK11", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Wvzg0EhHVD5WPy-6MhEeBLQqIXDnKK11&sz=s200"}}, {"driveFile": {"id": "1CWlbZzdSN4kEs-RDdQac4WLp6uYKQzn3", "title": "Screenshot_20190531-214708~2.png", "alternateLink": "https://drive.google.com/open?id=1CWlbZzdSN4kEs-RDdQac4WLp6uYKQzn3", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1CWlbZzdSN4kEs-RDdQac4WLp6uYKQzn3&sz=s200"}}, {"driveFile": {"id": "1buEoEz4u79ypUaJDA5Giq_FCrNN2xPxE", "title": "Screenshot_20190531-201005.png", "alternateLink": "https://drive.google.com/open?id=1buEoEz4u79ypUaJDA5Giq_FCrNN2xPxE", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1buEoEz4u79ypUaJDA5Giq_FCrNN2xPxE&sz=s200"}}, {"driveFile": {"id": "1vdQ48y28DnoUt4Nqe01MfZHfijGnJc-p", "title": "Screenshot_20190609-202715.png", "alternateLink": "https://drive.google.com/open?id=1vdQ48y28DnoUt4Nqe01MfZHfijGnJc-p", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1vdQ48y28DnoUt4Nqe01MfZHfijGnJc-p&sz=s200"}}, {"driveFile": {"id": "1UbBXnlROBj46uJBe60xqE2Qz-yKahyO3", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1UbBXnlROBj46uJBe60xqE2Qz-yKahyO3", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1UbBXnlROBj46uJBe60xqE2Qz-yKahyO3&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:38.402Z", "actorUserId": "105835584031171821990"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T18:52:35.452Z", "actorUserId": "105835584031171821990"}}, {"gradeHistory": {"pointsEarned": 18, "maxPoints": 20, "gradeTimestamp": "2019-06-06T17:34:46.870Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T17:35:30.193Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 18, "maxPoints": 20, "gradeTimestamp": "2019-06-06T17:35:30.193Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T17:28:53.879Z", "actorUserId": "105835584031171821990"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4I8Lqy9IcBEN-eiM2JAQ", "userId": "102294803850075608005", "creationTime": "2019-05-28T06:36:39.761Z", "updateTime": "2019-06-08T22:51:23.898Z", "state": "TURNED_IN", "draftGrade": 17, "assignedGrade": 17, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0ODI4ODI5Mjha", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1gCWUnQoCvyGkJsRjVvKCFO3t_iEGxGaq", "title": "Screenshot_2019-06-01-01-31-28.png", "alternateLink": "https://drive.google.com/open?id=1gCWUnQoCvyGkJsRjVvKCFO3t_iEGxGaq", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1gCWUnQoCvyGkJsRjVvKCFO3t_iEGxGaq&sz=s200"}}, {"driveFile": {"id": "1rGiRORzczFVJI6yG19doKJZhAukeIBCg", "title": "SUA CODE ASSIGNMENT 3.docx", "alternateLink": "https://drive.google.com/open?id=1rGiRORzczFVJI6yG19doKJZhAukeIBCg", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1rGiRORzczFVJI6yG19doKJZhAukeIBCg&sz=s200"}}, {"driveFile": {"id": "1f9Zbcby3MQ5ca0jNkh3NqFl6MUO50klM", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1f9Zbcby3MQ5ca0jNkh3NqFl6MUO50klM", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1f9Zbcby3MQ5ca0jNkh3NqFl6MUO50klM&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:39.728Z", "actorUserId": "102294803850075608005"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T23:06:39.873Z", "actorUserId": "102294803850075608005"}}, {"gradeHistory": {"pointsEarned": 20, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:27:33.187Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T19:27:34.201Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 20, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:27:34.201Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"gradeHistory": {"maxPoints": 20, "gradeTimestamp": "2019-06-06T22:29:33.824Z", "actorUserId": "115653194529396966729", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"gradeHistory": {"pointsEarned": 17, "maxPoints": 20, "gradeTimestamp": "2019-06-06T22:29:37.650Z", "actorUserId": "115653194529396966729", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"gradeHistory": {"pointsEarned": 17, "maxPoints": 20, "gradeTimestamp": "2019-06-06T22:29:42.062Z", "actorUserId": "115653194529396966729", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T22:50:11.769Z", "actorUserId": "102294803850075608005"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-08T22:50:24.101Z", "actorUserId": "102294803850075608005"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T22:51:23.898Z", "actorUserId": "102294803850075608005"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4Io8zD9YcBEN-eiM2JAQ", "userId": "113546805633941035739", "creationTime": "2019-05-28T06:36:36.781Z", "updateTime": "2019-06-08T20:15:07.438Z", "state": "TURNED_IN", "draftGrade": 8, "assignedGrade": 8, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0ODUyNjA4MzVa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1LKGJfA8ifYD70x2U2_8DXAnHlKClJZG6", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1LKGJfA8ifYD70x2U2_8DXAnHlKClJZG6", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1LKGJfA8ifYD70x2U2_8DXAnHlKClJZG6&sz=s200"}}, {"driveFile": {"id": "1uxNSueUS0UailIl0xBzlDu6EtR9D8Up7", "title": "Screenshot_20190607-193455.png", "alternateLink": "https://drive.google.com/open?id=1uxNSueUS0UailIl0xBzlDu6EtR9D8Up7", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1uxNSueUS0UailIl0xBzlDu6EtR9D8Up7&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:36.672Z", "actorUserId": "113546805633941035739"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-01T22:57:21.720Z", "actorUserId": "113546805633941035739"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:38:39.369Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T19:39:09.475Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:39:09.475Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T20:15:07.438Z", "actorUserId": "113546805633941035739"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4IqYH594cBEN-eiM2JAQ", "userId": "111236648716284296126", "creationTime": "2019-05-28T06:36:32.998Z", "updateTime": "2019-06-10T16:08:58.538Z", "state": "TURNED_IN", "draftGrade": 8, "assignedGrade": 8, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0OTAzMzAyODFa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1sPJ9-gji5K_szmXw1CJT8Nj4dFlr-q97", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1sPJ9-gji5K_szmXw1CJT8Nj4dFlr-q97", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1sPJ9-gji5K_szmXw1CJT8Nj4dFlr-q97&sz=s200"}}, {"driveFile": {"id": "141Ch61DztwdHIQLmlalgrhLWnhpECoKr", "title": "sketch.properties", "alternateLink": "https://drive.google.com/open?id=141Ch61DztwdHIQLmlalgrhLWnhpECoKr", "thumbnailUrl": "https://drive.google.com/thumbnail?id=141Ch61DztwdHIQLmlalgrhLWnhpECoKr&sz=s200"}}, {"driveFile": {"id": "1eYxRLYeMdO4IiwNtjM4BFBy-MBJIh5sU", "title": "Screenshot_20190610-160636.png", "alternateLink": "https://drive.google.com/open?id=1eYxRLYeMdO4IiwNtjM4BFBy-MBJIh5sU", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1eYxRLYeMdO4IiwNtjM4BFBy-MBJIh5sU&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:32.939Z", "actorUserId": "111236648716284296126"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T22:17:13.609Z", "actorUserId": "111236648716284296126"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:42:21.874Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T19:46:28.609Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:46:28.609Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-10T16:08:58.538Z", "actorUserId": "111236648716284296126"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4I_YaE-IcBEN-eiM2JAQ", "userId": "101551212390999104447", "creationTime": "2019-05-28T06:36:33.055Z", "updateTime": "2019-06-08T10:28:58.050Z", "state": "TURNED_IN", "draftGrade": 19, "assignedGrade": 19, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0OTA1MTEyMjla", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1DlVQEkekTQuTO7FzC3ITrum7CONwOfxD", "title": "Screenshot_20190601-224049.png", "alternateLink": "https://drive.google.com/open?id=1DlVQEkekTQuTO7FzC3ITrum7CONwOfxD", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1DlVQEkekTQuTO7FzC3ITrum7CONwOfxD&sz=s200"}}, {"driveFile": {"id": "1R_g_9jQxF8qbQhpjMiqmEgMzugr-Dckd", "title": "Document.docx", "alternateLink": "https://drive.google.com/open?id=1R_g_9jQxF8qbQhpjMiqmEgMzugr-Dckd", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1R_g_9jQxF8qbQhpjMiqmEgMzugr-Dckd&sz=s200"}}, {"driveFile": {"id": "1Dhd6g_z3CUTzdP4t3rfRyXzDUtIRrzu_", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1Dhd6g_z3CUTzdP4t3rfRyXzDUtIRrzu_", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Dhd6g_z3CUTzdP4t3rfRyXzDUtIRrzu_&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:32.976Z", "actorUserId": "101551212390999104447"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-01T22:07:37.979Z", "actorUserId": "101551212390999104447"}}, {"gradeHistory": {"pointsEarned": 18, "maxPoints": 20, "gradeTimestamp": "2019-06-07T02:15:45.009Z", "actorUserId": "115906154774696081506", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"gradeHistory": {"pointsEarned": 19, "maxPoints": 20, "gradeTimestamp": "2019-06-07T02:15:50.054Z", "actorUserId": "115906154774696081506", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-07T02:17:03.372Z", "actorUserId": "115906154774696081506"}}, {"gradeHistory": {"pointsEarned": 19, "maxPoints": 20, "gradeTimestamp": "2019-06-07T02:17:03.372Z", "actorUserId": "115906154774696081506", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T10:28:58.050Z", "actorUserId": "101551212390999104447"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4I2YeJ-YcBEN-eiM2JAQ", "userId": "114425622077448236844", "creationTime": "2019-05-28T06:36:31.009Z", "updateTime": "2019-06-09T22:29:22.662Z", "state": "TURNED_IN", "draftGrade": 8, "assignedGrade": 8, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0OTI2OTAzOTNa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1PM2NAFfgJP8fzd6EHTiYI17MNA7ZLdzT", "title": "Screenshot_20190604-231050.png", "alternateLink": "https://drive.google.com/open?id=1PM2NAFfgJP8fzd6EHTiYI17MNA7ZLdzT", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1PM2NAFfgJP8fzd6EHTiYI17MNA7ZLdzT&sz=s200"}}, {"driveFile": {"id": "1u_1koUhy2Hqh_GqMfygy65OxgjAZ5qkg", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1u_1koUhy2Hqh_GqMfygy65OxgjAZ5qkg", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1u_1koUhy2Hqh_GqMfygy65OxgjAZ5qkg&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:30.921Z", "actorUserId": "114425622077448236844"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T22:15:40.247Z", "actorUserId": "114425622077448236844"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:32:54.626Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T19:33:28.600Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:33:28.600Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-09T22:29:22.662Z", "actorUserId": "114425622077448236844"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4Ina-3_4cBEN-eiM2JAQ", "userId": "103687252271103925321", "creationTime": "2019-05-28T06:36:28.766Z", "updateTime": "2019-06-08T06:15:23.136Z", "state": "TURNED_IN", "draftGrade": 14, "assignedGrade": 14, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY1MDYwMzIwMjla", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1FCYKHt3Udr9aIpuEKDU_-ZMdd50cEB6P", "title": "Share 'Assignment 3.txt'", "alternateLink": "https://drive.google.com/open?id=1FCYKHt3Udr9aIpuEKDU_-ZMdd50cEB6P", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1FCYKHt3Udr9aIpuEKDU_-ZMdd50cEB6P&sz=s200"}}, {"driveFile": {"id": "18yVnerZQ35RhKvl7mlXUI6SrqCMvN9rS", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=18yVnerZQ35RhKvl7mlXUI6SrqCMvN9rS", "thumbnailUrl": "https://drive.google.com/thumbnail?id=18yVnerZQ35RhKvl7mlXUI6SrqCMvN9rS&sz=s200"}}, {"driveFile": {"id": "1XUBson8nh97Ndb-aXAmbGXSowHCGhQi5", "title": "Screenshot_20190608-091528.png", "alternateLink": "https://drive.google.com/open?id=1XUBson8nh97Ndb-aXAmbGXSowHCGhQi5", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1XUBson8nh97Ndb-aXAmbGXSowHCGhQi5&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:28.733Z", "actorUserId": "103687252271103925321"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-01T02:55:49.913Z", "actorUserId": "103687252271103925321"}}, {"gradeHistory": {"pointsEarned": 14, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:24:11.744Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T19:24:20.604Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 14, "maxPoints": 20, "gradeTimestamp": "2019-06-06T19:24:20.604Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T05:57:08.045Z", "actorUserId": "103687252271103925321"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-08T05:57:20.153Z", "actorUserId": "103687252271103925321"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T06:15:23.136Z", "actorUserId": "103687252271103925321"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4I-9rj_4cBEN-eiM2JAQ", "userId": "110487234375757832302", "creationTime": "2019-05-28T06:36:27.446Z", "updateTime": "2019-06-08T14:32:15.053Z", "state": "TURNED_IN", "draftGrade": 8, "assignedGrade": 8, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY1MDY3NTg1MjNa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1PGez0jP_JaEUirPZ_Tyn9BIcwjL8OzYA", "title": "Screenshot_2019-06-04-15-26-05.png", "alternateLink": "https://drive.google.com/open?id=1PGez0jP_JaEUirPZ_Tyn9BIcwjL8OzYA", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1PGez0jP_JaEUirPZ_Tyn9BIcwjL8OzYA&sz=s200"}}, {"driveFile": {"id": "1lLofmeiZlhmUF7gmTNhudqFGsaaapru8", "title": "Screenshot_2019-06-04-15-24-59.png", "alternateLink": "https://drive.google.com/open?id=1lLofmeiZlhmUF7gmTNhudqFGsaaapru8", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1lLofmeiZlhmUF7gmTNhudqFGsaaapru8&sz=s200"}}, {"driveFile": {"id": "1wlrQ-DIWUEwyMlB-UGw6f1dpj3OVBa1C", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1wlrQ-DIWUEwyMlB-UGw6f1dpj3OVBa1C", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1wlrQ-DIWUEwyMlB-UGw6f1dpj3OVBa1C&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:27.379Z", "actorUserId": "110487234375757832302"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-01T13:28:07.227Z", "actorUserId": "110487234375757832302"}}, {"stateHistory": {"state": "RECLAIMED_BY_STUDENT", "stateTimestamp": "2019-06-04T05:21:33.349Z", "actorUserId": "110487234375757832302"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-04T14:14:42.615Z", "actorUserId": "110487234375757832302"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T20:08:16.824Z", "actorUserId": "110544833030086357366", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T20:08:48.231Z", "actorUserId": "110544833030086357366"}}, {"gradeHistory": {"pointsEarned": 8, "maxPoints": 20, "gradeTimestamp": "2019-06-06T20:08:48.231Z", "actorUserId": "110544833030086357366", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T14:32:15.053Z", "actorUserId": "110487234375757832302"}}], "submissionNo": 2}, {"courseId": "36481062080", "courseWorkId": "36937273183", "id": "Cg4I663bz4gBEN-eiM2JAQ", "userId": "112886890631125570120", "creationTime": "2019-05-28T06:36:26.843Z", "updateTime": "2019-06-08T08:29:17.016Z", "state": "TURNED_IN", "draftGrade": 17, "assignedGrade": 17, "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY2NzQzOTM4MzVa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1c_jmhogljO6WT7lOh-pj1vZBaKQYTvjP", "title": "bounceball.PNG", "alternateLink": "https://drive.google.com/open?id=1c_jmhogljO6WT7lOh-pj1vZBaKQYTvjP", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1c_jmhogljO6WT7lOh-pj1vZBaKQYTvjP&sz=s200"}}, {"driveFile": {"id": "1sy2HQ_wH4zEHdx4iJ0URFHNP_8CEDEYD", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1sy2HQ_wH4zEHdx4iJ0URFHNP_8CEDEYD", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1sy2HQ_wH4zEHdx4iJ0URFHNP_8CEDEYD&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-05-28T06:36:26.775Z", "actorUserId": "112886890631125570120"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-05-31T21:29:13.620Z", "actorUserId": "112886890631125570120"}}, {"gradeHistory": {"pointsEarned": 17, "maxPoints": 20, "gradeTimestamp": "2019-06-06T20:28:16.268Z", "actorUserId": "102816551806542645046", "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "RETURNED", "stateTimestamp": "2019-06-06T20:30:06.435Z", "actorUserId": "102816551806542645046"}}, {"gradeHistory": {"pointsEarned": 17, "maxPoints": 20, "gradeTimestamp": "2019-06-06T20:30:06.435Z", "actorUserId": "102816551806542645046", "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-08T08:29:17.015Z", "actorUserId": "112886890631125570120"}}], "submissionNo": 2}, {"courseId": "36506728168", "courseWorkId": "36936670949", "id": "Cg0IoLzmmjoQ5b3jzIkB", "userId": "109331229447458927552", "creationTime": "2019-06-06T08:17:51.543Z", "updateTime": "2019-06-11T00:06:31.424Z", "state": "TURNED_IN", "late": true, "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MTU2MjU0NjEyODBa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1hxYQJZFU38tcMw1hmoLBA6QRRA8vtp3s", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1hxYQJZFU38tcMw1hmoLBA6QRRA8vtp3s", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1hxYQJZFU38tcMw1hmoLBA6QRRA8vtp3s&sz=s200"}}, {"driveFile": {"id": "1Qvvs_SNtNyFfEwFw1kGMx1WQ--f6l7bu", "title": "Screenshot_20190610-235310.png", "alternateLink": "https://drive.google.com/open?id=1Qvvs_SNtNyFfEwFw1kGMx1WQ--f6l7bu", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Qvvs_SNtNyFfEwFw1kGMx1WQ--f6l7bu&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-06-06T08:17:51.482Z", "actorUserId": "109331229447458927552"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-11T00:06:31.424Z", "actorUserId": "109331229447458927552"}}], "submissionNo": 1}, {"courseId": "36506728168", "courseWorkId": "36936670949", "id": "Cg4I7fHol4gBEOW948yJAQ", "userId": "116661774335462615799", "creationTime": "2019-06-06T08:17:52.059Z", "updateTime": "2019-06-11T09:47:53.157Z", "state": "TURNED_IN", "late": true, "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MzY1NTcxNzUwMjFa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1OnBtvfeZMh5B-gBtifVDg-FG644rVN6c", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1OnBtvfeZMh5B-gBtifVDg-FG644rVN6c", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1OnBtvfeZMh5B-gBtifVDg-FG644rVN6c&sz=s200"}}, {"driveFile": {"id": "1qgePK5IcibT7j45MDSyld2NjAM6GQsVf", "title": "Screenshot_20190611-123127.png", "alternateLink": "https://drive.google.com/open?id=1qgePK5IcibT7j45MDSyld2NjAM6GQsVf", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1qgePK5IcibT7j45MDSyld2NjAM6GQsVf&sz=s200"}}, {"driveFile": {"id": "1Pj3Fi4YZr5gswO3851sImNAH_d_8MXW2", "title": "Screenshot_20190611-124308.png", "alternateLink": "https://drive.google.com/open?id=1Pj3Fi4YZr5gswO3851sImNAH_d_8MXW2", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Pj3Fi4YZr5gswO3851sImNAH_d_8MXW2&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-06-06T08:17:51.984Z", "actorUserId": "116661774335462615799"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-11T09:47:53.157Z", "actorUserId": "116661774335462615799"}}], "submissionNo": 1}, {"courseId": "36506728168", "courseWorkId": "36936670949", "id": "Cg4I85-PmYgBEOW948yJAQ", "userId": "111938048708489269046", "creationTime": "2019-06-06T08:17:52.101Z", "updateTime": "2019-06-10T22:07:13.821Z", "state": "TURNED_IN", "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MzY1NTk5MDA2NTla", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1YiclgswJcOKWHBOmWgmRgTTgvfxQVtrn", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1YiclgswJcOKWHBOmWgmRgTTgvfxQVtrn", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1YiclgswJcOKWHBOmWgmRgTTgvfxQVtrn&sz=s200"}}, {"driveFile": {"id": "1UBIIO8Q6GNTktdPa6rLhbA-mI_VErs_n", "title": "sketch.properties", "alternateLink": "https://drive.google.com/open?id=1UBIIO8Q6GNTktdPa6rLhbA-mI_VErs_n", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1UBIIO8Q6GNTktdPa6rLhbA-mI_VErs_n&sz=s200"}}, {"driveFile": {"id": "1F6fxKCfT5cMCQEyPoVAj5sqaFtF8TGCT", "title": "Screenshot_20190610-230125.png", "alternateLink": "https://drive.google.com/open?id=1F6fxKCfT5cMCQEyPoVAj5sqaFtF8TGCT", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1F6fxKCfT5cMCQEyPoVAj5sqaFtF8TGCT&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-06-06T08:17:52.007Z", "actorUserId": "111938048708489269046"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-10T22:07:13.821Z", "actorUserId": "111938048708489269046"}}], "submissionNo": 1}, {"courseId": "36506728168", "courseWorkId": "36936670949", "id": "Cg4IzMC3kIkBEOW948yJAQ", "userId": "109989189285164584600", "creationTime": "2019-06-06T08:17:51.496Z", "updateTime": "2019-06-10T17:15:29.517Z", "state": "TURNED_IN", "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MzY4MTAxMjEyOTJa", "courseWorkType": "ASSIGNMENT", "assignmentSubmission": {"attachments": [{"driveFile": {"id": "1pLyEi4HKWuih4oWwyzxe_zTSo_qRvwdt", "title": "Assignment3.pde", "alternateLink": "https://drive.google.com/open?id=1pLyEi4HKWuih4oWwyzxe_zTSo_qRvwdt", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1pLyEi4HKWuih4oWwyzxe_zTSo_qRvwdt&sz=s200"}}, {"driveFile": {"id": "1g8H6o-XmykmiP-qrrfzR2kmSP8murjAu", "title": "Screenshot_2019-06-10-14-38-58.png", "alternateLink": "https://drive.google.com/open?id=1g8H6o-XmykmiP-qrrfzR2kmSP8murjAu", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1g8H6o-XmykmiP-qrrfzR2kmSP8murjAu&sz=s200"}}, {"driveFile": {"id": "1ViIZreKiGCX5RCqE9sbIkUkoIWKC2CAc", "title": "Screenshot_2019-06-10-15-05-04.png", "alternateLink": "https://drive.google.com/open?id=1ViIZreKiGCX5RCqE9sbIkUkoIWKC2CAc", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ViIZreKiGCX5RCqE9sbIkUkoIWKC2CAc&sz=s200"}}, {"driveFile": {"id": "1nr7xqWSvI6piNRgT7lkfk6vIzwOAHKZK", "title": "Screenshot_2019-06-08-13-31-05.png", "alternateLink": "https://drive.google.com/open?id=1nr7xqWSvI6piNRgT7lkfk6vIzwOAHKZK", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1nr7xqWSvI6piNRgT7lkfk6vIzwOAHKZK&sz=s200"}}, {"driveFile": {"id": "1_w-k8AHvnRXiqjqkF0cHE6tzSsWif0i4", "title": "Screenshot_2019-06-08-13-31-01.png", "alternateLink": "https://drive.google.com/open?id=1_w-k8AHvnRXiqjqkF0cHE6tzSsWif0i4", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1_w-k8AHvnRXiqjqkF0cHE6tzSsWif0i4&sz=s200"}}, {"driveFile": {"id": "1iUB1uCRMOwmUVSIbEZ55uU_ZhnndG-b-", "title": "Screenshot_2019-06-10-14-40-07.png", "alternateLink": "https://drive.google.com/open?id=1iUB1uCRMOwmUVSIbEZ55uU_ZhnndG-b-", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1iUB1uCRMOwmUVSIbEZ55uU_ZhnndG-b-&sz=s200"}}, {"driveFile": {"id": "1_lD1xgrfspOiwle6JX4bpfbj1KCd7RzH", "title": "Screenshot_2019-06-10-14-40-16.png", "alternateLink": "https://drive.google.com/open?id=1_lD1xgrfspOiwle6JX4bpfbj1KCd7RzH", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1_lD1xgrfspOiwle6JX4bpfbj1KCd7RzH&sz=s200"}}, {"driveFile": {"id": "1V5Ew-Y3gYBgeh59mOSkFP56imuv_DAjP", "title": "Screenshot_2019-06-10-14-39-02.png", "alternateLink": "https://drive.google.com/open?id=1V5Ew-Y3gYBgeh59mOSkFP56imuv_DAjP", "thumbnailUrl": "https://drive.google.com/thumbnail?id=1V5Ew-Y3gYBgeh59mOSkFP56imuv_DAjP&sz=s200"}}]}, "associatedWithDeveloper": true, "submissionHistory": [{"stateHistory": {"state": "CREATED", "stateTimestamp": "2019-06-06T08:17:51.427Z", "actorUserId": "109989189285164584600"}}, {"stateHistory": {"state": "TURNED_IN", "stateTimestamp": "2019-06-10T17:15:29.517Z", "actorUserId": "109989189285164584600"}}], "submissionNo": 1}]
+[
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg0ImLSB9BIQwoz7zIkB",
+        "userId": "108301598436263207762",
+        "creationTime": "2019-05-28T06:45:44.029Z",
+        "updateTime": "2019-06-09T21:52:07.806Z",
+        "state": "TURNED_IN",
+        "draftGrade": 12,
+        "assignedGrade": 12,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/NTA3NTEzMDkwNFpa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1mTYrm4eizL6nwdcpfnADB9BXDLoXhaWD",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1mTYrm4eizL6nwdcpfnADB9BXDLoXhaWD",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1mTYrm4eizL6nwdcpfnADB9BXDLoXhaWD&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1VMMRB7fY0KuJREZn3gb9rPphGma4mizF",
+                        "title": "Screenshot_20190609-224546.png",
+                        "alternateLink": "https://drive.google.com/open?id=1VMMRB7fY0KuJREZn3gb9rPphGma4mizF",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1VMMRB7fY0KuJREZn3gb9rPphGma4mizF&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:43.940Z",
+                    "actorUserId": "108301598436263207762"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T22:26:58.809Z",
+                    "actorUserId": "108301598436263207762"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 12,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-05T09:11:09.728Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-05T09:12:21.859Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 12,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-05T09:12:21.860Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T21:42:57.946Z",
+                    "actorUserId": "108301598436263207762"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-09T21:44:42.333Z",
+                    "actorUserId": "108301598436263207762"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T21:52:07.805Z",
+                    "actorUserId": "108301598436263207762"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg0I3ta_uGwQwoz7zIkB",
+        "userId": "113473970365651440432",
+        "creationTime": "2019-05-28T06:45:42.141Z",
+        "updateTime": "2019-06-08T15:44:14.914Z",
+        "state": "TURNED_IN",
+        "draftGrade": 12,
+        "assignedGrade": 12,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MjkxMDk1MTMwNTRa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1q2saiAWQbF1VO62In20Nam13eKSfrJVR",
+                        "title": "Screenshot_20190604-180203.png",
+                        "alternateLink": "https://drive.google.com/open?id=1q2saiAWQbF1VO62In20Nam13eKSfrJVR",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1q2saiAWQbF1VO62In20Nam13eKSfrJVR&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1ag3Xxgv1EJGb9C0Nc6lhfJWbf2OQOLgR",
+                        "title": "Screenshot_20190608-182909.png",
+                        "alternateLink": "https://drive.google.com/open?id=1ag3Xxgv1EJGb9C0Nc6lhfJWbf2OQOLgR",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ag3Xxgv1EJGb9C0Nc6lhfJWbf2OQOLgR&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1qzm2dqYrrSpYKB6hZmXvIgU8HQchZvsy",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1qzm2dqYrrSpYKB6hZmXvIgU8HQchZvsy",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1qzm2dqYrrSpYKB6hZmXvIgU8HQchZvsy&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:42.071Z",
+                    "actorUserId": "113473970365651440432"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T15:03:50.999Z",
+                    "actorUserId": "113473970365651440432"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 12,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:46:14.474Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T12:46:26.623Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 12,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:46:26.623Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T15:44:14.913Z",
+                    "actorUserId": "113473970365651440432"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg0Ikd_33nQQwoz7zIkB",
+        "userId": "104033770286552763608",
+        "creationTime": "2019-05-28T06:45:44.200Z",
+        "updateTime": "2019-06-08T23:32:03.083Z",
+        "state": "TURNED_IN",
+        "draftGrade": 8,
+        "assignedGrade": 8,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzEzMzc2MDcwNTda",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1q-cwpnhbqu-btgRhUw0vPrs5MANRXGk8",
+                        "title": "Screenshot_20190604-132929.png",
+                        "alternateLink": "https://drive.google.com/open?id=1q-cwpnhbqu-btgRhUw0vPrs5MANRXGk8",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1q-cwpnhbqu-btgRhUw0vPrs5MANRXGk8&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1iIzlSMG8CmidmSx8dsGRK2VrudCITWIq",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1iIzlSMG8CmidmSx8dsGRK2VrudCITWIq",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1iIzlSMG8CmidmSx8dsGRK2VrudCITWIq&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1I9eJx35wiFq1uwMSs6-ZmQD_eAVCuV9m",
+                        "title": "Screenshot_20190608-233004.png",
+                        "alternateLink": "https://drive.google.com/open?id=1I9eJx35wiFq1uwMSs6-ZmQD_eAVCuV9m",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1I9eJx35wiFq1uwMSs6-ZmQD_eAVCuV9m&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:44.139Z",
+                    "actorUserId": "104033770286552763608"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T13:36:29.834Z",
+                    "actorUserId": "104033770286552763608"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-05T09:22:56.114Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-05T09:25:21.421Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-05T09:25:21.421Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T23:32:03.082Z",
+                    "actorUserId": "104033770286552763608"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg0I2p-IpXwQwoz7zIkB",
+        "userId": "115689961756511554241",
+        "creationTime": "2019-05-28T06:45:52.137Z",
+        "updateTime": "2019-06-09T18:23:57.683Z",
+        "state": "TURNED_IN",
+        "draftGrade": 15,
+        "assignedGrade": 15,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzMzNjM3MjYyOTha",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1ay7PBNbyy27l9C48Z57ADNiGjDr5NdgC",
+                        "title": "Screenshot_20190609-212128_APDE Sketch Preview.jpg",
+                        "alternateLink": "https://drive.google.com/open?id=1ay7PBNbyy27l9C48Z57ADNiGjDr5NdgC",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ay7PBNbyy27l9C48Z57ADNiGjDr5NdgC&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1yAJFRP9yz2MyFCmq44gGxRLrkTuMJ2J0",
+                        "title": "Screenshot_20190609-212140_APDE Sketch Preview.jpg",
+                        "alternateLink": "https://drive.google.com/open?id=1yAJFRP9yz2MyFCmq44gGxRLrkTuMJ2J0",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1yAJFRP9yz2MyFCmq44gGxRLrkTuMJ2J0&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "12lrnQpOMokalVGvpkdllAMzqkcxXdGse",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=12lrnQpOMokalVGvpkdllAMzqkcxXdGse",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=12lrnQpOMokalVGvpkdllAMzqkcxXdGse&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1KfdFx06I0VH0T0lnHB8j5fVf3KJi2_vU",
+                        "title": "Screenshot_20190609-212139_APDE Sketch Preview.jpg",
+                        "alternateLink": "https://drive.google.com/open?id=1KfdFx06I0VH0T0lnHB8j5fVf3KJi2_vU",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1KfdFx06I0VH0T0lnHB8j5fVf3KJi2_vU&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:52.065Z",
+                    "actorUserId": "115689961756511554241"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T22:46:53.211Z",
+                    "actorUserId": "115689961756511554241"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-04T16:19:55.157Z",
+                    "actorUserId": "115689961756511554241"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T16:28:34.853Z",
+                    "actorUserId": "115689961756511554241"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 15,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:35:14.889Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T12:35:38.342Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 15,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:35:38.342Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T18:23:57.683Z",
+                    "actorUserId": "115689961756511554241"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg4I0_CI44cBEMKM-8yJAQ",
+        "userId": "117392931796691688742",
+        "creationTime": "2019-05-28T06:45:52.090Z",
+        "updateTime": "2019-06-07T13:32:42.874Z",
+        "state": "TURNED_IN",
+        "draftGrade": 19,
+        "assignedGrade": 19,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NDY1NTAwOTla",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1tLP68_rh8s7GVFryO8TwhJBGXlXCVY7c",
+                        "title": "Screenshot_20190531-200328.png",
+                        "alternateLink": "https://drive.google.com/open?id=1tLP68_rh8s7GVFryO8TwhJBGXlXCVY7c",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1tLP68_rh8s7GVFryO8TwhJBGXlXCVY7c&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1Lxm-1prEIx9gtH59K8M0IpNvftcRVQ48",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1Lxm-1prEIx9gtH59K8M0IpNvftcRVQ48",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Lxm-1prEIx9gtH59K8M0IpNvftcRVQ48&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:52.012Z",
+                    "actorUserId": "117392931796691688742"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T20:35:21.099Z",
+                    "actorUserId": "117392931796691688742"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 19,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T11:19:01.142Z",
+                    "actorUserId": "102816551806542645046",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T11:20:13.696Z",
+                    "actorUserId": "102816551806542645046"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 19,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T11:20:13.696Z",
+                    "actorUserId": "102816551806542645046",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-07T13:32:42.874Z",
+                    "actorUserId": "117392931796691688742"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg4I5OCK44cBEMKM-8yJAQ",
+        "userId": "103837072563378112099",
+        "creationTime": "2019-05-28T06:45:50.979Z",
+        "updateTime": "2019-06-07T23:53:41.088Z",
+        "state": "TURNED_IN",
+        "draftGrade": 14,
+        "assignedGrade": 14,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NDY1ODA4MzZa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1ASrqF0IbxfqDvC62WzEb7xmu9zp-Bvd1",
+                        "title": "Screenshot_20190607-233923.png",
+                        "alternateLink": "https://drive.google.com/open?id=1ASrqF0IbxfqDvC62WzEb7xmu9zp-Bvd1",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ASrqF0IbxfqDvC62WzEb7xmu9zp-Bvd1&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1jPjPzmW2P93suV4zQQYUsUseUXNNOSlx",
+                        "title": "Screenshot_20190607-233918.png",
+                        "alternateLink": "https://drive.google.com/open?id=1jPjPzmW2P93suV4zQQYUsUseUXNNOSlx",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1jPjPzmW2P93suV4zQQYUsUseUXNNOSlx&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1zOK20nL6pJ57SxHc79J-VDj-McyDWCng",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1zOK20nL6pJ57SxHc79J-VDj-McyDWCng",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1zOK20nL6pJ57SxHc79J-VDj-McyDWCng&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:50.912Z",
+                    "actorUserId": "103837072563378112099"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-30T14:17:27.531Z",
+                    "actorUserId": "103837072563378112099"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 14,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:27:18.209Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T12:28:33.333Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 14,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:28:33.334Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-07T23:53:41.087Z",
+                    "actorUserId": "103837072563378112099"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg4I2MmE5IcBEMKM-8yJAQ",
+        "userId": "104055981933357383689",
+        "creationTime": "2019-05-28T06:45:50.254Z",
+        "updateTime": "2019-06-07T14:51:21.173Z",
+        "state": "TURNED_IN",
+        "draftGrade": 12,
+        "assignedGrade": 12,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NDg1NzY3Mjha",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1NrFYOyvUpkNGRRiTdUzVjAM3qV32girA",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1NrFYOyvUpkNGRRiTdUzVjAM3qV32girA",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1NrFYOyvUpkNGRRiTdUzVjAM3qV32girA&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1RLErkVg5YdAOv980OFgYb-Fa98kfkoqZ",
+                        "title": "Screenshot_20190531-222849.png",
+                        "alternateLink": "https://drive.google.com/open?id=1RLErkVg5YdAOv980OFgYb-Fa98kfkoqZ",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1RLErkVg5YdAOv980OFgYb-Fa98kfkoqZ&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1oCUZ8sk7ZcBoI2YNhDr-HzLt_C0lgq6L",
+                        "title": "bounce ball.doc",
+                        "alternateLink": "https://drive.google.com/open?id=1oCUZ8sk7ZcBoI2YNhDr-HzLt_C0lgq6L",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1oCUZ8sk7ZcBoI2YNhDr-HzLt_C0lgq6L&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1QRIfFz49FDAFyLbzOrpnBXjFZZDBylMy",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1QRIfFz49FDAFyLbzOrpnBXjFZZDBylMy",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1QRIfFz49FDAFyLbzOrpnBXjFZZDBylMy&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:50.223Z",
+                    "actorUserId": "104055981933357383689"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-01T03:41:14.679Z",
+                    "actorUserId": "104055981933357383689"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 12,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:32:24.535Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T12:34:14.421Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 12,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T12:34:14.422Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-07T14:51:21.173Z",
+                    "actorUserId": "104055981933357383689"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg4IzNT15IcBEMKM-8yJAQ",
+        "userId": "114452285791273659494",
+        "creationTime": "2019-05-28T06:45:48.992Z",
+        "updateTime": "2019-06-09T04:29:06.187Z",
+        "state": "TURNED_IN",
+        "draftGrade": 8,
+        "assignedGrade": 8,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NTA0Mjk1MTZa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1AmkP_ps_hMwoX9JYkklj_w4KJ0cjHWtD",
+                        "title": "Assignment 3 comments.txt",
+                        "alternateLink": "https://drive.google.com/open?id=1AmkP_ps_hMwoX9JYkklj_w4KJ0cjHWtD",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1AmkP_ps_hMwoX9JYkklj_w4KJ0cjHWtD&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1SCe8BpX1FVIxZh-L1YrnGEKK3Nsz4Nbd",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1SCe8BpX1FVIxZh-L1YrnGEKK3Nsz4Nbd",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1SCe8BpX1FVIxZh-L1YrnGEKK3Nsz4Nbd&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1YN5s1evLK-UZGnFwliffk4MzqijM5JIT",
+                        "title": "Screenshot_20190609-052410.png",
+                        "alternateLink": "https://drive.google.com/open?id=1YN5s1evLK-UZGnFwliffk4MzqijM5JIT",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1YN5s1evLK-UZGnFwliffk4MzqijM5JIT&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:48.958Z",
+                    "actorUserId": "114452285791273659494"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T09:09:28.675Z",
+                    "actorUserId": "114452285791273659494"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T14:02:48.943Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T14:03:21.387Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T14:03:21.387Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T04:29:06.187Z",
+                    "actorUserId": "114452285791273659494"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36325932193",
+        "courseWorkId": "36937057858",
+        "id": "Cg4Ivp6y74cBEMKM-8yJAQ",
+        "userId": "107140047152862095515",
+        "creationTime": "2019-05-28T06:45:39.763Z",
+        "updateTime": "2019-06-08T16:11:26.408Z",
+        "state": "TURNED_IN",
+        "draftGrade": 14,
+        "assignedGrade": 14,
+        "alternateLink": "https://classroom.google.com/c/MzYzMjU5MzIxOTNa/a/MzY5MzcwNTc4NTha/submissions/student/MzY0NzIzOTM1MzRa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "13EZ-N4jXbgQIbt9lKlAG55CIlncx8OYP",
+                        "title": "Screenshot_20190531-193034.png",
+                        "alternateLink": "https://drive.google.com/open?id=13EZ-N4jXbgQIbt9lKlAG55CIlncx8OYP",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=13EZ-N4jXbgQIbt9lKlAG55CIlncx8OYP&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "13vGQ2nHyeYOMdziSadQJxsJkmFL7jhVF",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=13vGQ2nHyeYOMdziSadQJxsJkmFL7jhVF",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=13vGQ2nHyeYOMdziSadQJxsJkmFL7jhVF&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:45:39.727Z",
+                    "actorUserId": "107140047152862095515"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T19:42:23.949Z",
+                    "actorUserId": "107140047152862095515"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 14,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-05T07:58:26.632Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-05T07:58:42.656Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 14,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-05T07:58:42.656Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T16:11:26.408Z",
+                    "actorUserId": "107140047152862095515"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4InZvd44cBEN-eiM2JAQ",
+        "userId": "110285156332008711245",
+        "creationTime": "2019-05-28T06:36:36.767Z",
+        "updateTime": "2019-06-10T11:53:36.527Z",
+        "state": "TURNED_IN",
+        "draftGrade": 10,
+        "assignedGrade": 10,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0NDc5MzE4MDVa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1LXmZxgxKjwO_ZeIFymuA1fHcJTh1miQF",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1LXmZxgxKjwO_ZeIFymuA1fHcJTh1miQF",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1LXmZxgxKjwO_ZeIFymuA1fHcJTh1miQF&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1G_QtkVmUSBa5BDb3vqL3c3T56edGGzAX",
+                        "title": "Screenshot_20190610-125153.png",
+                        "alternateLink": "https://drive.google.com/open?id=1G_QtkVmUSBa5BDb3vqL3c3T56edGGzAX",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1G_QtkVmUSBa5BDb3vqL3c3T56edGGzAX&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:36.683Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T18:53:48.638Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-04T20:08:23.286Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T20:17:22.670Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T15:43:38.535Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-07T11:25:28.465Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 10,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-07T11:45:27.069Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-07T11:45:40.181Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 10,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-07T11:45:40.181Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T22:25:52.570Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-10T11:52:27.025Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-10T11:53:36.526Z",
+                    "actorUserId": "110285156332008711245"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4I1I707YcBEN-eiM2JAQ",
+        "userId": "105835584031171821990",
+        "creationTime": "2019-05-28T06:36:38.416Z",
+        "updateTime": "2019-06-09T17:28:53.880Z",
+        "state": "TURNED_IN",
+        "draftGrade": 18,
+        "assignedGrade": 18,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0NjkyNzg1NDha",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1Wvzg0EhHVD5WPy-6MhEeBLQqIXDnKK11",
+                        "title": "Screenshot_20190531-170712.png",
+                        "alternateLink": "https://drive.google.com/open?id=1Wvzg0EhHVD5WPy-6MhEeBLQqIXDnKK11",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Wvzg0EhHVD5WPy-6MhEeBLQqIXDnKK11&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1CWlbZzdSN4kEs-RDdQac4WLp6uYKQzn3",
+                        "title": "Screenshot_20190531-214708~2.png",
+                        "alternateLink": "https://drive.google.com/open?id=1CWlbZzdSN4kEs-RDdQac4WLp6uYKQzn3",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1CWlbZzdSN4kEs-RDdQac4WLp6uYKQzn3&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1buEoEz4u79ypUaJDA5Giq_FCrNN2xPxE",
+                        "title": "Screenshot_20190531-201005.png",
+                        "alternateLink": "https://drive.google.com/open?id=1buEoEz4u79ypUaJDA5Giq_FCrNN2xPxE",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1buEoEz4u79ypUaJDA5Giq_FCrNN2xPxE&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1vdQ48y28DnoUt4Nqe01MfZHfijGnJc-p",
+                        "title": "Screenshot_20190609-202715.png",
+                        "alternateLink": "https://drive.google.com/open?id=1vdQ48y28DnoUt4Nqe01MfZHfijGnJc-p",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1vdQ48y28DnoUt4Nqe01MfZHfijGnJc-p&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1UbBXnlROBj46uJBe60xqE2Qz-yKahyO3",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1UbBXnlROBj46uJBe60xqE2Qz-yKahyO3",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1UbBXnlROBj46uJBe60xqE2Qz-yKahyO3&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:38.402Z",
+                    "actorUserId": "105835584031171821990"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T18:52:35.452Z",
+                    "actorUserId": "105835584031171821990"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 18,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T17:34:46.870Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T17:35:30.193Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 18,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T17:35:30.193Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T17:28:53.879Z",
+                    "actorUserId": "105835584031171821990"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4I8Lqy9IcBEN-eiM2JAQ",
+        "userId": "102294803850075608005",
+        "creationTime": "2019-05-28T06:36:39.761Z",
+        "updateTime": "2019-06-08T22:51:23.898Z",
+        "state": "TURNED_IN",
+        "draftGrade": 17,
+        "assignedGrade": 17,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0ODI4ODI5Mjha",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1gCWUnQoCvyGkJsRjVvKCFO3t_iEGxGaq",
+                        "title": "Screenshot_2019-06-01-01-31-28.png",
+                        "alternateLink": "https://drive.google.com/open?id=1gCWUnQoCvyGkJsRjVvKCFO3t_iEGxGaq",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1gCWUnQoCvyGkJsRjVvKCFO3t_iEGxGaq&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1rGiRORzczFVJI6yG19doKJZhAukeIBCg",
+                        "title": "SUA CODE ASSIGNMENT 3.docx",
+                        "alternateLink": "https://drive.google.com/open?id=1rGiRORzczFVJI6yG19doKJZhAukeIBCg",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1rGiRORzczFVJI6yG19doKJZhAukeIBCg&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1f9Zbcby3MQ5ca0jNkh3NqFl6MUO50klM",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1f9Zbcby3MQ5ca0jNkh3NqFl6MUO50klM",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1f9Zbcby3MQ5ca0jNkh3NqFl6MUO50klM&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:39.728Z",
+                    "actorUserId": "102294803850075608005"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T23:06:39.873Z",
+                    "actorUserId": "102294803850075608005"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 20,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:27:33.187Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T19:27:34.201Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 20,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:27:34.201Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T22:29:33.824Z",
+                    "actorUserId": "115653194529396966729",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 17,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T22:29:37.650Z",
+                    "actorUserId": "115653194529396966729",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 17,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T22:29:42.062Z",
+                    "actorUserId": "115653194529396966729",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T22:50:11.769Z",
+                    "actorUserId": "102294803850075608005"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-08T22:50:24.101Z",
+                    "actorUserId": "102294803850075608005"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T22:51:23.898Z",
+                    "actorUserId": "102294803850075608005"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4Io8zD9YcBEN-eiM2JAQ",
+        "userId": "113546805633941035739",
+        "creationTime": "2019-05-28T06:36:36.781Z",
+        "updateTime": "2019-06-08T20:15:07.438Z",
+        "state": "TURNED_IN",
+        "draftGrade": 8,
+        "assignedGrade": 8,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0ODUyNjA4MzVa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1LKGJfA8ifYD70x2U2_8DXAnHlKClJZG6",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1LKGJfA8ifYD70x2U2_8DXAnHlKClJZG6",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1LKGJfA8ifYD70x2U2_8DXAnHlKClJZG6&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1uxNSueUS0UailIl0xBzlDu6EtR9D8Up7",
+                        "title": "Screenshot_20190607-193455.png",
+                        "alternateLink": "https://drive.google.com/open?id=1uxNSueUS0UailIl0xBzlDu6EtR9D8Up7",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1uxNSueUS0UailIl0xBzlDu6EtR9D8Up7&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:36.672Z",
+                    "actorUserId": "113546805633941035739"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-01T22:57:21.720Z",
+                    "actorUserId": "113546805633941035739"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:38:39.369Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T19:39:09.475Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:39:09.475Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T20:15:07.438Z",
+                    "actorUserId": "113546805633941035739"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4IqYH594cBEN-eiM2JAQ",
+        "userId": "111236648716284296126",
+        "creationTime": "2019-05-28T06:36:32.998Z",
+        "updateTime": "2019-06-10T16:08:58.538Z",
+        "state": "TURNED_IN",
+        "draftGrade": 8,
+        "assignedGrade": 8,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0OTAzMzAyODFa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1sPJ9-gji5K_szmXw1CJT8Nj4dFlr-q97",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1sPJ9-gji5K_szmXw1CJT8Nj4dFlr-q97",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1sPJ9-gji5K_szmXw1CJT8Nj4dFlr-q97&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "141Ch61DztwdHIQLmlalgrhLWnhpECoKr",
+                        "title": "sketch.properties",
+                        "alternateLink": "https://drive.google.com/open?id=141Ch61DztwdHIQLmlalgrhLWnhpECoKr",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=141Ch61DztwdHIQLmlalgrhLWnhpECoKr&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1eYxRLYeMdO4IiwNtjM4BFBy-MBJIh5sU",
+                        "title": "Screenshot_20190610-160636.png",
+                        "alternateLink": "https://drive.google.com/open?id=1eYxRLYeMdO4IiwNtjM4BFBy-MBJIh5sU",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1eYxRLYeMdO4IiwNtjM4BFBy-MBJIh5sU&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:32.939Z",
+                    "actorUserId": "111236648716284296126"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T22:17:13.609Z",
+                    "actorUserId": "111236648716284296126"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:42:21.874Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T19:46:28.609Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:46:28.609Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-10T16:08:58.538Z",
+                    "actorUserId": "111236648716284296126"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4I_YaE-IcBEN-eiM2JAQ",
+        "userId": "101551212390999104447",
+        "creationTime": "2019-05-28T06:36:33.055Z",
+        "updateTime": "2019-06-08T10:28:58.050Z",
+        "state": "TURNED_IN",
+        "draftGrade": 19,
+        "assignedGrade": 19,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0OTA1MTEyMjla",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1DlVQEkekTQuTO7FzC3ITrum7CONwOfxD",
+                        "title": "Screenshot_20190601-224049.png",
+                        "alternateLink": "https://drive.google.com/open?id=1DlVQEkekTQuTO7FzC3ITrum7CONwOfxD",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1DlVQEkekTQuTO7FzC3ITrum7CONwOfxD&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1R_g_9jQxF8qbQhpjMiqmEgMzugr-Dckd",
+                        "title": "Document.docx",
+                        "alternateLink": "https://drive.google.com/open?id=1R_g_9jQxF8qbQhpjMiqmEgMzugr-Dckd",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1R_g_9jQxF8qbQhpjMiqmEgMzugr-Dckd&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1Dhd6g_z3CUTzdP4t3rfRyXzDUtIRrzu_",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1Dhd6g_z3CUTzdP4t3rfRyXzDUtIRrzu_",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Dhd6g_z3CUTzdP4t3rfRyXzDUtIRrzu_&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:32.976Z",
+                    "actorUserId": "101551212390999104447"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-01T22:07:37.979Z",
+                    "actorUserId": "101551212390999104447"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 18,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-07T02:15:45.009Z",
+                    "actorUserId": "115906154774696081506",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 19,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-07T02:15:50.054Z",
+                    "actorUserId": "115906154774696081506",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-07T02:17:03.372Z",
+                    "actorUserId": "115906154774696081506"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 19,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-07T02:17:03.372Z",
+                    "actorUserId": "115906154774696081506",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T10:28:58.050Z",
+                    "actorUserId": "101551212390999104447"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4I2YeJ-YcBEN-eiM2JAQ",
+        "userId": "114425622077448236844",
+        "creationTime": "2019-05-28T06:36:31.009Z",
+        "updateTime": "2019-06-09T22:29:22.662Z",
+        "state": "TURNED_IN",
+        "draftGrade": 8,
+        "assignedGrade": 8,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY0OTI2OTAzOTNa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1PM2NAFfgJP8fzd6EHTiYI17MNA7ZLdzT",
+                        "title": "Screenshot_20190604-231050.png",
+                        "alternateLink": "https://drive.google.com/open?id=1PM2NAFfgJP8fzd6EHTiYI17MNA7ZLdzT",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1PM2NAFfgJP8fzd6EHTiYI17MNA7ZLdzT&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1u_1koUhy2Hqh_GqMfygy65OxgjAZ5qkg",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1u_1koUhy2Hqh_GqMfygy65OxgjAZ5qkg",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1u_1koUhy2Hqh_GqMfygy65OxgjAZ5qkg&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:30.921Z",
+                    "actorUserId": "114425622077448236844"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T22:15:40.247Z",
+                    "actorUserId": "114425622077448236844"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:32:54.626Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T19:33:28.600Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:33:28.600Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-09T22:29:22.662Z",
+                    "actorUserId": "114425622077448236844"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4Ina-3_4cBEN-eiM2JAQ",
+        "userId": "103687252271103925321",
+        "creationTime": "2019-05-28T06:36:28.766Z",
+        "updateTime": "2019-06-08T06:15:23.136Z",
+        "state": "TURNED_IN",
+        "draftGrade": 14,
+        "assignedGrade": 14,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY1MDYwMzIwMjla",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1FCYKHt3Udr9aIpuEKDU_-ZMdd50cEB6P",
+                        "title": "Share 'Assignment 3.txt'",
+                        "alternateLink": "https://drive.google.com/open?id=1FCYKHt3Udr9aIpuEKDU_-ZMdd50cEB6P",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1FCYKHt3Udr9aIpuEKDU_-ZMdd50cEB6P&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "18yVnerZQ35RhKvl7mlXUI6SrqCMvN9rS",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=18yVnerZQ35RhKvl7mlXUI6SrqCMvN9rS",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=18yVnerZQ35RhKvl7mlXUI6SrqCMvN9rS&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1XUBson8nh97Ndb-aXAmbGXSowHCGhQi5",
+                        "title": "Screenshot_20190608-091528.png",
+                        "alternateLink": "https://drive.google.com/open?id=1XUBson8nh97Ndb-aXAmbGXSowHCGhQi5",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1XUBson8nh97Ndb-aXAmbGXSowHCGhQi5&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:28.733Z",
+                    "actorUserId": "103687252271103925321"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-01T02:55:49.913Z",
+                    "actorUserId": "103687252271103925321"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 14,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:24:11.744Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T19:24:20.604Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 14,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T19:24:20.604Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T05:57:08.045Z",
+                    "actorUserId": "103687252271103925321"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-08T05:57:20.153Z",
+                    "actorUserId": "103687252271103925321"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T06:15:23.136Z",
+                    "actorUserId": "103687252271103925321"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4I-9rj_4cBEN-eiM2JAQ",
+        "userId": "110487234375757832302",
+        "creationTime": "2019-05-28T06:36:27.446Z",
+        "updateTime": "2019-06-08T14:32:15.053Z",
+        "state": "TURNED_IN",
+        "draftGrade": 8,
+        "assignedGrade": 8,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY1MDY3NTg1MjNa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1PGez0jP_JaEUirPZ_Tyn9BIcwjL8OzYA",
+                        "title": "Screenshot_2019-06-04-15-26-05.png",
+                        "alternateLink": "https://drive.google.com/open?id=1PGez0jP_JaEUirPZ_Tyn9BIcwjL8OzYA",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1PGez0jP_JaEUirPZ_Tyn9BIcwjL8OzYA&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1lLofmeiZlhmUF7gmTNhudqFGsaaapru8",
+                        "title": "Screenshot_2019-06-04-15-24-59.png",
+                        "alternateLink": "https://drive.google.com/open?id=1lLofmeiZlhmUF7gmTNhudqFGsaaapru8",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1lLofmeiZlhmUF7gmTNhudqFGsaaapru8&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1wlrQ-DIWUEwyMlB-UGw6f1dpj3OVBa1C",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1wlrQ-DIWUEwyMlB-UGw6f1dpj3OVBa1C",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1wlrQ-DIWUEwyMlB-UGw6f1dpj3OVBa1C&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:27.379Z",
+                    "actorUserId": "110487234375757832302"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-01T13:28:07.227Z",
+                    "actorUserId": "110487234375757832302"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RECLAIMED_BY_STUDENT",
+                    "stateTimestamp": "2019-06-04T05:21:33.349Z",
+                    "actorUserId": "110487234375757832302"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-04T14:14:42.615Z",
+                    "actorUserId": "110487234375757832302"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T20:08:16.824Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T20:08:48.231Z",
+                    "actorUserId": "110544833030086357366"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 8,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T20:08:48.231Z",
+                    "actorUserId": "110544833030086357366",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T14:32:15.053Z",
+                    "actorUserId": "110487234375757832302"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36481062080",
+        "courseWorkId": "36937273183",
+        "id": "Cg4I663bz4gBEN-eiM2JAQ",
+        "userId": "112886890631125570120",
+        "creationTime": "2019-05-28T06:36:26.843Z",
+        "updateTime": "2019-06-08T08:29:17.016Z",
+        "state": "TURNED_IN",
+        "draftGrade": 17,
+        "assignedGrade": 17,
+        "alternateLink": "https://classroom.google.com/c/MzY0ODEwNjIwODBa/a/MzY5MzcyNzMxODNa/submissions/student/MzY2NzQzOTM4MzVa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1c_jmhogljO6WT7lOh-pj1vZBaKQYTvjP",
+                        "title": "bounceball.PNG",
+                        "alternateLink": "https://drive.google.com/open?id=1c_jmhogljO6WT7lOh-pj1vZBaKQYTvjP",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1c_jmhogljO6WT7lOh-pj1vZBaKQYTvjP&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1sy2HQ_wH4zEHdx4iJ0URFHNP_8CEDEYD",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1sy2HQ_wH4zEHdx4iJ0URFHNP_8CEDEYD",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1sy2HQ_wH4zEHdx4iJ0URFHNP_8CEDEYD&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-05-28T06:36:26.775Z",
+                    "actorUserId": "112886890631125570120"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-05-31T21:29:13.620Z",
+                    "actorUserId": "112886890631125570120"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 17,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T20:28:16.268Z",
+                    "actorUserId": "102816551806542645046",
+                    "gradeChangeType": "DRAFT_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "RETURNED",
+                    "stateTimestamp": "2019-06-06T20:30:06.435Z",
+                    "actorUserId": "102816551806542645046"
+                }
+            },
+            {
+                "gradeHistory": {
+                    "pointsEarned": 17,
+                    "maxPoints": 20,
+                    "gradeTimestamp": "2019-06-06T20:30:06.435Z",
+                    "actorUserId": "102816551806542645046",
+                    "gradeChangeType": "ASSIGNED_GRADE_POINTS_EARNED_CHANGE"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-08T08:29:17.015Z",
+                    "actorUserId": "112886890631125570120"
+                }
+            }
+        ],
+        "submissionNo": 2
+    },
+    {
+        "courseId": "36506728168",
+        "courseWorkId": "36936670949",
+        "id": "Cg0IoLzmmjoQ5b3jzIkB",
+        "userId": "109331229447458927552",
+        "creationTime": "2019-06-06T08:17:51.543Z",
+        "updateTime": "2019-06-11T00:06:31.424Z",
+        "state": "TURNED_IN",
+        "late": true,
+        "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MTU2MjU0NjEyODBa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1hxYQJZFU38tcMw1hmoLBA6QRRA8vtp3s",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1hxYQJZFU38tcMw1hmoLBA6QRRA8vtp3s",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1hxYQJZFU38tcMw1hmoLBA6QRRA8vtp3s&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1Qvvs_SNtNyFfEwFw1kGMx1WQ--f6l7bu",
+                        "title": "Screenshot_20190610-235310.png",
+                        "alternateLink": "https://drive.google.com/open?id=1Qvvs_SNtNyFfEwFw1kGMx1WQ--f6l7bu",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Qvvs_SNtNyFfEwFw1kGMx1WQ--f6l7bu&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-06-06T08:17:51.482Z",
+                    "actorUserId": "109331229447458927552"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-11T00:06:31.424Z",
+                    "actorUserId": "109331229447458927552"
+                }
+            }
+        ],
+        "submissionNo": 1
+    },
+    {
+        "courseId": "36506728168",
+        "courseWorkId": "36936670949",
+        "id": "Cg4I7fHol4gBEOW948yJAQ",
+        "userId": "116661774335462615799",
+        "creationTime": "2019-06-06T08:17:52.059Z",
+        "updateTime": "2019-06-11T09:47:53.157Z",
+        "state": "TURNED_IN",
+        "late": true,
+        "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MzY1NTcxNzUwMjFa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1OnBtvfeZMh5B-gBtifVDg-FG644rVN6c",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1OnBtvfeZMh5B-gBtifVDg-FG644rVN6c",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1OnBtvfeZMh5B-gBtifVDg-FG644rVN6c&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1qgePK5IcibT7j45MDSyld2NjAM6GQsVf",
+                        "title": "Screenshot_20190611-123127.png",
+                        "alternateLink": "https://drive.google.com/open?id=1qgePK5IcibT7j45MDSyld2NjAM6GQsVf",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1qgePK5IcibT7j45MDSyld2NjAM6GQsVf&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1Pj3Fi4YZr5gswO3851sImNAH_d_8MXW2",
+                        "title": "Screenshot_20190611-124308.png",
+                        "alternateLink": "https://drive.google.com/open?id=1Pj3Fi4YZr5gswO3851sImNAH_d_8MXW2",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1Pj3Fi4YZr5gswO3851sImNAH_d_8MXW2&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-06-06T08:17:51.984Z",
+                    "actorUserId": "116661774335462615799"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-11T09:47:53.157Z",
+                    "actorUserId": "116661774335462615799"
+                }
+            }
+        ],
+        "submissionNo": 1
+    },
+    {
+        "courseId": "36506728168",
+        "courseWorkId": "36936670949",
+        "id": "Cg4I85-PmYgBEOW948yJAQ",
+        "userId": "111938048708489269046",
+        "creationTime": "2019-06-06T08:17:52.101Z",
+        "updateTime": "2019-06-10T22:07:13.821Z",
+        "state": "TURNED_IN",
+        "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MzY1NTk5MDA2NTla",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1YiclgswJcOKWHBOmWgmRgTTgvfxQVtrn",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1YiclgswJcOKWHBOmWgmRgTTgvfxQVtrn",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1YiclgswJcOKWHBOmWgmRgTTgvfxQVtrn&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1UBIIO8Q6GNTktdPa6rLhbA-mI_VErs_n",
+                        "title": "sketch.properties",
+                        "alternateLink": "https://drive.google.com/open?id=1UBIIO8Q6GNTktdPa6rLhbA-mI_VErs_n",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1UBIIO8Q6GNTktdPa6rLhbA-mI_VErs_n&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1F6fxKCfT5cMCQEyPoVAj5sqaFtF8TGCT",
+                        "title": "Screenshot_20190610-230125.png",
+                        "alternateLink": "https://drive.google.com/open?id=1F6fxKCfT5cMCQEyPoVAj5sqaFtF8TGCT",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1F6fxKCfT5cMCQEyPoVAj5sqaFtF8TGCT&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-06-06T08:17:52.007Z",
+                    "actorUserId": "111938048708489269046"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-10T22:07:13.821Z",
+                    "actorUserId": "111938048708489269046"
+                }
+            }
+        ],
+        "submissionNo": 1
+    },
+    {
+        "courseId": "36506728168",
+        "courseWorkId": "36936670949",
+        "id": "Cg4IzMC3kIkBEOW948yJAQ",
+        "userId": "109989189285164584600",
+        "creationTime": "2019-06-06T08:17:51.496Z",
+        "updateTime": "2019-06-10T17:15:29.517Z",
+        "state": "TURNED_IN",
+        "alternateLink": "https://classroom.google.com/c/MzY1MDY3MjgxNjha/a/MzY5MzY2NzA5NDla/submissions/student/MzY4MTAxMjEyOTJa",
+        "courseWorkType": "ASSIGNMENT",
+        "assignmentSubmission": {
+            "attachments": [
+                {
+                    "driveFile": {
+                        "id": "1pLyEi4HKWuih4oWwyzxe_zTSo_qRvwdt",
+                        "title": "Assignment3.pde",
+                        "alternateLink": "https://drive.google.com/open?id=1pLyEi4HKWuih4oWwyzxe_zTSo_qRvwdt",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1pLyEi4HKWuih4oWwyzxe_zTSo_qRvwdt&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1g8H6o-XmykmiP-qrrfzR2kmSP8murjAu",
+                        "title": "Screenshot_2019-06-10-14-38-58.png",
+                        "alternateLink": "https://drive.google.com/open?id=1g8H6o-XmykmiP-qrrfzR2kmSP8murjAu",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1g8H6o-XmykmiP-qrrfzR2kmSP8murjAu&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1ViIZreKiGCX5RCqE9sbIkUkoIWKC2CAc",
+                        "title": "Screenshot_2019-06-10-15-05-04.png",
+                        "alternateLink": "https://drive.google.com/open?id=1ViIZreKiGCX5RCqE9sbIkUkoIWKC2CAc",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1ViIZreKiGCX5RCqE9sbIkUkoIWKC2CAc&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1nr7xqWSvI6piNRgT7lkfk6vIzwOAHKZK",
+                        "title": "Screenshot_2019-06-08-13-31-05.png",
+                        "alternateLink": "https://drive.google.com/open?id=1nr7xqWSvI6piNRgT7lkfk6vIzwOAHKZK",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1nr7xqWSvI6piNRgT7lkfk6vIzwOAHKZK&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1_w-k8AHvnRXiqjqkF0cHE6tzSsWif0i4",
+                        "title": "Screenshot_2019-06-08-13-31-01.png",
+                        "alternateLink": "https://drive.google.com/open?id=1_w-k8AHvnRXiqjqkF0cHE6tzSsWif0i4",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1_w-k8AHvnRXiqjqkF0cHE6tzSsWif0i4&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1iUB1uCRMOwmUVSIbEZ55uU_ZhnndG-b-",
+                        "title": "Screenshot_2019-06-10-14-40-07.png",
+                        "alternateLink": "https://drive.google.com/open?id=1iUB1uCRMOwmUVSIbEZ55uU_ZhnndG-b-",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1iUB1uCRMOwmUVSIbEZ55uU_ZhnndG-b-&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1_lD1xgrfspOiwle6JX4bpfbj1KCd7RzH",
+                        "title": "Screenshot_2019-06-10-14-40-16.png",
+                        "alternateLink": "https://drive.google.com/open?id=1_lD1xgrfspOiwle6JX4bpfbj1KCd7RzH",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1_lD1xgrfspOiwle6JX4bpfbj1KCd7RzH&sz=s200"
+                    }
+                },
+                {
+                    "driveFile": {
+                        "id": "1V5Ew-Y3gYBgeh59mOSkFP56imuv_DAjP",
+                        "title": "Screenshot_2019-06-10-14-39-02.png",
+                        "alternateLink": "https://drive.google.com/open?id=1V5Ew-Y3gYBgeh59mOSkFP56imuv_DAjP",
+                        "thumbnailUrl": "https://drive.google.com/thumbnail?id=1V5Ew-Y3gYBgeh59mOSkFP56imuv_DAjP&sz=s200"
+                    }
+                }
+            ]
+        },
+        "associatedWithDeveloper": true,
+        "submissionHistory": [
+            {
+                "stateHistory": {
+                    "state": "CREATED",
+                    "stateTimestamp": "2019-06-06T08:17:51.427Z",
+                    "actorUserId": "109989189285164584600"
+                }
+            },
+            {
+                "stateHistory": {
+                    "state": "TURNED_IN",
+                    "stateTimestamp": "2019-06-10T17:15:29.517Z",
+                    "actorUserId": "109989189285164584600"
+                }
+            }
+        ],
+        "submissionNo": 1
+    }
+]
