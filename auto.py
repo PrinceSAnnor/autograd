@@ -14,7 +14,8 @@ class AutoGrad(object):
 
     def __init__(self):
         """ Make initialisations here """
-        self.BASE_DIR = os.getcwd()
+        cwd = os.getcwd()
+        self.BASE_DIR = cwd
         self.classroom = None
         self.drive = None
         self.mailer = None
@@ -49,34 +50,63 @@ class AutoGrad(object):
         # self.sheet = Sheets()
 
 
-    def download_files(self, file_info):
+    def download_files(self, files_info):
         """ Download necessary files to be graded """
         click.echo("Downloading assignment files ...")
 
-        file_path = 'assets/code/%s/' % (self.assg_name)
-        os.chdir(file_path)                                  
-        # try:
-        #     # self.drive.get_file(file_info['id'], file_name)
-        #     pass
-        # except:
-        #     pass
+        for f in files_info: 
+            os.chdir(self.BASE_DIR)
+            file_path = 'assets/code/%s/%s/' % (self.assg_name, list(self.course_names.keys())[list(self.course_names.values()).index(f['courseId'])])
+            if not os.path.exists(file_path) and os.getcwd != file_path:
+                os.makedirs(file_path)
+            os.chdir(file_path)                                 
+            try:
+                new_file_name = file_path + f['userId'] + '_' + str(f['submissionNo']) + '_' + f['title']
+                old_file_name = f['title']
+                self.drive.get_file(f['id'], f['title'])
+                os.rename(old_file_name, new_file_name)
+            except Exception as e:
+                click.echo("There was an error downloading. Error: {}".format(e))
+                return False
 
+        return True
 
     def progress(self, i):
         """ TODO: remove this into an external file"""
         print("Progress: Retrieved {} file(s)".format(i), end="\r", flush=True)
 
+    # def get_subs_for_assignment(self):
+    #     return self.teacher.service.courses().courseWork().studentSubmissions().list(
+    #         courseId="36481062080",
+    #         courseWorkId="36937273183",
+    #         # userId="103687252271103925321",
+    #         states=['TURNED_IN']
+    #     ).execute()
 
-    def get_submissions_for_assignment(self, course_number, assignment_number):      
+    def get_submissions_for_assignment(self, course_number, assignment_number, submission_number):      
         """ Returns TURNED_IN submissions from one assignment of specified course/classroom(s) """
         subs_list = []
         
-        def has_turned_in_and_has_state_history(s):
-            return s['state'] == self.TURNED_IN and len(s['submissionHistory']) > 1
-        
-       
+        def has_state_history(s, submission_number):
+            count = 0
+            eligible = len(s['submissionHistory']) > 1
+
+            for history in s['submissionHistory']:
+                if history.get('stateHistory', {}).get('state') == self.TURNED_IN:
+                    count += 1
+            if eligible:
+                if submission_number == count == 1:
+                    s['submissionNo'] = count
+                    return True
+                
+                elif submission_number > 1 and count >= submission_number: 
+                    s['submissionNo'] = count
+                    return True
+            return False
+
         # type cast id
         assignment_number = int(assignment_number)
+        submission_number = int(submission_number)
 
         # Get dict of course name and course id
         courses = self.teacher.get_all_courses() 
@@ -113,36 +143,39 @@ class AutoGrad(object):
                 click.echo("Could not get assignment {}".format(assignment_number))
                 raise e
 
-            subs_list += self.teacher.get_student_submissions(id,assg_id).get('studentSubmissions', [])
+            subs_list += self.teacher.get_student_submissions(id, assg_id, states=[self.TURNED_IN]).get('studentSubmissions', [])
             
-        turned_in_subs = list(filter(lambda s: has_turned_in_and_has_state_history(s), subs_list))        
+        turned_in_subs = list(filter(lambda s: has_state_history(s, submission_number), subs_list))        
         return turned_in_subs
 
 
     def get_files_for_download(self, subs):
         click.echo("Getting filenames from Google for download ...")
 
-        def getPDE(sub):
-            userId = sub["userId"]
-            courseId = sub["courseId"]
+        def get_PDE(sub):
+            user_id = sub["userId"]
+            course_id = sub["courseId"]
+            sub_no = sub["submissionNo"]
             a = sub["assignmentSubmission"]["attachments"]
 
             if a:
                 # Loop through attachments
                 for f in a:         
                     final = {}
-                    driveFile = f["driveFile"]
+                    drive_file = f["driveFile"]
                     
-                    if driveFile["title"][-4:] == ".pde":
-                        final["userId"] = userId
-                        final["courseId"] = courseId
-                        final["id"] = driveFile["id"]
-                        final["driveFile"] = driveFile["alternateLink"]
+                    if drive_file["title"][-4:] == ".pde":
+                        final["submissionNo"] = sub_no
+                        final["userId"] = user_id
+                        final["courseId"] = course_id
+                        final["id"] = drive_file["id"]
+                        final["title"] = drive_file["title"]
+                        final["driveFile"] = drive_file["alternateLink"]
                         return final
             else:
                 return {}
 
-        attachments = list(map( lambda sub: getPDE(sub) ,subs))
+        attachments = list(map( lambda sub: get_PDE(sub) ,subs))
         self.attachments = attachments # Attach to instance
         click.echo("Retrieved {} filename(s)".format(len(attachments)))
        
@@ -168,7 +201,7 @@ class AutoGrad(object):
 
 # ------------------------------------ #
 NO_OF_ASSIGNMENTS = 6
-NO_OF_ALLOWED_RESUBS = 2
+NO_OF_ALLOWED_RESUBS = 5
 
 docs = {
     "test":"Run without uploading",
@@ -195,10 +228,11 @@ def cli(context, course, assignment, submission):
     if context.invoked_subcommand is None:
         click.echo("[TEST] Running AutoGrad..")
         a = AutoGrad()
-        subs = a.get_submissions_for_assignment(course, assignment)
+        subs =  a.get_submissions_for_assignment(course, assignment, submission)
         at = a.get_files_for_download(subs)
         a.log_to_file(at)
-        # status = a.download_files(at)
+        status = a.download_files(at)
+        click.echo("Status: {}".format("success" if status else "fail"))
         
 
 

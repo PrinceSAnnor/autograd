@@ -107,13 +107,13 @@ class Teacher(object):
                 print('Could not add alias')
 
 
-    def get_student_submissions(self, course_id, coursework_id, user_id=None):
+    def get_student_submissions(self, course_id, coursework_id, states=[], user_id=None):
         """ Gets students submissions """
         request = self.service.courses().courseWork().studentSubmissions().list( \
-            courseId=course_id, courseWorkId=coursework_id)
+            courseId=course_id, states=states, courseWorkId=coursework_id)
         if user_id: 
             request = self.service.courses().courseWork().studentSubmissions().list( \
-            courseId=course_id, courseWorkId=coursework_id, userId = user_id)
+            courseId=course_id, states=states, courseWorkId=coursework_id, userId = user_id)
             
         try:
             studentSubmissions = request.execute()
