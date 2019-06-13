@@ -1,6 +1,8 @@
 
 class Test {
 
+  PrintWriter output = createWriter("error_logs.txt");
+
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
   ArrayList<Integer> backgrounds = new ArrayList<Integer>(); //background lines
@@ -19,7 +21,14 @@ class Test {
   ArrayList<String> majorError = new ArrayList<String>(); //store the ultimate error
   
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Strictly for checking GameOn
+  ArrayList<Integer> yvalBounce = new ArrayList<Integer>(); // Store ycoordinate states of ball 
+  ArrayList<Integer> xvalLeft = new ArrayList<Integer>(); // Store x coordinate states as it 
+  ArrayList<Integer> xvalRight = new ArrayList<Integer>();
+
+  ArrayList<Integer> scoresR = new ArrayList<Integer>();
+  ArrayList<Integer> scoresL = new ArrayList<Integer>();
   
+  int count = 0;  
   int totalScore = 20; // total score of the student
   float majorExceptions = 3; //deductions that generate exceptions, ie code that won't likely compile
   int gap = 5; //interval due to floating divisions
@@ -31,6 +40,10 @@ class Test {
 
   File filePath;
 
+  //Parallel templates for different scenarios
+  Code code1 = new Code();
+  Code code2 = new Code();
+  Code code3 = new Code();
   Test(File f) { 
     filePath = f;
   }
@@ -1230,6 +1243,179 @@ class Test {
       errors.add("Error: couldn't get moving ball");
     }
   }
+
+    void printResults() {
+    if (totalScore < 0)
+    {
+      totalScore = 0;
+    }
+    println(totalScore, errors);
+  }
+
+  void debug(boolean mode){
+    if(mode = true){
+      println("----------------------");
+      println("Debug");
+      println("----------------------");
+      println(" ");
+       //Print states
+      println("State after 45 frames for scenario 1 - bounce"+yvalBounce);
+      println(" ");
+      println("State after 45 frames for scenario 2 - moveLeft"+xvalLeft);
+      println("rightScore:"+ scoresR);
+      println(" ");
+      println("State after 45 frames for scenario 3 - moveRight"+xvalRight);
+      println("leftScore:"+ scoresL);
+   
+    }
+  }
+
+  void generateStates(){
+    
+    try
+    {
+      //Start simulation
+      mousePressed = true;
+      
+      // Gather states of 45 frames
+      for(int i=0; i<45;i++){
+          //Generates the state for scenario 1
+          code1.forever();
+          yvalBounce.add(code1.ballY());
+          
+          //Generates the state for scenario 2
+          code2.forever();
+          xvalLeft.add(code2.ballX());
+          scoresR.add(code2.rightScore());
+          
+          //Generates the state for scenario 3
+          code3.forever();
+          xvalRight.add(code3.ballX());
+          scoresL.add(code3.leftScore());
+        }
+      
+      }
+      catch(Exception e)
+      {
+        println("Code runtime error:" +e);
+        test.totalScore = 0;
+        test.printResults();
+        exit();
+      }
+  }
+  
+
+  void checkLeftWall(){
+    boolean correct = true;
+
+    // If the ball crosses the left it will have a value larger than the screenWidth
+    int minVal = Collections.min(xvalLeft);
+    int minValIndex = xvalLeft.indexOf(minVal);
+
+    int minValScore = scoresR.get(minValIndex);
+    int nextScoreAfterMin = scoresR.get(minValIndex + 1);
+
+    boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
+    if(!rightScoreIncreased){
+      correct = false;
+      errors.add("Check whether the scores change on crossing the lefthand wall");
+    } 
+
+    // If ball leaves the screen, even a little
+    if( minVal < 0  ){
+        correct = false;
+        String err = "The game does not reset after crossing the left wall";
+        errors.add(err);
+      }
+      //return;
+
+      if(!correct) test.totalScore -= test.deduction;
+    }
+
+    
+  void checkRightWall(){
+      boolean correct = true;
+
+      // If the ball crosses the right it will have a value larger than the screenWidth
+      int maxVal = Collections.max(xvalRight);
+      int maxValIndex = xvalRight.indexOf(maxVal);
+
+      int maxValScore = scoresL.get(maxValIndex);
+      int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
+
+      boolean leftScoreIncreased = maxValScore < nextScoreAfterMax;
+      if(!leftScoreIncreased){
+        correct = false;
+        errors.add("Check whether the scores change on crossing the righthand wall");
+      } 
+
+      // If ball leaves the screen, even a little
+      if( maxVal > screenWidth ){
+        correct = false;
+        String err = "The game does not reset after crossing the right wall";
+        errors.add(err);
+      }
+
+      if(!correct) test.totalScore -= test.deduction;
+      //return;
+    }
+
+
+    void setInitialConditions(){
+      // Place the ball at the center
+      code1.xBall = 0.5 * screenWidth;
+      code1.yBall = 0.5 * screenHeight;
+      
+      code3.xBall = code2.xBall = code1.xBall;
+      code3.yBall = code2.yBall = code1.yBall;    
+      
+      // Initial conditions for scenario 1 - Bounce
+      code1.ySpeed = 50;
+      code1.xSpeed = 0;
+      
+      // Initial conditions for scenario 2 - Move left
+      code2.ySpeed = 0;
+      code2.xSpeed = -50;
+      
+      // Initial conditions for scenario 3 - Move right
+      code3.ySpeed = 0;
+      code3.xSpeed = 50;
+    }
+
+  
+  void checkWallsBounce(){
+      int minIndex = yvalBounce.indexOf(Collections.min(yvalBounce));
+      int maxIndex = yvalBounce.indexOf(Collections.max(yvalBounce));
+      
+      // Test upper wall bounce.  - If min is the first or last element it means there was no bounce.
+      if(minIndex == (yvalBounce.size()-1) || minIndex == 0 ){ 
+        test.totalScore -= test.deduction;
+        String err = "Ball does not bounce off top";
+        errors.add(err);
+        //return;
+      }
+      else if ( yvalBounce.get(minIndex+1) > yvalBounce.get(minIndex) && yvalBounce.get(minIndex-1) > yvalBounce.get(minIndex)){
+        count++; //Ball bounces above. Proceed to confirm for below.
+      }
+      
+
+      //test lower wall bounce
+      if(maxIndex == (yvalBounce.size()-1) || maxIndex == 0){
+        test.totalScore -= test.deduction;
+        String err = "Ball does not bounce off bottom";
+        errors.add(err);
+      }
+      else if ( yvalBounce.get(minIndex+1) > yvalBounce.get(minIndex) && yvalBounce.get(minIndex-1) > yvalBounce.get(minIndex)){
+        count++;
+      }
+         
+    }
+  
+  void logFilesWithErrors(){
+    output.println(filePath);
+    output.flush();
+    output.close();
+  } 
   
   //This function checks if the boolean gameOn exists and breaks code otherwise.
   void checkGameOn() 
@@ -1313,13 +1499,26 @@ class Test {
       checkScores();
       checkMovingBall();
       shapeColorInteractions();
+
+      setInitialConditions();
+      generateStates();
+
+      checkWallsBounce();
+      checkLeftWall();
+      checkRightWall();
+
       checkGameOn();
       checkMajorErrors();
       printResults(); // We probably would want to printResults after running Getcode and Pong_3.
+      //debug(true);
     } else {
       totalScore = 0;
-      majorError.add("Could not grade assignment: check you maxX and maxY values");
+      String err = "Could not grade assignment: Check log at errors.txt. Skipping ...";
+      
+      logFilesWithErrors();
+      majorError.add(err);
       print(totalScore, majorError);
     }
+    
   }
 }
