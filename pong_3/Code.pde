@@ -1,192 +1,215 @@
 class Code {
-
-
 //maxX = 1920, maxY = 1080
 
-float screenWidth = 1920; //set to your maxX
+float screenWidth = 1920; //maxX
+float screenHeight = 1080; //maxY
 
-float screenHeight = 1080; //set to your maxY
-
-int rect1X = 0; // Declare variable to hold x position for rectangle 1 
-
-int rect1Y = 0; // Declare variable to hold y position for rectangle 1
-
-int rect2X = 1860; // Declare variable to hold x position for rectangle 2
-
-int rect2Y = 880; // Declare variable to hold y position for rectangle 2
-
-int rectWidth = 60; // Sets the rectangle width
-
-int rectHeight = 200; // Sets the rectangle height 
-
-int ballX = 960; // Declare variable to hold x position of ball
-
-int ballY = 540; // Declare variable to hold y position of ball
-
-int ballWidth = 50; // Sets the ball width
-
-int ballHeight = 50; // Sets the ball Height
-
-int textSizes = 50; // Sets text size
-
-int text1X = 760; // Declare variable to hold x postion for left player score
-
-int textY = 540; // Declare variable to hold y position for both player's score
-
-int text2X = 1160; //Declare variable to hold x position for right player score
-
-int text1Score= 0; // Writes the left player score
-
-int text2Score= 0; // Writes the right player score
-
-int xSpeed = 5; // Sets the ball speed in the x position
-
-int ySpeed = 5; // Sets the ball speed in the y postion
-
-int radius = 25; // Sets half the width or height of the ball
-
-boolean gameOn= false; //new variable to start ball's movement
+float xBall = 960; //x position of the ball 
+float yBall = 540; //y position of the ball 
+float diameter = 50;  //diameter of the ball
+float leftPaddleX = 0; //x coordinate of the left paddle in the top left corner 
+float leftPaddleY = 0; //y coordinate of the left paddle in the top left corner
+float rightPaddleX = 1872; //x coordinate of the right paddle in the bottom right corner
+float rightPaddleY = 864; //y coordinate of the right paddle in the bottom right corner
+int paddleHeight = 216; //height of the paddle
+int paddleWidth = 48; //width of the paddle
+int leftScore = 0; //score of the left player
+int rightScore = 0; //score of the right player
+float leftScoreX = 480; //x coordinate of the left player's score
+float leftScoreY = 540; //y coordinate of the right player's score
+float rightScoreX = 1440; //x coordinate of the right player's score
+float rightScoreY = 540; //y coordinate of the right player's score
+float xSpeed = 20; //horizontal speed of the ball
+float ySpeed = 20; //vertical speed of the ball
+float radius = 25; //radius of the ball
+int tSize = 30; //Sets the text size
+boolean gameOn = false;
 
 void once()
-
 {
-
-  //  fullScreen(); //Sets the program to run in full screen mode
+  size(1920, 1080); //sets the width and height of the program
 }
 
 void forever()
-
-
-
-
-
 {
-
-  background(0);// sets the background to black
-
-  stroke(0, 128, 0); // sets the outline colour of the shape below to green
-
-  fill(0, 0, 128); // sets the colour of the shape below to indigo
-
-  rect(rect1X, rect1Y, rectWidth, rectHeight); // draws the left side rectangle
-
-  rect(rect2X, rect2Y, rectWidth, rectHeight); //draws the right side rectangle
-
-  fill(255, 255, 0); // sets the colour of the shape below to yellow
-
-  ellipse(ballX, ballY, ballWidth, ballHeight); // draws the ellipse
-
-  textSize(textSizes); //set text size to 50
-
-  text(text1Score, text1X, textY); // writes 15 on the screen
-
-  text(text2Score, text2X, textY); // writes 40 on the screen
-
-  //Check if mouse is pressed, set gameOn to true
-
-  if (mousePressed) {
-    gameOn = true;
+  background (0); //set background to black each frame
+  stroke (0, 0, 255); //use a blue outline for all shapes until stroke is run again with another color
+  
+  //Draw ball
+  ellipse (xBall, yBall, diameter, diameter); //draw ball unto the screen 
+  
+  //Draw paddles
+  fill (0, 255, 0); //fill all shapes to green until fill is run with another color 
+  rect (leftPaddleX, leftPaddleY, paddleWidth, paddleHeight); //draw left paddle
+  rect (rightPaddleX, rightPaddleY, paddleWidth, paddleHeight); //draw right paddle
+  
+  //Write scores to screen
+  textSize(tSize); //set size of the player's scores to be the value in the tSize variable
+  fill (255); //fill all shapes to white until fill is run with another color 
+  text (leftScore, leftScoreX, leftScoreY); //draw left player'sscore 
+  text (rightScore, rightScoreX, rightScoreY); //draw right player's score 
+  
+  if(mousePressed) 
+  {
+    gameOn = true; 
   }
-
+  
+  //Move ball if game is on 
   if (gameOn) {
-
-    //Move ball up and right
-
-    ballX = ballX + xSpeed;
-
-    ballY = ballY - ySpeed;
+    xBall = xBall + xSpeed; //increase the x position of the ball by x speed
+    yBall = yBall - ySpeed; //increase the y position of the ball by y speed
   }
 
-  // Check if the ball hits left or right walls
-
-  if (ballX-radius<0) {
-    xSpeed=xSpeed - 1;
-    text2Score=text2Score + 1;// increases score by of right player 1
-
-
-    //return ball to centre
-    ballX= 960;
-    ballY= 540;
-    gameOn=false;
+  //Check if ball completely exits left side of the screen 
+  if (xBall + radius < 0) //if the ball exits the left side of the screen 
+  {
+    rightScore = rightScore + 1; //increment the right player's score by one
+    xBall = screenWidth/2; //set the horizontal position of the ball to half of the width
+    yBall = screenHeight/2; //set the vertical position of the ball to half of the height
+    gameOn = false;
+  } 
+  
+  //Check if ball completely exits right side of the screen 
+  if (xBall - radius > screenWidth) //if the ball exits the right side of the screen 
+  {
+    leftScore = leftScore + 1; //increment the right player's score by one
+    xBall = screenWidth/2; //set the horizontal position of the ball to half of the width
+    yBall = screenHeight/2; //set the vertical position of the ball to half of the height 
+    gameOn = false;
   }
-  if (ballX+radius> screenWidth) { 
-    xSpeed=xSpeed - 1;
-
-    text1Score=text1Score + 1;// increases score of right player
-
-    //return ball to centre
-    ballX= 960;
-    ballY= 540;
-    gameOn=false;
-  }
-  // Check if the ball hits top or bottom walls
-
-  if ((ballY-radius<0) || (ballY+radius)> screenHeight) { 
-    ySpeed= ySpeed * -1;// Reverse direction
+  
+  //Check if ball hits top and bottom sides of the screen 
+  if (yBall - radius < 0 || yBall + radius > screenHeight) //if the ball hits the top or bottom sides of the screen 
+  {
+    ySpeed = ySpeed + - ySpeed + 1; //then reverse the polarity of the vertical speed so the ball moves in the opposite vertical direction
   }
 }
 int rightPaddleY()
 {
-return int(rect2Y);
+return int(rightPaddleY);
 }
 int rightPaddleX()
 {
-return int(rect2X);
+return int(rightPaddleX);
 }
 int leftPaddleY()
 {
-return int(rect1Y);
+return int(leftPaddleY);
 }
 int leftScoreX()
 {
-return int(text1X);
+return int(leftScoreX);
 }
 int scoreY()
 {
-return int(textY);
+return int(leftScoreY);
 }
 int ballY()
 {
-return int(ballY);
+return int(yBall);
 }
 int leftScore()
 {
-return int(text1Score);
+return int(leftScore);
 }
 int ballX()
 {
-return int(ballX);
+return int(xBall);
 }
 int paddleHeight()
 {
-return int(rectHeight);
+return int(paddleHeight);
 }
 int leftPaddleX()
 {
-return int(rect1X);
+return int(leftPaddleX);
 }
 int rightScore()
 {
-return int(text2Score);
+return int(rightScore);
 }
 int txtSize()
 {
-return int(textSizes);
+return int(tSize);
 }
 int diameter()
 {
-return int(ballWidth);
+return int(diameter);
 }
 int paddleWidth()
 {
-return int(rectWidth);
+return int(paddleWidth);
 }
 int rightScoreX()
 {
-return int(text2X);
+return int(rightScoreX);
 }
-int gameOn()
+boolean gameOn()
 {
-return int(gameOn=);
+return gameOn;
+}
+void setrightPaddleY(int x)
+{
+rightPaddleY= x ;
+}
+void setrightPaddleX(int x)
+{
+rightPaddleX= x ;
+}
+void setleftPaddleY(int x)
+{
+leftPaddleY= x ;
+}
+void setleftScoreX(int x)
+{
+leftScoreX= x ;
+}
+void setscoreY(int x)
+{
+leftScoreY= x ;
+}
+void setballY(int x)
+{
+yBall= x ;
+}
+void setleftScore(int x)
+{
+leftScore= x ;
+}
+void setballX(int x)
+{
+xBall= x ;
+}
+void setpaddleHeight(int x)
+{
+paddleHeight= x ;
+}
+void setleftPaddleX(int x)
+{
+leftPaddleX= x ;
+}
+void setrightScore(int x)
+{
+rightScore= x ;
+}
+void settxtSize(int x)
+{
+tSize= x ;
+}
+void setdiameter(int x)
+{
+diameter= x ;
+}
+void setpaddleWidth(int x)
+{
+paddleWidth= x ;
+}
+void setrightScoreX(int x)
+{
+rightScoreX= x ;
+}
+void setgameOn(boolean x)
+{
+gameOn= x ;
 }
 }
