@@ -16,19 +16,20 @@ void setup ()
   code = new Code();
   
   ////get filename from command line for autograd
-  //if (args != null) {
+  if (args != null) {
     
-  //  File f = new File(sketchPath() + "/../" + args[0]);
-  //  test = new Test(f);
-  //  test.run();
+    File f = new File(sketchPath() + "/../" + args[0]);
+    test = new Test(f);
+    test.run();
     
-  //} else {
-  //  println("args == null");
-  //}
+  } else {
+    println("args == null");
+  }
   
-  File f = new File("C:/Users/Raymond Tetteh/Desktop/autograd/assets/code/SuaCode Africa 1/Assignment 3 - Bounce Ball/Assignment 3 - Bounce Ball/Alfred Ogada/0-1R6N4KuVXfcQZemCuRVcNNJFKEpCdK9mv-Assignment3.pde");
-  test = new Test(f);
-  test.run();
+  //For testing
+  //File f = new File(sketchPath() +"/assignment_3/assignment_3.pde");
+  //test = new Test(f);
+  //test.run();
   
   gameWidth = test.screenWidth;
   gameHeight = test.screenHeight;

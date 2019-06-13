@@ -16,9 +16,9 @@ void setup ()
   }
   
   ////For single files
-  File f = new File("C:\\Users\\Raymond Tetteh\\Desktop\\Assignment1\\Ebinbin.pde");
-  Test test = new Test(f);
-  test.run();
+  //File f = new File("C:\\Users\\Andrew\\Downloads\\Assignment2\\Assignment2.pde");
+  //Test test = new Test(f);
+  //test.run();
   
   noLoop(); // draw doesn't have to run
   exit(); // quit the program

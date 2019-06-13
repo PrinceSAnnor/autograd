@@ -14,18 +14,18 @@ the assignment. ill explain later
 
 void setup() {
   //For autograd
-  if (args != null) {
+  //if (args != null) {
     
-    File f = new File(sketchPath() + "/../../" + args[0]);
-    GetCode getCode = new GetCode(f);
-    getCode.run();
+  //  File f = new File(sketchPath() + "/../../" + args[0]);
+  //  GetCode getCode = new GetCode(f);
+  //  getCode.run();
     
-  } else {
-    println("args == null");
-  }
+  //} else {
+  //  println("args == null");
+  //}
   
   //For Teasing (Single file)
-  File f = new File("C:/Users/Raymond Tetteh/Desktop/autograd/assets/code/SuaCode Africa 1/Assignment 3 - Bounce Ball/Abdulmutalab Musa/0-1TvHNd96_6UxeikeB0Vtm0fNC_rJwZ2ey-Assignment3.pde");
+  File f = new File("C:/Users/Andrew/Desktop/autograd/pong_3/assignment_3/assignment_3.pde");
   GetCode getCode = new GetCode(f);
   getCode.run();
   

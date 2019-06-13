@@ -78,14 +78,27 @@ void checkRects() //check rects
       String[] splitByCommas1;
       int max = 0;      
       
+      int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
         if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
         {
           rects.add(i);
+          recCounter++;
         }
       }
-
+      
+      //check if rects are used and tells us why it didn't grade.
+      if(recCounter < 2){   
+        //println("Student did not create a paddle or both paddles.");
+        if(recCounter == 0){
+          println("Student did not create both paddles");
+        }else if(recCounter == 1){
+          println("Student only created one paddle.");
+        }
+        
+      }
+      
       int j = 0;
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
@@ -342,11 +355,40 @@ void checkRects() //check rects
       
       //hasmap name gfg
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-      {  
-        output.println("int " + entry.getKey() + "()");
-        output.println("{");
-        output.println("return int(" + entry.getValue() + ");");
-        output.println("}");
+      { 
+        if(entry.getKey() == "gameOn"){
+          output.println("boolean " + entry.getKey() + "()");
+          output.println("{");
+          output.println("return " + entry.getValue() + ";");
+          output.println("}");
+        }else{
+          output.println("int " + entry.getKey() + "()");
+          output.println("{");
+          output.println("return int(" + entry.getValue() + ");");
+          output.println("}");
+        }
+        
+      }
+      
+      //output.println("}");
+
+      //output.flush(); // Writes the remaining data to the file
+      //output.close(); // Finishes the file
+    
+    //write setters"
+      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
+      { 
+        if(entry.getKey() == "gameOn"){
+          output.println("void " + "set" + entry.getKey() + "(boolean x)");
+          output.println("{");
+          output.println(entry.getValue() + "= x " + ";");
+          output.println("}");
+        }else{
+          output.println("void " + "set" + entry.getKey() + "(int x)");
+          output.println("{");
+          output.println(entry.getValue() + "= x " + ";");
+          output.println("}");
+        }
       }
       
       output.println("}");
