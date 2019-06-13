@@ -1,8 +1,6 @@
 
 class Test {
 
-  PrintWriter output = createWriter("error_logs.txt");
-
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
   ArrayList<Integer> backgrounds = new ArrayList<Integer>(); //background lines
@@ -1244,14 +1242,6 @@ class Test {
     }
   }
 
-    void printResults() {
-    if (totalScore < 0)
-    {
-      totalScore = 0;
-    }
-    println(totalScore, errors);
-  }
-
   void debug(boolean mode){
     if(mode = true){
       println("----------------------");
@@ -1412,6 +1402,7 @@ class Test {
     }
   
   void logFilesWithErrors(){
+    PrintWriter output = createWriter("error_logs.txt");
     output.println(filePath);
     output.flush();
     output.close();
@@ -1463,7 +1454,6 @@ class Test {
   //Checks if there is a major Error and breaks code.
   void checkMajorErrors(){
     int errorFlag = majorError.size();
-    println(errorFlag);
     if(errorFlag > 0){
       majorErrorFlag = true;
       println("There's a major Error in student code... Should be fixed and resubmitted for a regrade!");
@@ -1513,10 +1503,10 @@ class Test {
       //debug(true);
     } else {
       totalScore = 0;
-      String err = "Could not grade assignment: Check log at errors.txt. Skipping ...";
+      String err = "Could not grade assignment: Check log at error_logs.txt. Skipping ...";
       
       logFilesWithErrors();
-      majorError.add(err);
+      print(err);
       print(totalScore, majorError);
     }
     
