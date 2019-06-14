@@ -84,5 +84,4 @@ class Drive(object):
         done = False
         while done is False:
             status, done = downloader.next_chunk()
-            print("Downlaoded %d%%" % (status.progress() * 100))
             return done
