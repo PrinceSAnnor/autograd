@@ -22,6 +22,7 @@ class AutoGrad(object):
         self.sheet = None
         self.TURNED_IN = "TURNED_IN"
         self.assg_name = ""
+        self.file_path = os.path.join(self.BASE_DIR,'assets','code','temp')
         self.attachments = []
         self.course_ids = []
         self.course_names = {
@@ -61,12 +62,13 @@ class AutoGrad(object):
 
         for i, f in enumerate(files_info):         
             while True:
-                file_path = 'assets/code/%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
+                self.file_path = 'assets/code/%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
                 
+
                 os.chdir(self.BASE_DIR) # Get into root dir everytime you have to save a file to prevent saving deep down a tree
-                if not os.path.exists(file_path) and os.getcwd != file_path:
-                    os.makedirs(file_path)
-                os.chdir(file_path)                                 
+                if not os.path.exists(self.file_path) and os.getcwd != file_path:
+                    os.makedirs(self.file_path)
+                os.chdir(self.file_path)                                 
                 try:
                     new_file_name = f['userId'] + '_' + str(f['submissionNo']) + '_' + f['title']
                     old_file_name = f['title']
@@ -200,11 +202,12 @@ class AutoGrad(object):
 
         # get_code_cmd = 'processing-java --sketch="' + self.BASE_DIR + os.sep + pong_code[assignment_number] + '/get_code" --output="' + self.BASE_DIR + '/' + pong_code[assignment_number] + os.sep+ 'get_code/build"' + ' --force --run ' + args
         processing_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            .format("c:/users/kwasiboateng/desktop/general files/autograd/pong_1/",
-            "c:/users/kwasiboateng/desktop/general files/autograd/pong_1/build",
-            "/assignment_1/assignment_1.pde")
-            # .format( os.path.join(os.getcwd(), '' ) )
+            .format( os.path.join(os.getcwd(), 'pong_1' ),
+            os.path.join(os.getcwd(), 'pong_1', 'build'),
+            os.path.join('pong_1', 'assignment_1', 'assignment_1.pde')) # Remove first pong_X directory later on when old autograd is phased out
+        
         print(processing_cmd)
+
         results = subprocess.check_output(processing_cmd , shell=True)
         output = results.decode("UTF-8")
         res = output.replace('Finished.', '')
@@ -220,6 +223,9 @@ NO_OF_ASSIGNMENTS = 6
 NO_OF_ALLOWED_RESUBS = 5
 NIL = 'nil'
 
+ALLOWED_ASSIGNMENTS = list(str(i) for i in range(1, NO_OF_ASSIGNMENTS+1))
+ALLOWED_RESUBS = list(str(i) for i in range(1, NO_OF_ALLOWED_RESUBS+1))
+
 docs = {
     "test":"Run without uploading",
     "course": "Specify the course. 1 for Suacode Africa 1, 2 for Suacode Africa 2,etc. Additionally \
@@ -230,30 +236,31 @@ docs = {
 }
    
 @click.group(invoke_without_command=True)
-@click.option('--file', '-c', help=docs["files"])
-@click.option('--submission', '-s', type=click.Choice( list(str(i) for i in range(1, NO_OF_ALLOWED_RESUBS+1)) ), default="1", help=docs["submission"])
+@click.option('--file', '-f', help=docs["file"])
+@click.option('--submission', '-s', type=click.Choice( ALLOWED_RESUBS ), default="1", help=docs["submission"])
 @click.option('--course', '-c', help=docs["course"])
-@click.option('--assignment', '-a', type=click.Choice( list(str(i) for i in range(1, NO_OF_ASSIGNMENTS+1)) ),  help=docs["assignment"])
+@click.option('--assignment', '-a', type=click.Choice( ALLOWED_ASSIGNMENTS ),  help=docs["assignment"])
 @click.pass_context
-def cli(context, course, assignment, submission):
+def cli(context, course, assignment, submission, file):
     context.ensure_object(dict) #
 
     # Attach the inputs to context object
     context.obj['course'] = course or NIL
     context.obj['assignment'] = assignment or NIL
     context.obj['submission'] = submission or NIL
+    context.obj['file'] = file or NIL
 
     if context.invoked_subcommand is None:
         click.echo("[TEST] Running AutoGrad..")
         a = AutoGrad()
 
-        # a.boot() # Connect to Google APIs. This is not needed when testing
-        # subs =  a.get_submissions_for_assignment(course, assignment, submission)
-        # at = a.get_files_for_download(subs)
-        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        # status = a.download_files(at)
+        a.boot() # Connect to Google APIs. This is not needed when testing
+        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        at = a.get_files_for_download(subs) # Get the .pde files
+        a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        status = a.download_files(at) # Download the files to assets/code
 
-        a.grade_files()
+        # a.grade_files()
 
 @cli.command()
 @click.pass_context
@@ -261,8 +268,11 @@ def deploy(context):
     """Run complete process"""
     check_required = NIL not in list(context.obj.values())
    
-    if check_required:
-        course, assignment, submission = context.obj['AutoGrad'], context.obj['course'], context.obj['assignment'], context.obj['submission']
+    if check_required: 
+        a = context.obj['AutoGrad']
+        course = context.obj['course']
+        assignment = context.obj['assignment']
+        submission = context.obj['submission']
     
         click.echo("[DEPLOY] Running AutoGrad..")
         # a = AutoGrad()
