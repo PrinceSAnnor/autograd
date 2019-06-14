@@ -1,3 +1,4 @@
+class Code {
 //maxX = 1920, maxY = 1080
 
 float screenWidth = 1920; //maxX
@@ -24,12 +25,12 @@ float radius = 25; //radius of the ball
 int tSize = 30; //Sets the text size
 boolean gameOn = false;
 
-void setup()
+void once()
 {
   size(1920, 1080); //sets the width and height of the program
 }
 
-void draw ()
+void forever()
 {
   background (0); //set background to black each frame
   stroke (0, 0, 255); //use a blue outline for all shapes until stroke is run again with another color
@@ -82,4 +83,134 @@ void draw ()
   {
     ySpeed = ySpeed + - ySpeed + 1; //then reverse the polarity of the vertical speed so the ball moves in the opposite vertical direction
   }
+}
+int wierd = -99;
+int rightPaddleY()
+{
+return int(wierd);
+}
+int rightPaddleX()
+{
+return int(wierd);
+}
+int leftPaddleY()
+{
+return int(wierd);
+}
+int leftScoreX()
+{
+return int(leftScoreX);
+}
+int scoreY()
+{
+return int(leftScoreY);
+}
+int leftScore()
+{
+return int(leftScore);
+}
+int ballY()
+{
+return int(wierd);
+}
+int ballX()
+{
+return int(wierd);
+}
+int paddleHeight()
+{
+return int(wierd);
+}
+int leftPaddleX()
+{
+return int(wierd);
+}
+int rightScore()
+{
+return int(rightScore);
+}
+int txtSize()
+{
+return int(tSize);
+}
+int paddleWidth()
+{
+return int(wierd);
+}
+int rightScoreX()
+{
+return int(rightScoreX);
+}
+int diameter()
+{
+return int(wierd);
+}
+boolean gameOn()
+{
+return gameOn;
+}
+void setrightPaddleY(int x)
+{
+wierd= x ;
+}
+void setrightPaddleX(int x)
+{
+wierd= x ;
+}
+void setleftPaddleY(int x)
+{
+wierd= x ;
+}
+void setleftScoreX(int x)
+{
+leftScoreX= x ;
+}
+void setscoreY(int x)
+{
+leftScoreY= x ;
+}
+void setleftScore(int x)
+{
+leftScore= x ;
+}
+void setballY(int x)
+{
+wierd= x ;
+}
+void setballX(int x)
+{
+wierd= x ;
+}
+void setpaddleHeight(int x)
+{
+wierd= x ;
+}
+void setleftPaddleX(int x)
+{
+wierd= x ;
+}
+void setrightScore(int x)
+{
+rightScore= x ;
+}
+void settxtSize(int x)
+{
+tSize= x ;
+}
+void setpaddleWidth(int x)
+{
+wierd= x ;
+}
+void setrightScoreX(int x)
+{
+rightScoreX= x ;
+}
+void setdiameter(int x)
+{
+wierd= x ;
+}
+void setgameOn(boolean x)
+{
+gameOn= x ;
+}
 }

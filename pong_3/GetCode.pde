@@ -1,8 +1,8 @@
-import java.util.Map;
+ import java.util.Map;
 
 class GetCode {
   
-  PrintWriter output = createWriter(sketchPath()+"/Code.pde");
+  PrintWriter output = createWriter("Code.pde");
   
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -16,11 +16,8 @@ class GetCode {
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
       
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
-   
-  File filePath;
-  
-  GetCode(File f) {
-    filePath = f;
+    
+  GetCode() { //empty constructor for class
   }
 
   /*
@@ -29,11 +26,11 @@ class GetCode {
   void getLines() { //reads file
     try
     {
-      fileLines = loadStrings(filePath); //comment if you're using APDE
+      fileLines = loadStrings("assignment3/assignment3.pde"); //comment if you're using APDE
     }
     catch (Exception e) //IO error
     {
-      // println("Couldn't load file");
+      println("Couldn't load file");
     }
   }
   
@@ -54,13 +51,13 @@ class GetCode {
       }
       if (emptyLines < 2) //if at least two lines are empty
       {
-        // println("Improper code grouping");
+        println("Improper code grouping");
         
       }
     }
     catch (Exception e) //catch exception
     {
-      // println("Couldn't remove empty lines in file");
+      println("Couldn't remove empty lines in file");
     }
   }
   
@@ -70,33 +67,6 @@ class GetCode {
    Follow the name of the variables to understand what's going on with each splitTokens
    */
 
-   
-/*
-  This function pre-sets the values of the varNamesHashMap to -99
-*/
-void presetValues(){
-  //varNamesHashMap.put("wierd", "-99");
-  varNamesHashMap.put("leftPaddleX", "wierd");
-  varNamesHashMap.put("leftPaddleY", "wierd");
-  varNamesHashMap.put("paddleWidth", "wierd");
-  varNamesHashMap.put("paddleHeight", "wierd");
-  varNamesHashMap.put("rightPaddleX", "wierd");
-  varNamesHashMap.put("rightPaddleY", "wierd");
-  varNamesHashMap.put("txtSize", "wierd");
-  varNamesHashMap.put("leftScore", "wierd");
-  varNamesHashMap.put("leftScoreX", "wierd");
-  varNamesHashMap.put("scoreY", "wierd");
-  varNamesHashMap.put("rightScore", "wierd");
-  varNamesHashMap.put("rightScoreX", "wierd");
-  varNamesHashMap.put("ballX", "wierd");
-  varNamesHashMap.put("ballY", "wierd");
-  varNamesHashMap.put("diameter", "wierd");
-  varNamesHashMap.put("gameOn", "wierd");
-
-}
-
-
-
 void checkRects() //check rects
   {
     try
@@ -105,61 +75,15 @@ void checkRects() //check rects
       String[] splitByCommas1;
       int max = 0;      
       
-      //int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
-      //for (int i = 0; i < linesFiltered.size(); i++) 
-      //{
-      //  if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
-      //  {
-      //    rects.add(i);
-      //    recCounter++;
-      //  }
-      //}
-      
-      ////check if rects are used and tells us why it didn't grade.
-      //if(recCounter < 2){   
-      //  //println("Student did not create a paddle or both paddles.");
-      //  if(recCounter == 0){
-      //    println("Student did not create both paddles");
-      //  }else if(recCounter == 1){
-      //    println("Student only created one paddle.");
-      //  }
-        
-      //}
-      
-      //putting -99 for all variable names at first. So if we get -99 returned, we know that the student didn't 
-      //create that variable and the getter is not valid.
-      //int i = 0;
-      //for (int m = 0; m < rects.size(); m++) {
-      //  splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
-      //  splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
-        
-      //  i = 0;
-      //  while (i < splitByCommas1.length && i < 4) //get parameters
-      //  {  
-      //    if(m == 0) {
-      //      if( i == 0) {
-      //        varNamesHashMap.put("leftPaddleX", "-99");
-      //      } else if( i == 1) {
-      //        varNamesHashMap.put("leftPaddleY", "-99");
-      //      } else if( i == 2) {
-      //        varNamesHashMap.put("paddleWidth", "-99");
-      //      } else if( i == 3) {
-      //        varNamesHashMap.put("paddleHeight", "-99");
-      //      }
-      //    } else if(m == 1) {
-      //      if( i == 0) {
-      //        varNamesHashMap.put("rightPaddleX", "-99");
-      //      } else if( i == 1) {
-      //        varNamesHashMap.put("rightPaddleY", "-99");
-      //      }
-      //    }
-      //    i++;
-      //  }
-      //  max = max + i;
-      //}
-      
+      for (int i = 0; i < linesFiltered.size(); i++) 
+      {
+        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
+        {
+          rects.add(i);
+        }
+      }
+
       int j = 0;
-      max = 0;
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
@@ -191,7 +115,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      // println("Couldn't check rects");
+      println("Couldn't check rects");
     }
   }
 
@@ -217,7 +141,7 @@ void checkRects() //check rects
           sizeFlag = false;
           if (texts.size() != 0)
           {
-            // println("size not set before text called");
+            println("size not set before text called");
           }
         }
         if (match(linesFiltered.get(i), "^text.*$") != null) //look for text with regex
@@ -228,46 +152,10 @@ void checkRects() //check rects
 
       if (sizeFlag) //if no textSize was used
       {
-        // println("text size not set");
+        println("text size not set");
       }
       
-      
-      //int i = 0;
-      //for(int m = 0; m < texts.size(); m++) 
-      //{
-      //  splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
-      //  splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-        
-      //  i = 0;
-      //  while(i < splitByCommas.length) // 
-      //  {
-          
-      //    if(m == 0) {
-      //      if(i == 0) {
-      //        varNamesHashMap.put("txtSize", "-99");
-      //      }
-      //    } else if(m == 1){
-      //       if(i == 0) {
-      //        varNamesHashMap.put("leftScore", "-99");
-      //      } else if(i == 1) {
-      //        varNamesHashMap.put("leftScoreX", "-99");
-      //      } else if(i == 2) {
-      //        varNamesHashMap.put("scoreY", "-99");
-      //      }
-      //    } else if(m == 2){
-      //       if(i == 0) {
-      //        varNamesHashMap.put("rightScore", "-99");
-      //      } else if(i == 1) {
-      //        varNamesHashMap.put("rightScoreX", "-99");
-      //      }
-      //    }
-      //    i++;
-      //  }
-      //  max = max + i;
-      //}
-      
       int j = 0;
-      max = 0;
       for(int m = 0; m < texts.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
@@ -303,7 +191,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      // println("Couldn't check scores");
+      println("Couldn't check scores");
     }
   }
 
@@ -329,31 +217,7 @@ void checkRects() //check rects
         }
       }
   
-      //int i = 0;
-      //for(int m = 0; m < ellipses.size(); m++) 
-      //{
-      //  splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
-      //  splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-
-      //  i = 0;
-      //  while (i < splitByCommas.length && i < 4) //get ellipse's parameters
-      //  {           
-          
-      //    if(i == 0) {
-      //      varNamesHashMap.put("ballX", "-99");
-      //    } else if(i == 1) {
-      //      varNamesHashMap.put("ballY", "-99");
-      //    } else if(i == 2) {
-      //      varNamesHashMap.put("diameter", "-99");
-      //    }
-          
-      //    i++;
-      //  }
-      //  max = max + i;
-      //}
-      
       int j = 0;
-      max = 0;
       for(int m = 0; m < ellipses.size(); m++) 
       {
         splitByLeftBrace = splitTokens(linesFiltered.get(ellipses.get(m)), "(");
@@ -378,7 +242,7 @@ void checkRects() //check rects
     }
     catch (Exception e) 
     {
-      // println("Couldnt Check ellipses");
+      println("Couldnt Check ellipses");
     }
   }
    void getGameOn() 
@@ -387,18 +251,6 @@ void checkRects() //check rects
     {
       String[] splitBySemiColon;
       String[] splitBySpace;
-      
-      //for (int m = 0; m < linesFiltered.size(); m++) 
-      //{         
-      //  if(match(linesFiltered.get(m), "boolean") != null) {
-          
-      //    splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
-          
-      //    splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
-          
-      //    varNamesHashMap.put("gameOn", "-99");
-      //  }
-      //}
       
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
@@ -414,7 +266,7 @@ void checkRects() //check rects
     }
     catch(Exception e)
     {
-      // println("couldnt get boolean vars" + e);
+      println("couldnt get boolean vars" + e);
     }
   }
   
@@ -449,17 +301,13 @@ void checkRects() //check rects
            variablesHashMap.put(varName, varValue); 
            varKeys.add(varName);
         } else {
-          //// println("The value for the variable " + varName + " is not a number");
+          //println("The value for the variable " + varName + " is not a number");
         }
- 
       }
-      //Add wierd to variables.
-      variablesHashMap.put("wierd","-99");
-      varKeys.add("wierd"); 
     }
     catch(Exception e)
     {
-      // println("Could not get variables"); 
+      println("Could not get variables"); 
     }
   }
   
@@ -470,8 +318,13 @@ void checkRects() //check rects
 
       for (int i = 0; i < fileLines.length; i++)
       {
-        if (match(fileLines[i], "fullScreen") != null) {
-            output.println("  //" + fileLines[i]);
+        if (match(fileLines[i], "size\\(") != null) {
+          String[] tokens = trim(splitTokens(fileLines[i], "//"));
+          if (match(tokens[0], "size") != null) {
+            output.println("//" + tokens[0]);
+          } else {
+            output.println(tokens[0] + "  //" + tokens[1]);
+          }
         } else if (match(fileLines[i], "void") != null) {
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
@@ -489,48 +342,13 @@ void checkRects() //check rects
         }
       }
       
-      output.println("int wierd = -99;");
-      
-      //getters
+      //hasmap name gfg
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-      { 
-        if(entry.getKey() == "gameOn"){
-          output.println("boolean " + entry.getKey() + "()");
-          output.println("{");
-          output.println("return " + entry.getValue() + ";");
-          output.println("}");
-        }else{
-          output.println("int " + entry.getKey() + "()");
-          output.println("{");
-          output.println("return int(" + entry.getValue() + ");");
-          output.println("}");
-        }
-        
-      }
-      
-      //output.println("}");
-
-      //output.flush(); // Writes the remaining data to the file
-      //output.close(); // Finishes the file
-    
-    //write setters"
-      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-      { 
-        if(entry.getKey() == "gameOn"){
-          output.println("void " + "set" + entry.getKey() + "(boolean x)");
-          output.println("{");
-          output.println(entry.getValue() + "= x " + ";");
-          output.println("}");
-        }else{
-          //if(entry.getValue()!= "-99"){
-          output.println("void " + "set" + entry.getKey() + "(int x)");
-          output.println("{");
-          output.println(entry.getValue() + "= x " + ";");
-          output.println("}");
-          //}else{
-          //println("The variable" + entry.getKey() + " was not created.");
-          //}
-        }
+      {  
+        output.println("int " + entry.getKey() + "()");
+        output.println("{");
+        output.println("return int(" + entry.getValue() + ");");
+        output.println("}");
       }
       
       output.println("}");
@@ -540,7 +358,7 @@ void checkRects() //check rects
     }
     catch(Exception e)
     {
-      // println("couldnt create file " + e);
+      println("couldnt create file " + e);
     }
   }
  
@@ -569,8 +387,9 @@ void checkRects() //check rects
     return true;
   }
   
+  
+
   void run() {
-    presetValues();
     getLines();
     removeEmptyLines();
     getVariables();

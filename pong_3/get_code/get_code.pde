@@ -25,7 +25,7 @@ void setup() {
   //}
   
   //For Teasing (Single file)
-  File f = new File("C:/Users/Andrew/Desktop/autograd/pong_3/assignment_3/assignment_3.pde");
+  File f = new File("/Users/andrewthankson/Desktop/Suacode/autograd/pong_3/assignment_3/assignment_3.pde");
   GetCode getCode = new GetCode(f);
   getCode.run();
   
