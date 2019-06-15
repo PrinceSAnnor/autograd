@@ -1305,14 +1305,15 @@ class Test {
     int minValScore = scoresR.get(minValIndex);
     int nextScoreAfterMin = scoresR.get(minValIndex + 1);
 
-    boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
-    if(!rightScoreIncreased){
+    boolean thereIsAnIncrease = Collections.max(scoresR) != Collections.min(scoresR);
+    // boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
+    if(!thereIsAnIncrease){
       correct = false;
       errors.add("Check whether the scores change on crossing the lefthand wall");
     } 
 
     // If ball leaves the screen, even a little
-    if( minVal < 0  ){
+    if( minVal < 0 - code2.ballXSpeed()  ){
         correct = false;
         String err = "The game does not reset after crossing the left wall";
         errors.add(err);
@@ -1333,14 +1334,17 @@ class Test {
       int maxValScore = scoresL.get(maxValIndex);
       int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
 
-      boolean leftScoreIncreased = maxValScore < nextScoreAfterMax;
-      if(!leftScoreIncreased){
+      boolean thereIsAnIncrease = Collections.max(scoresL) != Collections.min(scoresL);
+      // boolean leftScoreIncreased = maxValScore < nextScoreAfterMax && thereIsAnIncrease;
+      
+      if(!thereIsAnIncrease){
         correct = false;
         errors.add("Check whether the scores change on crossing the righthand wall");
       } 
 
       // If ball leaves the screen, even a little
-      if( maxVal > screenWidth ){
+
+      if( maxVal > screenWidth + Math.abs(code3.ballXSpeed()) ){
         correct = false;
         String err = "The game does not reset after crossing the right wall";
         errors.add(err);
