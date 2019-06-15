@@ -1320,7 +1320,7 @@ class Test {
       //return;
 
       if(!correct) test.totalScore -= test.deduction;
-    }
+  }
 
     
   void checkRightWall(){
@@ -1348,28 +1348,35 @@ class Test {
 
       if(!correct) test.totalScore -= test.deduction;
       //return;
-    }
+  }
 
 
     void setInitialConditions(){
       // Place the ball at the center
-      code1.xBall = 0.5 * screenWidth;
-      code1.yBall = 0.5 * screenHeight;
+      int screenCentreX = (int) 0.5 * screenWidth;
+      int screenCentreY = (int) 0.5 * screenHeight;
       
-      code3.xBall = code2.xBall = code1.xBall;
-      code3.yBall = code2.yBall = code1.yBall;    
+      // Set x and y positions of ball in all scenarios 
+      // TODO: refactor later
+      code1.setballX(screenCentreX);
+      code2.setballX(screenCentreX);
+      code3.setballX(screenCentreX);
+
+      code1.setballY(screenCentreY);
+      code2.setballY(screenCentreY);
+      code3.setballY(screenCentreY);
       
       // Initial conditions for scenario 1 - Bounce
-      code1.ySpeed = 50;
-      code1.xSpeed = 0;
+      code1.setballYSpeed(50);
+      code1.setballXSpeed(0);
       
       // Initial conditions for scenario 2 - Move left
-      code2.ySpeed = 0;
-      code2.xSpeed = -50;
+      code2.setballYSpeed(0);
+      code2.setballXSpeed(-50);
       
       // Initial conditions for scenario 3 - Move right
-      code3.ySpeed = 0;
-      code3.xSpeed = 50;
+      code3.setballYSpeed(0);;
+      code3.setballXSpeed(50);
     }
 
   
@@ -1399,7 +1406,7 @@ class Test {
         count++;
       }
          
-    }
+  }
   
   void logFilesWithErrors(){
     PrintWriter output = createWriter("error_logs.txt");
@@ -1500,7 +1507,7 @@ class Test {
       checkGameOn();
       checkMajorErrors();
       printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      //debug(true);
+      debug(true);
     } else {
       totalScore = 0;
       String err = "Could not grade assignment: Check log at error_logs.txt. Skipping ...";

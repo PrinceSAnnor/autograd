@@ -42,7 +42,7 @@ class AutoGrad(object):
         # self.boot()
 
     def __str__(self):
-        click.echo("Starting AutoGrad in this dir:{}".format(self.BASE_DIR))
+        click.echo("Starting AutoGrad in this dir: {}".format(self.BASE_DIR))
     
     def boot(self):
         """ Connect to API services """
@@ -63,7 +63,7 @@ class AutoGrad(object):
         for i, f in enumerate(files_info):         
             while True:
                 self.file_path = 'assets/code/%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
-                
+                self.file_path.replace('/', os.sep)
 
                 os.chdir(self.BASE_DIR) # Get into root dir everytime you have to save a file to prevent saving deep down a tree
                 if not os.path.exists(self.file_path) and os.getcwd() != self.file_path:
@@ -71,9 +71,16 @@ class AutoGrad(object):
                 os.chdir(self.file_path)                                 
                 try:
                     new_file_name = f['userId'] + '_' + str(f['submissionNo']) + '_' + f['title']
+                    new_file_dir = new_file_name.split('.pde')[0]
                     old_file_name = f['title']
+
+                    if not os.path.exists(new_file_dir):
+                        os.makedirs(new_file_dir)
+                    os.chdir(new_file_dir) 
+
                     self.drive.get_file(f['id'], f['title'])
                     os.rename(old_file_name, new_file_name)
+
                     print("Progress: Downloaded {} out of {} file(s)".format(i,n), end="\r", flush=True)
                 except Exception as e:
                     c -= 1
@@ -201,30 +208,36 @@ class AutoGrad(object):
         
         # os.chdir(self.BASE_DIR)
         # if os.path.isfile('assets{}code'.format(os.sep))
-        self.file_path = 'assets/code/Assignment 3 - Bounce Ball/SuaCode Africa 1/1'
+        self.file_path = 'assets/code/Assignment 3 - Bounce Ball/SuaCode Africa 1/1/115758346753638427969_1_Assignment3'
+        self.file_path = self.file_path.replace('/', os.sep) # Comment this out after testing
 
-        print(self.file_path.split('/'))
+        sketch_dir = os.path.join(os.getcwd(), 'pong_3') # os.path.join(os.getcwd(), self.file_path)
+        build_dir = os.path.join(sketch_dir, 'build')
 
-        # get_code_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            # .format(sketch_dir , output_path, sketch_path)
+        get_code_dir = os.path.join(sketch_dir, 'get_code')
+        get_code_build = os.path.join(get_code_dir, 'build')
+
+        sketch_path = os.path.join(self.file_path, '115758346753638427969_1_Assignment3.pde')
+
+        get_code_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
+            .format(get_code_dir , get_code_build, sketch_path)
 
         processing_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            .format( os.path.join(os.getcwd(), 'pong_1' ),
-            os.path.join(os.getcwd(), 'pong_1', 'build'),
-            os.path.join('pong_1', 'assignment_1', 'assignment_1.pde')) # Remove first pong_X directory later on when old autograd is phased out
-        # print(processing_cmd)
+            .format(sketch_dir, build_dir, sketch_path) # Remove first pong_X directory later on when old autograd is phased out
+        print(processing_cmd)
 
         # Run getcode to make getters and setters
-        # print("Parsing and Preparing Code.pde file")
-        # results = subprocess.check_output(get_code_cmd , shell=True)
-        # output = results.decode("UTF-8")
-        # print(output)
+        print("Parsing and Preparing Code.pde file")
+        results = subprocess.check_output(get_code_cmd , shell=True)
+        output = results.decode("UTF-8")
+        print(output)
 
         # Run Processing test and grade
-        # results = subprocess.check_output(processing_cmd , shell=True)
-        # output = results.decode("UTF-8")
-        # res = output.replace('Finished.', '')
+        results = subprocess.check_output(processing_cmd , shell=True)
+        output = results.decode("UTF-8")
+        res = output.replace('Finished.', '')
         # print(res.split()[0])
+        print(res)
         
     def grade_files(self, course_number=0, assignment_number=0, submission_number=0):
         # Run grading for a file
@@ -325,7 +338,7 @@ def deploy(context):
         # at = a.get_files_for_download(subs)
         # a.log_to_file(at)
     else:
-        click.echo("Insufficient params exiting.. Try --help for more info")
+        click.echo("Insufficient params. Exiting.. Try --help for more info")
 
 if __name__ == "__main__":
     cli(obj={})
