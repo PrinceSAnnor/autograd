@@ -2,7 +2,7 @@ import java.util.Map;
 
 class GetCode {
   
-  PrintWriter output = createWriter(sketchPath()+"/Code.pde");
+  PrintWriter output = createWriter(sketchPath()+"/../Code.pde");
   
   String[] fileLines;
   ArrayList<String> linesFiltered = new ArrayList<String>(); //filtered lines ie no empty lines
@@ -90,6 +90,8 @@ void presetValues(){
   varNamesHashMap.put("rightScoreX", "wierd");
   varNamesHashMap.put("ballX", "wierd");
   varNamesHashMap.put("ballY", "wierd");
+  varNamesHashMap.put("ballXSpeed", "wierd");
+  varNamesHashMap.put("ballYSpeed", "wierd");
   varNamesHashMap.put("diameter", "wierd");
   varNamesHashMap.put("gameOn", "wierd");
 
@@ -381,6 +383,57 @@ void checkRects() //check rects
       // println("Couldnt Check ellipses");
     }
   }
+
+  void getSpeeds() 
+  {
+    ArrayList<String> temp = new ArrayList<String>(); //Array list contaning speed variables
+    
+    // For later refactoring..
+    //ArrayList<String> conditions = new ArrayList<String>();
+    //conditions.add("speed");
+    //conditions.add("velocity");
+    //// -- For later refactoring
+    
+    try
+    {
+      String[] splitBySemiColon;
+      String[] splitBySpace;
+      
+      for (int m = 0; m < varKeys.size(); m++) 
+      {        
+          if( varKeys.get(m).toLowerCase().contains("speed") ) {
+            String varName = varKeys.get(m); //trim(splitBySpace[1]);
+            temp.add(varName);    
+          }
+      }
+      
+      for(int i =0; i< temp.size(); i++){
+          String name = temp.get(i);
+          if( match(name, "x") != null ){
+            println("XSpeed is called =",name);
+            varNamesHashMap.put("ballXSpeed",name);
+          }
+          else if( match(name, "y") != null  ){
+            println("Yspeed is called = ",name);
+            varNamesHashMap.put("ballYSpeed",name);
+          }
+          else{
+            println("I dont know what this is"+name);
+          }
+        }
+      
+         
+      if(temp.size() < 1){//if gameOn variable was not put in hashMap 
+        println("You might not have all the speed variables . Please fix this and resubmit for grading.");
+        }
+        println(temp);
+    }
+    catch(Exception e)
+    {
+      println("couldnt get speed vars" + e);
+    }
+  }
+
    void getGameOn() 
   {
     try
@@ -570,14 +623,17 @@ void checkRects() //check rects
   }
   
   void run() {
-    presetValues();
-    getLines();
-    removeEmptyLines();
-    getVariables();
-    checkEllipses();
-    checkRects();
-    checkScores();
-    getGameOn();
-    createFile();
+     presetValues();
+     getLines();
+     removeEmptyLines();
+     getVariables();
+     getSpeeds();
+     checkEllipses();
+     checkRects();
+     checkScores();
+     getGameOn();
+     createFile();
+
+    
   }
 }
