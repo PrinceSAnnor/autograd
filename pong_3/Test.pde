@@ -1511,7 +1511,7 @@ class Test {
       checkGameOn();
       checkMajorErrors();
       printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      debug(true);
+      //debug(true);
     } else {
       totalScore = 0;
       String err = "Could not grade assignment: Check log at error_logs.txt. Skipping ...";
