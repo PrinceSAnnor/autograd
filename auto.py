@@ -226,18 +226,27 @@ class AutoGrad(object):
             .format(sketch_dir, build_dir, sketch_path) # Remove first pong_X directory later on when old autograd is phased out
         print(processing_cmd)
 
-        # Run getcode to make getters and setters
-        print("Parsing and Preparing Code.pde file")
-        results = subprocess.check_output(get_code_cmd , shell=True)
-        output = results.decode("UTF-8")
-        print(output)
+        for i in range(0,1):
+            print("Script: "+str(i))
+            while True:
+                
+                # Run getcode to make getters and setters
+                print("Parsing and Preparing Code.pde file")
+                results = subprocess.check_output(get_code_cmd , shell=True)
+                output = results.decode("UTF-8")
+                print(output)
 
         # Run Processing test and grade
-        results = subprocess.check_output(processing_cmd , shell=True)
-        output = results.decode("UTF-8")
-        res = output.replace('Finished.', '')
-        # print(res.split()[0])
-        print(res)
+                try:
+                    results = subprocess.check_output(processing_cmd , shell=True)
+                except Exception as e:
+                    print("There was an error processing the script. Error:"+ str(e) )
+
+                output = results.decode("UTF-8")
+                res = output.replace('Finished.', '')
+                # print(res.split()[0])
+                print(res)
+                break
         
     def grade_files(self, course_number=0, assignment_number=0, submission_number=0):
         # Run grading for a file
