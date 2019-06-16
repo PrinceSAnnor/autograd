@@ -410,27 +410,26 @@ void checkRects() //check rects
       for(int i =0; i< temp.size(); i++){
           String name = temp.get(i);
           if( match(name, "x") != null ){
-            println("XSpeed is called =",name);
+            //println("XSpeed is called =",name);
             varNamesHashMap.put("ballXSpeed",name);
           }
           else if( match(name, "y") != null  ){
-            println("Yspeed is called = ",name);
+            //println("Yspeed is called = ",name);
             varNamesHashMap.put("ballYSpeed",name);
           }
-          else{
-            println("I dont know what this is"+name);
-          }
+         
         }
       
          
       if(temp.size() < 1){//if gameOn variable was not put in hashMap 
-        println("You might not have all the speed variables . Please fix this and resubmit for grading.");
+        throw new Exception("You might not have all the speed variables . Please fix this and resubmit for grading.");
+        //println();
         }
-        println(temp);
+        //println(temp);
     }
     catch(Exception e)
     {
-      println("couldnt get speed vars" + e);
+      println("couldnt get speed vars: " + e);
     }
   }
 
