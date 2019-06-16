@@ -1221,7 +1221,7 @@ class Test {
 
         if ((match(splitByEquals[1], splitByEquals[0])) != null) //look with regex
         {
-          for (int l = 0; l < varKeys.size(); l++) {
+          for (int l = 0; l < varKeys.size(); l++) {   
             if (varKeys.get(l).equals(varKeys.get(l))) {
               noOfMatches++;
             }
@@ -1313,7 +1313,7 @@ class Test {
     } 
 
     // If ball leaves the screen, even a little
-    if( minVal < 0 - code2.ballXSpeed()  ){
+    if( minVal < 0 - Math.abs(code2.ballXSpeed())  ){
         correct = false;
         String err = "The game does not reset after crossing the left wall";
         errors.add(err);
@@ -1357,8 +1357,8 @@ class Test {
 
     void setInitialConditions(){
       // Place the ball at the center
-      int screenCentreX = (int) 0.5 * screenWidth;
-      int screenCentreY = (int) 0.5 * screenHeight;
+      int screenCentreX = (int) Math.floor(0.5 * screenWidth);
+      int screenCentreY = (int) Math.floor(0.5 * screenHeight);
       
       // Set x and y positions of ball in all scenarios 
       // TODO: refactor later
@@ -1418,6 +1418,17 @@ class Test {
     output.flush();
     output.close();
   } 
+
+  void checkBallIsMoving(){
+    // We can just check one of the generated state maps if there is movement
+    int minValX = Collections.min(xvalLeft);
+    int maxValX = Collections.max(xvalLeft);
+
+    // If the state remains the same, there is no movement.
+    if(minValX == maxValX) {
+      errors.add("Check if ball is moving.");
+    }
+  }
   
   //This function checks if the boolean gameOn exists and breaks code otherwise.
   void checkGameOn() 
@@ -1498,12 +1509,12 @@ class Test {
       checkEllipses();
       checkRects();
       checkScores();
-      checkMovingBall();
+      // checkMovingBall(); Replaced in favour of checkBallIsMoving() which uses state map
       shapeColorInteractions();
 
       setInitialConditions();
       generateStates();
-
+      checkBallIsMoving();
       checkWallsBounce();
       checkLeftWall();
       checkRightWall();
@@ -1511,7 +1522,7 @@ class Test {
       checkGameOn();
       checkMajorErrors();
       printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      //debug(true);
+      debug(true);
     } else {
       totalScore = 0;
       String err = "Could not grade assignment: Check log at error_logs.txt. Skipping ...";
