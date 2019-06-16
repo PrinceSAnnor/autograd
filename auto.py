@@ -4,7 +4,7 @@ from modules.Drive import Drive
 from modules.Mail import Mail
 from modules.Sheets import Sheets
 
-import os, subprocess, sys, csv, json, click
+import os, subprocess, sys, csv, json, click, random
 from datetime import datetime
 from googleapiclient.errors import HttpError
 
@@ -16,13 +16,14 @@ class AutoGrad(object):
         """ Make initialisations here """
         cwd = os.getcwd()
         self.BASE_DIR = cwd
+        self.code_dir = os.path.join(self.BASE_DIR, 'assets', 'code')
         self.classroom = None
         self.drive = None
         self.mailer = None
         self.sheet = None
         self.TURNED_IN = "TURNED_IN"
         self.assg_name = ""
-        self.file_path = os.path.join(self.BASE_DIR,'assets','code','temp')
+        self.file_path = os.path.join(self.code_dir, 'temp')
         self.attachments = []
         self.course_ids = []
         self.course_names = {
@@ -55,6 +56,8 @@ class AutoGrad(object):
     def download_files(self, files_info):
         """ Download necessary files to be graded """
         click.echo("Downloading assignment files ...")
+
+        if os.path.exists(self.code_dir): self.recycle(self.code_dir) # Clear folder first
         
         c = n = len(files_info)
         keys = sorted(list(self.course_names.keys()))
@@ -62,7 +65,7 @@ class AutoGrad(object):
 
         for i, f in enumerate(files_info):         
             while True:
-                self.file_path = 'assets/code/%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
+                self.file_path = self.code_dir + '%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
                 self.file_path.replace('/', os.sep)
 
                 os.chdir(self.BASE_DIR) # Get into root dir everytime you have to save a file to prevent saving deep down a tree
@@ -202,52 +205,88 @@ class AutoGrad(object):
         json.dump(info, f)
         f.close()
 
-    def gradeFiles(self):
+    def get_names_from_number(self, **kwargs):
+        values = {}
+        if "assignment" in list(kwargs.keys()):
+            assignment = int(kwargs.get("assignment"))
+            values["assignment"] = self.assg_names[assignment - 1]
+        if "course" in list(kwargs.keys()):
+            cn = int(kwargs.get("course"))
+            values["course"] = sorted(list(self.course_names.keys()))[cn - 1]
+        return values
+
+    def recycle(self, src):
+        r = str(random.randint(0,1000))
+        dst = os.path.join(self.BASE_DIR, 'assets', 'recycle', r)
+        try:
+            os.rename(src, dst)
+        except:
+            pass
+
+    def gradeFiles(self, course_num='1,2', assignment_num='3', submission_num='1'):
         # Run grading for a file
         click.echo("Grading files...")
+
+        final = {}
         
-        # os.chdir(self.BASE_DIR)
-        # if os.path.isfile('assets{}code'.format(os.sep))
-        self.file_path = 'assets/code/Assignment 3 - Bounce Ball/SuaCode Africa 1/1/115758346753638427969_1_Assignment3'
-        self.file_path = self.file_path.replace('/', os.sep) # Comment this out after testing
+        # If there are multiple course numbers get them out into a list
+        if "," in course_num:
+            cns = course_num.split(",")
+        else:
+            cns = list(course_num)
 
-        sketch_dir = os.path.join(os.getcwd(), 'pong_3') # os.path.join(os.getcwd(), self.file_path)
-        build_dir = os.path.join(sketch_dir, 'build')
+        # Loop through course numbers and grade
+        for course_number in cns:
+            info = self.get_names_from_number(assignment=assignment_num, course=course_number)
 
-        get_code_dir = os.path.join(sketch_dir, 'get_code')
-        get_code_build = os.path.join(get_code_dir, 'build')
+            os.chdir(self.BASE_DIR)
+            code_dir = 'assets{}code'.format(os.sep)
+            if not os.path.exists(code_dir):
+                os.makedirs(code_dir)
+            
+            fp = os.path.join(code_dir, info['assignment'], info['course'], submission_num) # '115758346753638427969_1_Assignment3')
 
-        sketch_path = os.path.join(self.file_path, '115758346753638427969_1_Assignment3.pde')
+            # List all files in dir
+            for root, dirs, files in os.walk(fp):
+                for name in dirs:
+                    while True:
 
-        get_code_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            .format(get_code_dir , get_code_build, sketch_path)
+                        self.file_path = os.path.join(fp, name)
 
-        processing_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            .format(sketch_dir, build_dir, sketch_path) # Remove first pong_X directory later on when old autograd is phased out
-        print(processing_cmd)
+                        assignment_sketch = name + '.pde'
+                        sketch_dir = os.path.join(os.getcwd(), 'pong_{}'.format(assignment_num)) # os.path.join(os.getcwd(), self.file_path)
+                        build_dir = os.path.join(sketch_dir, 'build')
 
-        for i in range(0,1):
-            print("Script: "+str(i))
-            while True:
-                
-                # Run getcode to make getters and setters
-                print("Parsing and Preparing Code.pde file")
-                results = subprocess.check_output(get_code_cmd , shell=True)
-                output = results.decode("UTF-8")
-                print(output)
+                        get_code_dir = os.path.join(sketch_dir, 'get_code')
+                        get_code_build = os.path.join(get_code_dir, 'build')
 
-        # Run Processing test and grade
-                try:
-                    results = subprocess.check_output(processing_cmd , shell=True)
-                except Exception as e:
-                    print("There was an error processing the script. Error:"+ str(e) )
+                        sketch_path = os.path.join(self.file_path, assignment_sketch)
 
-                output = results.decode("UTF-8")
-                res = output.replace('Finished.', '')
-                # print(res.split()[0])
-                print(res)
-                break
-        
+                        get_code_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
+                            .format(get_code_dir , get_code_build, sketch_path)
+
+                        processing_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
+                            .format(sketch_dir, build_dir, sketch_path) # Remove first pong_X directory later on when old autograd is phased out
+                    
+                        # Run getcode to make getters and setters
+                        print("Parsing and Preparing Code.pde file")
+                        results = subprocess.check_output(get_code_cmd , shell=True)
+                        output = results.decode("UTF-8")
+                        print(output)
+
+                        # Run Processing test and grade
+                        try:
+                            results = subprocess.check_output(processing_cmd , shell=True)
+                        except Exception as e:
+                            self.log_to_file(name , self.BASE_DIR+'/grading_errors.txt')
+                            print("There was an error processing the script. Error:"+ str(e) )
+
+                        output = results.decode("UTF-8")
+                        res = output.replace('Finished.', '')
+                        # print(res.split()[0])
+                        print(res)
+                        break
+            
     def grade_files(self, course_number=0, assignment_number=0, submission_number=0):
         # Run grading for a file
         click.echo("Grading files...")
@@ -322,12 +361,13 @@ def cli(context, course, assignment, submission, file):
         # a.boot() # Connect to Google APIs. This is not needed when testing
         # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
         # at = a.get_files_for_download(subs) # Get the .pde files
-        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        # # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
         # status = a.download_files(at) # Download the files to assets/code
         # click.echo("Files to be graded are in {}".format(a.file_path))
 
         # a.grade_files()
-        a.gradeFiles()
+        a.gradeFiles() #assignment_num=assignment, course_num=course, submission_num=submission)
+        # a.recycle('assets/code')
 
 @cli.command()
 @click.pass_context
