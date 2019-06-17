@@ -1,4 +1,3 @@
-class Code {
 //maxX = 1920, maxY = 1080
 
 float screenWidth = 1920; //maxX
@@ -11,7 +10,7 @@ float leftPaddleX = 0; //x coordinate of the left paddle in the top left corner
 float leftPaddleY = 0; //y coordinate of the left paddle in the top left corner
 float rightPaddleX = 1872; //x coordinate of the right paddle in the bottom right corner
 float rightPaddleY = 864; //y coordinate of the right paddle in the bottom right corner
-int paddleHeight = 216; //height of the paddle
+int paddleHeight = (int) screenHeight; //height of the paddle
 int paddleWidth = 48; //width of the paddle
 int leftScore = 0; //score of the left player
 int rightScore = 0; //score of the right player
@@ -19,18 +18,18 @@ float leftScoreX = 480; //x coordinate of the left player's score
 float leftScoreY = 540; //y coordinate of the right player's score
 float rightScoreX = 1440; //x coordinate of the right player's score
 float rightScoreY = 540; //y coordinate of the right player's score
-float xSpeed = 6; //horizontal speed of the ball
-float ySpeed = 6; //vertical speed of the ball
+float xSpeed = -6; //horizontal speed of the ball
+float ySpeed = 0; //vertical speed of the ball
 float radius = 25; //radius of the ball
 boolean gameOn = false;
 
-void once()
+void setup()
 {
-  //  fullScreen(); //Sets the program to run in full screen mode
+  fullScreen(); //Sets the program to run in full screen mode
 }
 
 
-void forever()
+void draw()
 {
   background (0); //set background to black each frame
   stroke (0, 0, 255); //use a blue outline for all shapes until stroke is run again with another color
@@ -48,6 +47,7 @@ void forever()
   checkRightPaddle(); //checks for intersection between ball and right paddle
 }
 
+//Checks if should set game on
 void setGameMode() {
   //Set game to be on when screen is touched
   if (mousePressed) {
@@ -68,6 +68,7 @@ void displayPaddles() {
   fill (0, 255, 0); //fill all shapes to green until fill is run with another color 
   rect (leftPaddleX, leftPaddleY, paddleWidth, paddleHeight); //draw left paddle
   rect (rightPaddleX, rightPaddleY, paddleWidth, paddleHeight); //draw right paddle
+
 }
 
 //Draws ball on screen
@@ -178,150 +179,4 @@ boolean doesOverlap(float xPaddle, float yPaddle, float widthPaddle, float heigh
   } else { 
     return false;
   }
-}
-int wierd = -99;
-int rightPaddleY()
-{
-return int(wierd);
-}
-int rightPaddleX()
-{
-return int(wierd);
-}
-int leftPaddleY()
-{
-return int(wierd);
-}
-int leftScoreX()
-{
-return int(leftScoreX);
-}
-int scoreY()
-{
-return int(leftScoreY);
-}
-int leftScore()
-{
-return int(leftScore);
-}
-int ballY()
-{
-return int(yBall);
-}
-int ballX()
-{
-return int(xBall);
-}
-int paddleHeight()
-{
-return int(wierd);
-}
-int leftPaddleX()
-{
-return int(wierd);
-}
-int rightScore()
-{
-return int(rightScore);
-}
-int txtSize()
-{
-return int(30);
-}
-int paddleWidth()
-{
-return int(wierd);
-}
-int rightScoreX()
-{
-return int(rightScoreX);
-}
-int diameter()
-{
-return int(diameter);
-}
-int ballXSpeed()
-{
-return int(xSpeed);
-}
-//boolean gameOn()
-//{
-//return doesOverlap(float;
-//}
-int ballYSpeed()
-{
-return int(ySpeed);
-}
-void setrightPaddleY(int x)
-{
-wierd= x ;
-}
-void setrightPaddleX(int x)
-{
-wierd= x ;
-}
-void setleftPaddleY(int x)
-{
-wierd= x ;
-}
-void setleftScoreX(int x)
-{
-leftScoreX= x ;
-}
-void setscoreY(int x)
-{
-leftScoreY= x ;
-}
-void setleftScore(int x)
-{
-leftScore= x ;
-}
-void setballY(int x)
-{
-yBall= x ;
-}
-void setballX(int x)
-{
-xBall= x ;
-}
-void setpaddleHeight(int x)
-{
-wierd= x ;
-}
-void setleftPaddleX(int x)
-{
-wierd= x ;
-}
-void setrightScore(int x)
-{
-rightScore= x ;
-}
-void settxtSize(int x)
-{
-wierd= x ;
-}
-void setpaddleWidth(int x)
-{
-wierd= x ;
-}
-void setrightScoreX(int x)
-{
-rightScoreX= x ;
-}
-void setdiameter(int x)
-{
-diameter= x ;
-}
-void setballXSpeed(int x)
-{
-xSpeed= x ;
-}
-//void setgameOn(boolean x)
-//{
-//doesOverlap(float= x ;
-//}
-void setballYSpeed(int x)
-{
-ySpeed= x ;
-}
 }
