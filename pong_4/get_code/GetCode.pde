@@ -108,14 +108,13 @@ void checkRects() //check rects
       int max = 0;      
       
       //int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
-      //for (int i = 0; i < linesFiltered.size(); i++) 
-      //{
-      //  if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
-      //  {
-      //    rects.add(i);
-      //    recCounter++;
-      //  }
-      //}
+      for (int i = 0; i < linesFiltered.size(); i++) 
+      {
+        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
+        {
+          rects.add(i);
+        }
+      }
       
       ////check if rects are used and tells us why it didn't grade.
       //if(recCounter < 2){   
@@ -161,7 +160,6 @@ void checkRects() //check rects
       //}
       
       int j = 0;
-      max = 0;
       for (int m = 0; m < rects.size(); m++) {
         splitByLeftBrace1 = splitTokens(linesFiltered.get(rects.get(m)), "(");
         splitByCommas1 = trim(splitTokens(splitByLeftBrace1[1], ",)"));
@@ -234,39 +232,7 @@ void checkRects() //check rects
       }
       
       
-      //int i = 0;
-      //for(int m = 0; m < texts.size(); m++) 
-      //{
-      //  splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
-      //  splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-        
-      //  i = 0;
-      //  while(i < splitByCommas.length) // 
-      //  {
-          
-      //    if(m == 0) {
-      //      if(i == 0) {
-      //        varNamesHashMap.put("txtSize", "-99");
-      //      }
-      //    } else if(m == 1){
-      //       if(i == 0) {
-      //        varNamesHashMap.put("leftScore", "-99");
-      //      } else if(i == 1) {
-      //        varNamesHashMap.put("leftScoreX", "-99");
-      //      } else if(i == 2) {
-      //        varNamesHashMap.put("scoreY", "-99");
-      //      }
-      //    } else if(m == 2){
-      //       if(i == 0) {
-      //        varNamesHashMap.put("rightScore", "-99");
-      //      } else if(i == 1) {
-      //        varNamesHashMap.put("rightScoreX", "-99");
-      //      }
-      //    }
-      //    i++;
-      //  }
-      //  max = max + i;
-      //}
+      
       
       int j = 0;
       max = 0;
@@ -281,7 +247,9 @@ void checkRects() //check rects
           
           if(m == 0) {
             if(j == 0) {
+              if(!isNumeric(splitByCommas[j])){
               varNamesHashMap.put("txtSize", splitByCommas[j]);
+              }
             }
           } else if(m == 1){
              if(j == 0) {
@@ -452,15 +420,18 @@ void checkRects() //check rects
       //  }
       //}
       
+      
+      int booleanCounter = 0;
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
         if(match(linesFiltered.get(m), "boolean") != null) {
-          
+          booleanCounter++;
           splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
           
           splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
-          
+          if(booleanCounter == 1){
           varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
+          }
         }
       }
     }
@@ -531,17 +502,36 @@ void checkRects() //check rects
           } else if (match(fileLines[i], "setup") != null) {
             output.println("void once()");
           }
-          if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
+          else if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void forever() {");
           } else if (match(fileLines[i], "draw") != null) {
             output.println("void forever()");
+          }
+          else{
+            output.println(fileLines[i]);
           }
         } else {
           output.println(fileLines[i]);
         }
       }
       
+      //Add getters and setters for manipulating mouseX and mouseY
       output.println("int wierd = -99;");
+      output.println("int getMouseX(){");
+      output.println("return int(mouseX);");
+      output.println("}");
+      
+      output.println("void setMouseX(int x){");
+      output.println("mouseX = x;");
+      output.println("}");
+      
+      output.println("int getMouseY(){");
+      output.println("return int(mouseY);");
+      output.println("}");
+      
+      output.println("void setMouseY(int x){");
+      output.println("mouseY = x;");
+      output.println("}");
       
       //getters
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())

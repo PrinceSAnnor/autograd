@@ -11,7 +11,7 @@ float leftPaddleX = 0; //x coordinate of the left paddle in the top left corner
 float leftPaddleY = 0; //y coordinate of the left paddle in the top left corner
 float rightPaddleX = 1872; //x coordinate of the right paddle in the bottom right corner
 float rightPaddleY = 864; //y coordinate of the right paddle in the bottom right corner
-int paddleHeight = 216; //height of the paddle
+int paddleHeight =  216; //height of the paddle
 int paddleWidth = 48; //width of the paddle
 int leftScore = 0; //score of the left player
 int rightScore = 0; //score of the right player
@@ -19,8 +19,8 @@ float leftScoreX = 480; //x coordinate of the left player's score
 float leftScoreY = 540; //y coordinate of the right player's score
 float rightScoreX = 1440; //x coordinate of the right player's score
 float rightScoreY = 540; //y coordinate of the right player's score
-float xSpeed = 6; //horizontal speed of the ball
-float ySpeed = 6; //vertical speed of the ball
+float xSpeed = -6; //horizontal speed of the ball
+float ySpeed = 0; //vertical speed of the ball
 float radius = 25; //radius of the ball
 boolean gameOn = false;
 
@@ -48,6 +48,7 @@ void forever()
   checkRightPaddle(); //checks for intersection between ball and right paddle
 }
 
+//Checks if should set game on
 void setGameMode() {
   //Set game to be on when screen is touched
   if (mousePressed) {
@@ -68,6 +69,7 @@ void displayPaddles() {
   fill (0, 255, 0); //fill all shapes to green until fill is run with another color 
   rect (leftPaddleX, leftPaddleY, paddleWidth, paddleHeight); //draw left paddle
   rect (rightPaddleX, rightPaddleY, paddleWidth, paddleHeight); //draw right paddle
+
 }
 
 //Draws ball on screen
@@ -180,17 +182,29 @@ boolean doesOverlap(float xPaddle, float yPaddle, float widthPaddle, float heigh
   }
 }
 int wierd = -99;
+int getMouseX(){
+return int(mouseX);
+}
+void setMouseX(int x){
+mouseX = x;
+}
+int getMouseY(){
+return int(mouseY);
+}
+void setMouseY(int x){
+mouseY = x;
+}
 int rightPaddleY()
 {
-return int(wierd);
+return int(rightPaddleY);
 }
 int rightPaddleX()
 {
-return int(wierd);
+return int(rightPaddleX);
 }
 int leftPaddleY()
 {
-return int(wierd);
+return int(leftPaddleY);
 }
 int leftScoreX()
 {
@@ -214,11 +228,11 @@ return int(xBall);
 }
 int paddleHeight()
 {
-return int(wierd);
+return int(paddleHeight);
 }
 int leftPaddleX()
 {
-return int(wierd);
+return int(leftPaddleX);
 }
 int rightScore()
 {
@@ -226,11 +240,11 @@ return int(rightScore);
 }
 int txtSize()
 {
-return int(30);
+return int(wierd);
 }
 int paddleWidth()
 {
-return int(wierd);
+return int(paddleWidth);
 }
 int rightScoreX()
 {
@@ -244,25 +258,25 @@ int ballXSpeed()
 {
 return int(xSpeed);
 }
-//boolean gameOn()
-//{
-//return doesOverlap(float;
-//}
+boolean gameOn()
+{
+return gameOn;
+}
 int ballYSpeed()
 {
 return int(ySpeed);
 }
 void setrightPaddleY(int x)
 {
-wierd= x ;
+rightPaddleY= x ;
 }
 void setrightPaddleX(int x)
 {
-wierd= x ;
+rightPaddleX= x ;
 }
 void setleftPaddleY(int x)
 {
-wierd= x ;
+leftPaddleY= x ;
 }
 void setleftScoreX(int x)
 {
@@ -286,11 +300,11 @@ xBall= x ;
 }
 void setpaddleHeight(int x)
 {
-wierd= x ;
+paddleHeight= x ;
 }
 void setleftPaddleX(int x)
 {
-wierd= x ;
+leftPaddleX= x ;
 }
 void setrightScore(int x)
 {
@@ -302,7 +316,7 @@ wierd= x ;
 }
 void setpaddleWidth(int x)
 {
-wierd= x ;
+paddleWidth= x ;
 }
 void setrightScoreX(int x)
 {
@@ -316,10 +330,10 @@ void setballXSpeed(int x)
 {
 xSpeed= x ;
 }
-//void setgameOn(boolean x)
-//{
-//doesOverlap(float= x ;
-//}
+void setgameOn(boolean x)
+{
+gameOn= x ;
+}
 void setballYSpeed(int x)
 {
 ySpeed= x ;

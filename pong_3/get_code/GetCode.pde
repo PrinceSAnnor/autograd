@@ -108,14 +108,14 @@ void checkRects() //check rects
       int max = 0;      
       
       //int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
-      //for (int i = 0; i < linesFiltered.size(); i++) 
-      //{
-      //  if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
-      //  {
-      //    rects.add(i);
-      //    recCounter++;
-      //  }
-      //}
+      for (int i = 0; i < linesFiltered.size(); i++) 
+      {
+        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
+        {
+          rects.add(i);
+          //recCounter++;
+        }
+      }
       
       ////check if rects are used and tells us why it didn't grade.
       //if(recCounter < 2){   

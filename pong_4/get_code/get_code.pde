@@ -24,7 +24,7 @@ void setup() {
   //}
   
   //For Testing (Single file)
-   File f = new File(sketchPath() + "/../assignment_3/assignment_3.pde");
+   File f = new File(sketchPath() + "/../assignment_4/assignment_4.pde");
    GetCode getCode = new GetCode(f);
    getCode.run();
   
