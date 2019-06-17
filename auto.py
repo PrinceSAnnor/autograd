@@ -217,10 +217,14 @@ class AutoGrad(object):
         return values
 
     def recycle(self, src):
+        import shutil
+
         r = str(random.randint(0,1000))
-        dst = os.path.join(self.BASE_DIR, 'assets', 'recycle', r)
+        dst = os.path.join(self.BASE_DIR, 'assets', 'recycle', r)  
         try:
-            os.rename(src, dst)
+            # There is code to be recycled from last grading
+            if not os.path.exists(dst) and os.path.exists(self.code_dir): os.makedirs(dst)
+            shutil.move(src,dst)
         except:
             pass
 
@@ -341,15 +345,15 @@ def cli(context, course, assignment, submission, file):
         click.echo("[TEST] Running AutoGrad..")
         a = AutoGrad()
 
-        a.boot() # Connect to Google APIs. This is not needed when testing
-        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
-        at = a.get_files_for_download(subs) # Get the .pde files
-        a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        files_exist = a.download_files(at) # Download the files to assets/code
-        click.echo("Files to be graded are in {}".format(a.file_path))
-
-        if int(files_exist) > 0:
-            a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+        # a.boot() # Connect to Google APIs. This is not needed when testing
+        # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        # at = a.get_files_for_download(subs) # Get the .pde files
+        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        # files_exist = a.download_files(at) # Download the files to assets/code
+        # click.echo("Files to be graded are in {}".format(a.file_path))
+        a.recycle(a.code_dir)
+        # if int(files_exist) > 0:
+        #     a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
         click.echo("Done!")
 
 @cli.command()
