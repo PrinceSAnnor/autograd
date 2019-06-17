@@ -65,7 +65,7 @@ class AutoGrad(object):
 
         for i, f in enumerate(files_info):         
             while True:
-                self.file_path = self.code_dir + '%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
+                self.file_path = self.code_dir + '/%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
                 self.file_path.replace('/', os.sep)
 
                 os.chdir(self.BASE_DIR) # Get into root dir everytime you have to save a file to prevent saving deep down a tree
@@ -84,14 +84,14 @@ class AutoGrad(object):
                     self.drive.get_file(f['id'], f['title'])
                     os.rename(old_file_name, new_file_name)
 
-                    print("Progress: Downloaded {} out of {} file(s)".format(i,n), end="\r", flush=True)
+                    print("Progress: Downloaded {} out of {} file(s) ".format(i,n), end="\r\n", flush=True)
                 except Exception as e:
                     c -= 1
                     click.echo("There was an error downloading. Error: {}".format(e))
                 break  
 
         click.echo("Finished downloading {}/{} files".format(c, n))
-        return True
+        return c
 
     def get_submissions_for_assignment(self, course_number, assignment_number, submission_number):      
         """ Returns TURNED_IN submissions from one assignment of specified course/classroom(s) """
@@ -105,13 +105,14 @@ class AutoGrad(object):
                 if history.get('stateHistory', {}).get('state') == self.TURNED_IN:
                     count += 1
             if eligible:
-                if submission_number == count == 1:
+                # EDITED: Return based on specified
+                if submission_number == count: #== 1: # Return only first submissions.
                     s['submissionNo'] = count
                     return True
                 
-                elif submission_number > 1 and count >= submission_number: 
-                    s['submissionNo'] = count
-                    return True
+                # elif submission_number > 1 and count >= submission_number: # Return any other submissions made later
+                #     s['submissionNo'] = count
+                #     return True
             return False
 
         # type cast id
@@ -238,19 +239,20 @@ class AutoGrad(object):
 
         # Loop through course numbers and grade
         for course_number in cns:
-            info = self.get_names_from_number(assignment=assignment_num, course=course_number)
+            while True:
+                info = self.get_names_from_number(assignment=assignment_num, course=course_number)
 
-            os.chdir(self.BASE_DIR)
-            code_dir = 'assets{}code'.format(os.sep)
-            if not os.path.exists(code_dir):
-                os.makedirs(code_dir)
-            
-            fp = os.path.join(code_dir, info['assignment'], info['course'], submission_num) # '115758346753638427969_1_Assignment3')
+                os.chdir(self.BASE_DIR)
+                code_dir = 'assets{}code'.format(os.sep)
+                if not os.path.exists(code_dir):
+                    os.makedirs(code_dir)
+                
+                fp = os.path.join(code_dir, info['assignment'], info['course'], submission_num) # '115758346753638427969_1_Assignment3')
 
-            # List all files in dir
-            for root, dirs, files in os.walk(fp):
-                for name in dirs:
-                    while True:
+                # List all files in dir
+                for root, dirs, files in os.walk(fp):
+                    for name in dirs:
+                        
 
                         self.file_path = os.path.join(fp, name)
 
@@ -285,17 +287,17 @@ class AutoGrad(object):
                             errors = res[3:].replace('[','').replace(']','')
 
                             id = name.split('_')[0]
-                            final = { 'sub':submission_num, 'details': { 'id':id, 'errors':errors } }
+                            final = { 'sub':submission_num, 'details': { 'id':id, 'score':score, 'errors':errors } }
                             all.append(final)
 
                         except Exception as e:
                             f = open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a')
-                            f.writelines(name.strip('"'))
+                            f.writeline([name.strip('"')])
                             f.close()
-    
+
                             print("There was an error processing the script. Error:"+ str(e) )
 
-                        break
+                break
         self.log_to_file(all,"results.json")
                      
     def add_to_sheets(self):
@@ -342,12 +344,13 @@ def cli(context, course, assignment, submission, file):
         a.boot() # Connect to Google APIs. This is not needed when testing
         subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
         at = a.get_files_for_download(subs) # Get the .pde files
-        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        status = a.download_files(at) # Download the files to assets/code
+        a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        files_exist = a.download_files(at) # Download the files to assets/code
         click.echo("Files to be graded are in {}".format(a.file_path))
 
-        a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
-        # a.recycle('assets/code')
+        if int(files_exist) > 0:
+            a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+        click.echo("Done!")
 
 @cli.command()
 @click.pass_context
