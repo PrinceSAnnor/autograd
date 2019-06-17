@@ -223,11 +223,12 @@ class AutoGrad(object):
         except:
             pass
 
-    def gradeFiles(self, course_num='1,2', assignment_num='3', submission_num='1'):
+    def grade_files(self, course_num='1,2', assignment_num='3', submission_num='1'):
         # Run grading for a file
         click.echo("Grading files...")
 
         final = {}
+        all = []
         
         # If there are multiple course numbers get them out into a list
         if "," in course_num:
@@ -277,46 +278,26 @@ class AutoGrad(object):
                         # Run Processing test and grade
                         try:
                             results = subprocess.check_output(processing_cmd , shell=True)
+
+                            output = results.decode("UTF-8")
+                            res = output.replace('Finished.', '')
+                            score = res.split()[0]
+                            errors = res[3:].replace('[','').replace(']','')
+
+                            id = name.split('_')[0]
+                            final = { 'sub':submission_num, 'details': { 'id':id, 'errors':errors } }
+                            all.append(final)
+
                         except Exception as e:
-                            self.log_to_file(name , self.BASE_DIR+'/grading_errors.txt')
+                            f = open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a')
+                            f.writelines(name.strip('"'))
+                            f.close()
+    
                             print("There was an error processing the script. Error:"+ str(e) )
 
-                        output = results.decode("UTF-8")
-                        res = output.replace('Finished.', '')
-                        # print(res.split()[0])
-                        print(res)
                         break
-            
-    def grade_files(self, course_number=0, assignment_number=0, submission_number=0):
-        # Run grading for a file
-        click.echo("Grading files...")
-        
-        os.chdir(self.BASE_DIR)
-        # if os.path.isfile('assets{}code'.format(os.sep))
-
-        get_code_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            .format( os.path.join(os.getcwd(), 'pong_1', 'get_code' ),
-            os.path.join(os.getcwd(), 'pong_1', 'get_code', 'build'),
-            os.path.join('pong_1', 'assignment_1', 'assignment_1.pde'))
-
-        processing_cmd = 'processing-java --sketch="{}" --output="{}" --force --run "{}"'\
-            .format( os.path.join(os.getcwd(), 'pong_1' ),
-            os.path.join(os.getcwd(), 'pong_1', 'build'),
-            os.path.join('pong_1', 'assignment_1', 'assignment_1.pde')) # Remove first pong_X directory later on when old autograd is phased out
-        print(processing_cmd)
-
-        # Run getcode to make getters and setters
-        # print("Parsing and Preparing Code.pde file")
-        # results = subprocess.check_output(get_code_cmd , shell=True)
-        # output = results.decode("UTF-8")
-        # print(output)
-
-        # Run Processing test and grade
-        results = subprocess.check_output(processing_cmd , shell=True)
-        output = results.decode("UTF-8")
-        res = output.replace('Finished.', '')
-        print(res.split()[0])
-                              
+        self.log_to_file(all,"results.json")
+                     
     def add_to_sheets(self):
         # Return results to sheets
         pass
@@ -358,15 +339,14 @@ def cli(context, course, assignment, submission, file):
         click.echo("[TEST] Running AutoGrad..")
         a = AutoGrad()
 
-        # a.boot() # Connect to Google APIs. This is not needed when testing
-        # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
-        # at = a.get_files_for_download(subs) # Get the .pde files
-        # # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        # status = a.download_files(at) # Download the files to assets/code
-        # click.echo("Files to be graded are in {}".format(a.file_path))
+        a.boot() # Connect to Google APIs. This is not needed when testing
+        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        at = a.get_files_for_download(subs) # Get the .pde files
+        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        status = a.download_files(at) # Download the files to assets/code
+        click.echo("Files to be graded are in {}".format(a.file_path))
 
-        # a.grade_files()
-        a.gradeFiles() #assignment_num=assignment, course_num=course, submission_num=submission)
+        a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
         # a.recycle('assets/code')
 
 @cli.command()
