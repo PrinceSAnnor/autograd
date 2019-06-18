@@ -327,6 +327,16 @@ class AutoGrad(object):
         # Return results to sheets
         pass
 
+    def retrieve(self):
+        a.boot() # Connect to Google APIs. This is not needed when testing
+        
+        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        at = a.get_files_for_download(subs) # Get the .pde file attachments
+        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        downloaded = a.download_files(at) # Download the files to assets/code
+        
+        click.echo("Files to be graded are in {}".format(a.file_path))
+
 
 # ------------------------------------ #
 NO_OF_ASSIGNMENTS = 6
@@ -364,14 +374,9 @@ def cli(context, course, assignment, submission, file):
         click.echo("[TEST] Running AutoGrad..")
         a = AutoGrad()
 
-        # a.boot() # Connect to Google APIs. This is not needed when testing
-        # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
-        # at = a.get_files_for_download(subs) # Get the .pde files
-        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        # downloaded = a.download_files(at) # Download the files to assets/code
-        # click.echo("Files to be graded are in {}".format(a.file_path))
-
+        a.retrieve()
         results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+
 
         # Submit results
         # if len(results) > 0:    
@@ -393,10 +398,16 @@ def deploy(context):
         submission = context.obj['submission']
     
         click.echo("[DEPLOY] Running AutoGrad..")
-        # a = AutoGrad()
-        # subs = a.get_submissions_for_assignment(course, assignment)
-        # at = a.get_files_for_download(subs)
-        # a.log_to_file(at)
+        a = AutoGrad()
+
+        a.retrieve()
+        results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+
+        # Submit results
+        if len(results) > 0:    
+            for obj in results:
+                grade = obj['details']['score']
+                a.add_to_classroom(course, assignment, sub_id, score)
     else:
         click.echo("Insufficient params. Exiting.. Try --help for more info")
 
