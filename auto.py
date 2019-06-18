@@ -318,7 +318,7 @@ class AutoGrad(object):
         assg_id = self.assignment_ids[ assg_name ]
 
         try: 
-            body={ 'draftGrade': 16 }
+            body={ 'draftGrade': grade }
             results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
         except:
             print("Could not add to classroom")
