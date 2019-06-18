@@ -22,23 +22,24 @@ class AutoGrad(object):
         self.mailer = None
         self.sheet = None
         self.TURNED_IN = "TURNED_IN"
-        self.assg_name = ""
+        self.current_assg = ""
         self.file_path = os.path.join(self.code_dir, 'temp')
         self.attachments = []
         self.course_ids = []
+        self.assignments = None
         self.course_names = {
             "SuaCode Africa 1":"",
             "SuaCode Africa 2":"",
             "SuaCode Africa 3":"",
         }
-        self.assg_names = (
-            ('Assignment 1 - Make Pong Interface'),
-            ('Assignment 2 - Move ball'),
-            ('Assignment 3 - Bounce Ball'),
-            ('Assignment 4 - Move Paddles'),
-            ('Assignment 5 - Add Extra Ball'),
-            ('Assignment 6 - Add More Balls')
-        )
+        self.assg_names = {
+            'Assignment 1 - Make Pong Interface':'',
+            'Assignment 2 - Move ball':'',
+            'Assignment 3 - Bounce Ball':'',
+            'Assignment 4 - Move Paddles':'',
+            'Assignment 5 - Add Extra Ball':'',
+            'Assignment 6 - Add More Balls':''
+        }
         self.sub_order = {'1': 0, '2': 1}
         # self.boot()
 
@@ -65,7 +66,7 @@ class AutoGrad(object):
 
         for i, f in enumerate(files_info):         
             while True:
-                self.file_path = self.code_dir + '/%s/%s/%s' % (self.assg_name, keys[vals.index(f['courseId'])], f['submissionNo'] )
+                self.file_path = self.code_dir + '/%s/%s/%s' % (self.current_assg, keys[vals.index(f['courseId'])], f['submissionNo'] )
                 self.file_path.replace('/', os.sep)
 
                 os.chdir(self.BASE_DIR) # Get into root dir everytime you have to save a file to prevent saving deep down a tree
@@ -152,13 +153,17 @@ class AutoGrad(object):
         
         for id in self.course_ids:   
             # Get dict of assignment names and assignment id
-            assignments = self.teacher.get_all_assignment_ids(id)
+            self.assignments = self.teacher.get_all_assignment_ids(id)
 
             try:
                 # Get assignment id for selected assignment to be graded
-                assg_name = self.assg_names[assignment_number-1]
-                assg_id = assignments[ assg_name ]
-                self.assg_name = assg_name 
+                assg_name = sorted(list(self.assg_names.keys()))[assignment_number-1]
+                assg_id = self.assignments[ assg_name ]
+
+                self.assg_names[assg_name] = assg_id # add it to the dict beside the name
+
+                # This is name of current assignment being graded
+                self.current_assg = assg_name 
             except Exception as e:
                 click.echo("Could not get assignment {}".format(assignment_number))
                 raise e
@@ -210,7 +215,7 @@ class AutoGrad(object):
         values = {}
         if "assignment" in list(kwargs.keys()):
             assignment = int(kwargs.get("assignment"))
-            values["assignment"] = self.assg_names[assignment - 1]
+            values["assignment"] = sorted(list(self.assg_names.keys()))[assignment - 1]
         if "course" in list(kwargs.keys()):
             cn = int(kwargs.get("course"))
             values["course"] = sorted(list(self.course_names.keys()))[cn - 1]
@@ -255,8 +260,7 @@ class AutoGrad(object):
 
                 # List all files in dir
                 for root, dirs, files in os.walk(fp):
-                    for name in dirs:
-                        
+                    for name in dirs: 
 
                         self.file_path = os.path.join(fp, name)
 
@@ -296,14 +300,29 @@ class AutoGrad(object):
 
                         except Exception as e:
                             f = open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a')
-                            f.writeline([name.strip('"')])
+                            f.writelines(['',name.strip('"')])
                             f.close()
 
                             print("There was an error processing the script. Error:"+ str(e) )
 
                 break
         self.log_to_file(all,"results.json")
-                     
+        print(all)
+        return all
+
+    def add_to_classroom(self, course_num, assignment_num, sub_id, grade):
+        course_id = self.course_ids[course_num - 1]
+        
+        # Get dict of assignment names and assignment id
+        assg_name = self.get_names_from_number(assignment=assignment_num)
+        assg_id = self.assignment_ids[ assg_name ]
+
+        try: 
+            body={ 'draftGrade': 16 }
+            results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
+        except:
+            print("Could not add to classroom")
+
     def add_to_sheets(self):
         # Return results to sheets
         pass
@@ -318,7 +337,7 @@ ALLOWED_ASSIGNMENTS = list(str(i) for i in range(1, NO_OF_ASSIGNMENTS+1))
 ALLOWED_RESUBS = list(str(i) for i in range(1, NO_OF_ALLOWED_RESUBS+1))
 
 docs = {
-    "test":"Run without uploading",
+    "deploy":"Run and upload",
     "course": "Specify the course. 1 for Suacode Africa 1, 2 for Suacode Africa 2,etc. Additionally \
         you can specify multiple courses. Eg. --course_number=1,2,3 to pull assignments for course 1, 2 and 3",
     "assignment":"Specify the assignment you want to grade.",
@@ -349,12 +368,17 @@ def cli(context, course, assignment, submission, file):
         # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
         # at = a.get_files_for_download(subs) # Get the .pde files
         # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        # files_exist = a.download_files(at) # Download the files to assets/code
+        # downloaded = a.download_files(at) # Download the files to assets/code
         # click.echo("Files to be graded are in {}".format(a.file_path))
-        a.recycle(a.code_dir)
-        # if int(files_exist) > 0:
-        #     a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
-        click.echo("Done!")
+
+        results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+
+        # Submit results
+        # if len(results) > 0:    
+        #     for obj in results:
+        #         grade = obj['details']['score']
+        #         a.add_to_classroom(course, assignment, sub_id, score)
+
 
 @cli.command()
 @click.pass_context
