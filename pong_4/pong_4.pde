@@ -9,20 +9,21 @@ Test test;
 void setup ()
 {
   //get filename from command line for autograd
-  //if (args != null) {
+  if (args != null) {
     
-  //File f = new File(sketchPath() + "/../" + args[0]);
-  //test = new Test(f);
-  //test.run();
+  File f = new File(sketchPath() + "/../" + args[0]);
+  test = new Test(f);
+  test.run();
     
-  //} else {
+  } else {
   //println("args == null");
-  //}
-  
-  // Use during Testing. To be removed soon
+  // This will run during testing / when run without autograd 
     File f = new File(sketchPath()+"/assignment_4/assignment_4.pde");
     test = new Test(f);
     test.run();
+  }
+  
+  
 
   noLoop();
   exit();

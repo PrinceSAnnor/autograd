@@ -12,21 +12,21 @@ the assignment. ill explain later
 ************************************************************************/
 
 void setup() {
-  //For autograd
+  ////For autograd
   if (args != null) {
     
-    File f = new File(sketchPath() + "/../../" + args[0]);
-    GetCode getCode = new GetCode(f);
-    getCode.run();
+   File f = new File(sketchPath() + "/../../" + args[0]);
+   GetCode getCode = new GetCode(f);
+   getCode.run();
     
   } else {
-    println("args == null");
+    //println("args == null");
+
+    //For Testing (Single file)
+      File f = new File(sketchPath() + "/../assignment_3/assignment_3.pde");
+      GetCode getCode = new GetCode(f);
+      getCode.run();
   }
-  
-  //For Testing (Single file)
-  // File f = new File(sketchPath() + "/../assignment_3/assignment_3.pde");
-  // GetCode getCode = new GetCode(f);
-  // getCode.run();
   
   noLoop();
   exit();

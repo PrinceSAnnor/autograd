@@ -10,23 +10,22 @@ will be written to Code.pde afer pong_3.pde is closed
 I hope this makes sense. If it doesnt, just call this sketch before grading
 the assignment. ill explain later
 ************************************************************************/
-
 void setup() {
-  //For autograd
-  //if (args != null) {
+  ////For autograd
+  if (args != null) {
     
-  //  File f = new File(sketchPath() + "/../../" + args[0]);
-  //  GetCode getCode = new GetCode(f);
-  //  getCode.run();
-    
-  //} else {
-  //  println("args == null");
-  //}
-  
-  //For Testing (Single file)
-   File f = new File(sketchPath() + "/../assignment_3/assignment_3.pde");
+   File f = new File(sketchPath() + "/../../" + args[0]);
    GetCode getCode = new GetCode(f);
    getCode.run();
+    
+  } else {
+    //println("args == null");
+
+    //For Testing (Single file)
+      File f = new File(sketchPath() + "/../assignment_4/assignment_4.pde");
+      GetCode getCode = new GetCode(f);
+      getCode.run();
+  }
   
   noLoop();
   exit();
