@@ -208,23 +208,25 @@ class Teacher(object):
     def grade_submissions(self, course_id, assignment_id, student_submission_id, submission):
         try:
             if submission.get('assignedGrade') != None:
-
-                request = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
-                courseWorkId=assignment_id, \
-                id=student_submission_id, \
-                updateMask='draftGrade,assignedGrade', \
-                body=submission)
-            
+                updateMask='draftGrade,assignedGrade'
             else:
-                request = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
-                courseWorkId=assignment_id, \
-                id=student_submission_id, \
-                updateMask='draftGrade', \
-                body=submission) 
+                updateMask='draftGrade'
+
+            request = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
+            courseWorkId=assignment_id, \
+            id=student_submission_id, \
+            updateMask=updateMask, \
+            body=submission) 
+
+            # turn_in_request = self.service.courses().courseWork().studentSubmissions().['return']( courseId=course_id, \
+            # courseWorkId=assignment_id,
+            # id=student_submission_id,
+            # body=submission)
             
             success = request.execute()  
+            # turned_in = turn_in_request.execute()
 
-            return success
+            return success #, turned_in
         except HttpError as e:
             return json.loads(e.content).get('error')
 

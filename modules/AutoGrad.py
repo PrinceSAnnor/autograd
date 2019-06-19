@@ -18,7 +18,7 @@ class AutoGrad(object):
         self.BASE_DIR = cwd
         self.code_dir = os.path.join(self.BASE_DIR, 'assets', 'code')
         
-        self.classroom = None
+        self.teacher = None
         self.drive = None
         self.mailer = None
         self.sheet = None
@@ -29,7 +29,7 @@ class AutoGrad(object):
         self.attachments = []
         self.course_ids = []
         self.submissions = {}
-        self.assignments = None
+        self.assignments = {}
         self.get_code_assgs = ['3','4','5']
         self.course_names = {
             "SuaCode Africa 1":"",
@@ -200,7 +200,6 @@ class AutoGrad(object):
                         self.submissions[user_id] = sub_id # Store a ref to sub_ids. This came later
 
                         final["submissionNo"] = sub_no
-                        final["subId"] = sub_id
                         final["userId"] = user_id
                         final["courseId"] = course_id
                         final["id"] = drive_file["id"]
@@ -361,9 +360,8 @@ class AutoGrad(object):
                             all.append(final)
 
                         except Exception as e:
-                            f = open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a')
-                            f.writelines([name.strip('"'),'\n'])
-                            f.close()
+                            with open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a') as f:
+                                f.writelines([name.strip('"'),'\n'])
 
                             print("There was an error processing the script. Error:"+ str(e) )
 
@@ -372,27 +370,54 @@ class AutoGrad(object):
     
         return all
 
+    def attach_ids(self, dir):
+        results_json =  os.path.join(dir, 'results.json')
+        temporary_json = os.path.join(dir, 'temporary.json')
+
+        with open(results_json, 'r') as f, open(temporary_json, 'r') as g:
+            results = json.load(f)
+            temporary = json.load(g)
+
+            for obj in results:
+                userId = obj['details']['userId']
+                for item in temporary:
+                    if userId == item['userId']:
+                        obj['submissionId'] = item['subId']
+                        obj['courseId'] = item['courseId']
+                        del item
+        return results
+
     def add_to_classroom(self, course_num, assignment_num, results, return_grade=False):
         if len(results) > 0:    
             for obj in results:
+                
                 grade = obj['details']['score']
                 user_id = obj['details']['userId']
-                sub_id = self.submissions.get(user_id)
-    
-        course_id = self.course_ids[int(course_num) - 1]
-        
-        # Get dict of assignment names and assignment id
-        assg_name = self.get_names_from_number(assignment=assignment_num)['assignment']
-        assg_id = self.assignments.get(assg_name)
+                sub_id = self.submissions.get(user_id) or obj['submissionId']
 
-        try: 
-            click.echo("Sending results to Classroom..")
-            
-            body={ 'draftGrade': grade }
-            if return_grade: body['assignedGrade'] = grade
-            results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
-        except Exception as e:
-            print("Could not add to classroom: "+str(e))
+                course_id = obj.get('courseId', sorted(list(self.course_names.values()))[int(course_num) - 1])
+
+                assg_name = self.get_names_from_number(assignment=assignment_num)['assignment']
+
+                # Get dict of assignment names and assignment id
+                if self.assignments.get(assg_name) == None and self.teacher == None: # We're probably running locally
+                    self.teacher = Teacher()
+                    self.assignments = self.teacher.get_all_assignment_ids(course_id)
+                assg_id = self.assignments.get(assg_name)
+
+                try: 
+                    click.echo("Sending results to Classroom..")
+                    
+                    body={ 'draftGrade': grade }
+                    if return_grade: body['assignedGrade'] = grade
+                    results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
+                    click.echo('Posted in classroom for {}'.format(user_id))  
+                except Exception as e:
+                    with open(os.path.join(self.BASE_DIR, "upload_errors.txt"), 'a') as f:
+                        f.writelines([user_id,'\n'])
+                    print("Could not add to classroom : "+str(e))
+                    
+            return True    
 
     def add_to_sheets(self):
         # Return results to sheets
@@ -433,11 +458,12 @@ class AutoGrad(object):
                     try: 
                         no_of_submissions = int(obj.get('sub'))
                         if no_of_submissions < 2:
-                            student_email = student_details['student_email']
+                            student_email =  'kaybeta500@gmail.com' # student_details['student_email'] 
                             title = "Results for %s" % (assignment)
                             self.mailer.send_message(student_email, title, message)
                             print("Mail sent successfully")
                         else: print("This is a second submission. Did not send mail.")
+                        return True
                     except HttpError as e:
                         print("Sending mail unsuccessful")
                         error = json.loads(e.content).get('error')
@@ -453,11 +479,14 @@ class AutoGrad(object):
         TODO: Submit to Sheets
         """
         # Return draft grade to classroom
-        self.add_to_classroom(course, assignment, results, return_grade)
+        added = self.add_to_classroom(course, assignment, results, return_grade)
 
         # Send mail
-        self.send_mail(results=results)
-
+        if added: self.send_mail(results=results)
+        else: 
+            click.echo("could not add to classroom")
+            return False
+        return True
 
     def retrieve(self, course, assignment, submission):
         """
@@ -477,6 +506,7 @@ class AutoGrad(object):
         downloaded = self.download_files(at) # Download the files to assets/code
         
         click.echo("Files to be graded are in {}".format(self.file_path))
+        return True
 
     def save_grading_info(self):
         import shutil
@@ -487,7 +517,8 @@ class AutoGrad(object):
         dst = os.path.join(self.BASE_DIR, 'logs', when)
         for root, dirs, files in os.walk(self.BASE_DIR):
             for file in files: 
-                if file in to_save:
+                if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
+                    print(os.path.join(self.BASE_DIR, file))
                     src = os.path.join(self.BASE_DIR, file)
                     
                     try:
@@ -505,7 +536,7 @@ class AutoGrad(object):
             results = self.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
 
             # Submit results
-            self.submit(course, assignment, results, return_grade)
+            submitted = self.submit(course, assignment, results, return_grade)
 
             # Save grading errors (unable to grade) and info on scripts successfully graded
-            self.save_grading_info()
+            if submitted: self.save_grading_info()
