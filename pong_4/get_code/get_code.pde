@@ -13,20 +13,20 @@ the assignment. ill explain later
 
 void setup() {
   //For autograd
-  //if (args != null) {
+  if (args != null) {
     
-  //  File f = new File(sketchPath() + "/../../" + args[0]);
-  //  GetCode getCode = new GetCode(f);
-  //  getCode.run();
+    File f = new File(sketchPath() + "/../../" + args[0]);
+    GetCode getCode = new GetCode(f);
+    getCode.run();
     
-  //} else {
-  //  println("args == null");
-  //}
+  } else {
+    println("args == null");
+  }
   
   //For Testing (Single file)
-   File f = new File(sketchPath() + "/../assignment_4/assignment_4.pde");
-   GetCode getCode = new GetCode(f);
-   getCode.run();
+   //File f = new File(sketchPath() + "/../assignment_4/assignment_4.pde");
+   //GetCode getCode = new GetCode(f);
+   //getCode.run();
   
   noLoop();
   exit();
