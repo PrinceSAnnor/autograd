@@ -41,19 +41,28 @@ def cli(context, course, assignment, submission, file):
         
         # Init
         a = AutoGrad()
-        
-        # Manual grade from local files and add to classroom (without results)
-        # results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
-        # status = a.add_to_classroom(course_num, assignment_num, results, return_grade=True)
 
-        # Manual Add to Classroom from graded results
+        # Option 1 - Testing fully automated process
+        # a.retrieve(course, assignment, submission) # Get files, download
+        # results = a.grade_files(assignment, course, submission) # Results of grading. Stored in results.json also
+        # added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
+        # if added: a.send_mail(results=results)
+        # else: click.echo("could not add to classroom")
+        
+        # Option 2 - Manual grade from local files and add to classroom (without results)
+        # results = a.grade_files(assignment, course, submission)
+        # status = a.add_to_classroom(course, assignment, results, return_grade=True)
+
+        # Option 3 - Manual Add to Classroom from graded results
         # import os
+        # IMPORTANT: Do not delete your logs folder just in case
         # dir = os.path.join('logs','2019-06-19-16-58-46') # Replace the second argument with the folder name of the results you want to submit
         # results = a.attach_ids(dir)
         # status = a.add_to_classroom(course, assignment, results, return_grade=True)
 
-        # Manual mailing
+        # Option 4 - Manual mailing
         # import json
+        # IMPORTANT: Do not delete your logs folder just in case
         # dir = os.path.join('logs','2019-06-19-16-22-13', 'results.json')
         # f = open(dir,'r')
         # res = json.load(f)
