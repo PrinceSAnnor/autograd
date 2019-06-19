@@ -387,7 +387,9 @@ class AutoGrad(object):
 
         try: 
             click.echo("Sending results to Classroom..")
+            
             body={ 'draftGrade': grade }
+            if return_grade: body['assignedGrade'] = grade
             results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
         except Exception as e:
             print("Could not add to classroom: "+str(e))
@@ -445,13 +447,13 @@ class AutoGrad(object):
             click.echo("Done. There were no results to mail.")
             return False        
 
-    def submit(self, course, assignment, results):
+    def submit(self, course, assignment, results, return_grade=False):
         """
         Returns draftGrade to classroom and sends mail to the student
         TODO: Submit to Sheets
         """
         # Return draft grade to classroom
-        self.add_to_classroom(course, assignment, results)
+        self.add_to_classroom(course, assignment, results, return_grade)
 
         # Send mail
         self.send_mail(results=results)
@@ -476,7 +478,25 @@ class AutoGrad(object):
         
         click.echo("Files to be graded are in {}".format(self.file_path))
 
-    def deploy(self, course, assignment, submission, results):
+    def save_grading_info(self):
+        import shutil
+
+        when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
+        to_save = ['grading_errors.txt', 'results.json']
+
+        dst = os.path.join(self.BASE_DIR, 'logs', when)
+        for root, dirs, files in os.walk(self.BASE_DIR):
+            for file in dirs: 
+                if file in to_save:
+                    src = os.path.join(self.BASE_DIR, file)
+                    
+                    try:
+                        shutil.move(src, dst)
+                    except:
+                        print("Couldn't move data. Please move grading_errors.txt and results.json manually to /logs")
+
+
+    def deploy(self, course, assignment, submission, return_grade=False):
             # Download and store files
             self.retrieve(course, assignment, submission)
             
@@ -484,4 +504,7 @@ class AutoGrad(object):
             results = self.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
 
             # Submit results
-            self.submit(course, assignment, results)
+            self.submit(course, assignment, results, return_grade)
+
+            # Save grading errors (unable to grade) and info on scripts successfully graded
+            self.save_grading_info()

@@ -34,10 +34,13 @@ def cli(context, course, assignment, submission, file):
     context.obj['submission'] = submission or NIL
     # context.obj['file'] = file or NIL
 
+
     if context.invoked_subcommand is None:
-        # If we don't add 'deploy' argument we want to do tests
+        # If we don't add 'deploy' argument it means we want to do tests
         click.echo("[TEST] Running AutoGrad..")
-        a = AutoGrad()
+        
+        # Init
+        # a = AutoGrad()
 
         # Uncomment this line to download new files from Classroom drive folder. Not necessary if you have already downloaded the files
         # a.retrieve(course, assignment, submission)
@@ -48,10 +51,10 @@ def cli(context, course, assignment, submission, file):
             you can supply the assignment, course and submission numbers to grade
             locally
         """
-        results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+        # results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
 
-        # Print results
-        print(results)
+        # Print the results
+        # print(results)
         
 
 @cli.command()
@@ -68,14 +71,14 @@ def deploy(context):
     
         click.echo("[DEPLOY] Running AutoGrad..")
         
-        # Init
+        # Start
         a = AutoGrad()
 
         # Download, grade, submit and mail. Sheets coming soon
-        a.deploy(course, assignment, submission, results)
+        a.deploy(course, assignment, submission, return_grade=True)
 
     else:
-        click.echo("Insufficient params. Exiting.. Try --help for more info")
+        click.echo("Insufficient options. Exiting.. Try --help for more info")
 
 if __name__ == "__main__":
     cli(obj={})
