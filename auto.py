@@ -40,7 +40,8 @@ def cli(context, course, assignment, submission, file):
         click.echo("[TEST] Running AutoGrad..")
         
         # Init
-        # a = AutoGrad()
+        a = AutoGrad()
+        a.save_grading_info()
 
         # Uncomment this line to download new files from Classroom drive folder. Not necessary if you have already downloaded the files
         # a.retrieve(course, assignment, submission)

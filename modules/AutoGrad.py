@@ -482,18 +482,19 @@ class AutoGrad(object):
         import shutil
 
         when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
-        to_save = ['grading_errors.txt', 'results.json']
+        to_save = ['grading_errors.txt', 'results.json', 'temporary.json']
 
         dst = os.path.join(self.BASE_DIR, 'logs', when)
         for root, dirs, files in os.walk(self.BASE_DIR):
-            for file in dirs: 
+            for file in files: 
                 if file in to_save:
                     src = os.path.join(self.BASE_DIR, file)
                     
                     try:
+                        if not os.path.exists(dst): os.makedirs(dst)
                         shutil.move(src, dst)
                     except:
-                        print("Couldn't move data. Please move grading_errors.txt and results.json manually to /logs")
+                        print("Couldn't move data. Please move grading_errors.txt, temporary.json and results.json manually to /logs")
 
 
     def deploy(self, course, assignment, submission, return_grade=False):
