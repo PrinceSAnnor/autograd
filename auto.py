@@ -41,19 +41,27 @@ def cli(context, course, assignment, submission, file):
         
         # Init
         a = AutoGrad()
-        a.save_grading_info()
+        
+        # Manual regrade from local files and add to classroom
+        # results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+        # status = a.add_to_classroom(course_num, assignment_num, results, return_grade=True)
+
+        # Manual mailing
+        # import json
+        # f = open('logs/2019-06-19-16-22-13/results.json','r')
+        # res = json.load(f)
+        # status = a.send_mail(res)
+        # print(status)
+       
+        # Manual Add to Classroom
+        import os
+        dir = os.path.join('logs','2019-06-19-16-58-46')
+        results = a.attach_ids(dir)
+        status = a.add_to_classroom(course, assignment, results, return_grade=True)
 
         # Uncomment this line to download new files from Classroom drive folder. Not necessary if you have already downloaded the files
         # a.retrieve(course, assignment, submission)
-        
-        """ 
-            Grade files. Skips errors from student's code. 
-            NB: If you have already downloaded the files using retrieve() 
-            you can supply the assignment, course and submission numbers to grade
-            locally
-        """
-        # results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
-
+        # results = a.grade_files(course, assignment, submission)
         # Print the results
         # print(results)
         
