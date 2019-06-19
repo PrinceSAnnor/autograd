@@ -17,16 +17,20 @@ class AutoGrad(object):
         cwd = os.getcwd()
         self.BASE_DIR = cwd
         self.code_dir = os.path.join(self.BASE_DIR, 'assets', 'code')
+        
         self.classroom = None
         self.drive = None
         self.mailer = None
         self.sheet = None
+
         self.TURNED_IN = "TURNED_IN"
         self.current_assg = ""
         self.file_path = os.path.join(self.code_dir, 'temp')
         self.attachments = []
         self.course_ids = []
+        self.submissions = {}
         self.assignments = None
+
         self.course_names = {
             "SuaCode Africa 1":"",
             "SuaCode Africa 2":"",
@@ -180,6 +184,7 @@ class AutoGrad(object):
             user_id = sub["userId"]
             course_id = sub["courseId"]
             sub_no = sub["submissionNo"]
+            sub_id = sub["id"]
             a = sub["assignmentSubmission"]["attachments"]
 
             if a:
@@ -189,7 +194,10 @@ class AutoGrad(object):
                     drive_file = f["driveFile"]
                     
                     if drive_file["title"][-4:] == ".pde":
+                        self.submissions[user_id] = sub_id # Store a ref to sub_ids. This came later
+
                         final["submissionNo"] = sub_no
+                        final["subId"] = sub_id
                         final["userId"] = user_id
                         final["courseId"] = course_id
                         final["id"] = drive_file["id"]
@@ -310,32 +318,38 @@ class AutoGrad(object):
         print(all)
         return all
 
-    def add_to_classroom(self, course_num, assignment_num, sub_id, grade):
-        course_id = self.course_ids[course_num - 1]
+    def add_to_classroom(self, course_num, assignment_num, results):
+        if len(results) > 0:    
+            for obj in results:
+                grade = obj['details']['score']
+                user_id = obj['details']['id']
+                sub_id = self.submissions.get(user_id)
+    
+        course_id = self.course_ids[int(course_num) - 1]
         
         # Get dict of assignment names and assignment id
-        assg_name = self.get_names_from_number(assignment=assignment_num)
-        assg_id = self.assignment_ids[ assg_name ]
+        assg_name = self.get_names_from_number(assignment=assignment_num)['assignment']
+        assg_id = self.assignments.get(assg_name)
 
         try: 
             body={ 'draftGrade': grade }
             results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
-        except:
-            print("Could not add to classroom")
+        except Exception as e:
+            print("Could not add to classroom: "+str(e))
 
     def add_to_sheets(self):
         # Return results to sheets
         pass
 
-    def retrieve(self):
-        a.boot() # Connect to Google APIs. This is not needed when testing
+    def retrieve(self, course, assignment, submission):
+        self.boot() # Connect to Google APIs. This is not needed when testing
         
-        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
-        at = a.get_files_for_download(subs) # Get the .pde file attachments
-        # a.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
-        downloaded = a.download_files(at) # Download the files to assets/code
+        subs =  self.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        at = self.get_files_for_download(subs) # Get the .pde file attachments
+        self.log_to_file(at) # Logs to temporary.json. You can provide a file name as the second argument for a different file. eg. log_to_file(at, "kofi.json")
+        downloaded = self.download_files(at) # Download the files to assets/code
         
-        click.echo("Files to be graded are in {}".format(a.file_path))
+        click.echo("Files to be graded are in {}".format(self.file_path))
 
 
 # ------------------------------------ #
@@ -368,13 +382,13 @@ def cli(context, course, assignment, submission, file):
     context.obj['course'] = course or NIL
     context.obj['assignment'] = assignment or NIL
     context.obj['submission'] = submission or NIL
-    context.obj['file'] = file or NIL
+    # context.obj['file'] = file or NIL
 
     if context.invoked_subcommand is None:
         click.echo("[TEST] Running AutoGrad..")
         a = AutoGrad()
 
-        a.retrieve()
+        a.retrieve(course, assignment, submission)
         results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
 
 
@@ -392,7 +406,6 @@ def deploy(context):
     check_required = NIL not in list(context.obj.values())
    
     if check_required: 
-        a = context.obj['AutoGrad']
         course = context.obj['course']
         assignment = context.obj['assignment']
         submission = context.obj['submission']
@@ -400,14 +413,11 @@ def deploy(context):
         click.echo("[DEPLOY] Running AutoGrad..")
         a = AutoGrad()
 
-        a.retrieve()
+        a.retrieve(course, assignment, submission)
         results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
 
         # Submit results
-        if len(results) > 0:    
-            for obj in results:
-                grade = obj['details']['score']
-                a.add_to_classroom(course, assignment, sub_id, score)
+        a.add_to_classroom(course, assignment, results)
     else:
         click.echo("Insufficient params. Exiting.. Try --help for more info")
 
