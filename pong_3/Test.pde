@@ -1248,6 +1248,10 @@ class Test {
       println("Debug");
       println("----------------------");
       println(" ");
+      
+       //Print vars
+      println(varKeys);
+      println(" ");
        //Print states
       println("State after 45 frames for scenario 1 - bounce"+yvalBounce);
       println(" ");
@@ -1265,10 +1269,15 @@ class Test {
     try
     {
       //Start simulation
-      mousePressed = true;
+     // mousePressed = true;
+      
       
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
+          code1.setgameOn(true);
+          code2.setgameOn(true);
+          code3.setgameOn(true);
+          
           //Generates the state for scenario 1
           code1.forever();
           yvalBounce.add(code1.ballY());
@@ -1282,6 +1291,8 @@ class Test {
           code3.forever();
           xvalRight.add(code3.ballX());
           scoresL.add(code3.leftScore());
+          
+          
         }
       
       }
@@ -1306,11 +1317,11 @@ class Test {
       int minValScore = scoresR.get(minValIndex);
       int nextScoreAfterMin = scoresR.get(minValIndex + 1);
   
-      boolean thereIsAnIncrease = Collections.max(scoresR) != Collections.min(scoresR);
-      // boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
-      if(!thereIsAnIncrease){
+      //boolean thereIsAnIncrease = Collections.max(scoresR) != Collections.min(scoresR);
+      boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
+      if(!rightScoreIncreased){
         correct = false;
-        errors.add("Check whether the scores change on crossing the lefthand wall");
+        errors.add("Check whether the scores change correctly on crossing the lefthand wall");
       } 
   
       // If ball leaves the screen, even a little
@@ -1342,15 +1353,15 @@ class Test {
         int maxValScore = scoresL.get(maxValIndex);
         int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
   
-        boolean thereIsAnIncrease = Collections.max(scoresL) != Collections.min(scoresL);
-        // boolean leftScoreIncreased = maxValScore < nextScoreAfterMax && thereIsAnIncrease;
+        //boolean thereIsAnIncrease = Collections.max(scoresL) != Collections.min(scoresL);
+        boolean leftScoreIncreased = maxValScore < nextScoreAfterMax;
         
-        if(!thereIsAnIncrease){
+        if(!leftScoreIncreased){
           correct = false;
-          errors.add("Check whether the scores change on crossing the righthand wall");
+          errors.add("Check whether the scores change correctly on crossing the righthand wall");
         } 
   
-        // If ball leaves the screen, even a little
+        // If ball leaveDEs the screen, even a little
   
         if( maxVal > screenWidth + Math.abs(code3.ballXSpeed()) ){
           correct = false;

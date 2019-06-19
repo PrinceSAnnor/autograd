@@ -34,25 +34,73 @@ def cli(context, course, assignment, submission, file):
     context.obj['submission'] = submission or NIL
     # context.obj['file'] = file or NIL
 
+
     if context.invoked_subcommand is None:
-        # If we don't add 'deploy' argument we want to do tests
+        # If we don't add 'deploy' argument it means we want to do tests
         click.echo("[TEST] Running AutoGrad..")
+        
+        # Init
         a = AutoGrad()
 
-        # Uncomment this line to download new files from Classroom drive folder. Not necessary if you have already downloaded the files
-        # a.retrieve(course, assignment, submission)
+        # Option 1 - Testing fully automated process
+        # a.retrieve(course, assignment, submission) # Get files, download
+        # results = a.grade_files(assignment, course, submission) # Results of grading. Stored in results.json also
+        # added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
+        # if added: a.send_mail(results=results)
+        # else: click.echo("could not add to classroom")
         
-        """ 
-            Grade files. Skips errors from student's code. 
-            NB: If you have already downloaded the files using retrieve() 
-            you can supply the assignment, course and submission numbers to grade
-            locally
-        """
-        results = a.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+        # Option 2 - Manual grade from local files and add to classroom (without results)
+        # results = a.grade_files(assignment, course, submission)
+        # status = a.add_to_classroom(course, assignment, results, return_grade=True)
 
-        # Print results
-        print(results)
-        
+        # Option 3 - Manual Add to Classroom from graded results
+        # import os
+        # IMPORTANT: Do not delete your logs folder just in case
+        # dir = os.path.join('logs','2019-06-19-16-58-46') # Replace the second argument with the folder name of the results you want to submit
+        # results = a.attach_ids(dir)
+        # status = a.add_to_classroom(course, assignment, results, return_grade=True)
+
+        # Option 4 - Manual mailing
+        # import json
+        # IMPORTANT: Do not delete your logs folder just in case
+        # dir = os.path.join('logs','2019-06-19-16-22-13', 'results.json')
+        # f = open(dir,'r')
+        # res = json.load(f)
+        # status = a.send_mail(res)
+        # print(status)
+
+        # Option - 5 Check how many turned in
+        # a.boot() # Connect to Google APIs. This is not needed when testing  
+        # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        # at = a.get_files_for_download(subs) # Get the .pde file attachments
+        # a.log_to_file(at,"turned_in.json")
+       
+
+@cli.command()
+@click.pass_context
+def check(context):
+    check_required = NIL not in list(context.obj.values())
+   
+    if check_required: 
+        # Get command line options
+        course = context.obj['course']
+        assignment = context.obj['assignment']
+        submission = context.obj['submission']
+    
+        click.echo("[TEST] Running AutoGrad..")
+        import os
+
+        a = AutoGrad() # Init
+        a.boot() # Connect to Google APIs. This is not needed when testing  
+        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        at = a.get_files_for_download(subs) # Get the .pde file attachments
+        name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission)  
+        fn = os.path.join(a.BASE_DIR, 'logs' ,name)
+        a.log_to_file(at,fn)
+        click.echo("Currently turned in submissions logged to logs/turned_in_{}_{}_{}.json".format(course,assignment,submission))
+    else:
+        click.echo("Insufficient options. Exiting.. Try --help for more info")
+
 
 @cli.command()
 @click.pass_context
@@ -68,14 +116,15 @@ def deploy(context):
     
         click.echo("[DEPLOY] Running AutoGrad..")
         
-        # Init
+        # Start
         a = AutoGrad()
 
         # Download, grade, submit and mail. Sheets coming soon
-        a.deploy(course, assignment, submission, results)
+        a.deploy(course, assignment, submission, return_grade=True)
 
     else:
-        click.echo("Insufficient params. Exiting.. Try --help for more info")
+        click.echo("Insufficient options. Exiting.. Try --help for more info")
+
 
 if __name__ == "__main__":
     cli(obj={})
