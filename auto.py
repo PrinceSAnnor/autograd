@@ -68,8 +68,39 @@ def cli(context, course, assignment, submission, file):
         # res = json.load(f)
         # status = a.send_mail(res)
         # print(status)
+
+        # Option - 5 Check how many turned in
+        # a.boot() # Connect to Google APIs. This is not needed when testing  
+        # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        # at = a.get_files_for_download(subs) # Get the .pde file attachments
+        # a.log_to_file(at,"turned_in.json")
        
-        
+
+@cli.command()
+@click.pass_context
+def check(context):
+    check_required = NIL not in list(context.obj.values())
+   
+    if check_required: 
+        # Get command line options
+        course = context.obj['course']
+        assignment = context.obj['assignment']
+        submission = context.obj['submission']
+    
+        click.echo("[TEST] Running AutoGrad..")
+        import os
+
+        a = AutoGrad() # Init
+        a.boot() # Connect to Google APIs. This is not needed when testing  
+        subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+        at = a.get_files_for_download(subs) # Get the .pde file attachments
+        name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission)  
+        fn = os.path.join(a.BASE_DIR, 'logs' ,name)
+        a.log_to_file(at,fn)
+        click.echo("Currently turned in submissions logged to logs/turned_in_{}_{}_{}.json".format(course,assignment,submission))
+    else:
+        click.echo("Insufficient options. Exiting.. Try --help for more info")
+
 
 @cli.command()
 @click.pass_context
@@ -93,6 +124,7 @@ def deploy(context):
 
     else:
         click.echo("Insufficient options. Exiting.. Try --help for more info")
+
 
 if __name__ == "__main__":
     cli(obj={})
