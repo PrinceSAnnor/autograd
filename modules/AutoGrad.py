@@ -461,7 +461,7 @@ class AutoGrad(object):
                             student_email = student_details['student_email'] 
                             title = "Results for %s" % (assignment)
                             self.mailer.send_message(student_email, title, message)
-                            print("Mail sent successfully")
+                            print("Mail sent successfully to {}".format(student_email))
                         else: print("This is a second submission. Did not send mail.")
                         return True
                     except HttpError as e:
