@@ -369,7 +369,7 @@ class AutoGrad(object):
 
                 break
         self.log_to_file(all,"results.json")
-        print(all)
+    
         return all
 
     def add_to_classroom(self, course_num, assignment_num, results, return_grade=False):
