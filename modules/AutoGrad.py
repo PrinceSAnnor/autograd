@@ -458,7 +458,7 @@ class AutoGrad(object):
                     try: 
                         no_of_submissions = int(obj.get('sub'))
                         if no_of_submissions < 2:
-                            student_email =  'kaybeta500@gmail.com' # student_details['student_email'] 
+                            student_email = student_details['student_email'] 
                             title = "Results for %s" % (assignment)
                             self.mailer.send_message(student_email, title, message)
                             print("Mail sent successfully")
