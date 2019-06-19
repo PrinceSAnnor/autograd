@@ -24,4 +24,7 @@ __pycache__
 
 # others
 credentials.zip
+temporary.json
 results.txt
+results.json
+grading_errors.txt
