@@ -48,10 +48,12 @@ def cli(context, course, assignment, submission, file):
         # added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
         # if added: a.send_mail(results=results)
         # else: click.echo("could not add to classroom")
+        # a.save_grading_info()
         
         # Option 2 - Manual grade from local files and add to classroom (without results)
         # results = a.grade_files(assignment, course, submission)
         # status = a.add_to_classroom(course, assignment, results, return_grade=True)
+        # a.save_grading_info()
 
         # Option 3 - Manual Add to Classroom from graded results
         # import os
