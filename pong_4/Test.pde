@@ -1,3 +1,7 @@
+import java.awt.Robot;
+import java.awt.AWTException;
+import java.lang.reflect.*;
+import java.lang.reflect.Method; 
 
 class Test {
 
@@ -45,8 +49,11 @@ class Test {
   //boolean majorErrorFlag = false; // this checks if there's a major error and does not run GetCode as a result.
 
   File filePath;
+  
+    
 
   //Parallel templates for different scenarios
+  Code code = new Code();
   Code code1 = new Code();
   Code code2 = new Code();
   Code code3 = new Code();
@@ -55,6 +62,20 @@ class Test {
   //Two more states for checking Paddle Movement.
   Code code6 = new Code();
   Code code7 = new Code();
+  
+  Method[] methods;
+  
+  
+  
+  
+  //Robot method to control the mouse.
+  //void Robo(int x, int y) throws AWTException{
+  //  Robot robot = new Robot();
+  //  robot.mouseMove(x,y);
+  //}
+  
+  
+  
   Test(File f) { 
     filePath = f;
   }
@@ -1285,8 +1306,75 @@ class Test {
    
     }
   }
+  
+  //Check if Functions exist and work. Their functioanlity are being checked by other means
+  void checkFunctions(){
+    //Check setGameMode
+    try{
+      code.setGameMode();
+    }catch(Exception e){
+      test.totalScore -= test.deduction;
+      println("The function setGameMode() doesn't exist. Ensure your function is named properly if you created it.");
+    }
+    
+    //Check checkWall
+    try{
+        code.checkWall();
+      }catch(Exception e){
+        test.totalScore -= test.deduction;
+        println("The function checkWall() doesn't exist. Ensure your function is named properly if you created it.");
+      }
+      
+    //Check moveBall
+    try{
+      code.moveBall();
+    }catch(Exception e){
+      test.totalScore -= test.deduction;
+      println("The function moveBall() doesn't exist. Ensure it is named properly if you created it.");
+    }
+    
+    //Check displayPaddles
+      try{
+      code.displayPaddles();
+      }catch(Exception e){
+        test.totalScore -= test.deduction;
+        println("The function displayPaddles() doesn't exist. Ensure it is named properly if you created it.");
+      }
+      
+    //Check displayBall()
+      try{
+        code.displayBall();
+      }catch(Exception e){
+        test.totalScore -= test.deduction;
+        println("The function displayBall() doesn't exist. Ensure it is named properly if you created it.");
+      }
+    //Check displayScores()
+    try{
+    code.displayScores();
+    }catch(Exception e){
+      test.totalScore -= test.deduction;
+      println("The function displayScores() doesn't exist. Ensure it is named properly if you created it.");
+    }    
+    
+    //Check checkLeftPaddle() 
+    try{
+    code.checkLeftPaddle();
+    }catch(Exception e){
+      test.totalScore -= test.deduction;
+      println("The function checkLeftPaddle() doesn't exist. Ensure it is named properly if you created it.");
+    }
+    
+    //Check rightPaddle()
+    try{
+    code.checkRightPaddle();
+    }catch(Exception e){
+      test.totalScore -= test.deduction;
+      println("The function checkRightPaddle() doesn't exist. Ensure it is named properly if you created it.");
+    }
+    
+  }
 
-  void generateStates(){
+  void generateStates() {
     
     try
     {
@@ -1294,6 +1382,7 @@ class Test {
       mousePressed = true;
       int x = 10;
       int y = 10;
+      
       
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
@@ -1324,11 +1413,13 @@ class Test {
           code6.forever();
           leftPaddlePos.add(code6.leftPaddleY());
           code6.setMouseY(x);
-          x = x+10;
+          //println(code6.getMouseY());
+          x = x + 10;
           
           //Generate state for scenario 7 - Checking if right Paddle Moves.
           code7.forever();
           rightPaddlePos.add(code7.rightPaddleY());
+          //println(code7.rightPaddleY());
           code7.setMouseY(y);
           y = y + 10;
         }
@@ -1410,7 +1501,7 @@ class Test {
       int screenCentreY = (int) Math.floor(0.5 * screenHeight);
       int paddleCentreY1 = (int) Math.floor(screenCentreY - (code4.paddleHeight()/2));
       int paddleCentreY2 = (int) Math.floor(screenCentreY - (code5.paddleHeight()/2));
-      int x = 50;
+      
       
       // Set x and y positions of ball in all scenarios 
       // TODO: refactor later
@@ -1458,13 +1549,13 @@ class Test {
       
       //Initial conditions for scenario 6 - Left Paddle Movement
       code6.setleftPaddleY(0);
-      code6.setMouseX(50);
-      //mouseY = mouseY + 10;
+      code6.setMouseX(10);
+    
       
       //Initial conditions for scenario 7 - Right Paddle Movement.
       code7.setrightPaddleY(0);
-      mouseX = screenWidth/2 + 100;
-      //mouseY = mouseY + 10;
+      code7.setMouseX(screenWidth/2 + 100);
+      
       
     }
 
@@ -1501,9 +1592,12 @@ class Test {
   void checkMovePaddlesRight(){
     boolean moveFlag = false;
     for(int i = 0; i < rightPaddlePos.size()-1; i++){
-      if(rightPaddlePos.get(i+1)<=rightPaddlePos.get(i)){
+      if(i< 10 && rightPaddlePos.get(i+1)<=rightPaddlePos.get(i)){
+        moveFlag = true;
+      }else if(rightPaddlePos.get(i+1)<=rightPaddlePos.get(i)){
         moveFlag = true;
       }
+      
     }
     
     if(moveFlag){
@@ -1516,14 +1610,14 @@ class Test {
   void checkMovePaddlesLeft(){
     boolean moveFlag = false;
     for(int i = 0; i < leftPaddlePos.size()-1; i++){
-      if(rightPaddlePos.get(i+1)<=leftPaddlePos.get(i)){
+      if(leftPaddlePos.get(i+1)<=leftPaddlePos.get(i)){
         moveFlag = true;
       }
     }
     
     if(moveFlag){
       test.totalScore -= test.deduction;
-      String err = "Right paddle does not move";
+      String err = "Left paddle does not move";
       errors.add(err);
     }
   }
@@ -1555,21 +1649,12 @@ class Test {
       
   }
   
+  
+  
+  
   //Check if ball bounces off right paddle
   void checkRightPaddleBounce(){
-    int minIndex = rightBounceVals.indexOf(Collections.min(rightBounceVals));
       int maxIndex = rightBounceVals.indexOf(Collections.max(rightBounceVals));
-      
-      // Test upper wall bounce.  - If min is the first or last element it means there was no bounce.
-      //if(minIndex == (rightBounceVals.size()-1) || minIndex == 0 ){ 
-      //  test.totalScore -= test.deduction;
-      //  String err = "Ball does not bounce off right Paddle";
-      //  errors.add(err);
-      //  //return;
-      //}
-      //else if ( rightBounceVals.get(minIndex+1) > rightBounceVals.get(minIndex) && rightBounceVals.get(minIndex-1) > rightBounceVals.get(minIndex)){
-      //  count++; //Ball bounces above. Proceed to confirm for below.
-      //}
       
       if(maxIndex == (rightBounceVals.size()-1) || maxIndex == 0){
         test.totalScore -= test.deduction;
@@ -1682,7 +1767,10 @@ class Test {
       shapeColorInteractions();
 
       setInitialConditions();
+      //try{
       generateStates();
+      //}catch(AWTException e){println(e);}
+      checkFunctions();
       checkBallIsMoving();
       checkWallsBounce();
       checkLeftWall();
