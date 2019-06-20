@@ -538,10 +538,10 @@ void checkRects() //check rects
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
       { 
         if(entry.getKey() == "gameOn"){
-          output.println("boolean " + entry.getKey() + "()");
-          output.println("{");
-          output.println("return " + entry.getValue() + ";");
-          output.println("}");
+          //output.println("boolean " + entry.getKey() + "()");
+          //output.println("{");
+          //output.println("return " + entry.getValue() + ";");
+          //output.println("}");
         }else{
           output.println("int " + entry.getKey() + "()");
           output.println("{");
@@ -560,10 +560,10 @@ void checkRects() //check rects
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
       { 
         if(entry.getKey() == "gameOn"){
-          output.println("void " + "set" + entry.getKey() + "(boolean x)");
-          output.println("{");
-          output.println(entry.getValue() + "= x " + ";");
-          output.println("}");
+          //output.println("void " + "set" + entry.getKey() + "(boolean x)");
+          //output.println("{");
+          //output.println(entry.getValue() + "= x " + ";");
+          //output.println("}");
         }else{
           //if(entry.getValue()!= "-99"){
           output.println("void " + "set" + entry.getKey() + "(int x)");

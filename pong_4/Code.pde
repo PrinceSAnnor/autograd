@@ -348,10 +348,6 @@ int ballXSpeed()
 {
 return int(xSpeed);
 }
-boolean gameOn()
-{
-return checkRightPaddle(int;
-}
 int ballYSpeed()
 {
 return int(ySpeed);
@@ -419,10 +415,6 @@ ballWidth= x ;
 void setballXSpeed(int x)
 {
 xSpeed= x ;
-}
-void setgameOn(boolean x)
-{
-checkRightPaddle(int= x ;
 }
 void setballYSpeed(int x)
 {

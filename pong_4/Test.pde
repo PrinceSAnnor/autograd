@@ -1301,53 +1301,53 @@ class Test {
   }
   
   //Check if Functions exist and work. Their functioanlity are being checked by other means
-  void checkFunctions(){
-    //Check setGameMode
-    try{
-      code.setGameMode();
-    }catch(Exception e){
-      test.totalScore -= test.deduction;
-      errors.add("The function setGameMode() doesn't exist. Ensure your function is named properly if you created it.");
-    }
+  //void checkFunctions(){
+  //  //Check setGameMode
+  //  try{
+  //    code.setGameMode();
+  //  }catch(Exception e){
+  //    test.totalScore -= test.deduction;
+  //    errors.add("The function setGameMode() doesn't exist. Ensure your function is named properly if you created it.");
+  //  }
     
-    //Check checkWall
-    try{
-        code.checkWall();
-      }catch(Exception e){
-        test.totalScore -= test.deduction;
-        errors.add("The function checkWall() doesn't exist. Ensure your function is named properly if you created it.");
-      }
+  //  //Check checkWall
+  //  try{
+  //      code.checkWall();
+  //    }catch(Exception e){
+  //      test.totalScore -= test.deduction;
+  //      errors.add("The function checkWall() doesn't exist. Ensure your function is named properly if you created it.");
+  //    }
       
-    //Check moveBall
-    try{
-      code.moveBall();
-    }catch(Exception e){
-      test.totalScore -= test.deduction;
-      errors.add("The function moveBall() doesn't exist. Ensure it is named properly if you created it.");
-    }
+  //  //Check moveBall
+  //  try{
+  //    code.moveBall();
+  //  }catch(Exception e){
+  //    test.totalScore -= test.deduction;
+  //    errors.add("The function moveBall() doesn't exist. Ensure it is named properly if you created it.");
+  //  }
     
-    //Check displayPaddles
-      try{
-      code.displayPaddles();
-      }catch(Exception e){
-        test.totalScore -= test.deduction;
-        errors.add("The function displayPaddles() doesn't exist. Ensure it is named properly if you created it.");
-      }
+  //  //Check displayPaddles
+  //    try{
+  //    code.displayPaddles();
+  //    }catch(Exception e){
+  //      test.totalScore -= test.deduction;
+  //      errors.add("The function displayPaddles() doesn't exist. Ensure it is named properly if you created it.");
+  //    }
       
-    //Check displayBall()
-      try{
-        code.displayBall();
-      }catch(Exception e){
-        test.totalScore -= test.deduction;
-        errors.add("The function displayBall() doesn't exist. Ensure it is named properly if you created it.");
-      }
-    //Check displayScores()
-    try{
-    code.displayScores();
-    }catch(Exception e){
-      test.totalScore -= test.deduction;
-      errors.add("The function displayScores() doesn't exist. Ensure it is named properly if you created it.");
-    }    
+  //  //Check displayBall()
+  //    try{
+  //      code.displayBall();
+  //    }catch(Exception e){
+  //      test.totalScore -= test.deduction;
+  //      errors.add("The function displayBall() doesn't exist. Ensure it is named properly if you created it.");
+  //    }
+  //  //Check displayScores()
+  //  try{
+  //  code.displayScores();
+  //  }catch(Exception e){
+  //    test.totalScore -= test.deduction;
+  //    errors.add("The function displayScores() doesn't exist. Ensure it is named properly if you created it.");
+  //  }    
     
     //Check checkLeftPaddle() 
     //try{
@@ -1365,27 +1365,27 @@ class Test {
     //  errors.add("The function checkRightPaddle() doesn't exist. Ensure it is named properly if you created it.");
     //}
     
-  }
+  //}
 
   void generateStates(){
     
     try
     {
       //Start simulation
-      //mousePressed = true;
+      mousePressed = true;
       int x = 10;
       int y = 10;
       
       
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
-        code1.setgameOn(true);
-        code2.setgameOn(true);
-        code3.setgameOn(true);
-        code4.setgameOn(true);
-        code5.setgameOn(true);
-        code6.setgameOn(true);
-        code7.setgameOn(true);
+        //code1.setgameOn(true);
+        //code2.setgameOn(true);
+        //code3.setgameOn(true);
+        //code4.setgameOn(true);
+        //code5.setgameOn(true);
+        //code6.setgameOn(true);
+        //code7.setgameOn(true);
           
           //Generates the state for scenario 1
           code1.forever();
@@ -1811,7 +1811,7 @@ class Test {
       //try{
       generateStates();
       //}catch(AWTException e){println(e);}
-      checkFunctions();
+      //checkFunctions();
       checkBallIsMoving();
       checkWallsBounce();
       checkLeftWall();
