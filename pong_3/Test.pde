@@ -1538,7 +1538,7 @@ class Test {
    checks wheter screenWith and sreenHeight were gotten 
    grades if true and doesnt if false
    ****************************************************************/
-  void run() {
+  void run(boolean mode) {
     getLines();
     removeEmptyLines();
     if (getScreenSize()) {
@@ -1565,7 +1565,7 @@ class Test {
       checkGameOn();
       //checkMajorErrors();
       printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      //debug(true);
+      debug(mode);
     } else {
       totalScore = 0;
       logFilesWithErrors();
