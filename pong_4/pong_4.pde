@@ -13,14 +13,14 @@ void setup ()
     
   File f = new File(sketchPath() + "/../" + args[0]);
   test = new Test(f);
-  test.run();
+  test.run(false);
     
   } else {
   //println("args == null");
   // This will run during testing / when run without autograd 
     File f = new File(sketchPath()+"/assignment_4/assignment_4.pde");
     test = new Test(f);
-    test.run();
+    test.run(true);
   }
   
   
