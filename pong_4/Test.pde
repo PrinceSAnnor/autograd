@@ -61,9 +61,7 @@ class Test {
   
   // Method[] methods;
   
-  
-  
-  
+   
   //Robot method to control the mouse.
   //void Robo(int x, int y) throws AWTException{
   //  Robot robot = new Robot();
