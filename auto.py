@@ -72,7 +72,7 @@ def grade_download(context):
     a = AutoGrad() # Init
     a.retrieve(course, assignment, submission) # Get files, download
     results = a.grade_files(course, assignment, submission) # Results of grading. Stored in results.json also
-    a.save_grading_info(course, assignment, submission)
+    if len(results) > 0: a.save_grading_info(course, assignment, submission)
 
 @cli.command()
 @click.pass_context
@@ -92,9 +92,9 @@ def check(context):
     logs = os.path.join(a.BASE_DIR, 'logs') 
     fn = os.path.join(logs ,name)
     if not os.path.exists(logs): os.makedirs(logs)
-    a.log_to_file(at,fn)
-    
-    click.echo("Currently turned in submissions logged to logs/turned_in_c{}_a{}_s{}.json".format(course,assignment,submission))
+    if len(at) > 0:
+        a.log_to_file(at,fn)
+        click.echo("Currently turned in submissions logged to logs/turned_in_c{}_a{}_s{}.json".format(course,assignment,submission))
 
 @cli.command()
 @click.pass_context
@@ -137,13 +137,13 @@ def mail_local(context):
 
     a = AutoGrad() # Init
     # IMPORTANT: Do not delete your logs folder just in case
-    dir = os.path.join('logs','2019-06-20-09-17-33', 'results.json')
-    # p = '_'.join(course, assignment, submission)
-    # dir = os.path.join('logs',p, 'results.json')
+    # dir = os.path.join('logs','2019-06-20-09-17-33', 'results.json')
+    p = '_'.join(course, assignment, submission)
+    dir = os.path.join('logs',p, 'results.json')
     f = open(dir,'r')
     res = json.load(f)
     status = a.send_mail(res)
-    print(status)
+    
 
 def validate_opts(context):
     check_required = NIL not in list(context.obj.values())
