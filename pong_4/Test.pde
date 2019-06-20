@@ -1301,71 +1301,72 @@ class Test {
   }
   
   //Check if Functions exist and work. Their functioanlity are being checked by other means
-  //void checkFunctions(){
-  //  //Check setGameMode
-  //  try{
-  //    code.setGameMode();
-  //  }catch(Exception e){
-  //    test.totalScore -= test.deduction;
-  //    errors.add("The function setGameMode() doesn't exist. Ensure your function is named properly if you created it.");
-  //  }
+  void checkFunctions(){
+    boolean gameModeFound = false, checkWallFound=false, moveBallFound=false, displayPaddlesFound=false, displayBallFound=false, displayScoresFound=false, checkLeftPaddleFound=false, checkRightPaddleFound = false;
     
-  //  //Check checkWall
-  //  try{
-  //      code.checkWall();
-  //    }catch(Exception e){
-  //      test.totalScore -= test.deduction;
-  //      errors.add("The function checkWall() doesn't exist. Ensure your function is named properly if you created it.");
-  //    }
+     for (int i = 0; i < fileLines.length; i++)
+      {
+        if ((match(fileLines[i], "void") != null)) {
+
+            if ((match(fileLines[i], "setGameMode") != null)) {
+              gameModeFound = true;
+            } else if (match(fileLines[i], "checkWall") != null) {
+              checkWallFound = true;
+            }
+            else if (match(fileLines[i], "moveBall") != null) {
+              moveBallFound = true;
+            } else if (match(fileLines[i], "displayPaddles") != null) {
+              displayPaddlesFound = true;
+            }
+            else if(match(fileLines[i], "displayBall") != null){
+              displayBallFound = true;
+            }
+            else if (match(fileLines[i], "displayScores") != null) {
+              displayScoresFound = true;
+            }
+            else if (match(fileLines[i], "checkLeftPaddle") != null) {
+              checkLeftPaddleFound = true;
+            }
+            else if (match(fileLines[i], "checkRightPaddle") != null) {
+              checkRightPaddleFound = true;
+            }
+        } 
+      }
       
-  //  //Check moveBall
-  //  try{
-  //    code.moveBall();
-  //  }catch(Exception e){
-  //    test.totalScore -= test.deduction;
-  //    errors.add("The function moveBall() doesn't exist. Ensure it is named properly if you created it.");
-  //  }
+      if(gameModeFound == false){
+        totalScore -= deduction;
+        errors.add("The function setGameMode() was not created.");
+      }
+      if(checkWallFound == false){
+        totalScore -= deduction;
+        errors.add("The function checkWall() was not created.");
+      }
+      if(moveBallFound == false){
+        totalScore -= deduction;
+        errors.add("The function moveBall() was not created.");
+      }
+      if(displayPaddlesFound == false){
+        totalScore -= deduction;
+        errors.add("The function displayPaddles() was not created.");
+      }
+      if(displayBallFound == false){
+        totalScore -= deduction;
+        errors.add("The function displayBall() was not created.");
+      }
+      if(displayScoresFound == false){
+        totalScore -= deduction;
+        errors.add("The function displayScores() was not created.");
+      }
+      if(checkLeftPaddleFound == false){
+        totalScore -= deduction;
+        errors.add("The function checkLeftPaddle() was not created.");
+      }
+      if(checkRightPaddleFound == false){
+        totalScore -= deduction;
+        errors.add("The function checkRightPaddle() was not created.");
+      }
     
-  //  //Check displayPaddles
-  //    try{
-  //    code.displayPaddles();
-  //    }catch(Exception e){
-  //      test.totalScore -= test.deduction;
-  //      errors.add("The function displayPaddles() doesn't exist. Ensure it is named properly if you created it.");
-  //    }
-      
-  //  //Check displayBall()
-  //    try{
-  //      code.displayBall();
-  //    }catch(Exception e){
-  //      test.totalScore -= test.deduction;
-  //      errors.add("The function displayBall() doesn't exist. Ensure it is named properly if you created it.");
-  //    }
-  //  //Check displayScores()
-  //  try{
-  //  code.displayScores();
-  //  }catch(Exception e){
-  //    test.totalScore -= test.deduction;
-  //    errors.add("The function displayScores() doesn't exist. Ensure it is named properly if you created it.");
-  //  }    
-    
-    //Check checkLeftPaddle() 
-    //try{
-    //code.checkLeftPaddle();
-    //}catch(Exception e){
-    //  test.totalScore -= test.deduction;
-    //  errors.add("The function checkLeftPaddle() doesn't exist. Ensure it is named properly if you created it.");
-    //}
-    
-    ////Check rightPaddle()
-    //try{
-    //code.checkRightPaddle();
-    //}catch(Exception e){
-    //  test.totalScore -= test.deduction;
-    //  errors.add("The function checkRightPaddle() doesn't exist. Ensure it is named properly if you created it.");
-    //}
-    
-  //}
+  }
 
   void generateStates(){
     
@@ -1806,12 +1807,9 @@ class Test {
       checkScores();
       // checkMovingBall(); Replaced in favour of checkBallIsMoving() which uses state map
       shapeColorInteractions();
-
-      setInitialConditions();
-      //try{
+      setInitialConditions(); 
       generateStates();
-      //}catch(AWTException e){println(e);}
-      //checkFunctions();
+      checkFunctions();
       checkBallIsMoving();
       checkWallsBounce();
       checkLeftWall();
