@@ -350,7 +350,7 @@ return int(xSpeed);
 }
 boolean gameOn()
 {
-return hasOverLappedLeftPaddle;
+return checkRightPaddle(int;
 }
 int ballYSpeed()
 {
@@ -422,7 +422,7 @@ xSpeed= x ;
 }
 void setgameOn(boolean x)
 {
-hasOverLappedLeftPaddle= x ;
+checkRightPaddle(int= x ;
 }
 void setballYSpeed(int x)
 {
