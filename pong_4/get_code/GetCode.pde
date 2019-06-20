@@ -421,18 +421,20 @@ void checkRects() //check rects
       //    varNamesHashMap.put("gameOn", "-99");
       //  }
       //}
-      
+      int i = 0;
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
         String[] splitMatch;
         // Edited to match both declarations and initialisations.
         if(match(linesFiltered.get(m), "^boolean.*$") != null) {
-          
+          if(i==0){
           splitMatch = trim(splitTokens(linesFiltered.get(m), "=; "));
           
           String gameOnVar = trim(splitMatch[1]);
 
           varNamesHashMap.put("gameOn", gameOnVar);
+          i++;
+          }
         }
       }
     }
@@ -538,10 +540,10 @@ void checkRects() //check rects
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
       { 
         if(entry.getKey() == "gameOn"){
-          //output.println("boolean " + entry.getKey() + "()");
-          //output.println("{");
-          //output.println("return " + entry.getValue() + ";");
-          //output.println("}");
+          output.println("boolean " + entry.getKey() + "()");
+          output.println("{");
+          output.println("return " + entry.getValue() + ";");
+          output.println("}");
         }else{
           output.println("int " + entry.getKey() + "()");
           output.println("{");
@@ -560,10 +562,10 @@ void checkRects() //check rects
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
       { 
         if(entry.getKey() == "gameOn"){
-          //output.println("void " + "set" + entry.getKey() + "(boolean x)");
-          //output.println("{");
-          //output.println(entry.getValue() + "= x " + ";");
-          //output.println("}");
+          output.println("void " + "set" + entry.getKey() + "(boolean x)");
+          output.println("{");
+          output.println(entry.getValue() + "= x " + ";");
+          output.println("}");
         }else{
           //if(entry.getValue()!= "-99"){
           output.println("void " + "set" + entry.getKey() + "(int x)");

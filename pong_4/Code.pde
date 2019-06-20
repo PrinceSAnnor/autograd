@@ -1,62 +1,28 @@
 class Code {
-//maxX = 1480, maxY = 720
+//maxX = 1920, maxY = 1080
 
-int screenWidth = 1480; //set to your maxX
+float screenWidth = 1920; //maxX
+float screenHeight = 1080; //maxY
 
-int screenHeight = 720; //set to yoir maxY
-
-int screenWidthHalfed = 740; //maxX/2 = 1480/2 = 740
-
-//x position of the ball is exactly half of the x axis
-int ballX = 740; // maxX/2 = 1480/2 = 740
-
-//y position of the ball is exactly half of the y axis
-int ballY = 360; // maxY/2 = 720/2 = 360
-
-int ballWidth = 50; //Declare variable to hold width of ball
-
-int ballHeight = 50; //Declare variable to hold height of ball
-
-int leftPaddleX = 0; //Declare variable to hold x position of left paddle
-
-int leftPaddleY = 0; //Declare variable to hold y position of left paddle
-
-int rightPaddleX = 1430; //Declare variable to hold x position of right paddle
-
-int rightPaddleY = 540; //Declare variable to hold y position of right paddle
-
-int paddleWidth = 50; //Declare variable to hold width of both right and left paddles
-
-int paddleHeight = 180; //Declare variable to hold height of both right and left paddles
-
-int leftPlayerScoreNumber = 0; //Declare variable to hold left player score's number
-
-float leftPlayerScoreX = 493.3; //Declare variable to hold x position of left player score
-
-int leftPlayerScoreY = 360; //Declare variable to hold y position of left player score
-
-int rightPlayerScoreNumber = 0; //Declare variable to hold right player score's number
-
-int rightPlayerScoreX = 987; //Declare variable to hold x position of right player score
-
-int rightPlayerScoreY = 360; //Declare variable to hold y position of right player score
-
-int wordSize = 100; //Declare variable to hold size of text
-
-int xSpeed = 2; //ball's horizontal speed
-
-int ySpeed = 5; //ball's vertical speed
-
-int radius = 25; //since half of the width or height of the ball is the radius
-
-boolean hasOverLappedLeftPaddle = false;
-
-boolean hasOverLappedRightPaddle = false;
-
-boolean beginGame = false; //New variable to start ball movement
-
-
-
+float xBall = 960; //x position of the ball 
+float yBall = 540; //y position of the ball 
+float diameter = 50;  //diameter of the ball
+float leftPaddleX = 0; //x coordinate of the left paddle in the top left corner 
+float leftPaddleY = 0; //y coordinate of the left paddle in the top left corner
+float rightPaddleX = 1872; //x coordinate of the right paddle in the bottom right corner
+float rightPaddleY = 864; //y coordinate of the right paddle in the bottom right corner
+int paddleHeight =  216; //height of the paddle
+int paddleWidth = 48; //width of the paddle
+int leftScore = 0; //score of the left player
+int rightScore = 0; //score of the right player
+float leftScoreX = 480; //x coordinate of the left player's score
+float leftScoreY = 540; //y coordinate of the right player's score
+float rightScoreX = 1440; //x coordinate of the right player's score
+float rightScoreY = 540; //y coordinate of the right player's score
+float xSpeed = -6; //horizontal speed of the ball
+float ySpeed = 0; //vertical speed of the ball
+float radius = 25; //radius of the ball
+boolean gameOn = false;
 
 void once()
 {
@@ -64,211 +30,155 @@ void once()
 }
 
 
-
-
 void forever()
 {
-  background(128, 0, 0); //sets the background red
+  background (0); //set background to black each frame
+  stroke (0, 0, 255); //use a blue outline for all shapes until stroke is run again with another color
 
-  movePaddles(); //move paddles vertically
- 
-  displayScores(); //draws the scores on the screen
-  
-  displayBall(); //draws ball on the screen
-  
-  displayPaddles(); // draws the paddles on the screen
-  
-  moveBall(); //moves ball if game is on
-  
-  checkWall(); //makes the ball bounce off too and bottom walls, and increases left player's score if ball hits right wall and increase right player's score if ball hits left wall. sets game off if hits left or right wall
-  
-  setGameMode(); //sets game on if mouse is pressed
-  
-  stroke(0, 0, 255); //sets the color of the outline of the shapes drawn below this code blue
-  
-  textSize(wordSize); //sets text size to 100
-  
-  fill(255, 255, 0); //sets color of text drawn below this code yellow
-  
-  
-  
-  
-  
-  //Check if there is an overlap between ball and left paddle
-  hasOverLappedLeftPaddle = checkLeftPaddle(leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, ballX, ballY, radius);
-  
-  if(hasOverLappedLeftPaddle){
-    xSpeed = xSpeed*-1;
-  }
-  
-  //Check if there is an overlap between ball and right paddle
-  hasOverLappedRightPaddle = checkRightPaddle(rightPaddleX, rightPaddleY, paddleWidth, paddleHeight, ballX, ballY, radius);
-  
-  if(hasOverLappedRightPaddle){
-    xSpeed = xSpeed*-1;
-  }
-  }
-  
+  setGameMode(); //checks if should set game on
+  displayScores(); //displays the scores for the game
+  displayBall(); //displays the ball
+  displayPaddles(); //display paddles
 
-void movePaddles() {
-  
-  if (mouseX < screenWidthHalfed){
-  leftPaddleY = constrain(mouseY,  0, screenHeight - paddleHeight); //constrain left paddle window to drawing window
-  }else{
-  rightPaddleY = constrain (mouseY, 0, screenHeight - paddleHeight); //constrain right paddle window to drawing window
-  }
-  }
-  
-  
-  
-  //Checks if ball overlaps left paddle
+  moveBall(); //moves the ball
+  movePaddles(); //moves paddles and keeps it in the screen
 
-boolean checkLeftPaddle(int leftPaddleX, int leftPaddleY, int paddleWidth, int paddleHeight, int ballX, int ballY, int radius) {
-
-  float ballLeftEdge = ballX - radius; //left edge of ball
-
-  float ballBottomEdge = ballY + radius; //bottom edge of ball
-
-  float ballRightEdge = ballX+radius; //right edge of ball
-
-  float ballTopEdge = ballY-radius; //top edge of ball
-
-
-  float leftPaddleLeftEdge = leftPaddleX; //left edge of left paddle
-
-  float leftPaddleBottomEdge = leftPaddleY+paddleHeight; //bottom edge of left paddle
-
-  float leftPaddleRightEdge = leftPaddleX+paddleWidth; //right edge of left paddle
-
-  float leftPaddleTopEdge = leftPaddleY; //top edge of left paddle
-
-  if (ballBottomEdge >= leftPaddleTopEdge //Check if bottom edge of ball and top edge of paddle overlap
-
-    && ballTopEdge <= leftPaddleBottomEdge //Check if top edge of ball and bottom edge of paddle overlap
-
-    && ballLeftEdge <= leftPaddleRightEdge //Check if left edge of ball and right edge of paddle overlap
-
-    && ballRightEdge >= leftPaddleLeftEdge ) //Check if right edge of ball and left edge of paddle overlap
-
-  {  
-    return true;
-  }
-else {
-    return false;
-  }
+  checkWall(); //makes ball bounce off top and bottom walls, and changes players’ scores when it hits right and left walls
+  checkLeftPaddle(); //checks for intersection between ball and left paddle 
+  checkRightPaddle(); //checks for intersection between ball and right paddle
 }
 
-//Checks if ball overlaps right paddle
-
-boolean checkRightPaddle(int rightPaddleX, int rightPaddleY, int paddleWidth, int paddleHeight, int ballX, int ballY, int radius) {
-
-  float ballLeftEdge = ballX - radius; //left edge of ball
-
-  float ballBottomEdge = ballY + radius; //bottom edge of ball
-
-  float ballRightEdge = ballX+radius; //right edge of ball
-
-  float ballTopEdge = ballY-radius; //top edge of ball
-
-
-  float rightPaddleLeftEdge = rightPaddleX; //left edge of left paddle
-
-  float rightPaddleBottomEdge = rightPaddleY+paddleHeight; //bottom edge of left paddle
-
-  float rightPaddleRightEdge = rightPaddleX+paddleWidth; //right edge of left paddle
-
-  float rightPaddleTopEdge = rightPaddleY; //top edge of left paddle
-
-  if (ballBottomEdge >= rightPaddleTopEdge //Check if bottom edge of ball and top edge of paddle overlap
-
-    && ballTopEdge <= rightPaddleBottomEdge //Check if top edge of ball and bottom edge of paddle overlap
-
-    && ballLeftEdge <= rightPaddleRightEdge //Check if left edge of ball and right edge of paddle overlap
-
-    && ballRightEdge >= rightPaddleLeftEdge ) //Check if right edge of ball and left edge of paddle overlap
-
-  {  
-    return true;
-  }
-else {
-    return false;
-  }
-}
-
-
-
-
-void displayScores() {
-  
-  text(leftPlayerScoreNumber, leftPlayerScoreX, leftPlayerScoreY); //writes text on screen
- 
-  text(rightPlayerScoreNumber, rightPlayerScoreX, rightPlayerScoreY); //writes text on screen
-}
-
-
-
-void displayBall() {
-  
-  fill(255); //sets the color of shapes drawn below this code white
-  
-  ellipse(ballX, ballY, ballWidth, ballHeight); //draws an ellipse
-  
-}
-
-
-void displayPaddles() {
-  fill(0, 128, 0); //sets the color of shapes drawn below this code deep green
-  
-  rect(leftPaddleX, leftPaddleY, paddleWidth, paddleHeight); //draws a rectangle
-  
-  rect(rightPaddleX, rightPaddleY, paddleWidth, paddleHeight); //draws a rectangle
-  
-}
-
-
-
-void moveBall() {
-  //Move ball
-  if (beginGame){
-  ballX = ballX + xSpeed;
-  ballY = ballY + ySpeed;
-  }else{
-  ballX = 740;
-  ballY = 360;
-  }
-}
-
-
-
-void checkWall() {
-  //Check if ball hits top or bottom walls
-  if ((ballY-radius < 0) || (ballY+radius) > screenHeight){
-  ySpeed = ySpeed * -1; //Reverse direction
-  }
-  
-  //Check if right player's score increases and the game is off
-  if (ballX-radius < 0){
-  rightPlayerScoreNumber = rightPlayerScoreNumber + 1;
-  beginGame = false;
-  }
-  
-  //Check if left player's score increases and game is off
-  if (ballX+radius > screenWidth){
-  leftPlayerScoreNumber = leftPlayerScoreNumber + 1;
-  beginGame = false;
-  }
-  
-  if ((ballX-radius < 0) || (ballX+radius) > screenWidth){
-  xSpeed = xSpeed * -1; //Reverse direction
-  }
-}
-
-
-
+//Checks if should set game on
 void setGameMode() {
-   //Check if mouse is pressed, set beginGame to true
-  if (mousePressed){
-  beginGame = true;
+  //Set game to be on when screen is touched
+  if (mousePressed) {
+    gameOn = true;
+  }
+}
+//Draws the scores 
+void displayScores() //displays interface
+{
+  textSize(30); //set size of the player's scores
+  fill (255); //set color to white
+  text (leftScore, leftScoreX, leftScoreY); //draw left player's score 
+  text (rightScore, rightScoreX, rightScoreY); //draw right player's score
+}
+
+//Draw Paddles
+void displayPaddles() {
+  fill (0, 255, 0); //fill all shapes to green until fill is run with another color 
+  rect (leftPaddleX, leftPaddleY, paddleWidth, paddleHeight); //draw left paddle
+  rect (rightPaddleX, rightPaddleY, paddleWidth, paddleHeight); //draw right paddle
+
+}
+
+//Draws ball on screen
+void displayBall() 
+{
+  fill(255); //set ball color to white  
+  ellipse (xBall, yBall, diameter, diameter); //draw ball unto the screen
+}
+
+//Moves ball if game is on
+void moveBall() 
+{
+  //Checks if game is on
+  if (gameOn) {
+    xBall = xBall + xSpeed; //increase the x position of the ball by x speed
+    yBall = yBall + ySpeed; //increase the y position of the ball by y speed
+  }
+}
+
+//Checks if ball hits any of the 4 walls and either bounces or exits
+void checkWall()
+{
+  //Check if ball completely exits left side of the screen 
+  if (xBall + radius < 0) //if the ball exits the left side of the screen 
+  {
+    rightScore = rightScore + 1; //increment the right player's score by one
+    xBall = screenWidth/2; //set the horizontal position of the ball to half of the width
+    yBall = screenHeight/2; //set the vertical position of the ball to half of the height
+    gameOn = false;
+  } 
+
+  //Check if ball completely exits right side of the screen 
+  if (xBall - radius > screenWidth) //if the ball exits the right side of the screen 
+  {
+    leftScore = leftScore + 1; //increment the right player's score by one
+    xBall = screenWidth/2; //set the horizontal position of the ball to half of the width
+    yBall = screenHeight/2; //set the vertical position of the ball to half of the height 
+    gameOn = false;
+  }
+
+  //Check if ball hits top and bottom sides of the screen 
+  if (yBall - radius < 0 || yBall + radius > screenHeight) //if the ball hits the top or bottom sides of the screen 
+  {
+    ySpeed = ySpeed * -1; //then reverse the polarity of the vertical speed so the ball moves in the opposite vertical direction
+  }
+}
+
+//Checks if ball has hit left paddle
+void checkLeftPaddle()
+{
+  //Check if there is an overlap between ball and left paddle 
+  boolean hasOverlappedLeftPaddle = doesOverlap(leftPaddleX, leftPaddleY, paddleWidth, paddleHeight, xBall, yBall, radius); 
+
+  if (hasOverlappedLeftPaddle)
+  {
+    xSpeed = xSpeed * -1; //reverse the ball's horizontal speed
+  }
+}
+
+//Checks if ball has hit right paddle
+void checkRightPaddle()
+{
+  //Check if there is an overlap between ball and right paddle
+  boolean hasOverlappedRightPaddle = doesOverlap(rightPaddleX, rightPaddleY, paddleWidth, paddleHeight, xBall, yBall, radius); 
+
+  if (hasOverlappedRightPaddle)
+  {
+    xSpeed = xSpeed * -1; //reverse the ball's horizontal speed
+  }
+}
+
+//Moves left paddle and keeps it on the screen 
+void movePaddles() 
+{  
+  //Check if touching left part of screen
+  if (mouseX < screenWidth/2)
+  {
+    leftPaddleY = constrain(mouseY, 0, screenHeight-paddleHeight); //constrain paddle to drawing window
+  }
+
+  //Check if touching right part of screen
+  if (mouseX > screenWidth/2)
+  {
+    rightPaddleY = constrain(mouseY, 0, screenHeight-paddleHeight); //constrain paddle to drawing window
+  }
+}
+
+//Checks if ball overlaps paddle
+
+boolean doesOverlap(float xPaddle, float yPaddle, float widthPaddle, float heightPaddle, float xBall, float yBall, float radius) {
+
+  float ballLeftEdge = xBall-radius; //left edge of ball
+  float ballBottomEdge = yBall+radius; //bottom edge of ball
+  float ballRightEdge = xBall+radius; //right edge of ball
+  float ballTopEdge = yBall-radius; //top edge of ball
+
+  float paddleLeftEdge = xPaddle; //left edge of paddle
+  float paddleBottomEdge = yPaddle+heightPaddle; //bottom edge of paddle
+  float paddleRightEdge = xPaddle+widthPaddle; //right edge of paddle
+  float paddleTopEdge = yPaddle; //top edge of paddle
+
+  if (ballBottomEdge >= paddleTopEdge //Check if bottom edge of ball and top edge of paddle overlap
+    && ballTopEdge <= paddleBottomEdge //Check if top edge of ball and bottom edge of paddle overlap
+    && ballLeftEdge <= paddleRightEdge //Check if left edge of ball and right edge of paddle overlap
+    && ballRightEdge >= paddleLeftEdge ) //Check if right edge of ball and left edge of paddle overlap
+  {   
+    return true;
+  } else { 
+    return false;
   }
 }
 int wierd = -99;
@@ -298,23 +208,23 @@ return int(leftPaddleY);
 }
 int leftScoreX()
 {
-return int(leftPlayerScoreX);
+return int(leftScoreX);
 }
 int scoreY()
 {
-return int(leftPlayerScoreY);
+return int(leftScoreY);
 }
 int leftScore()
 {
-return int(leftPlayerScoreNumber);
+return int(leftScore);
 }
 int ballY()
 {
-return int(ballY);
+return int(yBall);
 }
 int ballX()
 {
-return int(ballX);
+return int(xBall);
 }
 int paddleHeight()
 {
@@ -326,11 +236,11 @@ return int(leftPaddleX);
 }
 int rightScore()
 {
-return int(rightPlayerScoreNumber);
+return int(rightScore);
 }
 int txtSize()
 {
-return int(wordSize);
+return int(wierd);
 }
 int paddleWidth()
 {
@@ -338,15 +248,19 @@ return int(paddleWidth);
 }
 int rightScoreX()
 {
-return int(rightPlayerScoreX);
+return int(rightScoreX);
 }
 int diameter()
 {
-return int(ballWidth);
+return int(diameter);
 }
 int ballXSpeed()
 {
 return int(xSpeed);
+}
+boolean gameOn()
+{
+return gameOn;
 }
 int ballYSpeed()
 {
@@ -366,23 +280,23 @@ leftPaddleY= x ;
 }
 void setleftScoreX(int x)
 {
-leftPlayerScoreX= x ;
+leftScoreX= x ;
 }
 void setscoreY(int x)
 {
-leftPlayerScoreY= x ;
+leftScoreY= x ;
 }
 void setleftScore(int x)
 {
-leftPlayerScoreNumber= x ;
+leftScore= x ;
 }
 void setballY(int x)
 {
-ballY= x ;
+yBall= x ;
 }
 void setballX(int x)
 {
-ballX= x ;
+xBall= x ;
 }
 void setpaddleHeight(int x)
 {
@@ -394,11 +308,11 @@ leftPaddleX= x ;
 }
 void setrightScore(int x)
 {
-rightPlayerScoreNumber= x ;
+rightScore= x ;
 }
 void settxtSize(int x)
 {
-wordSize= x ;
+wierd= x ;
 }
 void setpaddleWidth(int x)
 {
@@ -406,15 +320,19 @@ paddleWidth= x ;
 }
 void setrightScoreX(int x)
 {
-rightPlayerScoreX= x ;
+rightScoreX= x ;
 }
 void setdiameter(int x)
 {
-ballWidth= x ;
+diameter= x ;
 }
 void setballXSpeed(int x)
 {
 xSpeed= x ;
+}
+void setgameOn(boolean x)
+{
+gameOn= x ;
 }
 void setballYSpeed(int x)
 {

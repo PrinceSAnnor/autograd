@@ -1372,20 +1372,20 @@ class Test {
     try
     {
       //Start simulation
-      mousePressed = true;
+      //mousePressed = true;
       int x = 10;
       int y = 10;
       
       
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
-        //code1.setgameOn(true);
-        //code2.setgameOn(true);
-        //code3.setgameOn(true);
-        //code4.setgameOn(true);
-        //code5.setgameOn(true);
-        //code6.setgameOn(true);
-        //code7.setgameOn(true);
+        code1.setgameOn(true);
+        code2.setgameOn(true);
+        code3.setgameOn(true);
+        code4.setgameOn(true);
+        code5.setgameOn(true);
+        code6.setgameOn(true);
+        code7.setgameOn(true);
           
           //Generates the state for scenario 1
           code1.forever();
