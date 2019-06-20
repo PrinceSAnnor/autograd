@@ -479,7 +479,6 @@ class AutoGrad(object):
                             self.mailer.send_message(student_email, title, message)
                             print("Mail sent successfully to {}".format(student_email))
                         else: print("This is a second submission. Did not send mail.")
-                        return True
                     except HttpError as e:
                         print("Sending mail unsuccessful")
                         error = json.loads(e.content).get('error')
@@ -487,7 +486,8 @@ class AutoGrad(object):
                     break
         else:
             click.echo("Done. There were no results to mail.")
-            return False        
+            return False   
+        return True     
 
     def submit(self, course, assignment, results, return_grade=False):
         """
@@ -524,7 +524,7 @@ class AutoGrad(object):
         click.echo("Files to be graded are in {}".format(self.file_path))
         return True
 
-    def save_grading_info(self, *args):
+    def save_grading_info(self, *args, **kwargs):
         import shutil
 
         # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
@@ -539,8 +539,15 @@ class AutoGrad(object):
                     print("Found "+src)
                     
                     try:
-                        if not os.path.exists(dst): os.makedirs(dst)
-                        shutil.move(src, dst)
+                        if not os.path.exists(dst):
+                            os.makedirs(dst)
+                            shutil.move(src, dst)
+                        # else:
+                        #     with open(src,'w') as s, open(os.path.join(dst,file),'w') as d:
+                        #         results = json.load(s)
+                        #         old = json.load(d)
+                        #         for obj in results:
+                        #             old.append(obj)
                     except:
                         print("Couldn't move/find {}. Please move manually to {}".format(src, dst))
 
