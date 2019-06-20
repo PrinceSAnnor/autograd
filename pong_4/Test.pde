@@ -1307,7 +1307,7 @@ class Test {
       code.setGameMode();
     }catch(Exception e){
       test.totalScore -= test.deduction;
-      println("The function setGameMode() doesn't exist. Ensure your function is named properly if you created it.");
+      errors.add("The function setGameMode() doesn't exist. Ensure your function is named properly if you created it.");
     }
     
     //Check checkWall
@@ -1315,7 +1315,7 @@ class Test {
         code.checkWall();
       }catch(Exception e){
         test.totalScore -= test.deduction;
-        println("The function checkWall() doesn't exist. Ensure your function is named properly if you created it.");
+        errors.add("The function checkWall() doesn't exist. Ensure your function is named properly if you created it.");
       }
       
     //Check moveBall
@@ -1323,7 +1323,7 @@ class Test {
       code.moveBall();
     }catch(Exception e){
       test.totalScore -= test.deduction;
-      println("The function moveBall() doesn't exist. Ensure it is named properly if you created it.");
+      errors.add("The function moveBall() doesn't exist. Ensure it is named properly if you created it.");
     }
     
     //Check displayPaddles
@@ -1331,7 +1331,7 @@ class Test {
       code.displayPaddles();
       }catch(Exception e){
         test.totalScore -= test.deduction;
-        println("The function displayPaddles() doesn't exist. Ensure it is named properly if you created it.");
+        errors.add("The function displayPaddles() doesn't exist. Ensure it is named properly if you created it.");
       }
       
     //Check displayBall()
@@ -1339,31 +1339,31 @@ class Test {
         code.displayBall();
       }catch(Exception e){
         test.totalScore -= test.deduction;
-        println("The function displayBall() doesn't exist. Ensure it is named properly if you created it.");
+        errors.add("The function displayBall() doesn't exist. Ensure it is named properly if you created it.");
       }
     //Check displayScores()
     try{
     code.displayScores();
     }catch(Exception e){
       test.totalScore -= test.deduction;
-      println("The function displayScores() doesn't exist. Ensure it is named properly if you created it.");
+      errors.add("The function displayScores() doesn't exist. Ensure it is named properly if you created it.");
     }    
     
     //Check checkLeftPaddle() 
-    try{
-    code.checkLeftPaddle();
-    }catch(Exception e){
-      test.totalScore -= test.deduction;
-      println("The function checkLeftPaddle() doesn't exist. Ensure it is named properly if you created it.");
-    }
+    //try{
+    //code.checkLeftPaddle();
+    //}catch(Exception e){
+    //  test.totalScore -= test.deduction;
+    //  errors.add("The function checkLeftPaddle() doesn't exist. Ensure it is named properly if you created it.");
+    //}
     
-    //Check rightPaddle()
-    try{
-    code.checkRightPaddle();
-    }catch(Exception e){
-      test.totalScore -= test.deduction;
-      println("The function checkRightPaddle() doesn't exist. Ensure it is named properly if you created it.");
-    }
+    ////Check rightPaddle()
+    //try{
+    //code.checkRightPaddle();
+    //}catch(Exception e){
+    //  test.totalScore -= test.deduction;
+    //  errors.add("The function checkRightPaddle() doesn't exist. Ensure it is named properly if you created it.");
+    //}
     
   }
 
@@ -1646,7 +1646,7 @@ class Test {
   //Check if ball bounces of left paddle
   void checkLeftPaddleBounce(){
     int minIndex = leftBounceVals.indexOf(Collections.min(leftBounceVals));
-      int maxIndex = leftBounceVals.indexOf(Collections.max(leftBounceVals));
+      //int maxIndex = leftBounceVals.indexOf(Collections.max(leftBounceVals));
       
       // Test upper wall bounce.  - If min is the first or last element it means there was no bounce.
       if(minIndex == (leftBounceVals.size()-1) || minIndex == 0 ){ 
@@ -1718,6 +1718,7 @@ class Test {
     {
       // String[] splitBySemiColon;
       // String[] splitBySpace;
+      int y = 0;//Boolean counter
       
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
@@ -1732,11 +1733,14 @@ class Test {
           // Edited to match both declarations and initialisations.
           if(match(linesFiltered.get(m), "^boolean.*$") != null) {
             
+            if(y ==0){//use only first boolean for gameOn
             splitMatch = trim(splitTokens(linesFiltered.get(m), "=; "));
             
             String gameOnVar = trim(splitMatch[1]);
 
             varNamesHashMap.put("gameOn", gameOnVar);
+            }
+            y++;
 
         }
       }
