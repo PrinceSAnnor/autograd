@@ -43,9 +43,9 @@ def cli(context, course, assignment, submission, file):
         a = AutoGrad()
 
         # Option 1 - Testing fully automated process
-        # a.retrieve(course, assignment, submission) # Get files, download
-        # results = a.grade_files(assignment, course, submission) # Results of grading. Stored in results.json also
-        # added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
+        a.retrieve(course, assignment, submission) # Get files, download
+        results = a.grade_files(assignment, course, submission) # Results of grading. Stored in results.json also
+        added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
         # if added: a.send_mail(results=results)
         # else: click.echo("could not add to classroom")
         # a.save_grading_info()
@@ -96,9 +96,13 @@ def check(context):
         a.boot() # Connect to Google APIs. This is not needed when testing  
         subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
         at = a.get_files_for_download(subs) # Get the .pde file attachments
-        name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission)  
-        fn = os.path.join(a.BASE_DIR, 'logs' ,name)
+        name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission) 
+        
+        logs = os.path.join(a.BASE_DIR, 'logs') 
+        fn = os.path.join(logs ,name)
+        if not os.path.exists(logs): os.makedirs(logs)
         a.log_to_file(at,fn)
+        
         click.echo("Currently turned in submissions logged to logs/turned_in_{}_{}_{}.json".format(course,assignment,submission))
     else:
         click.echo("Insufficient options. Exiting.. Try --help for more info")

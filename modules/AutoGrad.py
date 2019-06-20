@@ -211,6 +211,7 @@ class AutoGrad(object):
                 return {}
 
         attachments = list(map( lambda sub: get_PDE(sub) ,subs))
+        attachments = list(filter( lambda s: s != None, attachments))
         self.attachments = attachments # Attach to instance
         click.echo("Retrieved {} filename(s)".format(len(attachments)))
        
