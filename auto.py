@@ -42,16 +42,16 @@ def cli(context, course, assignment, submission, file):
         # Init
         a = AutoGrad()
 
-        # Option 1 - Testing fully automated process
-        a.retrieve(course, assignment, submission) # Get files, download
-        results = a.grade_files(assignment, course, submission) # Results of grading. Stored in results.json also
-        added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
-        # if added: a.send_mail(results=results)
+        # Option 1 - Testing fully automated process (without email)
+        # a.retrieve(course, assignment, submission) # Get files, download
+        # results = a.grade_files(course, assignment, submission) # Results of grading. Stored in results.json also
+        # added = a.add_to_classroom(course, assignment, results, return_grade=True) # Set return_grade = False if you want only draftGrade
+        # if added: click.echo("Sent to classroom")
         # else: click.echo("could not add to classroom")
         # a.save_grading_info()
         
         # Option 2 - Manual grade from local files and add to classroom (without results)
-        # results = a.grade_files(assignment, course, submission)
+        results = a.grade_files(course, assignment, submission)
         # status = a.add_to_classroom(course, assignment, results, return_grade=True)
         # a.save_grading_info()
 
@@ -71,11 +71,6 @@ def cli(context, course, assignment, submission, file):
         # status = a.send_mail(res)
         # print(status)
 
-        # Option - 5 Check how many turned in
-        # a.boot() # Connect to Google APIs. This is not needed when testing  
-        # subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
-        # at = a.get_files_for_download(subs) # Get the .pde file attachments
-        # a.log_to_file(at,"turned_in.json")
        
 
 @cli.command()

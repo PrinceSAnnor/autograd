@@ -534,7 +534,7 @@ class AutoGrad(object):
             self.retrieve(course, assignment, submission)
             
             # Results of grading. Stored in results.json also
-            results = self.grade_files(assignment_num=assignment, course_num=course, submission_num=submission)
+            results = self.grade_files(course, assignment, submission)
 
             # Submit results
             submitted = self.submit(course, assignment, results, return_grade)

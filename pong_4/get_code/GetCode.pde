@@ -353,51 +353,53 @@ void checkRects() //check rects
   }
 
   void getSpeeds() 
-  {
-    ArrayList<String> temp = new ArrayList<String>(); //Array list contaning speed variables
-    
-    // For later refactoring..
-    //ArrayList<String> conditions = new ArrayList<String>();
-    //conditions.add("speed");
-    //conditions.add("velocity");
-    //// -- For later refactoring
-    
+  {  
     try
     {
-      String[] splitBySemiColon;
-      String[] splitBySpace;
       
-      for (int m = 0; m < varKeys.size(); m++) 
-      {        
-          if( varKeys.get(m).toLowerCase().contains("speed") ) {
-            String varName = varKeys.get(m); //trim(splitBySpace[1]);
-            temp.add(varName);    
+      String speedVar="xs";
+      String pattern = "[a-zA-Z0-9 ]+=[a-zA-Z0-9 ]+[+-][a-zA-Z0-9 ]+;";
+
+      /* Matches an updating assignment statement eg. a = a + b;*/
+      for(int m = 0; m < linesFiltered.size(); m++)
+      {
+        String line = linesFiltered.get(m);
+        
+        
+        if( match(line, pattern) != null ) // Finds a match
+        {  
+          String[] lineAfterSplit = splitTokens(line, "+-=; "); //Remove operations and semicolon
+          String leftHandVar = lineAfterSplit[0];
+          String rightVarBeforeOperation = lineAfterSplit[1];
+          String rightVarAfterOperation = lineAfterSplit[2];
+          boolean isUpdatingBallX = leftHandVar.equals(varNamesHashMap.get("ballX"));
+          boolean isUpdatingBallY = leftHandVar.equals(varNamesHashMap.get("ballY"));
+          boolean isBallPosVar = isUpdatingBallX || isUpdatingBallY;
+          /*  
+            If the pattern is a = a + b, Check if a corresponds to a BALL position variable and not PADDLE position variable
+            Then, we can safely take b as the speed of the ball.
+          */ 
+          if( isBallPosVar && leftHandVar.equals(rightVarBeforeOperation) )
+          {
+              // The speed var is on the left. eg 'a = a + b', where b is speed
+              speedVar = rightVarAfterOperation;
+              if( isUpdatingBallX ) varNamesHashMap.put("ballXSpeed", speedVar);
+              else if( isUpdatingBallY ) varNamesHashMap.put("ballYSpeed",speedVar);
+               
+          }else if(isBallPosVar && leftHandVar.equals(rightVarAfterOperation) )
+          {
+              // The speed var is on the right. eg 'a = b + a', where b is speed
+              speedVar = rightVarBeforeOperation;
+              if( isUpdatingBallX ) varNamesHashMap.put("ballXSpeed", speedVar);
+              else if( isUpdatingBallY ) varNamesHashMap.put("ballYSpeed",speedVar);
+             
           }
+        }
       }
-      
-      for(int i =0; i< temp.size(); i++){
-          String name = temp.get(i);
-          if( match(name, "x") != null ){
-            //println("XSpeed is called =",name);
-            varNamesHashMap.put("ballXSpeed",name);
-          }
-          else if( match(name, "y") != null  ){
-            //println("Yspeed is called = ",name);
-            varNamesHashMap.put("ballYSpeed",name);
-          }
-         
-        }
-      
-         
-      if(temp.size() < 1){//if gameOn variable was not put in hashMap 
-        throw new Exception("You might not have all the speed variables . Please fix this and resubmit for grading.");
-        //println();
-        }
-        //println(temp);
     }
     catch(Exception e)
     {
-      println("couldnt get speed vars: " + e);
+      println("Couldnt get all speed vars: " + e);
     }
   }
 
@@ -405,8 +407,8 @@ void checkRects() //check rects
   {
     try
     {
-      String[] splitBySemiColon;
-      String[] splitBySpace;
+      // String[] splitBySemiColon;
+      // String[] splitBySpace;
       
       //for (int m = 0; m < linesFiltered.size(); m++) 
       //{         
@@ -420,24 +422,23 @@ void checkRects() //check rects
       //  }
       //}
       
-      
-      int booleanCounter = 0;
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
-        if(match(linesFiltered.get(m), "boolean") != null) {
-          booleanCounter++;
-          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
+        String[] splitMatch;
+        // Edited to match both declarations and initialisations.
+        if(match(linesFiltered.get(m), "^boolean.*$") != null) {
           
-          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
-          if(booleanCounter == 1){
-          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
-          }
+          splitMatch = trim(splitTokens(linesFiltered.get(m), "=; "));
+          
+          String gameOnVar = trim(splitMatch[1]);
+
+          varNamesHashMap.put("gameOn", gameOnVar);
         }
       }
     }
     catch(Exception e)
     {
-      // println("couldnt get boolean vars" + e);
+      println("couldnt get boolean vars" + e);
     }
   }
   
@@ -616,11 +617,11 @@ void checkRects() //check rects
      getLines();
      removeEmptyLines();
      getVariables();
-     getSpeeds();
      checkEllipses();
      checkRects();
      checkScores();
      getGameOn();
+     getSpeeds();
      createFile();
 
     

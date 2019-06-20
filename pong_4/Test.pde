@@ -59,11 +59,9 @@ class Test {
   Code code6 = new Code();
   Code code7 = new Code();
   
-  Method[] methods;
+  // Method[] methods;
   
-  
-  
-  
+   
   //Robot method to control the mouse.
   //void Robo(int x, int y) throws AWTException{
   //  Robot robot = new Robot();
@@ -233,8 +231,7 @@ class Test {
   {
     try
     {
-      String[] splitByComma = splitTokens(linesFiltered.get(0), ","); 
-
+      String[] splitByComma = splitTokens(linesFiltered.get(0), ",;"); 
       String[] splitByEqualsLeft = splitTokens(splitByComma[0], "=");
       String[] splitByEqualsRight = splitTokens(splitByComma[splitByComma.length - 1], "=");
 
@@ -1370,18 +1367,25 @@ class Test {
     
   }
 
-  void generateStates() {
+  void generateStates(){
     
     try
     {
       //Start simulation
-      mousePressed = true;
+      //mousePressed = true;
       int x = 10;
       int y = 10;
       
       
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
+        code1.setgameOn(true);
+        code2.setgameOn(true);
+        code3.setgameOn(true);
+        code4.setgameOn(true);
+        code5.setgameOn(true);
+        code6.setgameOn(true);
+        code7.setgameOn(true);
           
           //Generates the state for scenario 1
           code1.forever();
@@ -1423,7 +1427,7 @@ class Test {
       }
       catch(Exception e)
       {
-        println("Code runtime error:" +e);
+        errors.add("Error generating states:" +e);
         test.totalScore = 0;
         test.printResults();
         exit();
@@ -1432,35 +1436,42 @@ class Test {
   
 
   void checkLeftWall(){
-    boolean correct = true;
+    try {
+      boolean correct = true;
 
-    // If the ball crosses the left it will have a value larger than the screenWidth
-    int minVal = Collections.min(xvalLeft);
-    int minValIndex = xvalLeft.indexOf(minVal);
+      // If the ball crosses the left it will have a value larger than the screenWidth
+      int minVal = Collections.min(xvalLeft);
+      int minValIndex = xvalLeft.indexOf(minVal);
 
-    int minValScore = scoresR.get(minValIndex);
-    int nextScoreAfterMin = scoresR.get(minValIndex + 1);
+      int minValScore = scoresR.get(minValIndex);
+      int nextScoreAfterMin = scoresR.get(minValIndex + 1);
 
-    boolean thereIsAnIncrease = Collections.max(scoresR) != Collections.min(scoresR);
-    // boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
-    if(!thereIsAnIncrease){
-      correct = false;
-      errors.add("Check whether the scores change on crossing the lefthand wall");
-    } 
-
-    // If ball leaves the screen, even a little
-    if( minVal < 0 - Math.abs(code2.ballXSpeed())  ){
+      //boolean thereIsAnIncrease = Collections.max(scoresR) != Collections.min(scoresR);
+      boolean rightScoreIncreased = minValScore < nextScoreAfterMin;
+      if(!rightScoreIncreased){
         correct = false;
-        String err = "The game does not reset after crossing the left wall";
-        errors.add(err);
-      }
-      //return;
+        errors.add("Check whether the scores change correctly on crossing the lefthand wall");
+      } 
 
-      if(!correct) test.totalScore -= test.deduction;
+      // If ball leaves the screen, even a little
+      if( minVal < 0 - Math.abs(code2.ballXSpeed())  ){
+          correct = false;
+          String err = "The game does not reset after crossing the left wall";
+          errors.add(err);
+        }
+        //return;
+
+        if(!correct) test.totalScore -= test.deduction;
+    }
+    catch(Exception e)
+    {
+        errors.add("Error checking if left wall works as described");
+    }
+
   }
-
     
   void checkRightWall(){
+     try {
       boolean correct = true;
 
       // If the ball crosses the right it will have a value larger than the screenWidth
@@ -1470,12 +1481,12 @@ class Test {
       int maxValScore = scoresL.get(maxValIndex);
       int nextScoreAfterMax = scoresL.get(maxValIndex + 1);
 
-      boolean thereIsAnIncrease = Collections.max(scoresL) != Collections.min(scoresL);
-      // boolean leftScoreIncreased = maxValScore < nextScoreAfterMax && thereIsAnIncrease;
+      //boolean thereIsAnIncrease = Collections.max(scoresL) != Collections.min(scoresL);
+      boolean leftScoreIncreased = maxValScore < nextScoreAfterMax; //&& thereIsAnIncrease;
       
-      if(!thereIsAnIncrease){
+      if(!leftScoreIncreased){
         correct = false;
-        errors.add("Check whether the scores change on crossing the righthand wall");
+        errors.add("Check whether the scores change correctly on crossing the righthand wall");
       } 
 
       // If ball leaves the screen, even a little
@@ -1488,75 +1499,85 @@ class Test {
 
       if(!correct) test.totalScore -= test.deduction;
       //return;
+      }
+      catch(Exception e){
+        errors.add("Error checking right wall");
+      }
+      
   }
 
 
     void setInitialConditions(){
-      // Place the ball at the center
-      int screenCentreX = (int) Math.floor(0.5 * screenWidth);
-      int screenCentreY = (int) Math.floor(0.5 * screenHeight);
-      int paddleCentreY1 = (int) Math.floor(screenCentreY - (code4.paddleHeight()/2));
-      int paddleCentreY2 = (int) Math.floor(screenCentreY - (code5.paddleHeight()/2));
-      
-      
-      // Set x and y positions of ball in all scenarios 
-      // TODO: refactor later
-      code1.setballX(screenCentreX);
-      code2.setballX(screenCentreX);
-      code3.setballX(screenCentreX);
-      code4.setballX(screenCentreX);
-      code5.setballX(screenCentreX);
-      code6.setballX(screenCentreX);
-      code7.setballX(screenCentreX);
+      try{
+        // Place the ball at the center
+        int screenCentreX = (int) Math.floor(0.5 * screenWidth);
+        int screenCentreY = (int) Math.floor(0.5 * screenHeight);
+        int paddleCentreY1 = (int) Math.floor(screenCentreY - (code4.paddleHeight()/2));
+        int paddleCentreY2 = (int) Math.floor(screenCentreY - (code5.paddleHeight()/2));
+        
+        
+        // Set x and y positions of ball in all scenarios 
+        // TODO: refactor later
+        code1.setballX(screenCentreX);
+        code2.setballX(screenCentreX);
+        code3.setballX(screenCentreX);
+        code4.setballX(screenCentreX);
+        code5.setballX(screenCentreX);
+        code6.setballX(screenCentreX);
+        code7.setballX(screenCentreX);
 
-      code1.setballY(screenCentreY);
-      code2.setballY(screenCentreY);
-      code3.setballY(screenCentreY);
-      code4.setballY(screenCentreY);
-      code5.setballY(screenCentreY);
-      code6.setballY(screenCentreY);
-      code7.setballY(screenCentreY);
+        code1.setballY(screenCentreY);
+        code2.setballY(screenCentreY);
+        code3.setballY(screenCentreY);
+        code4.setballY(screenCentreY);
+        code5.setballY(screenCentreY);
+        code6.setballY(screenCentreY);
+        code7.setballY(screenCentreY);
+        
+        // Initial conditions for scenario 1 - Bounce
+        code1.setballYSpeed(50);
+        code1.setballXSpeed(0);
+        
+        // Initial conditions for scenario 2 - Move left
+        code2.setballYSpeed(0);
+        code2.setballXSpeed(-50);
+        
+        // Initial conditions for scenario 3 - Move right
+        code3.setballYSpeed(0);
+        code3.setballXSpeed(50);
+        
+        //Initial conditions for scenario 4 - Move right
+        code4.setballYSpeed(0);
+        code4.setballXSpeed(50); 
+        //code4.setrightPaddleX(screenWidth - code4.paddleWidth()); // set X coordinate of paddle
+        code4.setrightPaddleY(paddleCentreY1);
+        code4.setpaddleHeight(screenHeight);
+        
+        //Initial conditions for scenario 5 - Move left
+        code5.setballYSpeed(0);
+        code5.setballXSpeed(-50);
+        //code5.setleftPaddleX(0); // set X coordinate of paddle
+        code5.setleftPaddleY(paddleCentreY2);
+        code5.setpaddleHeight(screenHeight);
+        
+        //Initial conditions for scenario 6 - Left Paddle Movement
+        code6.setleftPaddleY(0);
+        code6.setMouseX(10);
       
-      // Initial conditions for scenario 1 - Bounce
-      code1.setballYSpeed(50);
-      code1.setballXSpeed(0);
-      
-      // Initial conditions for scenario 2 - Move left
-      code2.setballYSpeed(0);
-      code2.setballXSpeed(-50);
-      
-      // Initial conditions for scenario 3 - Move right
-      code3.setballYSpeed(0);
-      code3.setballXSpeed(50);
-      
-      //Initial conditions for scenario 4 - Move right
-      code4.setballYSpeed(0);
-      code4.setballXSpeed(50); 
-      //code4.setrightPaddleX(screenWidth - code4.paddleWidth()); // set X coordinate of paddle
-      code4.setrightPaddleY(paddleCentreY1);
-      code4.setpaddleHeight(screenHeight);
-      
-      //Initial conditions for scenario 5 - Move left
-      code5.setballYSpeed(0);
-      code5.setballXSpeed(-50);
-      //code5.setleftPaddleX(0); // set X coordinate of paddle
-      code5.setleftPaddleY(paddleCentreY2);
-      code5.setpaddleHeight(screenHeight);
-      
-      //Initial conditions for scenario 6 - Left Paddle Movement
-      code6.setleftPaddleY(0);
-      code6.setMouseX(10);
-    
-      
-      //Initial conditions for scenario 7 - Right Paddle Movement.
-      code7.setrightPaddleY(0);
-      code7.setMouseX(screenWidth/2 + 100);
-      
-      
+        
+        //Initial conditions for scenario 7 - Right Paddle Movement.
+        code7.setrightPaddleY(0);
+        code7.setMouseX(screenWidth/2 + 100);
+        
+        }
+        catch(Exception e){
+          errors.add("Error setting intial conditions");
+        }
     }
 
   
   void checkWallsBounce(){
+    try{
       int minIndex = yvalBounce.indexOf(Collections.min(yvalBounce));
       int maxIndex = yvalBounce.indexOf(Collections.max(yvalBounce));
       
@@ -1583,7 +1604,11 @@ class Test {
       }
          
   }
-  
+    catch(Exception e){
+      errors.add("Error checking if ball bounces off walls");
+    }
+  }
+
   //Check whether paddles move
   void checkMovePaddlesRight(){
     boolean moveFlag = false;
@@ -1670,14 +1695,20 @@ class Test {
   } 
 
   void checkBallIsMoving(){
-    // We can just check one of the generated state maps if there is movement
-    int minValX = Collections.min(xvalLeft);
-    int maxValX = Collections.max(xvalLeft);
+    try {
+      // We can just check one of the generated state maps if there is movement
+      int minValX = Collections.min(xvalLeft);
+      int maxValX = Collections.max(xvalLeft);
 
-    // If the state remains the same, there is no movement.
-    if(minValX == maxValX) {
-      errors.add("Error: Check if ball is moving.");
+      // If the state remains the same, there is no movement.
+      if(minValX == maxValX) {
+        errors.add("Error: Check if ball is moving.");
+      }
     }
+    catch(Exception e){
+      errors.add("Error checking if ball is moving");
+    }
+    
   }
   
   //This function checks if the boolean gameOn exists and breaks code otherwise.
@@ -1685,19 +1716,28 @@ class Test {
   {
     try
     {
-      String[] splitBySemiColon;
-      String[] splitBySpace;
+      // String[] splitBySemiColon;
+      // String[] splitBySpace;
       
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
-        if(match(linesFiltered.get(m), "^boolean.*$") != null) {
+        // if(match(linesFiltered.get(m), "^boolean.*$") != null) {
           
-          splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
+        //   splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
           
-          splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
+        //   splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
           
-          varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
-          
+        //   varNamesHashMap.put("gameOn", trim(splitBySpace[1]));
+        String[] splitMatch;
+          // Edited to match both declarations and initialisations.
+          if(match(linesFiltered.get(m), "^boolean.*$") != null) {
+            
+            splitMatch = trim(splitTokens(linesFiltered.get(m), "=; "));
+            
+            String gameOnVar = trim(splitMatch[1]);
+
+            varNamesHashMap.put("gameOn", gameOnVar);
+
         }
       }
       
@@ -1712,6 +1752,7 @@ class Test {
     catch(Exception e)
     {
       // println("couldnt get boolean vars" + e);
+      errors.add("couldnt get boolean vars" + e);
     }
   }
 
@@ -1779,13 +1820,10 @@ class Test {
       checkGameOn();
       //checkMajorErrors();
       printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      debug(true);
+      //debug(true);
     } else {
       totalScore = 0;
-      String err = "Could not grade assignment: Check log at error_logs.txt. Skipping ...";
-      
       logFilesWithErrors();
-      print(err);
       print(totalScore, errors);
     }
     
