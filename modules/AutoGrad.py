@@ -65,8 +65,7 @@ class AutoGrad(object):
         click.echo("Downloading assignment files ...")
         
         self.drive = Drive() # Connect to Drive
-        if os.path.exists(self.code_dir): self.recycle(self.code_dir) # Clear folder first
-        
+      
         c = n = len(files_info)
         keys = sorted(list(self.course_names.keys()))
         vals = sorted(list(self.course_names.values()))
@@ -85,8 +84,9 @@ class AutoGrad(object):
                     new_file_dir = new_file_name.split('.pde')[0]
                     old_file_name = f['title']
 
-                    if not os.path.exists(new_file_dir):
-                        os.makedirs(new_file_dir)
+                    if os.path.exists(new_file_dir): # If the file has not been downloaded create a new folder, otherwise recycle the old
+                        self.recycle(os.path.join(self.file_path, new_file_dir)) # Clear folder first
+                    os.makedirs(new_file_dir)
                     os.chdir(new_file_dir) 
 
                     self.drive.get_file(f['id'], f['title'])
@@ -200,6 +200,7 @@ class AutoGrad(object):
                         self.submissions[user_id] = sub_id # Store a ref to sub_ids. This came later
 
                         final["submissionNo"] = sub_no
+                        final["subId"] = sub_id
                         final["userId"] = user_id
                         final["courseId"] = course_id
                         final["id"] = drive_file["id"]
@@ -289,12 +290,13 @@ class AutoGrad(object):
         dst = os.path.join(self.BASE_DIR, 'assets', 'recycle', r)  
         try:
             # There is code to be recycled from last grading
-            if not os.path.exists(dst) and os.path.exists(self.code_dir): os.makedirs(dst)
+            if not os.path.exists(dst) and os.path.exists(src): os.makedirs(dst)
             shutil.move(src,dst)
         except:
             pass
 
-    def grade_files(self, course_num='1,2', assignment_num='3', submission_num='1'):
+    def grade_files(self, course_num, assignment_num, submission_num):
+        import shutil
         # Run grading for a file
         click.echo("Grading files...")
 
@@ -322,9 +324,8 @@ class AutoGrad(object):
                 # List all files in dir
                 for root, dirs, files in os.walk(fp):
                     for name in dirs: 
-
                         self.file_path = os.path.join(fp, name)
-
+                        click.echo("Grading {}".format(self.file_path))
                         assignment_sketch = name + '.pde'
                         sketch_dir = os.path.join(os.getcwd(), 'pong_{}'.format(assignment_num)) # os.path.join(os.getcwd(), self.file_path)
                         build_dir = os.path.join(sketch_dir, 'build')
@@ -360,6 +361,13 @@ class AutoGrad(object):
                             final = { 'sub':submission_num, 'assignment':info['assignment'] ,'details': { 'course': info['course'],'userId':user_id, 'score':score, 'errors':errors } }
                             all.append(final)
 
+                            when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
+                            graded = os.path.join(self.BASE_DIR, 'assets','graded',when)
+                            if not os.path.exists(graded):
+                                os.makedirs(graded)
+                            click.echo("Moving {} to /assets/graded".format(self.file_path))
+                            shutil.move(self.file_path, graded)
+
                         except Exception as e:
                             with open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a') as f:
                                 f.writelines([name.strip('"'),'\n'])
@@ -371,9 +379,16 @@ class AutoGrad(object):
     
         return all
 
-    def attach_ids(self, dir):
+    def attach_ids(self, *args):
+        p = '_'.join(args)
+        dir = os.path.join(self.BASE_DIR, 'logs', p)
         results_json =  os.path.join(dir, 'results.json')
         temporary_json = os.path.join(dir, 'temporary.json')
+
+        if not os.path.exists(temporary_json) or not os.path.exists(results_json):
+            click.echo("Path: {} or {} may not exist. You must have graded submissions before submitting locally stored results.\
+                 Run auto.py with grade-download".format(temporary_json, results))
+            return False
 
         with open(results_json, 'r') as f, open(temporary_json, 'r') as g:
             results = json.load(f)
@@ -509,35 +524,36 @@ class AutoGrad(object):
         click.echo("Files to be graded are in {}".format(self.file_path))
         return True
 
-    def save_grading_info(self):
+    def save_grading_info(self, *args):
         import shutil
 
-        when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
+        # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
         to_save = ['grading_errors.txt', 'results.json', 'temporary.json']
 
-        dst = os.path.join(self.BASE_DIR, 'logs', when)
+        p = '_'.join(args)
+        dst = os.path.join(self.BASE_DIR, 'logs', p)
         for root, dirs, files in os.walk(self.BASE_DIR):
             for file in files: 
                 if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
-                    print(os.path.join(self.BASE_DIR, file))
                     src = os.path.join(self.BASE_DIR, file)
+                    print("Found "+src)
                     
                     try:
                         if not os.path.exists(dst): os.makedirs(dst)
                         shutil.move(src, dst)
                     except:
-                        print("Couldn't move data. Please move grading_errors.txt, temporary.json and results.json manually to /logs")
+                        print("Couldn't move/find {}. Please move manually to {}".format(src, dst))
 
 
     def deploy(self, course, assignment, submission, return_grade=False):
-            # Download and store files
-            self.retrieve(course, assignment, submission)
-            
-            # Results of grading. Stored in results.json also
-            results = self.grade_files(course, assignment, submission)
+        # Download and store files
+        self.retrieve(course, assignment, submission)
+        
+        # Results of grading. Stored in results.json also
+        results = self.grade_files(course, assignment, submission)
 
-            # Submit results
-            submitted = self.submit(course, assignment, results, return_grade)
+        # Submit results
+        submitted = self.submit(course, assignment, results, return_grade)
 
-            # Save grading errors (unable to grade) and info on scripts successfully graded
-            if submitted: self.save_grading_info()
+        # Save grading errors (unable to grade) and info on scripts successfully graded
+        if submitted: self.save_grading_info(course, assignment, submission)
