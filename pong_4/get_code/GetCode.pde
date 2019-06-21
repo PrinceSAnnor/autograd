@@ -421,18 +421,20 @@ void checkRects() //check rects
       //    varNamesHashMap.put("gameOn", "-99");
       //  }
       //}
-      
+      int i = 0;
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
         String[] splitMatch;
         // Edited to match both declarations and initialisations.
         if(match(linesFiltered.get(m), "^boolean.*$") != null) {
-          
+          if(i==0){
           splitMatch = trim(splitTokens(linesFiltered.get(m), "=; "));
           
           String gameOnVar = trim(splitMatch[1]);
 
           varNamesHashMap.put("gameOn", gameOnVar);
+          i++;
+          }
         }
       }
     }
