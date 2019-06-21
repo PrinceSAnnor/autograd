@@ -4,7 +4,7 @@ from modules.Drive import Drive
 from modules.Mail import Mail
 from modules.Sheets import Sheets
 
-import os, subprocess, sys, csv, json, click, random. shutil
+import os, subprocess, sys, csv, json, click, random, shutil
 from datetime import datetime
 from googleapiclient.errors import HttpError
 
@@ -378,8 +378,8 @@ class AutoGrad(object):
                             print("There was an error processing the script. Error:"+ str(e) )
 
                 break
-        if len(all) > 0:
-            logged = self.log_to_file(all,"results.json"):
+        if all:
+            logged = self.log_to_file(all,"results.json")
             if logged: self.save_grading_info(course_num, assignment_num ,submission_num)
     
         return all
@@ -500,7 +500,10 @@ class AutoGrad(object):
         TODO: Submit to Sheets
         """
         # Return draft grade to classroom
-        added = self.add_to_classroom(course, assignment, results, return_grade)
+        if len(results) > 0:
+            added = self.add_to_classroom(course, assignment, results, return_grade)
+        else:
+            return False
 
         # Send mail
         if added: self.send_mail(results=results)
