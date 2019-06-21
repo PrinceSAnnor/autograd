@@ -59,7 +59,7 @@ def grade_local(context):
     # Option 2 - Manual grade from local files, no download
     a = AutoGrad() # Init
     results = a.grade_files(course, assignment, submission)
-    if len(results) > 0: a.save_grading_info(course, assignment, submission)
+ 
 
 @cli.command()
 @click.pass_context
@@ -72,7 +72,7 @@ def grade_download(context):
     a = AutoGrad() # Init
     a.retrieve(course, assignment, submission) # Get files, download
     results = a.grade_files(course, assignment, submission) # Results of grading. Stored in results.json also
-    if len(results) > 0: a.save_grading_info(course, assignment, submission)
+ 
 
 @cli.command()
 @click.pass_context
@@ -121,9 +121,8 @@ def submit_local(context):
     a = AutoGrad() # Init
 
     # IMPORTANT: Do not delete your logs folder just in case
-    # results = a.attach_ids(course, assignment, submission)
-    # status = a.add_to_classroom(course, assignment, results, return_grade=True)
-
+    results = a.attach_ids(course, assignment, submission)
+    status = a.add_to_classroom(course, assignment, results, return_grade=True)
 
 @cli.command()
 @click.pass_context
@@ -137,7 +136,6 @@ def mail_local(context):
 
     a = AutoGrad() # Init
     # IMPORTANT: Do not delete your logs folder just in case
-    # dir = os.path.join('logs','2019-06-20-09-17-33', 'results.json')
     p = '_'.join(course, assignment, submission)
     dir = os.path.join('logs',p, 'results.json')
     f = open(dir,'r')

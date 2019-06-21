@@ -4,7 +4,7 @@ from modules.Drive import Drive
 from modules.Mail import Mail
 from modules.Sheets import Sheets
 
-import os, subprocess, sys, csv, json, click, random
+import os, subprocess, sys, csv, json, click, random. shutil
 from datetime import datetime
 from googleapiclient.errors import HttpError
 
@@ -219,9 +219,13 @@ class AutoGrad(object):
         return attachments
 
     def log_to_file(self, info, file_name="temporary.json"):
-        f = open(file_name, "w")
-        json.dump(info, f)
-        f.close()
+        try:
+            f = open(file_name, "w")
+            json.dump(info, f)
+            f.close()
+            return True
+        except:
+            return False
 
     def load_names_from_csv(self, course_name):
         os.chdir(self.BASE_DIR)
@@ -243,7 +247,6 @@ class AutoGrad(object):
             click.echo("There was an error loading the student details. Error: {}".format( str(e) ))
             return False
         
-
     def get_names_from_number(self, **kwargs):
         values = {}
         # Get the assignment name from self.assg_names
@@ -284,8 +287,7 @@ class AutoGrad(object):
         return values
 
     def recycle(self, src):
-        import shutil
-
+      
         r = str(random.randint(0,1000))
         dst = os.path.join(self.BASE_DIR, 'assets', 'recycle', r)  
         try:
@@ -295,8 +297,8 @@ class AutoGrad(object):
         except:
             pass
 
-    def grade_files(self, course_num, assignment_num, submission_num):
-        import shutil
+    def grade_files(self, course_num, assignment_num, submission_num, **kwargs):
+        
         # Run grading for a file
         click.echo("Grading files...")
 
@@ -361,8 +363,9 @@ class AutoGrad(object):
                             final = { 'sub':submission_num, 'assignment':info['assignment'] ,'details': { 'course': info['course'],'userId':user_id, 'score':score, 'errors':errors } }
                             all.append(final)
 
-                            when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
-                            graded = os.path.join(self.BASE_DIR, 'assets','graded',when)
+                            # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
+                            p = '_'.join((course_num,assignment_num, submission_num))
+                            graded = os.path.join(self.BASE_DIR, 'assets','graded',p)
                             if not os.path.exists(graded):
                                 os.makedirs(graded)
                             click.echo("Moving {} to /assets/graded".format(self.file_path))
@@ -375,7 +378,9 @@ class AutoGrad(object):
                             print("There was an error processing the script. Error:"+ str(e) )
 
                 break
-        self.log_to_file(all,"results.json")
+        if len(all) > 0:
+            logged = self.log_to_file(all,"results.json"):
+            if logged: self.save_grading_info(course_num, assignment_num ,submission_num)
     
         return all
 
@@ -445,7 +450,7 @@ class AutoGrad(object):
         """
 
         #prepare mail message
-        message = "Hi %s, Did you miss me? :D\n\nGood job!\nYou can can check your grade now.\n Grade: %d\n\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n"
+        message = "Hi {},\n\nGood job!\nYou can can check your grade now.\n Grade: {}\n\nSee below the things you missed, if any. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n"
             
         if( results and len(results) > 0 ):                                                
             # Connect to Mail
@@ -465,7 +470,7 @@ class AutoGrad(object):
                     student_details = self.get_names_from_number(user_details=user_details)
                     student_firstname = student_details['student_firstname'] or user_id
 
-                    message = message % (student_firstname, grade)    
+                    message = message.format(student_firstname, grade)    
                     errors = errors.split(',')
                     message += ''.join(list(map(lambda err: err+'\n' ,errors)))
 
@@ -475,7 +480,7 @@ class AutoGrad(object):
                         no_of_submissions = int(obj.get('sub'))
                         if no_of_submissions < 2:
                             student_email = student_details['student_email'] 
-                            title = "Results for %s" % (assignment)
+                            title = "Results for {}".format(assignment)
                             self.mailer.send_message(student_email, title, message)
                             print("Mail sent successfully to {}".format(student_email))
                         else: print("This is a second submission. Did not send mail.")
@@ -524,33 +529,41 @@ class AutoGrad(object):
         click.echo("Files to be graded are in {}".format(self.file_path))
         return True
 
-    def save_grading_info(self, *args, **kwargs):
-        import shutil
+    def save_grading_info(self, *args):
 
         # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
         to_save = ['grading_errors.txt', 'results.json', 'temporary.json']
 
-        p = '_'.join(args)
+        if args: p = '_'.join(args)
+        else: p = 'temp'
         dst = os.path.join(self.BASE_DIR, 'logs', p)
-        for root, dirs, files in os.walk(self.BASE_DIR):
-            for file in files: 
-                if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
-                    src = os.path.join(self.BASE_DIR, file)
-                    print("Found "+src)
-                    
-                    try:
-                        if not os.path.exists(dst):
-                            os.makedirs(dst)
-                            shutil.move(src, dst)
-                        # else:
-                        #     with open(src,'w') as s, open(os.path.join(dst,file),'w') as d:
-                        #         results = json.load(s)
-                        #         old = json.load(d)
-                        #         for obj in results:
-                        #             old.append(obj)
-                    except:
-                        print("Couldn't move/find {}. Please move manually to {}".format(src, dst))
-
+        for files in os.listdir(self.BASE_DIR):
+            
+            if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
+                src = os.path.join(self.BASE_DIR, file)
+                print("Found "+src)
+                
+                try:
+                    if not os.path.exists(dst):
+                        os.makedirs(dst)
+                        print("Moving from {} to {}".format(src, dst))
+                        shutil.move(src, dst)
+                    elif file == 'results.json':
+                        print("Appending results..")
+                        buffer = os.path.join(dst,'temp.json')
+                        final = os.path.join(dst,file)
+                        with open(src,'r') as s, open(final,'r+') as d, open(buffer,'w') as t:
+                            new_results = json.loads(s.read())
+                            old_results = json.loads(d.read())
+                            for obj in new_results: 
+                                old_results.append(obj) 
+                            json.dump(old_results, t)
+                        shutil.move(buffer, final)
+                        self.recycle(src) # Recycle the results.json
+                    else:
+                        self.recycle(src)
+                except:
+                    print("There was an error moving/appending results. {}".format(str(e)))
 
     def deploy(self, course, assignment, submission, return_grade=False):
         # Download and store files
