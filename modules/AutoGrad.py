@@ -359,11 +359,12 @@ class AutoGrad(object):
                             score = res.split()[0]
                             errors = res[3:].replace('[','').replace(']','')
 
+                            when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
+
                             user_id = name.split('_')[0]
-                            final = { 'sub':submission_num, 'assignment':info['assignment'] ,'details': { 'course': info['course'],'userId':user_id, 'score':score, 'errors':errors } }
+                            final = { 'sub':submission_num, 'when':when, 'assignment':info['assignment'] ,'details': { 'course': info['course'],'userId':user_id, 'score':score, 'errors':errors } }
                             all.append(final)
 
-                            # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
                             p = '_'.join((course_num,assignment_num, submission_num))
                             graded = os.path.join(self.BASE_DIR, 'assets','graded',p)
                             if not os.path.exists(graded):
@@ -540,21 +541,22 @@ class AutoGrad(object):
         if args: p = '_'.join(args)
         else: p = 'temp'
         dst = os.path.join(self.BASE_DIR, 'logs', p)
-        for files in os.listdir(self.BASE_DIR):
+        for file in os.listdir(self.BASE_DIR):
             
             if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
                 src = os.path.join(self.BASE_DIR, file)
                 print("Found "+src)
                 
+                final = os.path.join(dst,file)
+
                 try:
                     if not os.path.exists(dst):
                         os.makedirs(dst)
                         print("Moving from {} to {}".format(src, dst))
                         shutil.move(src, dst)
-                    elif file == 'results.json':
+                    elif file == 'results.json' and os.path.exists(final):
                         print("Appending results..")
                         buffer = os.path.join(dst,'temp.json')
-                        final = os.path.join(dst,file)
                         with open(src,'r') as s, open(final,'r+') as d, open(buffer,'w') as t:
                             new_results = json.loads(s.read())
                             old_results = json.loads(d.read())
@@ -564,8 +566,10 @@ class AutoGrad(object):
                         shutil.move(buffer, final)
                         self.recycle(src) # Recycle the results.json
                     else:
+                        print("Dir exists. Overwriting {} to {}".format(src, dst))
+                        shutil.move(src, final)
                         self.recycle(src)
-                except:
+                except Exception as e:
                     print("There was an error moving/appending results. {}".format(str(e)))
 
     def deploy(self, course, assignment, submission, return_grade=False):

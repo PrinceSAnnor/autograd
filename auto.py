@@ -136,11 +136,15 @@ def mail_local(context):
 
     a = AutoGrad() # Init
     # IMPORTANT: Do not delete your logs folder just in case
-    p = '_'.join(course, assignment, submission)
+    p = '_'.join([course, assignment, submission])
     dir = os.path.join('logs',p, 'results.json')
     f = open(dir,'r')
     res = json.load(f)
-    status = a.send_mail(res)
+
+    for i in reversed(res):
+        print(i)
+
+    #status = a.send_mail(res)
     
 
 def validate_opts(context):
