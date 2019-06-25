@@ -57,7 +57,6 @@ class Test {
   Code code5 = new Code(); //Test bounce off left paddle.
   //Two more states for checking Paddle Movement.
   Code code6 = new Code();
-  Code code7 = new Code();
   
   // Method[] methods;
   
@@ -1270,7 +1269,7 @@ class Test {
   }
 
   void debug(boolean mode){
-    if(mode = true){
+    if(mode == true){
       println("----------------------");
       println("Debug");
       println("----------------------");
@@ -1374,10 +1373,8 @@ class Test {
     {
       //Start simulation
       //mousePressed = true;
-      int x = 10;
       int y = 10;
-      
-      
+ 
       // Gather states of 45 frames
       for(int i=0; i<45;i++){
         code1.setgameOn(true);
@@ -1385,8 +1382,8 @@ class Test {
         code3.setgameOn(true);
         code4.setgameOn(true);
         code5.setgameOn(true);
-        code6.setgameOn(true);
-        code7.setgameOn(true);
+        //code6.setgameOn(true);
+        //code7.setgameOn(true);
           
           //Generates the state for scenario 1
           code1.forever();
@@ -1410,20 +1407,24 @@ class Test {
           code5.forever();
           leftBounceVals.add(code5.ballX());
           
-          //Generate state for scenario 6 - Checking if left Paddle Moves.
-          code6.forever();
-          leftPaddlePos.add(code6.leftPaddleY());
-          code6.setMouseY(x);
-          //println(code6.getMouseY());
-          x = x + 10;
+          ////Generate state for scenario 6 - Checking if left Paddle Moves.
+          //code6.forever();
+          //leftPaddlePos.add(code6.leftPaddleY());
+   
+          //code6.setMouseY(y);
+          ////println(code6.leftPaddleY());
+          //y = y + 10;
           
-          //Generate state for scenario 7 - Checking if right Paddle Moves.
-          code7.forever();
-          rightPaddlePos.add(code7.rightPaddleY());
-          //println(code7.rightPaddleY());
-          code7.setMouseY(y);
-          y = y + 10;
+          ////Generate state for scenario 7 - Checking if right Paddle Moves.
+          //code7.forever();
+          //rightPaddlePos.add(code7.rightPaddleY());
+          ////println(code7.rightPaddleY());
+          
+          //code7.setMouseY(y);
+          //y = y + 10;
+          
         }
+        
       
       }
       catch(Exception e)
@@ -1502,7 +1503,9 @@ class Test {
       //return;
       }
       catch(Exception e){
-        errors.add("Error checking right wall");
+        test.totalScore -= test.deduction;
+        errors.add("Check if right wall and scores work as described");
+      
       }
       
   }
@@ -1524,16 +1527,16 @@ class Test {
         code3.setballX(screenCentreX);
         code4.setballX(screenCentreX);
         code5.setballX(screenCentreX);
-        code6.setballX(screenCentreX);
-        code7.setballX(screenCentreX);
+        //code6.setballX(screenCentreX);
+        //code7.setballX(screenCentreX);
 
         code1.setballY(screenCentreY);
         code2.setballY(screenCentreY);
         code3.setballY(screenCentreY);
         code4.setballY(screenCentreY);
         code5.setballY(screenCentreY);
-        code6.setballY(screenCentreY);
-        code7.setballY(screenCentreY);
+        //code6.setballY(screenCentreY);
+        //code7.setballY(screenCentreY);
         
         // Initial conditions for scenario 1 - Bounce
         code1.setballYSpeed(50);
@@ -1562,13 +1565,13 @@ class Test {
         code5.setpaddleHeight(screenHeight);
         
         //Initial conditions for scenario 6 - Left Paddle Movement
-        code6.setleftPaddleY(0);
-        code6.setMouseX(10);
+        //code6.setleftPaddleY(0);
+        //code6.setMouseX(10);
       
         
         //Initial conditions for scenario 7 - Right Paddle Movement.
-        code7.setrightPaddleY(0);
-        code7.setMouseX(screenWidth/2 + 100);
+        //code7.setrightPaddleX(50);
+        //code7.setMouseX(screenWidth/2 + 100);
         
         }
         catch(Exception e){
@@ -1606,6 +1609,7 @@ class Test {
          
   }
     catch(Exception e){
+      test.totalScore -= test.deduction;
       errors.add("Error checking if ball bounces off walls");
     }
   }
@@ -1613,16 +1617,10 @@ class Test {
   //Check whether paddles move
   void checkMovePaddlesRight(){
     boolean moveFlag = false;
-    for(int i = 0; i < rightPaddlePos.size()-1; i++){
-      if(i< 10 && rightPaddlePos.get(i+1)<=rightPaddlePos.get(i)){
-        moveFlag = true;
-      }else if(rightPaddlePos.get(i+1)<=rightPaddlePos.get(i)){
-        moveFlag = true;
-      }
-      
-    }
+    int minPos = Collections.min(rightPaddlePos);
+    int maxPos = Collections.max(rightPaddlePos);
     
-    if(moveFlag){
+    if( minPos == maxPos){
       test.totalScore -= test.deduction;
       String err = "Right paddle does not move";
       errors.add(err);
@@ -1631,13 +1629,10 @@ class Test {
   
   void checkMovePaddlesLeft(){
     boolean moveFlag = false;
-    for(int i = 0; i < leftPaddlePos.size()-1; i++){
-      if(leftPaddlePos.get(i+1)<=leftPaddlePos.get(i)){
-        moveFlag = true;
-      }
-    }
+    int minPos = Collections.min(leftPaddlePos);
+    int maxPos = Collections.max(leftPaddlePos);
     
-    if(moveFlag){
+    if( minPos == maxPos){
       test.totalScore -= test.deduction;
       String err = "Left paddle does not move";
       errors.add(err);
@@ -1703,10 +1698,12 @@ class Test {
 
       // If the state remains the same, there is no movement.
       if(minValX == maxValX) {
+        test.totalScore -= test.deduction;
         errors.add("Error: Check if ball is moving.");
       }
     }
     catch(Exception e){
+      test.totalScore -= test.deduction;
       errors.add("Error checking if ball is moving");
     }
     
@@ -1769,6 +1766,24 @@ class Test {
     println(totalScore, errors);
   }
   
+  void checkMovingPaddles()
+  {
+    code6.setgameOn(true); // We do not need to start the game but just in case
+    int rightSide = (int) screenWidth / 2 + 100;
+    int posy[] = {0,20,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,340};
+    int posx[] = {0,0,0,0,0,0,0,0,0,0,0,0,0,rightSide,rightSide,rightSide,rightSide,rightSide};
+    
+    for(int i=0; i< posy.length; i++)
+    {
+      code6.setMouseX(posx[i]);
+      code6.setMouseY(posy[i]);
+      code6.forever();
+      leftPaddlePos.add(code6.leftPaddleY());
+      rightPaddlePos.add(code6.rightPaddleY());
+     }
+  }
+  
+  
   //Checks if there is a major Error and breaks code.
   //void checkMajorErrors(){
   //  int errorFlag = majorError.size();
@@ -1816,18 +1831,19 @@ class Test {
       checkRightWall();
       checkLeftPaddleBounce();
       checkRightPaddleBounce();
-      checkMovePaddlesRight();
-      checkMovePaddlesLeft();
+      checkMovingPaddles();
+      //checkMovePaddlesRight();
+      //checkMovePaddlesLeft();
 
       checkGameOn();
       //checkMajorErrors();
-      printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      debug(mode);
-    } else {
+      } else {
       totalScore = 0;
       logFilesWithErrors();
-      print(totalScore, errors);
+      //print(totalScore, errors);
     }
-    
+    printResults(); // We probably would want to printResults after running Getcode and Pong_3.
+    debug(mode);
   }
+
 }
