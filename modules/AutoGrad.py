@@ -297,11 +297,11 @@ class AutoGrad(object):
         except:
             pass
 
-    def grade_files(self, course_num, assignment_num, submission_num, **kwargs):
+    def grade_files(self, course_num, assignment_num, submission_num, move=True):
         
         # Run grading for a file
         click.echo("Grading files...")
-
+        print(move)
         final = {}
         all = []
         
@@ -367,10 +367,13 @@ class AutoGrad(object):
 
                             p = '_'.join((course_num,assignment_num, submission_num))
                             graded = os.path.join(self.BASE_DIR, 'assets','graded',p)
+                            
                             if not os.path.exists(graded):
                                 os.makedirs(graded)
-                            click.echo("Moving {} to /assets/graded".format(self.file_path))
-                            shutil.move(self.file_path, graded)
+
+                            elif move.lower() == 'true':
+                                click.echo("Moving {} to /assets/graded".format(self.file_path))
+                                shutil.move(self.file_path, graded)
 
                         except Exception as e:
                             with open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a') as f:
@@ -572,12 +575,12 @@ class AutoGrad(object):
                 except Exception as e:
                     print("There was an error moving/appending results. {}".format(str(e)))
 
-    def deploy(self, course, assignment, submission, return_grade=False):
+    def deploy(self, course, assignment, submission, move, return_grade=False):
         # Download and store files
         self.retrieve(course, assignment, submission)
         
         # Results of grading. Stored in results.json also
-        results = self.grade_files(course, assignment, submission)
+        results = self.grade_files(course, assignment, submission, move)
 
         # Submit results
         submitted = self.submit(course, assignment, results, return_grade)
