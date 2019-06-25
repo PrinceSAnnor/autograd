@@ -1243,7 +1243,7 @@ class Test {
   }
 
   void debug(boolean mode){
-    if(mode = true){
+    if(mode == true){
       println("----------------------");
       println("Debug");
       println("----------------------");
@@ -1336,7 +1336,8 @@ class Test {
     }
     catch(Exception e)
     {
-        errors.add("Error checking if left wall works as described");
+        test.totalScore -= test.deduction;
+        errors.add("Check if left wall and scores work as described");
     }
    
   }
@@ -1373,7 +1374,8 @@ class Test {
         //return;
         }
       catch(Exception e){
-        errors.add("Error checking right wall");
+        test.totalScore -= test.deduction;
+        errors.add("Check if right wall and scores work as described");
       }
       
   }
@@ -1448,25 +1450,26 @@ class Test {
   }
   
   void logFilesWithErrors(){
+    
     PrintWriter output = createWriter("error_logs.txt");
     output.println(filePath);
     output.flush();
     output.close();
+    
   } 
 
   void checkBallIsMoving(){
     try {
         // We can just check one of the generated state maps if there is movement
-      int minValX = Collections.min(xvalLeft);
       int maxValX = Collections.max(xvalLeft);
-  
+      int minValX = Collections.min(xvalLeft);
+      
       // If the state remains the same, there is no movement.
       if(minValX == maxValX) {
         errors.add("Error: Check if ball is moving.");
       }
-    }
-    catch(Exception e){
-      errors.add("Error checking if ball is moving");
+    }catch(Exception e){
+      errors.add("Error checking if ball is moving.");
     }
     
   }
@@ -1532,13 +1535,14 @@ class Test {
   //  }
     
   //}
-
+  
   /***************************************************************
    main method that calls all other methods to grade the assigment
    checks wheter screenWith and sreenHeight were gotten 
    grades if true and doesnt if false
    ****************************************************************/
-  void run(boolean mode) {
+   
+  void run (boolean mode) {
     getLines();
     removeEmptyLines();
     if (getScreenSize()) {
@@ -1554,23 +1558,22 @@ class Test {
       checkScores();
       // checkMovingBall(); Replaced in favour of checkBallIsMoving() which uses state map
       shapeColorInteractions();
-
+      checkGameOn();
+      
       setInitialConditions();
       generateStates();
       checkBallIsMoving();
       checkWallsBounce();
       checkLeftWall();
       checkRightWall();
-
-      checkGameOn();
       //checkMajorErrors();
-      printResults(); // We probably would want to printResults after running Getcode and Pong_3.
-      debug(mode);
     } else {
       totalScore = 0;
       logFilesWithErrors();
-      print(totalScore, errors);
+      //print(totalScore, errors);
     }
-    
-  }
+    printResults(); // We probably would want to printResults after running Getcode and Pong_3.      
+    debug(mode);  
+}
+  
 }
