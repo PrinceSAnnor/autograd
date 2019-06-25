@@ -15,21 +15,24 @@ docs = {
     "course": "Specify the course. 1 for SuaCode Africa 1, 2 for SuaCode Africa 2,etc. Additionally \
         you can specify multiple courses. Eg. --course_number=1,2,3 to pull assignments for course 1, 2 and 3",
     "assignment":"Specify the assignment you want to grade.",
-    "submission": "Specify whether you're grading first submissions or resubs. Eg. --submission=2"
+    "submission": "Specify whether you're grading first submissions or resubs. Eg. --submission=2",
+    "move":"Works with grade-download and grade-local. Specify whether after grading you want to move the graded files to graded folder. Set this to false when you're not sure your test script is bulletproof."
 }
    
 @click.group()  #(invoke_without_command=True)
+@click.option('--move','-m',default=False,help=docs['move'])
 @click.option('--submission', '-s', type=click.Choice( ALLOWED_RESUBS ), default="1", help=docs["submission"])
 @click.option('--course', '-c', help=docs["course"])
 @click.option('--assignment', '-a', type=click.Choice( ALLOWED_ASSIGNMENTS ),  help=docs["assignment"])
 @click.pass_context
-def cli(context, course, assignment, submission):
+def cli(context, course, assignment, submission, move):
     context.ensure_object(dict) #
 
     # Attach the inputs to context object
     context.obj['course'] = course or NIL
     context.obj['assignment'] = assignment or NIL
     context.obj['submission'] = submission or NIL
+    context.obj['move'] = move or NIL
     # context.obj['file'] = file or NIL
 
     # if context.invoked_subcommand is None:
@@ -41,7 +44,7 @@ def cli(context, course, assignment, submission):
 @click.pass_context
 def retrieve(context):
     """Retrieve available turned in submission"""
-    course, assignment, submission = validate_opts(context)
+    course, assignment, submission, move = validate_opts(context)
 
     click.echo("[TEST] Running AutoGrad: Retrieving turned in submissions..")
     # Option 6
@@ -53,32 +56,32 @@ def retrieve(context):
 @click.pass_context
 def grade_local(context):
     """Grade local files"""
-    course, assignment, submission = validate_opts(context)
-
+    course, assignment, submission, move = validate_opts(context)
+    print(move)
     click.echo("[TEST] Running AutoGrad: Manual grade, local files")
     # Option 2 - Manual grade from local files, no download
     a = AutoGrad() # Init
-    results = a.grade_files(course, assignment, submission)
+    results = a.grade_files(course, assignment, submission, move)
  
 
 @cli.command()
 @click.pass_context
 def grade_download(context):
     """ Download and grade"""
-    course, assignment, submission = validate_opts(context)
+    course, assignment, submission, move = validate_opts(context)
 
     click.echo("[TEST] Running AutoGrad: Retrieve and grade")
     # Option 1 - Manual grade, download first
     a = AutoGrad() # Init
     a.retrieve(course, assignment, submission) # Get files, download
-    results = a.grade_files(course, assignment, submission) # Results of grading. Stored in results.json also
+    results = a.grade_files(course, assignment, submission, move) # Results of grading. Stored in results.json also
  
 
 @cli.command()
 @click.pass_context
 def check(context):
     """Check available turned in submission"""
-    course, assignment, submission = validate_opts(context)
+    course, assignment, submission, move = validate_opts(context)
 
     click.echo("[TEST] Running AutoGrad: Checking for turned in submissions..")
     import os
@@ -100,7 +103,7 @@ def check(context):
 @click.pass_context
 def deploy(context):
     """Run complete process"""
-    course, assignment, submission = validate_opts(context)
+    course, assignment, submission, move = validate_opts(context)
 
     click.echo("[DEPLOY] Running AutoGrad")
     
@@ -108,13 +111,13 @@ def deploy(context):
     a = AutoGrad()
 
     # Download, grade, submit and mail. Sheets coming soon
-    a.deploy(course, assignment, submission, return_grade=True)
+    a.deploy(course, assignment, submission, move, return_grade=True)
 
 @cli.command()
 @click.pass_context
 def submit_local(context): 
     """Submit locally graded files to classroom / mail"""
-    course, assignment, submission = validate_opts(context)
+    course, assignment, submission, move = validate_opts(context)
 
     click.echo("[TEST] Running AutoGrad: Adding to Classroom from local results")
     # Option 3 - Manual Add to Classroom from graded results
@@ -122,13 +125,15 @@ def submit_local(context):
 
     # IMPORTANT: Do not delete your logs folder just in case
     results = a.attach_ids(course, assignment, submission)
+    results = remove_duplicates(results) # Remove old if any
+    #a.log_to_file(results,'res.json')
     status = a.add_to_classroom(course, assignment, results, return_grade=True)
 
 @cli.command()
 @click.pass_context
 def mail_local(context):
     """ Mail locally stored results """ 
-    course, assignment, submission = validate_opts(context)
+    course, assignment, submission, move = validate_opts(context)
 
     click.echo("[TEST] Running AutoGrad: Mail from local results")
     # Option 4 - Manual mailing
@@ -140,13 +145,21 @@ def mail_local(context):
     dir = os.path.join('logs',p, 'results.json')
     f = open(dir,'r')
     res = json.load(f)
-
-    for i in reversed(res):
-        print(i)
+    final = remove_duplicates(res)
+    a.log_to_file(final)
 
     #status = a.send_mail(res)
     
-
+def remove_duplicates(res):
+    new = sorted(res, key=lambda k: k['when'], reverse=True)
+    dups = []
+    def pop_dups(el):
+        if el['details']['userId'] not in dups:
+            dups.append(el['details']['userId'])
+            return True
+        return False
+    return list(filter(lambda el: pop_dups(el) ,new))
+    
 def validate_opts(context):
     check_required = NIL not in list(context.obj.values())
 
@@ -155,7 +168,8 @@ def validate_opts(context):
         course = context.obj['course']
         assignment = context.obj['assignment']
         submission = context.obj['submission']
-        return course, assignment, submission
+        move = context.obj["move"]
+        return course, assignment, submission, move
     else:
         click.echo("Insufficient options. Exiting.. Try --help for more info")
         exit()

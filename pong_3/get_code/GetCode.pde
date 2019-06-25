@@ -622,7 +622,11 @@ void checkRects() //check rects
   {
     ArrayList<Integer> yvals = new ArrayList<Integer>();
     ArrayList<Integer> xvals = new ArrayList<Integer>();
+    ArrayList<String> stryvals = new ArrayList<String>();
+    ArrayList<String> strscores = new ArrayList<String>();
     ArrayList<String> scorevals = new ArrayList<String>();
+    int magicFlag = 0;
+    String leftScoreX, leftScoreY, leftScore, rightScore, rightScoreX, scoreY;
     
     for(int i = 0; i < linesFiltered.size(); i++)
     {
@@ -640,30 +644,62 @@ void checkRects() //check rects
           // Get matches for only text()
          
           String[] splitBy = splitTokens(thisLine, "(),//; ");
-          //println(splitBy);
-          yvals.add(int(splitBy[3]));
-          xvals.add(int(splitBy[2]));
           
-          scorevals.add(splitBy[1]);
+          String scorey = splitBy[3]; 
+          String scorex = splitBy[2]; 
+          String score = splitBy[1]; 
+          if( splitBy[1].contains("\"")  )
+          {
+            magicFlag = 1;
+            yvals.add(int(scorey));
+            xvals.add(int(scorex));
+            scorevals.add(score);
+          }else{   
+            stryvals.add(scorey);
+            xvals.add(int(variablesHashMap.get(scorex)));    
+            scorevals.add(scorex);
+            strscores.add(score);
+           }
+          
         }
         
     }
   
-    int leftScoreX = Collections.min(xvals);
-    int leftScoreXIndex = xvals.indexOf(leftScoreX);
-    int rightScoreX = Collections.max(xvals);
-    int rightScoreXIndex = xvals.indexOf(rightScoreX);
-    int scoreY = yvals.get(leftScoreXIndex);
-    String leftScore = scorevals.get(leftScoreXIndex);
-    String rightScore = scorevals.get(rightScoreXIndex);
-    
-    varNamesHashMap.put("leftScoreX", str(leftScoreX)  );
-    varNamesHashMap.put("rightScoreX", str(rightScoreX) );
-    varNamesHashMap.put("scoreY", str(scoreY) );
-    varNamesHashMap.put("leftScore", leftScore );
-    varNamesHashMap.put("rightScore", rightScore );
+    if(magicFlag == 1){
+      leftScoreX = str(Collections.min(xvals));
+      int leftScoreXIndex = xvals.indexOf(leftScoreX);
+      rightScoreX = str(Collections.max(xvals));
+      int rightScoreXIndex = xvals.indexOf(rightScoreX);
+      scoreY = str(yvals.get(leftScoreXIndex));
+      leftScore = scorevals.get(leftScoreXIndex);
+      rightScore = scorevals.get(rightScoreXIndex);
+      
+      varNamesHashMap.put("leftScoreX", leftScoreX  );
+      varNamesHashMap.put("rightScoreX", rightScoreX );
+      varNamesHashMap.put("scoreY", scoreY );
+      varNamesHashMap.put("leftScore", leftScore );
+      varNamesHashMap.put("rightScore", rightScore );
+        
+    }else{
+      
+      int leftScoreXIndex = xvals.indexOf(Collections.min(xvals));
+      int rightScoreXIndex = xvals.indexOf(Collections.max(xvals));
+      
+      leftScoreX = scorevals.get(leftScoreXIndex);
+      leftScore = strscores.get(leftScoreXIndex);
+      rightScoreX = scorevals.get(rightScoreXIndex);
+      rightScore = strscores.get(rightScoreXIndex);
+      scoreY = stryvals.get(leftScoreXIndex);
+      
+      varNamesHashMap.put("leftScoreX", leftScoreX  );
+      varNamesHashMap.put("rightScoreX", rightScoreX );
+      varNamesHashMap.put("leftScore", leftScore );
+      varNamesHashMap.put("rightScore", rightScore );
+      varNamesHashMap.put("scoreY", scoreY );
+      
+    }
    
-  }    
+  }
   
   
   void run() {
@@ -678,6 +714,7 @@ void checkRects() //check rects
      getGameOn();
      getSpeeds();
      createFile();
+     //println(varNamesHashMap);
   }
 
 }
