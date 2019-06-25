@@ -674,7 +674,7 @@ void checkRects() //check rects
      checkEllipses();
      checkRects();
      checkScore();
-     //checkScores(); replaced in favour of checkScore
+     //checkScores(); //replaced in favour of checkScore
      getGameOn();
      getSpeeds();
      createFile();
