@@ -1,4 +1,5 @@
 import java.util.Map;
+import java.util.Collections;
 
 class GetCode {
   
@@ -16,7 +17,7 @@ class GetCode {
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
       
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
-   
+  
   File filePath;
   
   GetCode(File f) {
@@ -233,40 +234,6 @@ void checkRects() //check rects
         // println("text size not set");
       }
       
-      
-      //int i = 0;
-      //for(int m = 0; m < texts.size(); m++) 
-      //{
-      //  splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
-      //  splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-        
-      //  i = 0;
-      //  while(i < splitByCommas.length) // 
-      //  {
-          
-      //    if(m == 0) {
-      //      if(i == 0) {
-      //        varNamesHashMap.put("txtSize", "-99");
-      //      }
-      //    } else if(m == 1){
-      //       if(i == 0) {
-      //        varNamesHashMap.put("leftScore", "-99");
-      //      } else if(i == 1) {
-      //        varNamesHashMap.put("leftScoreX", "-99");
-      //      } else if(i == 2) {
-      //        varNamesHashMap.put("scoreY", "-99");
-      //      }
-      //    } else if(m == 2){
-      //       if(i == 0) {
-      //        varNamesHashMap.put("rightScore", "-99");
-      //      } else if(i == 1) {
-      //        varNamesHashMap.put("rightScoreX", "-99");
-      //      }
-      //    }
-      //    i++;
-      //  }
-      //  max = max + i;
-      //}
       
       int j = 0;
       max = 0;
@@ -541,53 +508,19 @@ void checkRects() //check rects
             output.println("void forever()");
           }
         } else {
-          output.println(fileLines[i]);
+          output.println(trim(fileLines[i]));
         }
       }
       
       output.println("int wierd = -99;");
       
-      //getters
-      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-      { 
-        if(entry.getKey() == "gameOn"){
-          output.println("boolean " + entry.getKey() + "()");
-          output.println("{");
-          output.println("return " + entry.getValue() + ";");
-          output.println("}");
-        }else{
-          output.println("int " + entry.getKey() + "()");
-          output.println("{");
-          output.println("return int(" + entry.getValue() + ");");
-          output.println("}");
-        }
-        
-      }
+      createGetters();
       
       //output.println("}");
-
       //output.flush(); // Writes the remaining data to the file
       //output.close(); // Finishes the file
-    
-    //write setters"
-      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
-      { 
-        if(entry.getKey() == "gameOn"){
-          output.println("void " + "set" + entry.getKey() + "(boolean x)");
-          output.println("{");
-          output.println(entry.getValue() + "= x " + ";");
-          output.println("}");
-        }else{
-          //if(entry.getValue()!= "-99"){
-          output.println("void " + "set" + entry.getKey() + "(int x)");
-          output.println("{");
-          output.println(entry.getValue() + "= x " + ";");
-          output.println("}");
-          //}else{
-          //println("The variable" + entry.getKey() + " was not created.");
-          //}
-        }
-      }
+   
+      createSetters();
       
       output.println("}");
 
@@ -599,6 +532,66 @@ void checkRects() //check rects
       // println("couldnt create file " + e);
     }
   }
+  
+  void createGetters()
+  {
+    //getters
+      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
+      { 
+        if(entry.getKey() == "gameOn"){
+          output.println("boolean " + entry.getKey() + "()");
+          output.println("{");
+          output.println("return " + entry.getValue() + ";");
+          output.println("}");
+        }else if( !entry.getValue().contains("\"") && !(isNumeric(entry.getValue())) ){
+          output.println("int " + entry.getKey() + "()");
+          output.println("{");
+          output.println("  return int(" + entry.getValue() + ");");
+          output.println("}");
+        }else{
+          //add missing/magic number variable
+          variablesHashMap.put(entry.getKey(), entry.getValue() );
+          output.println("int "+ entry.getKey() + " = " + int(entry.getValue()) + ";");
+          
+          //Print new setter for missing
+          output.println("int " + entry.getKey() + "()");
+          output.println("{");
+          output.println("  return int(" + entry.getKey() + ");");
+          output.println("}");         
+        }
+        
+      }
+  }
+  
+  void createSetters()
+  {
+    //write setters"
+      for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
+      { 
+        if(entry.getKey() == "gameOn"){
+          output.println("void " + "set" + entry.getKey() + "(boolean x)");
+          output.println("{");
+          output.println("  "+entry.getValue() + " = x" + ";");
+          output.println("}");
+        }else if( !entry.getValue().contains("\"") && !(isNumeric(entry.getValue())) ){
+            // || true
+            output.println("void " + "set" + entry.getKey() + "(int x)");
+            output.println("{");
+            output.println("  "+entry.getValue() + " = x" + ";");
+            output.println("}");
+         }
+         else{
+            //Create the setter properly
+            output.println("void " + "set" + entry.getKey() + "(int x)");
+            output.println("{");
+            output.println("  "+ entry.getKey()+ " = x" + ";");
+            output.println("}");
+            
+            //add setter to map
+            varNamesHashMap.put(entry.getKey(), entry.getKey()); 
+           }
+       }      
+    }
  
   boolean charIsNum(char c)  //check ascii range of char
   {
@@ -625,6 +618,54 @@ void checkRects() //check rects
     return true;
   }
   
+  void checkScore()
+  {
+    ArrayList<Integer> yvals = new ArrayList<Integer>();
+    ArrayList<Integer> xvals = new ArrayList<Integer>();
+    ArrayList<String> scorevals = new ArrayList<String>();
+    
+    for(int i = 0; i < linesFiltered.size(); i++)
+    {
+        String thisLine = linesFiltered.get(i);
+        if( match( thisLine, "^textSize.*$") != null && thisLine.contains("("))
+        {  
+          // Get matches for textSize()
+          String[] a = splitTokens(thisLine, "()//;");  
+          varNamesHashMap.put("txtSize", a[1]);
+        }
+        if( match(thisLine, "^text.*$") != null // This has text()
+          && match(thisLine, "^textSize.*$") == null // This is not textSize()
+          && !thisLine.contains("=")) // This is not an assignment to be sure.
+        {
+          // Get matches for only text()
+         
+          String[] splitBy = splitTokens(thisLine, "(),//; ");
+          //println(splitBy);
+          yvals.add(int(splitBy[3]));
+          xvals.add(int(splitBy[2]));
+          
+          scorevals.add(splitBy[1]);
+        }
+        
+    }
+  
+    int leftScoreX = Collections.min(xvals);
+    int leftScoreXIndex = xvals.indexOf(leftScoreX);
+    int rightScoreX = Collections.max(xvals);
+    int rightScoreXIndex = xvals.indexOf(rightScoreX);
+    int scoreY = yvals.get(leftScoreXIndex);
+    String leftScore = scorevals.get(leftScoreXIndex);
+    String rightScore = scorevals.get(rightScoreXIndex);
+    
+    varNamesHashMap.put("leftScoreX", str(leftScoreX)  );
+    varNamesHashMap.put("rightScoreX", str(rightScoreX) );
+    varNamesHashMap.put("scoreY", str(scoreY) );
+    varNamesHashMap.put("leftScore", leftScore );
+    varNamesHashMap.put("rightScore", rightScore );
+   
+  }    
+  
+  
   void run() {
      presetValues();
      getLines();
@@ -632,11 +673,11 @@ void checkRects() //check rects
      getVariables();
      checkEllipses();
      checkRects();
-     checkScores();
+     checkScore();
+     //checkScores(); replaced in favour of checkScore
      getGameOn();
      getSpeeds();
      createFile();
-
-    
   }
+
 }
