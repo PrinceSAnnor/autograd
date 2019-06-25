@@ -11,7 +11,7 @@ void setup ()
   File f = new File(sketchPath() + "/../" + args[0]);
   test = new Test(f);
   test.run(false);
-    
+  
   } else {
     //println("args == null");
     // Use duringtrue Testing. 
