@@ -301,7 +301,7 @@ class AutoGrad(object):
         
         # Run grading for a file
         click.echo("Grading files...")
-        print(move)
+        print("Move after grading is set to {}".format(move))
         final = {}
         all = []
         

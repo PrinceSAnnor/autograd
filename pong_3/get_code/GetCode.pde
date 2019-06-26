@@ -626,7 +626,11 @@ void checkRects() //check rects
     ArrayList<String> strscores = new ArrayList<String>();
     ArrayList<String> scorevals = new ArrayList<String>();
     int magicFlag = 0;
-    String leftScoreX, leftScoreY, leftScore, rightScore, rightScoreX, scoreY;
+    String leftScoreX = "0", 
+    leftScoreY = "0", 
+    leftScore = "0", 
+    rightScore = "0", 
+    rightScoreX = "0", scoreY = "0";
     
     for(int i = 0; i < linesFiltered.size(); i++)
     {
@@ -666,20 +670,30 @@ void checkRects() //check rects
     }
   
     if(magicFlag == 1){
-      leftScoreX = str(Collections.min(xvals));
-      int leftScoreXIndex = xvals.indexOf(leftScoreX);
-      rightScoreX = str(Collections.max(xvals));
-      int rightScoreXIndex = xvals.indexOf(rightScoreX);
-      scoreY = str(yvals.get(leftScoreXIndex));
-      leftScore = scorevals.get(leftScoreXIndex);
-      rightScore = scorevals.get(rightScoreXIndex);
-      
-      varNamesHashMap.put("leftScoreX", leftScoreX  );
-      varNamesHashMap.put("rightScoreX", rightScoreX );
-      varNamesHashMap.put("scoreY", scoreY );
-      varNamesHashMap.put("leftScore", leftScore );
-      varNamesHashMap.put("rightScore", rightScore );
+      try
+      {
+        leftScoreX = str(Collections.min(xvals));
+        int leftScoreXIndex = xvals.indexOf(leftScoreX);
+        rightScoreX = str(Collections.max(xvals));
+        int rightScoreXIndex = xvals.indexOf(rightScoreX);
+        scoreY = "leftScore";//yvals.get(leftScoreXIndex));
+        leftScore = scorevals.get(leftScoreXIndex);
+        rightScore = scorevals.get(rightScoreXIndex);
         
+        varNamesHashMap.put("leftScoreX", leftScoreX  );
+        varNamesHashMap.put("rightScoreX", rightScoreX );
+        varNamesHashMap.put("scoreY", scoreY );
+        varNamesHashMap.put("leftScore", leftScore );
+        varNamesHashMap.put("rightScore", rightScore );
+      }catch(Exception e){
+        // Weird values for text() eg. text("4    2", textX, textY);
+          varNamesHashMap.put("leftScoreX", leftScoreX  );
+          varNamesHashMap.put("rightScoreX", rightScoreX );
+          varNamesHashMap.put("leftScore", leftScore );
+          varNamesHashMap.put("rightScore", rightScore );
+          varNamesHashMap.put("scoreY", scoreY );
+      }
+             
     }else{
       
       int leftScoreXIndex = xvals.indexOf(Collections.min(xvals));
