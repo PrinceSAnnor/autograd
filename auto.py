@@ -20,7 +20,7 @@ docs = {
 }
    
 @click.group()  #(invoke_without_command=True)
-@click.option('--move','-m',default=False,help=docs['move'])
+@click.option('--move','-m', default='true',help=docs['move'])
 @click.option('--submission', '-s', type=click.Choice( ALLOWED_RESUBS ), default="1", help=docs["submission"])
 @click.option('--course', '-c', help=docs["course"])
 @click.option('--assignment', '-a', type=click.Choice( ALLOWED_ASSIGNMENTS ),  help=docs["assignment"])
@@ -57,7 +57,7 @@ def retrieve(context):
 def grade_local(context):
     """Grade local files"""
     course, assignment, submission, move = validate_opts(context)
-    print(move)
+    
     click.echo("[TEST] Running AutoGrad: Manual grade, local files")
     # Option 2 - Manual grade from local files, no download
     a = AutoGrad() # Init
@@ -126,7 +126,7 @@ def submit_local(context):
     # IMPORTANT: Do not delete your logs folder just in case
     results = a.attach_ids(course, assignment, submission)
     results = remove_duplicates(results) # Remove old if any
-    #a.log_to_file(results,'res.json')
+    # a.log_to_file(results,'res.json')
     status = a.add_to_classroom(course, assignment, results, return_grade=True)
 
 @cli.command()
@@ -146,7 +146,7 @@ def mail_local(context):
     f = open(dir,'r')
     res = json.load(f)
     final = remove_duplicates(res)
-    a.log_to_file(final)
+    a.log_to_file(final, 'email.json')
 
     #status = a.send_mail(res)
     
@@ -163,12 +163,14 @@ def remove_duplicates(res):
 def validate_opts(context):
     check_required = NIL not in list(context.obj.values())
 
+    move = context.obj["move"]
+   
     if check_required: 
         # Get command line options
         course = context.obj['course']
         assignment = context.obj['assignment']
         submission = context.obj['submission']
-        move = context.obj["move"]
+        
         return course, assignment, submission, move
     else:
         click.echo("Insufficient options. Exiting.. Try --help for more info")
