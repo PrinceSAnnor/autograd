@@ -74,6 +74,9 @@ Usage: `python auto.py -c 1 -a 1 -s 1 email-local`
 Help: This will take results from the logs folder and email it to the student.
 It requires that you have the students CSV file in assets/student-details/SuaCode Africa X , where X is eg. 1 for SuaCode Africa 1.
 
+# Help
+Get help on commands available.
+Usage: `python auto.py --help`
 
 # Contributing 
 Work on issues: https://www.youtube.com/watch?v=Da0QOIvsKqU
