@@ -1,6 +1,6 @@
 /**********************************************************************
 Assignment 2: Move Ball - This program grades assignment 2
-Has two uses Autograd and Single file, coment the one oure not using
+It has two uses: Autograd and Single file grading, coment the one oure not using
 ************************************************************************/
 
 void setup ()
