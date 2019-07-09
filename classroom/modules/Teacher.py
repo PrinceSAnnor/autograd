@@ -23,6 +23,10 @@ class Teacher(object):
     def __str__(self):
         print('Teacher is in the building')
 
+	
+	def get_instance(self):
+		return self.service
+
 
     def boot(self):
         """Authenticates the user if there's no token.pickle. Allows you to use GoogleAPIs
