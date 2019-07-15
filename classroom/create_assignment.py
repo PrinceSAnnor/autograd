@@ -91,5 +91,5 @@ if __name__ == '__main__':
             print("Creating {} in classroom with id {}".format(BODY["title"], id))          
             print(BODY) 
        
-            teacher.create_assignment(id, BODY)
+            # teacher.create_assignment(id, BODY)
     
