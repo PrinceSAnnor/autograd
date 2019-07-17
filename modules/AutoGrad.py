@@ -35,6 +35,7 @@ class AutoGrad(object):
             "SuaCode Africa 1":"",
             "SuaCode Africa 2":"",
             "SuaCode Africa 3":"",
+            "Coding 2019":"",
         }
         self.names_vs_ids = dict.fromkeys( self.course_names.keys(), {} )
 
@@ -67,7 +68,7 @@ class AutoGrad(object):
         self.drive = Drive() # Connect to Drive
       
         c = n = len(files_info)
-        keys = sorted(list(self.course_names.keys()))
+        keys = list(self.course_names.keys())
         vals = sorted(list(self.course_names.values()))
 
         for i, f in enumerate(files_info):         
@@ -92,7 +93,7 @@ class AutoGrad(object):
                     self.drive.get_file(f['id'], f['title'])
                     os.rename(old_file_name, new_file_name)
 
-                    print("Progress: Downloaded {} out of {} file(s) ".format(i,n), end="\r\n", flush=True)
+                    print("Progress: Downloaded {} out of {} file(s) ".format(i+1,n), end="\r\n", flush=True)
                 except Exception as e:
                     c -= 1
                     click.echo("There was an error downloading. Error: {}".format(e))
@@ -143,7 +144,7 @@ class AutoGrad(object):
                     self.course_names[ck] = courses[ck]
 
             # Keeping ids for later
-            vals = sorted(list(self.course_names.values()))
+            vals = sorted(list(self.course_names.values())) 
             course_number = sorted(course_number)
             if len(course_number) > 1:
                 res = zip(course_number, vals)
@@ -257,7 +258,7 @@ class AutoGrad(object):
         # Get course name from self.course_names
         if "course" in list(kwargs.keys()):
             cn = int(kwargs.get("course"))
-            values["course"] = sorted(list(self.course_names.keys()))[cn - 1]
+            values["course"] = list(self.course_names.keys())[cn - 1]
         
         # Get the user details from the csv
         if "user_details"  in list(kwargs.keys()):
@@ -448,20 +449,20 @@ class AutoGrad(object):
         # Return results to sheets
         pass
 
-    def send_mail(self, results=[]):
+    def send_mail(self, results=[], sub_limit=2):
         """
         Sends mail to the student. Has to be supplied the results object from grade_files()
         """
-
-        #prepare mail message
-        message = "Hi {},\n\nGood job!\nYou can can check your grade now.\n Grade: {}\n\nSee below the things you missed, if any. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n"
-            
+ 
         if( results and len(results) > 0 ):                                                
             # Connect to Mail
             self.mailer = Mail()
 
             for obj in results:
                 while True:
+
+                    #prepare mail message
+                    message = "Hi {},\n\nGood job!\nYou can can check your grade now.\n Grade: {}\n\nSee below the things you missed, if any. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n"
 
                     grade = int(obj['details']['score'])
                     user_id = obj['details']['userId']
@@ -482,7 +483,7 @@ class AutoGrad(object):
                     click.echo("Sending mail...")
                     try: 
                         no_of_submissions = int(obj.get('sub'))
-                        if no_of_submissions < 2:
+                        if no_of_submissions < sub_limit:
                             student_email = student_details['student_email'] 
                             title = "Results for {}".format(assignment)
                             self.mailer.send_message(student_email, title, message)
