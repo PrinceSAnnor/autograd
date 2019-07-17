@@ -63,7 +63,7 @@ def get_emails():
             for row in read_ids:
                 stu_id = f'{row[1]}'.strip()
                 fullname = f'{row[0]}'.strip()
-                with open('email-lists/%s.csv' % course) as csvfile:
+                with open('assets/email-lists/%s.csv' % course) as csvfile:
                     read_emails = csv.reader(csvfile, delimiter=',')
                     for row in read_emails: 
                         surname = f'{row[0]}'.strip()
@@ -84,7 +84,7 @@ if __name__ == '__main__':
     teacher = Teacher()
 
     # Download the list of students
-    my_courses = ['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
+    my_courses = ['Coding 2019'] #['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
 
     get_id_lists()
 
