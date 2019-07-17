@@ -24,8 +24,8 @@ class Teacher(object):
         print('Teacher is in the building')
 
 	
-	def get_instance(self):
-		return self.service
+    def get_instance(self):
+        return self.service
 
 
     def boot(self):
