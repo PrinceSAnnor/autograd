@@ -148,7 +148,7 @@ def mail_local(context):
     final = remove_duplicates(res)
     a.log_to_file(final, 'email.json')
 
-    status = a.send_mail(res, sub_limit=10) # Edit sub_limit to allow multiple submissions. Will integrate later
+    status = a.send_mail(res) # Edit sub_limit to allow multiple submissions. Will integrate later
     
 def remove_duplicates(res):
     new = sorted(res, key=lambda k: k['when'], reverse=True)

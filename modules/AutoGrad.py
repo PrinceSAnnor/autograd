@@ -420,7 +420,7 @@ class AutoGrad(object):
                 
                 grade = obj['details']['score']
                 user_id = obj['details']['userId']
-                sub_id = self.submissions.get(user_id) or obj['submissionId']
+                sub_id = self.submissions.get(user_id) or obj['sub']
 
                 course_id = obj.get('courseId', sorted(list(self.course_names.values()))[int(course_num) - 1])
 
@@ -450,7 +450,7 @@ class AutoGrad(object):
         # Return results to sheets
         pass
 
-    def send_mail(self, results=[], sub_limit=2):
+    def send_mail(self, results=[], sub_limit=10):
         """
         Sends mail to the student. Has to be supplied the results object from grade_files()
         """
