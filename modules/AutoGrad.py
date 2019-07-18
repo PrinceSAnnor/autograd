@@ -41,7 +41,7 @@ class AutoGrad(object):
 
         self.assg_names = {
             'Assignment 1 - Make Pong Interface':'',
-            'Assignment 2 - Move ball':'',
+            'Assignment 2 - Move Ball':'',
             'Assignment 3 - Bounce Ball':'',
             'Assignment 4 - Move Paddles':'',
             'Assignment 5 - Add Extra Ball':'',
@@ -174,7 +174,8 @@ class AutoGrad(object):
                 self.current_assg = assg_name 
             except Exception as e:
                 click.echo("Could not get assignment {}".format(assignment_number))
-                raise e
+                print(e)
+                #sys.exit()
 
             subs_list += self.teacher.get_student_submissions(id, assg_id, states=[self.TURNED_IN]).get('studentSubmissions', [])
             
