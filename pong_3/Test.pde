@@ -1,4 +1,4 @@
-
+/* class for autoGrad assignment 3 */
 class Test {
 
   String[] fileLines;

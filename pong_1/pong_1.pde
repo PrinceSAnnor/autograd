@@ -1,6 +1,6 @@
 /**********************************************************************
 Assignment 1: Make Pong Interface - This program grades assignment 1
-Has two uses Autograd and Single file, coment the one oure not using
+It has two uses: Autograd and Single file grading, coment the one you're not using
 ************************************************************************/
 void setup ()
 {
