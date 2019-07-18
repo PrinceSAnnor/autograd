@@ -24,8 +24,8 @@ class Teacher(object):
         print('Teacher is in the building')
 
 	
-	def get_instance(self):
-		return self.service
+    def get_instance(self):
+        return self.service
 
 
     def boot(self):
@@ -222,13 +222,13 @@ class Teacher(object):
             updateMask=updateMask, \
             body=submission) 
 
-            # turn_in_request = self.service.courses().courseWork().studentSubmissions().['return']( courseId=course_id, \
-            # courseWorkId=assignment_id,
-            # id=student_submission_id,
-            # body=submission)
+            turn_in_request = self.service.courses().courseWork().studentSubmissions().return_( courseId=course_id, \
+            courseWorkId=assignment_id,
+            id=student_submission_id,
+            body=submission)
             
             success = request.execute()  
-            # turned_in = turn_in_request.execute()
+            turn_in_request.execute()
 
             return success #, turned_in
         except HttpError as e:
