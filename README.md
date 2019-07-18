@@ -69,7 +69,7 @@ Usage: `python auto.py -c 1 -a 1 -s 1 submit-local`
 ### 7 Email using Autograd
 You can email results that are stored locally in logs. This will only work for 1st submission and skip for the rest.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 email-local`
+Usage: `python auto.py -c 1 -a 1 -s 1 mail-local`
 
 Help: This will take results from the logs folder and email it to the student.
 It requires that you have the students CSV file in assets/student-details/SuaCode Africa X , where X is eg. 1 for SuaCode Africa 1.
