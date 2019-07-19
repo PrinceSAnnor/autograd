@@ -145,10 +145,12 @@ def mail_local(context):
     dir = os.path.join('logs',p, 'results.json')
     f = open(dir,'r')
     res = json.load(f)
+    f.close()
     final = remove_duplicates(res)
     a.log_to_file(final, 'email.json')
 
-    status = a.send_mail(res) # Edit sub_limit to allow multiple submissions. Will integrate later
+    status = a.send_mail(final) # Edit sub_limit to allow multiple submissions. Will integrate later
+    a.recycle(os.path.join('logs',p)) # recycle results file after mailing
     
 def remove_duplicates(res):
     new = sorted(res, key=lambda k: k['when'], reverse=True)

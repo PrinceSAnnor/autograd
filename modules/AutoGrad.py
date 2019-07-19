@@ -538,10 +538,14 @@ class AutoGrad(object):
         click.echo("Files to be graded are in {}".format(self.file_path))
         return True
 
-    def save_grading_info(self, *args):
+    def save_grading_info(self, *args, **kwargs):
 
         # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
         to_save = ['grading_errors.txt', 'results.json', 'temporary.json']
+		
+        if kwargs.get('only') != None:
+            only = kwargs.get('only')
+            to_save = only
 
         if args: p = '_'.join(args)
         else: p = 'temp'
@@ -588,4 +592,8 @@ class AutoGrad(object):
         submitted = self.submit(course, assignment, results, return_grade)
 
         # Save grading errors (unable to grade) and info on scripts successfully graded
-        if submitted: self.save_grading_info(course, assignment, submission)
+        if submitted: self.save_grading_info(course, assignment, submission, only=['grading_errors.txt'])
+		
+        # Remove results and temporary, not needed
+        self.recycle('results.json')
+        self.recycle('temporary.json')
