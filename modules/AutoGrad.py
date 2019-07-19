@@ -299,7 +299,7 @@ class AutoGrad(object):
         except:
             pass
 
-    def grade_files(self, course_num, assignment_num, submission_num, move=True):
+    def grade_files(self, course_num, assignment_num, submission_num, move=True, only=[]):
         
         # Run grading for a file
         click.echo("Grading files...")
@@ -386,7 +386,7 @@ class AutoGrad(object):
                 break
         if all:
             logged = self.log_to_file(all,"results.json")
-            if logged: self.save_grading_info(course_num, assignment_num ,submission_num)
+            if logged: self.save_grading_info(course_num, assignment_num ,submission_num, only=only)
     
         return all
 
@@ -543,14 +543,16 @@ class AutoGrad(object):
         # when = datetime.today().strftime('%Y-%m-%d-%H:%M:%S').replace(':','-')
         to_save = ['grading_errors.txt', 'results.json', 'temporary.json']
 		
-        if kwargs.get('only') != None:
+        if kwargs.get('only'):
             only = kwargs.get('only')
             to_save = only
+            print(to_save)
 
         if args: p = '_'.join(args)
         else: p = 'temp'
         dst = os.path.join(self.BASE_DIR, 'logs', p)
         for file in os.listdir(self.BASE_DIR):
+            print(to_save)
             
             if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
                 src = os.path.join(self.BASE_DIR, file)
@@ -586,14 +588,12 @@ class AutoGrad(object):
         self.retrieve(course, assignment, submission)
         
         # Results of grading. Stored in results.json also
-        results = self.grade_files(course, assignment, submission, move)
+        results = self.grade_files(course, assignment, submission, move,only=['grading_errors.txt'])
 
         # Submit results
         submitted = self.submit(course, assignment, results, return_grade)
-
-        # Save grading errors (unable to grade) and info on scripts successfully graded
-        if submitted: self.save_grading_info(course, assignment, submission, only=['grading_errors.txt'])
-		
+        
         # Remove results and temporary, not needed
-        self.recycle('results.json')
-        self.recycle('temporary.json')
+        if submitted:
+            self.recycle('results.json')
+            self.recycle('temporary.json')
