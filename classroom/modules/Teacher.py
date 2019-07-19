@@ -227,10 +227,8 @@ class Teacher(object):
             id=student_submission_id,
             body=submission)
 			
-			
-            
             success = request.execute()  
-            print(return_request.execute())
+            return_request.execute()
 			
             return success #, turned_in
         except HttpError as e:
