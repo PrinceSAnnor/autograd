@@ -90,14 +90,14 @@ def check(context):
     a.boot() # Connect to Google APIs. This is not needed when testing  
     subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
     at = a.get_files_for_download(subs) # Get the .pde file attachments
-    name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission) 
+    # name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission) 
     
-    logs = os.path.join(a.BASE_DIR, 'logs') 
-    fn = os.path.join(logs ,name)
-    if not os.path.exists(logs): os.makedirs(logs)
-    if len(at) > 0:
-        a.log_to_file(at,fn)
-        click.echo("Currently turned in submissions logged to logs/turned_in_c{}_a{}_s{}.json".format(course,assignment,submission))
+    # logs = os.path.join(a.BASE_DIR, 'logs') 
+    # fn = os.path.join(logs ,name)
+    # if not os.path.exists(logs): os.makedirs(logs)
+    # if len(at) > 0:
+    #     a.log_to_file(at,fn)
+    #     click.echo("Currently turned in submissions logged to logs/turned_in_c{}_a{}_s{}.json".format(course,assignment,submission))
 
 @cli.command()
 @click.pass_context
