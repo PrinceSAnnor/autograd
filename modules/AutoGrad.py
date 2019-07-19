@@ -546,13 +546,11 @@ class AutoGrad(object):
         if kwargs.get('only'):
             only = kwargs.get('only')
             to_save = only
-            print(to_save)
 
         if args: p = '_'.join(args)
         else: p = 'temp'
         dst = os.path.join(self.BASE_DIR, 'logs', p)
         for file in os.listdir(self.BASE_DIR):
-            print(to_save)
             
             if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
                 src = os.path.join(self.BASE_DIR, file)
