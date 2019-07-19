@@ -212,7 +212,7 @@ class Teacher(object):
     def grade_submissions(self, course_id, assignment_id, student_submission_id, submission):
         try:
             if submission.get('assignedGrade') != None:
-                updateMask='draftGrade,assignedGrade'
+                updateMask='assignedGrade,draftGrade'
             else:
                 updateMask='draftGrade'
 
@@ -222,13 +222,13 @@ class Teacher(object):
             updateMask=updateMask, \
             body=submission) 
 
-            turn_in_request = self.service.courses().courseWork().studentSubmissions().return_( courseId=course_id, \
+            return_request = self.service.courses().courseWork().studentSubmissions().return_( courseId=course_id, \
             courseWorkId=assignment_id,
             id=student_submission_id,
             body=submission)
-            
+			
             success = request.execute()  
-            print(turn_in_request.execute())
+            return_request.execute()
 			
             return success #, turned_in
         except HttpError as e:
