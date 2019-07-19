@@ -373,7 +373,7 @@ class AutoGrad(object):
                             if not os.path.exists(graded):
                                 os.makedirs(graded)
 
-                            elif move.lower() == 'true':
+                            if move.lower() == 'true':
                                 click.echo("Moving {} to /assets/graded".format(self.file_path))
                                 shutil.move(self.file_path, graded)
 
