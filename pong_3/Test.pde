@@ -924,7 +924,7 @@ class Test {
     {        
       ArrayList<Integer> parameters = new ArrayList<Integer>();     
       String[] splitByLeftBrace;
-      String[] splitByCommas;
+      String[] splitByCommas = {};
       int max = 0;
       //int coordinateFlag = 0;
       boolean sizeFlag = true;
@@ -976,8 +976,13 @@ class Test {
       for (int m = 0; m < texts.size(); m++) 
       {
         //splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(,); ");
-        splitByCommas = trim(splitTokens(linesFiltered.get(texts.get(m)), "(,); "));
-
+        
+        String thisLine = linesFiltered.get(texts.get(m));
+        if( !thisLine.contains("="))
+        {
+          splitByCommas = trim(splitTokens(thisLine, "(,); "));
+        }
+ 
         j = 0;
         boolean magicFlag = false;
         int score  = 0;
