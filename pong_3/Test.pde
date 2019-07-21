@@ -918,19 +918,18 @@ class Test {
    Makes sure two texts are on either side of the screen
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
-  void checkScores() //check for text
+ void checkScores() //check for text
   {
     try
     {        
       ArrayList<Integer> parameters = new ArrayList<Integer>();     
-      String[] splitByLeftBrace;
-      String[] splitByCommas = {};
+      String[] splitByLeftBraceAndCommas = {};
       int max = 0;
-      //int coordinateFlag = 0;
+      int coordinateFlag = 0;
       boolean sizeFlag = true;
       //int textFlag = 0; // variable to check if required number of text functions are used and break code otherwise
 
-      //make sure size is set beore writing the scores
+      //make sure size is set before writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
@@ -980,15 +979,15 @@ class Test {
         String thisLine = linesFiltered.get(texts.get(m));
         if( !thisLine.contains("="))
         {
-          splitByCommas = trim(splitTokens(thisLine, "(,); "));
+          splitByLeftBraceAndCommas = trim(splitTokens(thisLine, "(,); "));
         }
  
         j = 0;
         boolean magicFlag = false;
         int score  = 0;
-        while (j < splitByCommas.length) // 
+        while (j < splitByLeftBraceAndCommas.length) // 
         {         
-          if (m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
+          if (m < 1 && j < 2 && isNumeric(splitByLeftBraceAndCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
             errors.add("use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
@@ -999,15 +998,15 @@ class Test {
           { 
             if (j > 0) 
             {               
-              if (variablesHashMap.containsKey(splitByCommas[j]))
+              if (variablesHashMap.containsKey(splitByLeftBraceAndCommas[j]))
               {
-                parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+                parameters.add(int(variablesHashMap.get(splitByLeftBraceAndCommas[j])));
               } else {
-                parameters.add(int(splitByCommas[j]));
+                parameters.add(int(splitByLeftBraceAndCommas[j]));
               }
             }
 
-            if (isNumeric(splitByCommas[j])) { 
+            if (isNumeric(splitByLeftBraceAndCommas[j])) { 
               magicFlag = true;
               score = m;
             }
@@ -1023,43 +1022,33 @@ class Test {
         max = max + j;
       }
       
-      // Check position of scores
-      if( !(int(code1.rightScoreX()) > screenWidth/2) ){
+      if (parameters.get(0) < (screenWidth/2)) //check left score
+      {
+        coordinateFlag = 1;
+      } else if (parameters.get(2) < (screenWidth/2))
+      {
+        coordinateFlag = 2;
+      } else
+      {
+        totalScore -= deduction;
+        errors.add("left score not at left position");
+      }
+
+      if (coordinateFlag == 1) //check right score
+      {
+        if (parameters.get(2) > (screenWidth/2))
+        {
           totalScore -= deduction;
           errors.add("right score not at right position");
-      }
-      if( !(int(code1.leftScoreX()) < int(screenWidth/2)) ){    
+        }
+      } else if (coordinateFlag == 2)
+      {
+        if (parameters.get(0) > (screenWidth/2))
+        {
           totalScore -= deduction;
-          errors.add("left score not at left position");
+          errors.add("right score not at right position");
+        }
       }
-      
-      //if (parameters.get(0) < (screenWidth/2)) //check left score
-      //{
-      //  coordinateFlag = 1;
-      //} else if (parameters.get(2) < (screenWidth/2))
-      //{
-      //  coordinateFlag = 2;
-      //} else
-      //{
-      //  totalScore -= deduction;
-      //  errors.add("left score not at left position");
-      //}
-
-      //if (coordinateFlag == 1) //check right score
-      //{
-      //  if (parameters.get(2) < (screenWidth/2))
-      //  {
-      //    totalScore -= deduction;
-      //    errors.add("right score not at right position");
-      //  }
-      //} else if (coordinateFlag == 2)
-      //{
-      //  if (parameters.get(0) < (screenWidth/2))
-      //  {
-      //    totalScore -= deduction;
-      //    errors.add("right score not at right position");
-      //  }
-      //}
     }
     catch (Exception e) 
     {

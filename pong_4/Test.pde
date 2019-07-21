@@ -953,13 +953,13 @@ class Test {
     {        
       ArrayList<Integer> parameters = new ArrayList<Integer>();     
       String[] splitByLeftBrace;
-      String[] splitByCommas;
+      String[] splitByCommas = {};
       int max = 0;
-      //int coordinateFlag = 0;
+      int coordinateFlag = 0;
       boolean sizeFlag = true;
       //int textFlag = 0; // variable to check if required number of text functions are used and break code otherwise
 
-      //make sure size is set beore writing the scores
+      //make sure size is set before writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
@@ -1005,8 +1005,13 @@ class Test {
       for (int m = 0; m < texts.size(); m++) 
       {
         //splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(,); ");
-        splitByCommas = trim(splitTokens(linesFiltered.get(texts.get(m)), "(,); "));
-
+        
+        String thisLine = linesFiltered.get(texts.get(m));
+        if( !thisLine.contains("="))
+        {
+          splitByCommas = trim(splitTokens(thisLine, "(,); "));
+        }
+ 
         j = 0;
         boolean magicFlag = false;
         int score  = 0;
@@ -1047,43 +1052,33 @@ class Test {
         max = max + j;
       }
       
-      // Check position of scores
-      if( !(int(code1.rightScoreX()) > screenWidth/2) ){
+      if (parameters.get(0) < (screenWidth/2)) //check left score
+      {
+        coordinateFlag = 1;
+      } else if (parameters.get(2) < (screenWidth/2))
+      {
+        coordinateFlag = 2;
+      } else
+      {
+        totalScore -= deduction;
+        errors.add("left score not at left position");
+      }
+
+      if (coordinateFlag == 1) //check right score
+      {
+        if (parameters.get(2) > (screenWidth/2))
+        {
           totalScore -= deduction;
           errors.add("right score not at right position");
-      }
-      if( !(int(code1.leftScoreX()) < int(screenWidth/2)) ){    
+        }
+      } else if (coordinateFlag == 2)
+      {
+        if (parameters.get(0) > (screenWidth/2))
+        {
           totalScore -= deduction;
-          errors.add("left score not at left position");
+          errors.add("right score not at right position");
+        }
       }
-      
-      //if (parameters.get(0) < (screenWidth/2)) //check left score
-      //{
-      //  coordinateFlag = 1;
-      //} else if (parameters.get(2) < (screenWidth/2))
-      //{
-      //  coordinateFlag = 2;
-      //} else
-      //{
-      //  totalScore -= deduction;
-      //  errors.add("left score not at left position");
-      //}
-
-      //if (coordinateFlag == 1) //check right score
-      //{
-      //  if (parameters.get(2) < (screenWidth/2))
-      //  {
-      //    totalScore -= deduction;
-      //    errors.add("right score not at right position");
-      //  }
-      //} else if (coordinateFlag == 2)
-      //{
-      //  if (parameters.get(0) < (screenWidth/2))
-      //  {
-      //    totalScore -= deduction;
-      //    errors.add("right score not at right position");
-      //  }
-      //}
     }
     catch (Exception e) 
     {
