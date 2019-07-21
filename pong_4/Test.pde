@@ -952,8 +952,7 @@ class Test {
     try
     {        
       ArrayList<Integer> parameters = new ArrayList<Integer>();     
-      String[] splitByLeftBrace;
-      String[] splitByCommas = {};
+      String[] splitByLeftBraceAndCommas = {};
       int max = 0;
       int coordinateFlag = 0;
       boolean sizeFlag = true;
@@ -1009,15 +1008,15 @@ class Test {
         String thisLine = linesFiltered.get(texts.get(m));
         if( !thisLine.contains("="))
         {
-          splitByCommas = trim(splitTokens(thisLine, "(,); "));
+          splitByLeftBraceAndCommas = trim(splitTokens(thisLine, "(,); "));
         }
  
         j = 0;
         boolean magicFlag = false;
         int score  = 0;
-        while (j < splitByCommas.length) // 
+        while (j < splitByLeftBraceAndCommas.length) // 
         {         
-          if (m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
+          if (m < 1 && j < 2 && isNumeric(splitByLeftBraceAndCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
             errors.add("use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
@@ -1028,15 +1027,15 @@ class Test {
           { 
             if (j > 0) 
             {               
-              if (variablesHashMap.containsKey(splitByCommas[j]))
+              if (variablesHashMap.containsKey(splitByLeftBraceAndCommas[j]))
               {
-                parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+                parameters.add(int(variablesHashMap.get(splitByLeftBraceAndCommas[j])));
               } else {
-                parameters.add(int(splitByCommas[j]));
+                parameters.add(int(splitByLeftBraceAndCommas[j]));
               }
             }
 
-            if (isNumeric(splitByCommas[j])) { 
+            if (isNumeric(splitByLeftBraceAndCommas[j])) { 
               magicFlag = true;
               score = m;
             }
