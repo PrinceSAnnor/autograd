@@ -920,8 +920,8 @@ class Test {
    */
   void checkScores() //check for text
   {
-    //try
-    //{        
+    try
+    {        
       ArrayList<Integer> parameters = new ArrayList<Integer>();     
       String[] splitByLeftBrace;
       String[] splitByCommas;
@@ -1055,12 +1055,12 @@ class Test {
       //    errors.add("right score not at right position");
       //  }
       //}
-    //}
-    //catch (Exception e) 
-    //{
-    //  errors.add("Error: couldn't check scores");
-    //  totalScore -= majorExceptions;
-    //}
+    }
+    catch (Exception e) 
+    {
+      errors.add("Error: couldn't check scores");
+      totalScore -= majorExceptions;
+    }
   }
 
   /*
