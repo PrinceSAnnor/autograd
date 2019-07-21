@@ -127,8 +127,10 @@ class Test {
    if at the end tabs > 0 there's an unmatched {
    */
 
+  
   void checkTabs()
   {
+    ArrayList<Integer> linesToCheck = new ArrayList<Integer>();
     boolean tabsFlag = false;
     int tabs = 0;
     try
@@ -140,11 +142,13 @@ class Test {
           {
             if (fileLines[i].charAt(j) != ' ') //wrongly under indented
             {
+              if( !linesToCheck.contains(i)) linesToCheck.add(i);
               tabsFlag = true;
               //errors.add(i);
             }
             if (fileLines[i].charAt(tabs) == ' ')//wrongly over indented
             {
+              if( !linesToCheck.contains(i)) linesToCheck.add(i);
               tabsFlag = true;
             }
           }
@@ -154,6 +158,7 @@ class Test {
           tabs += tabLength;
         } else if (match(fileLines[i], "\\}") != null) //find }
         {
+          
           tabs -= tabLength;
         }
       }
@@ -169,7 +174,11 @@ class Test {
       }
       if (tabsFlag) //wrong indentation
       {
-        errors.add("code not indented properly");
+        String err = "code not indented properly either on/before/after these lines:";
+        for (int i = 0; i< linesToCheck.size(); i++){
+          err = err + " " + linesToCheck.get(i); 
+        }
+        errors.add(err);
         totalScore -= deduction;
       }
     }
@@ -179,6 +188,7 @@ class Test {
       totalScore -= majorExceptions;
     }
   }
+
 
   /*
     checks to see if there are more two semicolons on one line. That means there are two statements on one line.
@@ -942,14 +952,13 @@ class Test {
     try
     {        
       ArrayList<Integer> parameters = new ArrayList<Integer>();     
-      String[] splitByLeftBrace;
-      String[] splitByCommas;
+      String[] splitByLeftBraceAndCommas = {};
       int max = 0;
       int coordinateFlag = 0;
       boolean sizeFlag = true;
       //int textFlag = 0; // variable to check if required number of text functions are used and break code otherwise
 
-      //make sure size is set beore writing the scores
+      //make sure size is set before writing the scores
       for (int i = 0; i < linesFiltered.size(); i++)
       {
         if (match(linesFiltered.get(i), "^textSize.*$") != null) //look for textSize with regex
@@ -994,15 +1003,20 @@ class Test {
       int j = 0;
       for (int m = 0; m < texts.size(); m++) 
       {
-        splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(");
-        splitByCommas = trim(splitTokens(splitByLeftBrace[1], ",)"));
-
+        //splitByLeftBrace = splitTokens(linesFiltered.get(texts.get(m)), "(,); ");
+        
+        String thisLine = linesFiltered.get(texts.get(m));
+        if( !thisLine.contains("="))
+        {
+          splitByLeftBraceAndCommas = trim(splitTokens(thisLine, "(,); "));
+        }
+ 
         j = 0;
         boolean magicFlag = false;
         int score  = 0;
-        while (j < splitByCommas.length) // 
+        while (j < splitByLeftBraceAndCommas.length) // 
         {         
-          if (m < 1 && j < 2 && isNumeric(splitByCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
+          if (m < 1 && j < 2 && isNumeric(splitByLeftBraceAndCommas[j])) // check for magic number in texSize() fxn. 'scoreSize'
           { 
             errors.add("use of magic numbers as parameters for textSize()");
             totalScore -= deduction;
@@ -1013,15 +1027,15 @@ class Test {
           { 
             if (j > 0) 
             {               
-              if (variablesHashMap.containsKey(splitByCommas[j]))
+              if (variablesHashMap.containsKey(splitByLeftBraceAndCommas[j]))
               {
-                parameters.add(int(variablesHashMap.get(splitByCommas[j])));
+                parameters.add(int(variablesHashMap.get(splitByLeftBraceAndCommas[j])));
               } else {
-                parameters.add(int(splitByCommas[j]));
+                parameters.add(int(splitByLeftBraceAndCommas[j]));
               }
             }
 
-            if (isNumeric(splitByCommas[j])) { 
+            if (isNumeric(splitByLeftBraceAndCommas[j])) { 
               magicFlag = true;
               score = m;
             }
@@ -1036,7 +1050,7 @@ class Test {
         }
         max = max + j;
       }
-
+      
       if (parameters.get(0) < (screenWidth/2)) //check left score
       {
         coordinateFlag = 1;
@@ -1051,14 +1065,14 @@ class Test {
 
       if (coordinateFlag == 1) //check right score
       {
-        if (parameters.get(2) < (screenWidth/2))
+        if (parameters.get(2) > (screenWidth/2))
         {
           totalScore -= deduction;
           errors.add("right score not at right position");
         }
       } else if (coordinateFlag == 2)
       {
-        if (parameters.get(0) < (screenWidth/2))
+        if (parameters.get(0) > (screenWidth/2))
         {
           totalScore -= deduction;
           errors.add("right score not at right position");

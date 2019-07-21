@@ -438,7 +438,7 @@ class AutoGrad(object):
                     body={ 'draftGrade': grade }
                     if return_grade: body['assignedGrade'] = grade
                     results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
-                    click.echo('Posted in classroom for {}'.format(user_id))  
+                    if results: click.echo('Posted in classroom for {}'.format(user_id))  
                 except Exception as e:
                     with open(os.path.join(self.BASE_DIR, "upload_errors.txt"), 'a') as f:
                         f.writelines([user_id,'\n'])
@@ -546,13 +546,11 @@ class AutoGrad(object):
         if kwargs.get('only'):
             only = kwargs.get('only')
             to_save = only
-            print(to_save)
 
         if args: p = '_'.join(args)
         else: p = 'temp'
         dst = os.path.join(self.BASE_DIR, 'logs', p)
         for file in os.listdir(self.BASE_DIR):
-            print(to_save)
             
             if file in to_save and os.path.exists(os.path.join(self.BASE_DIR, file) ):
                 src = os.path.join(self.BASE_DIR, file)
