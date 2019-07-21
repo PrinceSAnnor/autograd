@@ -438,7 +438,7 @@ class AutoGrad(object):
                     body={ 'draftGrade': grade }
                     if return_grade: body['assignedGrade'] = grade
                     results = self.teacher.grade_submissions(course_id, assg_id, sub_id, body)
-                    click.echo('Posted in classroom for {}'.format(user_id))  
+                    if results: click.echo('Posted in classroom for {}'.format(user_id))  
                 except Exception as e:
                     with open(os.path.join(self.BASE_DIR, "upload_errors.txt"), 'a') as f:
                         f.writelines([user_id,'\n'])
