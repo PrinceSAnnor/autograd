@@ -494,6 +494,8 @@ void checkRects() //check rects
     try
     {
       output.println("class Code {");
+      int setupFlag = 0;
+      int drawFlag = 0;
 
       for (int i = 0; i < fileLines.length; i++)
       {
@@ -503,13 +505,17 @@ void checkRects() //check rects
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void once() {");
+            setupFlag ++;
           } else if (match(fileLines[i], "setup") != null) {
             output.println("void once()");
+            setupFlag ++;
           }
           else if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void forever() {");
+            drawFlag ++;
           } else if (match(fileLines[i], "draw") != null) {
             output.println("void forever()");
+            drawFlag ++;
           }
           else{
             output.println(trim(fileLines[i]));
@@ -518,6 +524,14 @@ void checkRects() //check rects
           output.println(trim(fileLines[i]));
         }
       }
+      
+      if(setupFlag == 0 ){
+        output.println("void once(){}");
+      }
+      if(drawFlag == 0){
+        output.println("void forever(){}");
+      }
+
       
       //Add getters and setters for manipulating mouseX and mouseY
       output.println("int wierd = -99;");
