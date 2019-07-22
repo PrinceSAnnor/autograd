@@ -86,7 +86,7 @@ void presetValues(){
   varNamesHashMap.put("paddleHeight", "wierd");
   varNamesHashMap.put("rightPaddleX", "wierd");
   varNamesHashMap.put("rightPaddleY", "wierd");
-  varNamesHashMap.put("txtSize", "wierd");
+  varNamesHashMap.put("textsize", "wierd");
   varNamesHashMap.put("leftScore", "wierd");
   varNamesHashMap.put("leftScoreX", "wierd");
   varNamesHashMap.put("scoreY", "wierd");
@@ -711,7 +711,7 @@ void checkRects() //check rects
         {  
           // Get matches for textSize()
           String[] a = splitTokens(thisLine, "()//;");  
-          varNamesHashMap.put("txtSize", a[1]);
+          varNamesHashMap.put("textsize", a[1]);
         }
         if( match(thisLine, "^text.*$") != null // This has text()
           && match(thisLine, "^textSize.*$") == null // This is not textSize()
