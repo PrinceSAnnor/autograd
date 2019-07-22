@@ -25,7 +25,6 @@ class GetCode {
   }
   
   int screenWidth, screenHeight;
-  ArrayList<String> errors = new ArrayList<String>();
 
   /*
   In the function below, I'm reading the file into an array of strings. Each element in the array is a line in the file
@@ -778,6 +777,7 @@ void checkRects() //check rects
         scoreY = stryvals.get(leftScoreXIndex); 
       }
       catch(Exception e){
+        getScreenSize();
         leftScoreX =  str((screenWidth / 4));
         rightScoreX =  str((3 * screenWidth) / 4);
       }
