@@ -723,6 +723,7 @@ void checkRects() //check rects
           String scorey = splitBy[3]; 
           String scorex = splitBy[2]; 
           String score = splitBy[1]; 
+         
           if( splitBy[1].contains("\"")  )
           {
             magicFlag = 1;
