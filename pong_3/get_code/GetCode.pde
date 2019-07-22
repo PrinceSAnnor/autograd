@@ -15,7 +15,7 @@ class GetCode {
   ArrayList<Integer> variableLines = new ArrayList<Integer>(); //lines with variables
   HashMap<String,String> variablesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
   ArrayList<String> varKeys = new ArrayList<String>(); //variable names
-      
+  
   HashMap<String,String> varNamesHashMap = new HashMap<String,String>(); //Hashmap contaning variables
   
   File filePath;
@@ -23,6 +23,8 @@ class GetCode {
   GetCode(File f) {
     filePath = f;
   }
+  
+  int screenWidth, screenHeight;
 
   /*
   In the function below, I'm reading the file into an array of strings. Each element in the array is a line in the file
@@ -73,7 +75,7 @@ class GetCode {
 
    
 /*
-  This function pre-sets the values of the varNamesHashMap to -99
+  This function pre-sets the values of the varNamesHashMap
 */
 void presetValues(){
   //varNamesHashMap.put("wierd", "-99");
@@ -83,7 +85,7 @@ void presetValues(){
   varNamesHashMap.put("paddleHeight", "wierd");
   varNamesHashMap.put("rightPaddleX", "wierd");
   varNamesHashMap.put("rightPaddleY", "wierd");
-  varNamesHashMap.put("txtSize", "wierd");
+  varNamesHashMap.put("textsize", "wierd");
   varNamesHashMap.put("leftScore", "wierd");
   varNamesHashMap.put("leftScoreX", "wierd");
   varNamesHashMap.put("scoreY", "wierd");
@@ -98,7 +100,62 @@ void presetValues(){
 
 }
 
+boolean getScreenSize() //gets first comment line
+  {
+    try
+    {
+      String[] splitByComma = splitTokens(linesFiltered.get(0), ",;"); 
+      String[] splitByEqualsLeft = splitTokens(splitByComma[0], "=");
+      String[] splitByEqualsRight = splitTokens(splitByComma[splitByComma.length - 1], "=");
 
+      String[] splitBySpacesLeft = splitTokens(splitByEqualsLeft[1]);
+      String[] splitBySpacesRight = splitTokens(splitByEqualsRight[1]);
+
+      //get width
+      int i = 0;
+      while (!(isNumeric(splitBySpacesLeft[i])) && i < splitBySpacesLeft.length) //parse for numeric value
+      {
+        i++;
+      }
+      // if( !isNumeric(screenWidth) )errors.add("Your screenwidth is not a numeric value");
+      
+      screenWidth = int(trim(splitBySpacesLeft[i]));//get screen height
+
+      if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
+      {
+        //errors.add("check width in code");
+        //majorError.add("Major Error: check width in first line of code. Replace the *** with your maxX value and resubmit for grading.");
+        //totalScore = 0;
+        //majorErrorFlag = true;
+      }
+
+      //get height
+      i = 0;
+      while (!(isNumeric(splitBySpacesRight[i])) && i < splitBySpacesRight.length) //parse for numeric value
+      {
+        i++;
+      }
+
+      if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
+      {
+        //errors.add("check height in code.");
+        //majorError.add("Major Error: check height in first line of code. Replace the *** with your maxY value and resubmit for grading.");
+        //totalScore = 0;
+        //majorErrorFlag = true;
+      }
+
+      //screenHeight = int(trim(splitBySpacesRight[i])); //get screen height
+      return true;
+    } 
+    catch (Exception e)
+    {
+      //errors.add("Error: check syntax of width and height at first line of code");
+      //majorError.add("Major Error: check syntax of width and height at first line of code. Replace the ** with your maxX and maXY values and resubmit for grading.");
+      //totalScore = 0;
+      //majorErrorFlag = true;
+      return false;
+    }
+  }
 
 void checkRects() //check rects
   {
@@ -200,7 +257,7 @@ void checkRects() //check rects
 
   /*
   Finds the number of texts within the code
-   Makes sure two texts are on either side of the screen
+  Gets the positions of the scores
    Follow the name of the variables to understand what's going on with each splitTokens  
    */
   void checkScores() //check for text
@@ -398,7 +455,7 @@ void checkRects() //check rects
     }
     catch(Exception e)
     {
-      println("Couldnt get all speed vars: " + e);
+      println("May not have gotten all speed vars: " + e);
     }
   }
 
@@ -406,20 +463,6 @@ void checkRects() //check rects
   {
     try
     {
-      // String[] splitBySemiColon;
-      // String[] splitBySpace;
-      
-      //for (int m = 0; m < linesFiltered.size(); m++) 
-      //{         
-      //  if(match(linesFiltered.get(m), "boolean") != null) {
-          
-      //    splitBySemiColon = trim(splitTokens(linesFiltered.get(m), ";"));
-          
-      //    splitBySpace = trim(splitTokens(splitBySemiColon[0], " "));
-          
-      //    varNamesHashMap.put("gameOn", "-99");
-      //  }
-      //}
       
       for (int m = 0; m < linesFiltered.size(); m++) 
       {         
@@ -430,13 +473,13 @@ void checkRects() //check rects
           splitMatch = trim(splitTokens(linesFiltered.get(m), "=; "));
           
           String gameOnVar = trim(splitMatch[1]);
-
           varNamesHashMap.put("gameOn", gameOnVar);
         }
       }
     }
     catch(Exception e)
     {
+      //varNamesHashMap.put("gameOn", "gOn");
       println("couldnt get boolean vars" + e);
     }
   }
@@ -490,7 +533,9 @@ void checkRects() //check rects
     try
     {
       output.println("class Code {");
-
+      int setupFlag = 0;
+      int drawFlag = 0;
+      
       for (int i = 0; i < fileLines.length; i++)
       {
         if (match(fileLines[i], "fullScreen") != null) {
@@ -499,18 +544,33 @@ void checkRects() //check rects
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void once() {");
+            setupFlag ++;
           } else if (match(fileLines[i], "setup") != null) {
             output.println("void once()");
+            setupFlag ++;
           }
+          
+          
           if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void forever() {");
+            drawFlag ++;
           } else if (match(fileLines[i], "draw") != null) {
             output.println("void forever()");
-          }
+            drawFlag ++;
+          } 
+          
         } else {
           output.println(trim(fileLines[i]));
         }
       }
+      
+      if(setupFlag == 0 ){
+        output.println("void once(){}");
+      }
+      if(drawFlag == 0){
+        output.println("void forever(){}");
+      }
+
       
       output.println("int wierd = -99;");
       
@@ -539,11 +599,17 @@ void checkRects() //check rects
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
       { 
         if(entry.getKey() == "gameOn"){
-          output.println("boolean " + entry.getKey() + "()");
-          output.println("{");
-          output.println("return " + entry.getValue() + ";");
-          output.println("}");
-        }else if( !entry.getValue().contains("\"") && !(isNumeric(entry.getValue())) ){
+          String value = entry.getValue();
+          if(entry.getValue() == "wierd"){
+            value = entry.getKey();
+            output.println("boolean "+ entry.getKey() + " = " + "false" + ";");
+          }     
+            output.println("boolean " + entry.getKey() + "()");
+            output.println("{");
+            output.println("return " + value + ";");
+            output.println("}");
+       
+        }else if( !(entry.getValue().contains("\"")) && !(isNumeric(entry.getValue())) ){
           output.println("int " + entry.getKey() + "()");
           output.println("{");
           output.println("  return int(" + entry.getValue() + ");");
@@ -551,6 +617,7 @@ void checkRects() //check rects
         }else{
           //add missing/magic number variable
           variablesHashMap.put(entry.getKey(), entry.getValue() );
+          
           output.println("int "+ entry.getKey() + " = " + int(entry.getValue()) + ";");
           
           //Print new setter for missing
@@ -569,9 +636,13 @@ void checkRects() //check rects
       for (Map.Entry<String,String> entry : varNamesHashMap.entrySet())
       { 
         if(entry.getKey() == "gameOn"){
+          String value = entry.getValue();
+          if(entry.getValue() == "wierd"){
+            value = entry.getKey();
+          }
           output.println("void " + "set" + entry.getKey() + "(boolean x)");
           output.println("{");
-          output.println("  "+entry.getValue() + " = x" + ";");
+          output.println("  "+ value + " = x" + ";");
           output.println("}");
         }else if( !entry.getValue().contains("\"") && !(isNumeric(entry.getValue())) ){
             // || true
@@ -639,7 +710,7 @@ void checkRects() //check rects
         {  
           // Get matches for textSize()
           String[] a = splitTokens(thisLine, "()//;");  
-          varNamesHashMap.put("txtSize", a[1]);
+          varNamesHashMap.put("textsize", a[1]);
         }
         if( match(thisLine, "^text.*$") != null // This has text()
           && match(thisLine, "^textSize.*$") == null // This is not textSize()
@@ -695,15 +766,21 @@ void checkRects() //check rects
       }
              
     }else{
-      
-      int leftScoreXIndex = xvals.indexOf(Collections.min(xvals));
-      int rightScoreXIndex = xvals.indexOf(Collections.max(xvals));
-      
-      leftScoreX = scorevals.get(leftScoreXIndex);
-      leftScore = strscores.get(leftScoreXIndex);
-      rightScoreX = scorevals.get(rightScoreXIndex);
-      rightScore = strscores.get(rightScoreXIndex);
-      scoreY = stryvals.get(leftScoreXIndex);
+      try{
+        int leftScoreXIndex = xvals.indexOf(Collections.min(xvals));
+        int rightScoreXIndex = xvals.indexOf(Collections.max(xvals));
+        
+        leftScoreX = scorevals.get(leftScoreXIndex);
+        leftScore = strscores.get(leftScoreXIndex);
+        rightScoreX = scorevals.get(rightScoreXIndex);
+        rightScore = strscores.get(rightScoreXIndex);
+        scoreY = stryvals.get(leftScoreXIndex); 
+      }
+      catch(Exception e){
+        getScreenSize();
+        leftScoreX =  str((screenWidth / 4));
+        rightScoreX =  str((3 * screenWidth) / 4);
+      }
       
       varNamesHashMap.put("leftScoreX", leftScoreX  );
       varNamesHashMap.put("rightScoreX", rightScoreX );

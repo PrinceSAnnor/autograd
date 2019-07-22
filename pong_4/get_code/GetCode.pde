@@ -23,6 +23,8 @@ class GetCode {
   GetCode(File f) {
     filePath = f;
   }
+  
+   int screenWidth, screenHeight;
 
   /*
   In the function below, I'm reading the file into an array of strings. Each element in the array is a line in the file
@@ -98,6 +100,62 @@ void presetValues(){
 
 }
 
+boolean getScreenSize() //gets first comment line
+  {
+    try
+    {
+      String[] splitByComma = splitTokens(linesFiltered.get(0), ",;"); 
+      String[] splitByEqualsLeft = splitTokens(splitByComma[0], "=");
+      String[] splitByEqualsRight = splitTokens(splitByComma[splitByComma.length - 1], "=");
+
+      String[] splitBySpacesLeft = splitTokens(splitByEqualsLeft[1]);
+      String[] splitBySpacesRight = splitTokens(splitByEqualsRight[1]);
+
+      //get width
+      int i = 0;
+      while (!(isNumeric(splitBySpacesLeft[i])) && i < splitBySpacesLeft.length) //parse for numeric value
+      {
+        i++;
+      }
+      // if( !isNumeric(screenWidth) )errors.add("Your screenwidth is not a numeric value");
+      
+      screenWidth = int(trim(splitBySpacesLeft[i]));//get screen height
+
+      if (i == (splitBySpacesLeft.length - 1) && i != 0) //if invalid width, quit program and give zero
+      {
+        //errors.add("check width in code");
+        //majorError.add("Major Error: check width in first line of code. Replace the *** with your maxX value and resubmit for grading.");
+        //totalScore = 0;
+        //majorErrorFlag = true;
+      }
+
+      //get height
+      i = 0;
+      while (!(isNumeric(splitBySpacesRight[i])) && i < splitBySpacesRight.length) //parse for numeric value
+      {
+        i++;
+      }
+
+      if (i == (splitBySpacesRight.length - 1) && i != 0) //if invalid height, quit program and give zero
+      {
+        //errors.add("check height in code.");
+        //majorError.add("Major Error: check height in first line of code. Replace the *** with your maxY value and resubmit for grading.");
+        //totalScore = 0;
+        //majorErrorFlag = true;
+      }
+
+      //screenHeight = int(trim(splitBySpacesRight[i])); //get screen height
+      return true;
+    } 
+    catch (Exception e)
+    {
+      //errors.add("Error: check syntax of width and height at first line of code");
+      //majorError.add("Major Error: check syntax of width and height at first line of code. Replace the ** with your maxX and maXY values and resubmit for grading.");
+      //totalScore = 0;
+      //majorErrorFlag = true;
+      return false;
+    }
+  }
 
 
 void checkRects() //check rects
@@ -494,6 +552,8 @@ void checkRects() //check rects
     try
     {
       output.println("class Code {");
+      int setupFlag = 0;
+      int drawFlag = 0;
 
       for (int i = 0; i < fileLines.length; i++)
       {
@@ -503,13 +563,17 @@ void checkRects() //check rects
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void once() {");
+            setupFlag ++;
           } else if (match(fileLines[i], "setup") != null) {
             output.println("void once()");
+            setupFlag ++;
           }
           else if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void forever() {");
+            drawFlag ++;
           } else if (match(fileLines[i], "draw") != null) {
             output.println("void forever()");
+            drawFlag ++;
           }
           else{
             output.println(trim(fileLines[i]));
@@ -518,6 +582,14 @@ void checkRects() //check rects
           output.println(trim(fileLines[i]));
         }
       }
+      
+      if(setupFlag == 0 ){
+        output.println("void once(){}");
+      }
+      if(drawFlag == 0){
+        output.println("void forever(){}");
+      }
+
       
       //Add getters and setters for manipulating mouseX and mouseY
       output.println("int wierd = -99;");
@@ -652,7 +724,11 @@ void checkRects() //check rects
     ArrayList<String> strscores = new ArrayList<String>();
     ArrayList<String> scorevals = new ArrayList<String>();
     int magicFlag = 0;
-    String leftScoreX, leftScoreY, leftScore, rightScore, rightScoreX, scoreY;
+    String leftScoreX = "0", 
+    leftScoreY = "0", 
+    leftScore = "0", 
+    rightScore = "0", 
+    rightScoreX = "0", scoreY = "0";
     
     for(int i = 0; i < linesFiltered.size(); i++)
     {
@@ -661,7 +737,7 @@ void checkRects() //check rects
         {  
           // Get matches for textSize()
           String[] a = splitTokens(thisLine, "()//;");  
-          varNamesHashMap.put("txtSize", a[1]);
+          varNamesHashMap.put("textsize", a[1]);
         }
         if( match(thisLine, "^text.*$") != null // This has text()
           && match(thisLine, "^textSize.*$") == null // This is not textSize()
@@ -692,30 +768,46 @@ void checkRects() //check rects
     }
   
     if(magicFlag == 1){
-      leftScoreX = str(Collections.min(xvals));
-      int leftScoreXIndex = xvals.indexOf(leftScoreX);
-      rightScoreX = str(Collections.max(xvals));
-      int rightScoreXIndex = xvals.indexOf(rightScoreX);
-      scoreY = str(yvals.get(leftScoreXIndex));
-      leftScore = scorevals.get(leftScoreXIndex);
-      rightScore = scorevals.get(rightScoreXIndex);
-      
-      varNamesHashMap.put("leftScoreX", leftScoreX  );
-      varNamesHashMap.put("rightScoreX", rightScoreX );
-      varNamesHashMap.put("scoreY", scoreY );
-      varNamesHashMap.put("leftScore", leftScore );
-      varNamesHashMap.put("rightScore", rightScore );
+      try
+      {
+        leftScoreX = str(Collections.min(xvals));
+        int leftScoreXIndex = xvals.indexOf(leftScoreX);
+        rightScoreX = str(Collections.max(xvals));
+        int rightScoreXIndex = xvals.indexOf(rightScoreX);
+        scoreY = "leftScore";//yvals.get(leftScoreXIndex));
+        leftScore = scorevals.get(leftScoreXIndex);
+        rightScore = scorevals.get(rightScoreXIndex);
         
+        varNamesHashMap.put("leftScoreX", leftScoreX  );
+        varNamesHashMap.put("rightScoreX", rightScoreX );
+        varNamesHashMap.put("scoreY", scoreY );
+        varNamesHashMap.put("leftScore", leftScore );
+        varNamesHashMap.put("rightScore", rightScore );
+      }catch(Exception e){
+        // Weird values for text() eg. text("4    2", textX, textY);
+          varNamesHashMap.put("leftScoreX", leftScoreX  );
+          varNamesHashMap.put("rightScoreX", rightScoreX );
+          varNamesHashMap.put("leftScore", leftScore );
+          varNamesHashMap.put("rightScore", rightScore );
+          varNamesHashMap.put("scoreY", scoreY );
+      }
+             
     }else{
-      
-      int leftScoreXIndex = xvals.indexOf(Collections.min(xvals));
-      int rightScoreXIndex = xvals.indexOf(Collections.max(xvals));
-      
-      leftScoreX = scorevals.get(leftScoreXIndex);
-      leftScore = strscores.get(leftScoreXIndex);
-      rightScoreX = scorevals.get(rightScoreXIndex);
-      rightScore = strscores.get(rightScoreXIndex);
-      scoreY = stryvals.get(leftScoreXIndex);
+      try{
+        int leftScoreXIndex = xvals.indexOf(Collections.min(xvals));
+        int rightScoreXIndex = xvals.indexOf(Collections.max(xvals));
+        
+        leftScoreX = scorevals.get(leftScoreXIndex);
+        leftScore = strscores.get(leftScoreXIndex);
+        rightScoreX = scorevals.get(rightScoreXIndex);
+        rightScore = strscores.get(rightScoreXIndex);
+        scoreY = stryvals.get(leftScoreXIndex); 
+      }
+      catch(Exception e){
+        getScreenSize();
+        leftScoreX =  str((screenWidth / 4));
+        rightScoreX =  str((3 * screenWidth) / 4);
+      }
       
       varNamesHashMap.put("leftScoreX", leftScoreX  );
       varNamesHashMap.put("rightScoreX", rightScoreX );
