@@ -534,7 +534,9 @@ void checkRects() //check rects
     try
     {
       output.println("class Code {");
-
+      int setupFlag = 0;
+      int drawFlag = 0;
+      
       for (int i = 0; i < fileLines.length; i++)
       {
         if (match(fileLines[i], "fullScreen") != null) {
@@ -543,25 +545,33 @@ void checkRects() //check rects
 
           if ((match(fileLines[i], "setup") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void once() {");
+            setupFlag ++;
           } else if (match(fileLines[i], "setup") != null) {
             output.println("void once()");
-          }else{
-            output.println("void once(){}");
+            setupFlag ++;
           }
           
           
           if ((match(fileLines[i], "draw") != null) && (match(fileLines[i], "\\{") != null)) {
             output.println("void forever() {");
+            drawFlag ++;
           } else if (match(fileLines[i], "draw") != null) {
             output.println("void forever()");
-          } else {
-            output.println("void forever(){}");
-          }
+            drawFlag ++;
+          } 
           
         } else {
           output.println(trim(fileLines[i]));
         }
       }
+      
+      if(setupFlag == 0 ){
+        output.println("void once(){}");
+      }
+      if(drawFlag == 0){
+        output.println("void forever(){}");
+      }
+
       
       output.println("int wierd = -99;");
       
