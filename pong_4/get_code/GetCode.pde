@@ -525,7 +525,7 @@ void checkRects() //check rects
         splitBySpace = trim(splitTokens(splitByEquals[0], " ")); //get variable name
         
         String varName = splitBySpace[splitBySpace.length-1];
-        
+      
         splitBySemiColon = trim(splitTokens(splitByEquals[1], ";")); //get the value of the varaible 
         
         String varValue = splitBySemiColon[0];
@@ -750,6 +750,8 @@ void checkRects() //check rects
           String scorey = splitBy[3]; 
           String scorex = splitBy[2]; 
           String score = splitBy[1]; 
+          
+          //println(splitBy);
           if( splitBy[1].contains("\"")  )
           {
             magicFlag = 1;
@@ -831,7 +833,8 @@ void checkRects() //check rects
      getGameOn();
      getSpeeds();
      createFile();
-
+      
+      //println(varNamesHashMap);
 
   }
 }
