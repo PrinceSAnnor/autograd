@@ -228,8 +228,8 @@ class Teacher(object):
             body=submission)
 			
             success = request.execute()  
-            return_request.execute()
-			
+            returned = return_request.execute()
+            			
             return success #, turned_in
         except HttpError as e:
             return json.loads(e.content).get('error')
