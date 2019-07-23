@@ -424,27 +424,12 @@ class Test {
       //int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
-        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect( or rect ( with regex 
+        if (match(linesFiltered.get(i), "rect\\([a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+\\)") != null) //look for rect( or rect ( with regex 
         {
           rects.add(i);
           //recCounter++;
         }
       }
-      
-      //check if rects are used and break code otherwise.
-      //if(recCounter < 2){   
-      //  //println("Student did not create a paddle or both paddles.");
-      //  if(recCounter == 0){
-      //    majorError.add("Major Error: You did not create both paddles. Do so and resubmit for grading.");
-      //    totalScore = 0;
-      //    //println("Student did not create both paddles");
-      //  }else if(recCounter == 1){
-      //    majorError.add("Major Error: You did not create one of the paddes. Do so and resubmit for grading.");
-      //    totalScore = 0;
-      //    //println("Student only created one paddle.");
-      //  }
-        
-      //}
 
       int j = 0;
       for (int m = 0; m < rects.size(); m++) {
@@ -464,16 +449,17 @@ class Test {
             parameters.add(int(splitByCommas1[j]));
           }
 
-
+          
           if (isNumeric(splitByCommas1[j])) // check for magic numbers
           { 
+            println(splitByCommas1[j]);
             magicFlag = true;
             whichRect = m+1;
           }
 
           // check for expressions as params
           String[] param = splitTokens(splitByCommas1[j], " ");
-
+         
           if (param.length > 1) {
             magicFlag = true;
             whichRect = m+1;
@@ -525,7 +511,7 @@ class Test {
       if (parameters.size() > 8) //if more than two paddles
       {
         totalScore -= deduction;
-        errors.add("you have more than two paddles? Use only two rectangles before grade is released");
+        errors.add("you have more than two paddles? Use only two rectangles");
       }
     }
     catch (Exception e) 
@@ -1189,26 +1175,33 @@ class Test {
   {
     return 48<=c&&c<=57;
   }
-
-  boolean isNumeric(String s) //check if a number
+  
+  boolean isNumeric(String s)
   {
-    char [] ca = s.toCharArray();
-    int len = ca.length;
-    boolean first = charIsNum(ca[0]);
-    if (len==1) {
-      return first;
-    } else {
-      if ( !first && ca[0]!='-') { 
-        return false;
-      }
-      for (int i=1; i<len; i++) {
-        if (!charIsNum(ca[i])) {
-          return false;
-        }
-      }
-    }
-    return true;
+    char [] ca = s.toCharArray();    
+    return charIsNum(ca[0]);
   }
+  
+  //boolean isNumeric(String s) //check if a number
+  //{
+  //  char [] ca = s.toCharArray();
+  //  int len = ca.length;
+  //  boolean first = charIsNum(ca[0]);
+    
+  //  if (len==1) {
+  //    return first;
+  //  } else {
+  //    if ( !first && ca[0]!='-') { 
+  //      return false;
+  //    }
+  //    for (int i=1; i<len; i++) {
+  //      if (!charIsNum(ca[i])) {
+  //        return false;
+  //      }
+  //    }
+  //  }
+  //  return true;
+  //}
 
   void getVariables() 
   { 

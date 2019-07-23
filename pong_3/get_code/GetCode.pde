@@ -168,7 +168,7 @@ void checkRects() //check rects
       //int recCounter = 0;//parameter to check if two rectangles (paddles) are used.
       for (int i = 0; i < linesFiltered.size(); i++) 
       {
-        if (match(linesFiltered.get(i), "^rect.*$") != null) //look for rect with regex
+        if (match(linesFiltered.get(i), "rect\\([a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+,[a-zA-Z0-9 ]+\\)") != null) //look for rect with regex
         {
           rects.add(i);
           //recCounter++;
