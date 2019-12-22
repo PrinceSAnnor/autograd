@@ -1,6 +1,6 @@
 # Create all assignments
 
-from modules.Teacher import Teacher
+from classroom.modules.Teacher import Teacher
 import json
 
 # Constants
@@ -40,7 +40,7 @@ response = YES
 # Functions
 def save_json( info, file_name="temporary.json"):
     try:
-        with open(file_name, "w") as f:
+        with open(os.path.join(os.getcwd(),file_name), "w") as f:
             json.dump(info, f)
             return True
     except:
@@ -70,7 +70,7 @@ def get_course_id(index, courses={}):
 
 teacher = Teacher()
 courses_info = teacher.get_all_courses() 
-# save_json(courses_info) # test method
+save_json(courses_info) # test method
 # courses_info = test_get_all_courses() # test method
 
 while response != NO:
@@ -81,7 +81,7 @@ while response != NO:
     TO.append(chosen)
     response = input("Do you want to enter another course name? ({} for yes, {} for no) :".format(YES, NO))
 
-print("Chosen: ",TO)
+print("Creating assignments for {} using template from {} : ",TO, FROM)
 
 FROM_id = courses_info.get(FROM, '')
 assignments_info = teacher.get_all_assignments(FROM_id).get("courseWork", [])
@@ -104,4 +104,4 @@ for assignment in assignments_info:
         print("========")
         print("Creating {} in classroom with id {}".format(BODY["title"], id))          
         print(BODY) 
-        teacher.create_assignment(id, BODY)
+        # teacher.create_assignment(id, BODY)
