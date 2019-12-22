@@ -1,361 +1,186 @@
-#main autograd script
-from classroom.modules.Teacher import Teacher
-from modules.Drive import Drive
-from modules.Mail import Mail
-from modules.Sheets import Sheets
+from modules.AutoGrad import AutoGrad
+import click
 
-import os, subprocess, sys, csv, json
-from datetime import datetime
-from googleapiclient.errors import HttpError
+# ------------------------------------ #
+
+NO_OF_ASSIGNMENTS = 6
+NO_OF_ALLOWED_RESUBS = 5
+NIL = 'nil'
+
+ALLOWED_ASSIGNMENTS = list(str(i) for i in range(1, NO_OF_ASSIGNMENTS+1))
+ALLOWED_RESUBS = list(str(i) for i in range(1, NO_OF_ALLOWED_RESUBS+1))
+
+docs = {
+    "deploy":"Run and upload",
+    "course": "Specify the course. 1 for SuaCode Africa 1, 2 for SuaCode Africa 2,etc. Additionally \
+        you can specify multiple courses. Eg. --course_number=1,2,3 to pull assignments for course 1, 2 and 3",
+    "assignment":"Specify the assignment you want to grade.",
+    "submission": "Specify whether you're grading first submissions or resubs. Eg. --submission=2",
+    "move":"Works with grade-download and grade-local. Specify whether after grading you want to move the graded files to graded folder. Set this to false when you're not sure your test script is bulletproof."
+}
+   
+@click.group()  #(invoke_without_command=True)
+@click.option('--move','-m', default='true',help=docs['move'])
+@click.option('--submission', '-s', type=click.Choice( ALLOWED_RESUBS ), default="1", help=docs["submission"])
+@click.option('--course', '-c', help=docs["course"])
+@click.option('--assignment', '-a', type=click.Choice( ALLOWED_ASSIGNMENTS ),  help=docs["assignment"])
+@click.pass_context
+def cli(context, course, assignment, submission, move):
+    context.ensure_object(dict) #
+
+    # Attach the inputs to context object
+    context.obj['course'] = course or NIL
+    context.obj['assignment'] = assignment or NIL
+    context.obj['submission'] = submission or NIL
+    context.obj['move'] = move or NIL
+    # context.obj['file'] = file or NIL
+
+    # if context.invoked_subcommand is None:
+    #     # If we don't add 'deploy' argument it means we want to do tests
+    #     click.echo("[TEST] Running AutoGrad..")
 
 
-def add_to_sheets():
-    print("Uploading results to google sheets")
-    try:
-        wks.append_row(data)
-        print("Successful")
-    except HttpError as e:
-        print("Unccessful")
-        error = json.loads(e.content).get('error')
-        print(error)
+@cli.command()
+@click.pass_context
+def retrieve(context):
+    """Retrieve available turned in submission"""
+    course, assignment, submission, move = validate_opts(context)
 
-def send_mail():
-    # upload the results
-    print("Sending mail...")
-    try: 
-        mailer.send_message(student_email, "Assignment 2 results", message)
-        print("Successful")
-    except HttpError as e:
-        print("Unsuccessful")
-        error = json.loads(e.content).get('error')
-        print(error)
-        
-def add_to_classroom():
-    # upload the results
-    print("Uploading results to classroom")
-
-    try: 
-        body={ 'draftGrade': grade }
-        results = teacher.grade_submissions(course_id, ass_id, sub_id, body)
-
-        # TODO: you can do better than if(results), get the response that was sent and make meaning of it
-        if(results):
-            # returned = teacher.return_submission(course_id, ass_id, sub_id)
-            # if returned:
-            print("Successful")
-        else:
-            print('Unsuccessful')
+    click.echo("[TEST] Running AutoGrad: Retrieving turned in submissions..")
+    # Option 6
+    a = AutoGrad() # Init
+    a.retrieve(course, assignment, submission) # Get files, download
     
-    except HttpError as e:
-        print("Unsuccessful")
-        error = json.loads(e.content).get('error')
-        print(error)
+         
+@cli.command()
+@click.pass_context
+def grade_local(context):
+    """Grade local files"""
+    course, assignment, submission, move = validate_opts(context)
+    
+    click.echo("[TEST] Running AutoGrad: Manual grade, local files")
+    # Option 2 - Manual grade from local files, no download
+    a = AutoGrad() # Init
+    results = a.grade_files(course, assignment, submission, move)
+ 
 
-def switch_group(argument):
-    switcher = {
-        '1': "SuaCode Africa 1",
-        '2': "SuaCode Africa 2",
-        '3': "SuaCode Africa 3",
-    }
-    print (switcher.get(argument, "Invalid course"))
-    return switcher.get(argument, "Invalid course")
+@cli.command()
+@click.pass_context
+def grade_download(context):
+    """ Download and grade"""
+    course, assignment, submission, move = validate_opts(context)
 
+    click.echo("[TEST] Running AutoGrad: Retrieve and grade")
+    # Option 1 - Manual grade, download first
+    a = AutoGrad() # Init
+    a.retrieve(course, assignment, submission) # Get files, download
+    results = a.grade_files(course, assignment, submission, move) # Results of grading. Stored in results.json also
+ 
 
-def switch_ass(argument):
-    switcher = {
-        '1': 'Assignment 1 - Make Pong Interface',
-        '2': 'Assignment 2 - Move ball',
-        '3': 'Assignment 3 - Bounce Ball',
-        '4': 'Assignment 4 - Move Paddles',
-        '5': 'Assignment 5 - Add Extra Ball',
-        '6': 'Assignment 6 - Add More Balls'
-    }
-    print (switcher.get(argument, "Invalid assignment"))
-    return switcher.get(argument, "Invalid assignment")
+@cli.command()
+@click.pass_context
+def check(context):
+    """Check available turned in submission"""
+    course, assignment, submission, move = validate_opts(context)
 
+    click.echo("[TEST] Running AutoGrad: Checking for turned in submissions..")
+    import os
 
-def switch_submission(argument):
-    switcher = {
-        'first': 0,
-        'second': 1
-    }
-    print (switcher.get(argument, "Invalid assignment"))
-    return switcher.get(argument, "Invalid assignment")
+    a = AutoGrad() # Init
+    a.boot() # Connect to Google APIs. This is not needed when testing  
+    subs =  a.get_submissions_for_assignment(course, assignment, submission) # Get turned in submissions
+    at = a.get_files_for_download(subs) # Get the .pde file attachments
+    # name = "turned_in_c%s_a%s_s%s.json" % (course,assignment,submission) 
+    
+    # logs = os.path.join(a.BASE_DIR, 'logs') 
+    # fn = os.path.join(logs ,name)
+    # if not os.path.exists(logs): os.makedirs(logs)
+    # if len(at) > 0:
+    #     a.log_to_file(at,fn)
+    #     click.echo("Currently turned in submissions logged to logs/turned_in_c{}_a{}_s{}.json".format(course,assignment,submission))
+
+@cli.command()
+@click.pass_context
+def deploy(context):
+    """Run complete process"""
+    course, assignment, submission, move = validate_opts(context)
+
+    click.echo("[DEPLOY] Running AutoGrad")
+    
+    # Start
+    a = AutoGrad()
+
+    # Download, grade, submit and mail. Sheets coming soon
+    a.deploy(course, assignment, submission, move, return_grade=True)
+
+@cli.command()
+@click.pass_context
+def submit_local(context): 
+    """Submit locally graded files to classroom / mail"""
+    course, assignment, submission, move = validate_opts(context)
+
+    click.echo("[TEST] Running AutoGrad: Adding to Classroom from local results")
+    # Option 3 - Manual Add to Classroom from graded results
+    a = AutoGrad() # Init
+
+    # IMPORTANT: Do not delete your logs folder just in case
+    results = a.attach_ids(course, assignment, submission)
+    results = remove_duplicates(results) # Remove old if any
+    # a.log_to_file(results,'res.json')
+    status = a.add_to_classroom(course, assignment, results, return_grade=True)
+
+@cli.command()
+@click.pass_context
+def mail_local(context):
+    """ Mail locally stored results """ 
+    course, assignment, submission, move = validate_opts(context)
+
+    click.echo("[TEST] Running AutoGrad: Mail from local results")
+    # Option 4 - Manual mailing
+    import json, os
+
+    a = AutoGrad() # Init
+    # IMPORTANT: Do not delete your logs folder just in case
+    p = '_'.join([course, assignment, submission])
+    dir = os.path.join('logs',p, 'results.json')
+    f = open(dir,'r')
+    res = json.load(f)
+    f.close()
+    final = remove_duplicates(res)
+    a.log_to_file(final, 'email.json')
+
+    status = a.send_mail(final) # Edit sub_limit to allow multiple submissions. Will integrate later
+    a.recycle(os.path.join('logs',p)) # recycle results file after mailing
+    
+def remove_duplicates(res):
+    new = sorted(res, key=lambda k: k['when'], reverse=True)
+    dups = []
+    def pop_dups(el):
+        if el['details']['userId'] not in dups:
+            dups.append(el['details']['userId'])
+            return True
+        return False
+    return list(filter(lambda el: pop_dups(el) ,new))
+    
+def validate_opts(context):
+    check_required = NIL not in list(context.obj.values())
+
+    move = context.obj["move"]
+   
+    if check_required: 
+        # Get command line options
+        course = context.obj['course']
+        assignment = context.obj['assignment']
+        submission = context.obj['submission']
+        
+        return course, assignment, submission, move
+    else:
+        click.echo("Insufficient options. Exiting.. Try --help for more info")
+        exit()
+
 
 if __name__ == "__main__":
-
-    # Get the courses to grade
-    my_courses =  [] 
-
-    # get cli args
-    my_courses.append(switch_group(sys.argv[1]))
-    ass_name = switch_ass(sys.argv[2])
-    sub_number = switch_submission(sys.argv[3])
-
-    if sys.argv[4]:
-        if sys.argv[4] == "test" or "TEST" or "Test":
-            ADD_TO_SHEETS = False
-            ADD_TO_CLASSROOM = False
-            SEND_MAIL = False  
-        elif sys.argv[4] == "run" or "RUN" or "Run":
-            ADD_TO_SHEETS = True
-            ADD_TO_CLASSROOM = True
-            SEND_MAIL = True
-
-    #  VERY NECESSARY!!
-    date = datetime.today().strftime('%Y-%m-%d-%H:%M:%S')
-
-    # when testinG set testing to true
-    TESTING = True
-
-    """
-    Download all students names and ids as csv if it doesnt exist
-    Probably a mistake to do this here
-    """
-    if not os.path.exists("assets/students-details"):
-
-        os.makedirs("assets/students-details")
-
-        print("Downloading and setting up students details...")
-        os.system("python classroom/get_students.py")
-        print("Done")
-
-    """
-    Things that need to be done
-    """
-    #map pong code to corres ponding assignment
-    pong_code = {
-        'Assignment 1 - Make Pong Interface' : 'pong_1', 
-        'Assignment 2 - Move ball' : 'pong_2',
-        'Assignment 3 - Bounce Ball' : 'pong_3',
-        'Assignment 4 - Move Paddles': 'pong_4',
-        'Assignment 5 - Add Extra Ball' : 'pong_5',
-        'Assignment 6 - Add More Balls' : 'pong_6'
-    }
-
-    # create a required instances
-    teacher = Teacher()
-    drive = Drive()
-    mailer = Mail()
-    sheet = Sheets()
+    cli(obj={})
+        
 
 
-    # Get dict of course name and course id
-    courses = teacher.get_all_courses()
-
-
-    """
-    Grade assignment for each student
-    TODO: optimise the process
-    """
-
-    for course in my_courses:
-        course_name = course
-
-        # Get course id 
-        course_id = courses[course_name] 
-
-        # Get dict of assignment names and assignmnet id
-        assignments = teacher.get_all_assignment_ids(courses[course_name])
-        # get asignment id
-
-        ass_id = assignments[ass_name]
-
-        # open google sheet and add timestamp
-        if ADD_TO_SHEETS:
-            wks = sheet.get_worksheet(course)
-            row = []
-            row.append(date)
-            wks.append_row(row)
-
-        if TESTING:
-            f = open("results.txt", "a+")
-            f.write(course_name + "-" + ass_name + "\n\n")
-            f.close() 
-
-        print("Grading %s... %s... \n" % (course, ass_name))
-        with open('assets/students-details/%s.csv' % course_name) as csvfile:
-            readCSV = csv.reader(csvfile, delimiter=',')
-            for row in readCSV:
-                student_firstname = f'{row[0]}'.strip()
-                student_lastname = f'{row[1]}'.strip()
-                student_name = f'{row[2]}'.strip()
-                student_id = f'{row[3]}'.strip()
-                student_email = f'{row[4]}'.strip()
-
-                # Get submissions made by student
-                results = teacher.get_student_submissions(course_id, ass_id, student_id)
-                submission = results.get('studentSubmissions', [])
-
-                if submission: # if there is a submisison
-
-                    if submission[0]['state'] == "TURNED_IN": # grade only turned in assignments
-                        # check if student has resubnmited already, they're only allowed to resubmit once
-                        submission_history = submission[0]['submissionHistory']
-                        
-                        states = []
-                        for history in submission_history:
-                            if history.get('stateHistory'):
-                                try:
-                                    results = history.get('stateHistory')
-                                    states.append(results['state'])
-                                except TypeError:
-                                    print(history)
-                                    raise
-                            else:
-                                pass
-                                # student doesnt have a stateHistory which is weird
-                        number = states.count('RETURNED')
-                        
-                        if number == sub_number:
-                            # check if submission has attachments
-                            if submission[0]['assignmentSubmission'].get('attachments'):                    
-                                
-                                # download the .pde file 
-                                for attachment in submission[0]['assignmentSubmission']['attachments']:
-                                    if attachment.get("driveFile"):
-
-                                        sub_id = submission[0]['id']
-                                        file_name = attachment['driveFile']['title']
-                                        file_id = attachment['driveFile']['id']
-
-                                        if file_name[-4:] == ".pde":
-
-                                            print("Student: %s" % student_name)
-
-                                            file_path = 'assets/code/%s/%s/%s' % (course_name, ass_name, student_name)
-                                            if not os.path.exists(file_path):
-                                                os.makedirs(file_path)
-
-                                            os.chdir(file_path)
-                                            new_name = str(number) + '-' + file_id + '-' + file_name 
-
-                                            # flag for if file exixts
-                                            should_grade = True
-
-                                            if not os.path.exists(new_name):
-                                                should_grade = True
-                                                print("Downloading assignment file...")
-                                                try:
-                                                    drive.get_file(file_id, file_name) 
-                                                    os.rename(file_name, new_name)
-                                                except HttpError as e:
-                                                    print("Couldn't download...")
-                                                    error = json.loads(e.content).get('error')
-                                                    print(error)
-                                            os.chdir('../../../../../')
-
-                                            if should_grade:
-                                                if os.path.isfile(file_path + "/" + new_name):
-                                                    # call processing with filename as argument
-                                                    print("Grading...")
-                                                    args = '"' + file_path + '/' + new_name + '"'
-                                                    get_code_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '/get_code" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/get_code/build"' + ' --force --run ' + args
-                                                    processing_cmd = 'processing-java --sketch="' + os.getcwd() + '/' + pong_code[ass_name] + '" --output="' + os.getcwd() + '/' + pong_code[ass_name] + '/build"' + ' --force --run ' + args
-                                                    
-                                                    # Make Code.pde file
-                                                    if "Assignment 3" in ass_name:
-                                            
-                                                        print("Parsing and Preparing Code.pde file")
-                                                        results = subprocess.check_output(get_code_cmd , shell=True)
-                                                        output = results.decode("UTF-8")
-                                                        print(output)
-
-                                                    # run processing and get result form the command line
-                                                    comments = subprocess.check_output(processing_cmd, shell=True)
-                                                    
-                                                    # getting score and errors from cmdline
-                                                    decoded = comments.decode("UTF-8")
-                                                    results = decoded.replace('Finished.', '')
-
-                                                    grade = int(results.split()[0])
-
-                                                    one = decoded.split('[')
-                                                    errors = one[1].split(']')
-                                                    del errors[-1]
-                                                    
-                                                    print("Done Grading, Uploading results...")
-                                                    
-
-                                                    # prepare data and upload to sheets
-                                                    data = []
-                                                    data.append(student_name)
-                                                    data.append(grade)
-
-                                                    if number == 0:
-                                                        data.append("First Submission")
-                                                    elif number == 1:
-                                                        data.append("Resubmitted")
-
-                                                    for error in errors:
-                                                        data.append(error)
-                                                    
-                                                    data.append(new_name)
-
-                                                    #prepare mail message
-                                                    mail = []
-                                                    mail.append("Hi %s,\n\nGood job!\nYou can can check your grade now.\n Grade: %d\n\nSee below the things you missed. You can fix them and resubmit only one more time for a better grade by the deadline posted on the classroom page.\nAsk any questions if they aren’t clear. \n\nPlease correct the following mistakes \n\n" % (student_firstname, grade))
-                                                        
-                                                    errs = " ".join(errors)
-                                                    errs1 = errs.split(',')
-                                                    for err in errs1:
-                                                        mail.append(err + '\n')
-                                                    
-                                                    message = ''.join(mail)
-                                                    data.append(message) 
-                                            
-                                                    # log results
-                                                    print("Logging results")
-                                                    # recorder.log_results(str(data))
-                                                    print("Done.")
-
-                                                    if TESTING:
-                                                        f = open("results.txt", "a+")
-                                                        f.write(str(data) + "\n")
-                                                        f.close()  
-
-                                                    if SEND_MAIL:
-                                                        send_mail()
-                                                    else:
-                                                        # User not allowed to upload results
-                                                        print("Not allowed to send mail")  
-                                                        
-                                                    # Only run if the ADD_TO_SHEETS var is set to true 
-                                                    if ADD_TO_SHEETS:
-                                                        add_to_sheets()       
-                                                    else:
-                                                        # User not allowed to upload results
-                                                        print("Not allowed to upload to google sheets")
-                                                    
-                                                    # run if ADD_TO_CLASSROOM var is set to true
-                                                    if ADD_TO_CLASSROOM:
-                                                        add_to_classroom()
-                                                    else:
-                                                        # User not allowed to upload results
-                                                        print("Not allowed to post to classroom")
-
-                                                    print("Done! \n")
-                                                else:
-                                                    # file does not exist
-                                                    pass
-                                            else:
-                                                print("Graded file already %s" % new_name)
-                                                # end for when file exists
-                                        else:
-                                            pass
-                                            # not a sourcefile so dont grade
-                                    else:
-                                        pass
-                                # End of for loop 
-                            else: 
-                                # student didnt attach files
-                               pass
-                        else: 
-                            # student has resubmitted already
-                            pass
-                    else: 
-                        # submission is not turned in for grading
-                        pass
-                else:
-                    pass                    
-                    # theres no submission for that student

@@ -1,4 +1,4 @@
-from modules.Teacher import Teacher
+from classroom.modules.Teacher import Teacher
 import csv
 
 # For functions at the bottom;

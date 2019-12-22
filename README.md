@@ -22,12 +22,24 @@ Execute this from your command-line/terminal in the root directory (where requir
 
 NOTE: Consider using a virtualenv to manage project modules and dependencies. See this link on creating a virtualenv for Python modules: (https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/)
 
+## Creating a course in classroom
+There are two ways to create a course. You can either use the Google Classroom website or use the automated scripts in `/scripts` as follows:
+
+Usage: `python3 -m scripts.create_course` and follow the instructions.
+NB: On *nix and Macintosh use `python3 -m scripts.create_course`
+
+## Creating assignments for courses
+Just like creating courses, you can either use the Classroom website or use automated scripts as follows:
+
+Usage: `python -m scripts.create_assignment` and follow the instructions.
+NB: On *nix and Macintosh use `python3 -m scripts.create_assignment`
+
 ## Grading the SuaCode course
 
 ### 1. DEPLOY
 - You download all the code, grade, upload results and email.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 deploy`
+Usage: `python -m autograd -c 1 -a 1 -s 1 deploy`
 
 Help: This will do everything. the flags stand for the ff:
 `-c 1` is short hand for `--course=1`, `-a 1` is shorthand for `--assignment=1` and same for submission. You can use long or short hand. 
@@ -35,7 +47,7 @@ Help: This will do everything. the flags stand for the ff:
 ### 2. CHECK
 You want to check if there are any submissions to the classroom without opening your browser.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 check`
+Usage: `python -m autograd -c 1 -a 1 -s 1 check`
 
 Help: This will retrieve information about turned in submission and log them to a file called turned_in_a1_s1_c1.json in the logs folder based on the options.
 
@@ -43,40 +55,40 @@ Help: This will retrieve information about turned in submission and log them to 
 Sometimes you just want to download and only grade. This makes sense since sometimes because of the way we currently grade Assignments 3 - 6 where we copy out their code into a Code class and retain the syntax errors.
 We have done all a lot of bulletproofing in the past so things like students using magic numbers and forgetting variables don't break the grading but anything can happen.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 grade-download`
+Usage: `python -m autograd -c 1 -a 1 -s 1 grade-download`
 
 Help: Downloads the files into the assets/code folder , grades the files one by one, moves successfully graded files to assets/graded and logs results in logs/1_1_1/results.json (underscored folder names according to course, assignment, submission)
 
 ### 4. *GRADE already downloaded files*
 This just takes files in assets/code per the options given, grades and appends results to logs/1_1_1/results.json file.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 grade-local`
+Usage: `python -m autograd -c 1 -a 1 -s 1 grade-local`
 
 Help: This will grade files, move to assets/graded if successful and append results to logs/1_1_1/results.json
 
 ### 5. MOVE
 The grade-download and grade-local commands by default move the files after grading to assets/graded folder. In development of the Assignment test scripts we may have bugs and so you would not want the graded files to be moved so you can grade them multiple times before you're sure the test script is perfect for all scenarios. In that case just add the option flag `--move=false` or `-m false`
 
-Usage: `python auto.py -c 1 -a 1 -s 1 -m false grade-download` or  `python auto.py -c 1 -a 1 -s 1 -m false grade-local`
+Usage: `python -m autograd -c 1 -a 1 -s 1 -m false grade-download` or  `python -m autograd -c 1 -a 1 -s 1 -m false grade-local`
 
 Help: This will prevent moving of the files to the graded folder after grading.
 
 ### 6. SUBMIT graded results using Autograd
 Supposing you did grade-local or grade-download. those commands don't automatically upload results to Classroom or Mail results. You can take the aggregated grades and submit to Classroom. This submits as an assignedGrade and does not return the grade.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 submit-local`
+Usage: `python -m autograd -c 1 -a 1 -s 1 submit-local`
 
 ### 7 Email using Autograd
 You can email results that are stored locally in logs. This will only work for 1st submission and skip for the rest.
 
-Usage: `python auto.py -c 1 -a 1 -s 1 mail-local`
+Usage: `python -m autograd -c 1 -a 1 -s 1 mail-local`
 
 Help: This will take results from the logs folder and email it to the student.
 It requires that you have the students CSV file in assets/student-details/SuaCode Africa X , where X is eg. 1 for SuaCode Africa 1.
 
 # Help
 Get help on commands available.
-Usage: `python auto.py --help`
+Usage: `python -m autograd --help`
 
 # Contributing 
 Work on issues: https://www.youtube.com/watch?v=Da0QOIvsKqU
