@@ -760,7 +760,7 @@ void checkRects() //check rects
             scorevals.add(score);
           }else{   
             stryvals.add(scorey);
-            xvals.add(int(variablesHashMap.get(scorex)));    
+            xvals.add(int(variablesHashMap.get(splitBy[2]))); // xvals.add(int(variablesHashMap.get(scorex)));    
             scorevals.add(scorex);
             strscores.add(score);
            }

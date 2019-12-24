@@ -734,7 +734,7 @@ void checkRects() //check rects
           else{   
             stryvals.add(scorey);
            
-            xvals.add(int(variablesHashMap.get(splitBy[1])));    
+            xvals.add(int(variablesHashMap.get(splitBy[2])));    
             scorevals.add(scorex);
             strscores.add(score);
            }
