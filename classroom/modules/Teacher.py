@@ -216,16 +216,18 @@ class Teacher(object):
             else:
                 updateMask='draftGrade'
 
-            request = self.service.courses().courseWork().studentSubmissions().patch(courseId=course_id, \
+            request = self.service.courses().courseWork().studentSubmissions().patch(\
+            courseId=course_id,
             courseWorkId=assignment_id, \
             id=student_submission_id, \
             updateMask=updateMask, \
             body=submission) 
 
-            return_request = self.service.courses().courseWork().studentSubmissions().return_( courseId=course_id, \
+            return_request = self.service.courses().courseWork().studentSubmissions().return_(\
+            courseId=course_id,
             courseWorkId=assignment_id,
             id=student_submission_id,
-            body=submission)
+            body={})
 			
             success = request.execute()  
             returned = return_request.execute()
@@ -236,7 +238,7 @@ class Teacher(object):
 
     def return_submission(self, course_id, assignment_id, student_submission_id):
         try:
-            # success = self.service.courses().courseWork().studentSubmissions().return(courseId=course_id, courseWorkId=assignment_id, id=student_submission_id).execute()  
+            success = self.service.courses().courseWork().studentSubmissions().return_(courseId=course_id, courseWorkId=assignment_id, id=student_submission_id, body={}).execute()  
 
             return success
         except HttpError as e:

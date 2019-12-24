@@ -19,7 +19,9 @@ class AutoGrad(object):
         self.BASE_DIR = cwd
         self.code_dir = os.path.join(self.BASE_DIR, 'assets', 'code')
         self.COURSES_FILE = os.path.join(self.BASE_DIR, 'modules', 'courses.txt')
-   
+    
+        self.course_names = self.create_course_names()
+        
         self.teacher = None
         self.drive = None
         self.mailer = None
@@ -33,9 +35,8 @@ class AutoGrad(object):
         self.submissions = {}
         self.assignments = {}
         self.get_code_assgs = ['3','4','5']
-        self.course_names = self.create_course_names()
         self.names_vs_ids = dict.fromkeys( self.course_names.keys(), {} )
-
+        
         self.assg_names = {
             'Assignment 1 - Make Pong Interface':'',
             'Assignment 2 - Move Ball':'',
@@ -188,11 +189,12 @@ class AutoGrad(object):
             # Get dict of assignment names and assignment id
             self.assignments = self.teacher.get_all_assignment_ids(id)
 
-            try:
-                # Get assignment id for selected assignment to be graded
-                assg_name = sorted(list(self.assg_names.keys()))[assignment_number-1]
-                assg_id = self.assignments[ assg_name ]
+            # Get assignment id for selected assignment to be graded
+            assg_name = sorted(list(self.assg_names.keys()))[assignment_number-1]
+            assg_id = self.assignments[ assg_name ]
 
+            try:
+            
                 self.assg_names[assg_name] = assg_id # add it to the dict beside the name
 
                 # This is name of current assignment being graded
@@ -286,7 +288,7 @@ class AutoGrad(object):
         if "course" in list(kwargs.keys()):
             cn = int(kwargs.get("course"))
             values["course"] = list(self.course_names.keys())[cn - 1]
-        
+            
         # Get the user details from the csv
         if "user_details"  in list(kwargs.keys()):
             user_details = kwargs.get('user_details')
@@ -296,15 +298,13 @@ class AutoGrad(object):
 
             names_loaded_for_particular_course = len(self.names_vs_ids.get(user_course)) > 1
                      
-            if not names_loaded_for_particular_course: 
+            if not names_loaded_for_particular_course:
             # This runs only the first time in a grading cycle. Subsequent times loads names from memory.              
                 self.load_names_from_csv(user_course)
 
-
             def get_detail(course, id, fields):
                 d = {}
-                ids_vs_fields = self.names_vs_ids.get(user_course, {}).get(id)
-                
+                ids_vs_fields = self.names_vs_ids.get(course, {}).get(id)
                 for item in fields:
                     d[item] = ids_vs_fields.get(item)
                 return d
