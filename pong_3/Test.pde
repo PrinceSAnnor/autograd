@@ -1137,7 +1137,7 @@ class Test {
       if (int(parameters.get(2)) != int(parameters.get(3))) //shape of ball
       {
         totalScore -= deduction;
-        errors.add("weird ball you got there lad");
+        errors.add("Your ball is not a circle. Please make sure both the width and height parameters of the ball are the same");
         //majorError.add("Major Error: Your ball is not a circle. Please make sure both the width and height parameters of the ball are the same and resubmit for grading.");
         //totalScore = 0 ;
         //majorErrorFlag = true;
