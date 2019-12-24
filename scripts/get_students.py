@@ -5,7 +5,22 @@ import csv
 import os, os.path
 import errno
 
-def get_id_lists():
+def print_list_names(courses={}):
+    names = list(courses.keys())
+    print("Which course are you creating assignments for? ")
+    for a,b in enumerate(names):
+        output = "{}: {}".format(a,b)
+        print(output)
+
+def get_course_name(index, courses={}):
+    names = list(courses.keys())
+    return names[int(index)]
+
+def get_course_id(index, courses={}):
+    ids = list(courses.values())
+    return ids[int(index)]
+
+def get_id_lists(my_courses):
 
     if not os.path.exists('assets/students-details/id-lists/'):
         os.makedirs('assets/students-details/id-lists/')
@@ -54,7 +69,7 @@ def get_id_lists():
             else:
                 break
 
-def get_emails():
+def get_emails(my_courses):
 
     for course in my_courses:
 
@@ -82,10 +97,21 @@ def get_emails():
 if __name__ == '__main__':
     # Login to Classroom
     teacher = Teacher()
+    courses_info = teacher.get_all_courses() 
+    courses = []
+    YES = "y"
+    NO = "n"
+    response = YES
+
+    while response != NO:
+        print_list_names(courses_info)
+        index = input("Enter index of course: ")
+        chosen = get_course_name(index, courses_info) 
+        print("You chose {}\n".format(chosen))
+        
+        courses.append(chosen)
+        response = input("Do you want to enter another course name? ({} for yes, {} for no) :".format(YES, NO))
 
     # Download the list of students
-    my_courses = ['Coding 2019'] #['SuaCode Africa 1', 'SuaCode Africa 2', 'SuaCode Africa 3']
-
-    get_id_lists()
-
-    get_emails()
+    get_id_lists(courses)
+    get_emails(courses)
