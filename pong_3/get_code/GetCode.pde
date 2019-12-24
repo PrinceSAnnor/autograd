@@ -724,15 +724,17 @@ void checkRects() //check rects
           String scorex = splitBy[2]; 
           String score = splitBy[1]; 
          
-          if( splitBy[1].contains("\"")  )
+          if( splitBy[1].contains("\"") )
           {
             magicFlag = 1;
             yvals.add(int(scorey));
             xvals.add(int(scorex));
             scorevals.add(score);
-          }else{   
+          }
+          else{   
             stryvals.add(scorey);
-            xvals.add(int(variablesHashMap.get(scorex)));    
+           
+            xvals.add(int(variablesHashMap.get(splitBy[1])));    
             scorevals.add(scorex);
             strscores.add(score);
            }
@@ -792,6 +794,7 @@ void checkRects() //check rects
     }
    
   }
+  
   
   
   void run() {
