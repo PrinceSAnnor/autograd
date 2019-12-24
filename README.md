@@ -36,6 +36,12 @@ NB: On *nix and Macintosh use `python3 -m scripts.create_assignment`
 
 ## Grading the SuaCode course
 
+### Make sure the courses you want to grade are in the courses.txt file
+`SuaCode Africa 1`
+`SuaCode Africa 2`
+
+This will allow you to grade `SuaCode Africa 1` using the flag `-c 1` or `SuaCode Africa 2` using the command flag `-c 2` according to the vertical order in the `courses.txt` file
+
 ### 1. DEPLOY
 - You download all the code, grade, upload results and email.
 
