@@ -33,13 +33,7 @@ class AutoGrad(object):
         self.submissions = {}
         self.assignments = {}
         self.get_code_assgs = ['3','4','5']
-        self.course_names = {
-            "SuaCode Africa 1":"",
-            "SuaCode Africa 2":"",
-            "SuaCode Africa 3":"",
-            "Coding 2019":"",
-            "SuaCode Ghana 2019 Cohort 1": ""
-        }#self.create_course_names()
+        self.course_names = self.create_course_names()
         self.names_vs_ids = dict.fromkeys( self.course_names.keys(), {} )
 
         self.assg_names = {
