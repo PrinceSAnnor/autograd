@@ -7,7 +7,7 @@ from modules.Sheets import Sheets
 import os, subprocess, sys, csv, json, click, random, shutil
 from datetime import datetime
 from googleapiclient.errors import HttpError
-
+     
 
 class AutoGrad(object):
     """ AutoGrad """
@@ -15,9 +15,11 @@ class AutoGrad(object):
     def __init__(self):
         """ Make initialisations here """
         cwd = os.getcwd()
+
         self.BASE_DIR = cwd
         self.code_dir = os.path.join(self.BASE_DIR, 'assets', 'code')
-        
+        self.COURSES_FILE = os.path.join(self.BASE_DIR, 'modules', 'courses.txt')
+   
         self.teacher = None
         self.drive = None
         self.mailer = None
@@ -36,7 +38,8 @@ class AutoGrad(object):
             "SuaCode Africa 2":"",
             "SuaCode Africa 3":"",
             "Coding 2019":"",
-        }
+            "SuaCode Ghana 2019 Cohort 1": ""
+        }#self.create_course_names()
         self.names_vs_ids = dict.fromkeys( self.course_names.keys(), {} )
 
         self.assg_names = {
@@ -60,6 +63,17 @@ class AutoGrad(object):
         # self.drive = Drive()
         # self.mailer = Mail()
         # self.sheet = Sheets()
+
+    def create_course_names(self):
+        COURSES_LIST = []
+        DICT = {}
+        with open(self.COURSES_FILE, "r") as f:
+            lines = f.readlines()
+            for line in lines:
+                line = line.strip('\n')
+                COURSES_LIST.append(line)
+                DICT[line] = ""
+        return DICT
 
     def download_files(self, files_info):
         """ Download necessary files to be graded """
@@ -191,24 +205,25 @@ class AutoGrad(object):
             sub_no = sub["submissionNo"]
             sub_id = sub["id"]
             a = sub["assignmentSubmission"]["attachments"]
-
+            
             if a:
                 # Loop through attachments
                 for f in a:         
                     final = {}
-                    drive_file = f["driveFile"]
-                    
-                    if drive_file["title"][-4:] == ".pde":
-                        self.submissions[user_id] = sub_id # Store a ref to sub_ids. This came later
+                    drive_file = f.get("driveFile",None)
 
-                        final["submissionNo"] = sub_no
-                        final["subId"] = sub_id
-                        final["userId"] = user_id
-                        final["courseId"] = course_id
-                        final["id"] = drive_file["id"]
-                        final["title"] = drive_file["title"]
-                        final["driveFile"] = drive_file["alternateLink"]
-                        return final
+                    if drive_file != None:
+                        if drive_file["title"][-4:] == ".pde":
+                            self.submissions[user_id] = sub_id # Store a ref to sub_ids. This came later
+
+                            final["submissionNo"] = sub_no
+                            final["subId"] = sub_id
+                            final["userId"] = user_id
+                            final["courseId"] = course_id
+                            final["id"] = drive_file["id"]
+                            final["title"] = drive_file["title"]
+                            final["driveFile"] = drive_file["alternateLink"]
+                            return final
                         
             else:
                 return {}
