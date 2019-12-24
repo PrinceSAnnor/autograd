@@ -44,7 +44,10 @@ def cli(context, course, assignment, submission, move):
 @click.pass_context
 def retrieve(context):
     """Retrieve available turned in submission"""
-    course, assignment, submission, move = validate_opts(context)
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
 
     click.echo("[TEST] Running AutoGrad: Retrieving turned in submissions..")
     # Option 6
@@ -56,8 +59,12 @@ def retrieve(context):
 @click.pass_context
 def grade_local(context):
     """Grade local files"""
-    course, assignment, submission, move = validate_opts(context)
-    
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+    move = ctx['move']
+
     click.echo("[TEST] Running AutoGrad: Manual grade, local files")
     # Option 2 - Manual grade from local files, no download
     a = AutoGrad() # Init
@@ -68,7 +75,11 @@ def grade_local(context):
 @click.pass_context
 def grade_download(context):
     """ Download and grade"""
-    course, assignment, submission, move = validate_opts(context)
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+    move = ctx['move']
 
     click.echo("[TEST] Running AutoGrad: Retrieve and grade")
     # Option 1 - Manual grade, download first
@@ -81,8 +92,11 @@ def grade_download(context):
 @click.pass_context
 def check(context):
     """Check available turned in submission"""
-    course, assignment, submission, move = validate_opts(context)
-
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+    
     click.echo("[TEST] Running AutoGrad: Checking for turned in submissions..")
     import os
 
@@ -103,7 +117,11 @@ def check(context):
 @click.pass_context
 def deploy(context):
     """Run complete process"""
-    course, assignment, submission, move = validate_opts(context)
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+    move = ctx['move']
 
     click.echo("[DEPLOY] Running AutoGrad")
     
@@ -117,7 +135,10 @@ def deploy(context):
 @click.pass_context
 def submit_local(context): 
     """Submit locally graded files to classroom / mail"""
-    course, assignment, submission, move = validate_opts(context)
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
 
     click.echo("[TEST] Running AutoGrad: Adding to Classroom from local results")
     # Option 3 - Manual Add to Classroom from graded results
@@ -133,8 +154,11 @@ def submit_local(context):
 @click.pass_context
 def mail_local(context):
     """ Mail locally stored results """ 
-    course, assignment, submission, move = validate_opts(context)
-
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+ 
     click.echo("[TEST] Running AutoGrad: Mail from local results")
     # Option 4 - Manual mailing
     import json, os
@@ -152,6 +176,33 @@ def mail_local(context):
     status = a.send_mail(final) # Edit sub_limit to allow multiple submissions. Will integrate later
     a.recycle(os.path.join('logs',p)) # recycle results file after mailing
     
+
+@cli.command()
+@click.pass_context
+def move(context):
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+
+    a = AutoGrad()  
+    assignment_dir = a.get_assignment_dir(course, assignment, submission)
+    graded_dir = a.get_graded_dir(course, assignment, submission)
+    a.move_to_graded(assignment_dir, graded_dir)
+
+@cli.command()
+@click.pass_context
+def undo_move(context):
+    ctx = validate_opts(context)
+    course = ctx['course']
+    assignment = ctx['assignment']
+    submission = ctx['submission']
+    
+    a = AutoGrad()
+    assignment_dir = a.get_assignment_dir(course, assignment, submission)
+    graded_dir = a.get_graded_dir(course, assignment, submission)
+    a.undo_move(graded_dir, assignment_dir)
+
 def remove_duplicates(res):
     new = sorted(res, key=lambda k: k['when'], reverse=True)
     dups = []
@@ -173,7 +224,8 @@ def validate_opts(context):
         assignment = context.obj['assignment']
         submission = context.obj['submission']
         
-        return course, assignment, submission, move
+        #return course, assignment, submission, move
+        return context.obj
     else:
         click.echo("Insufficient options. Exiting.. Try --help for more info")
         exit()
