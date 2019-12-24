@@ -69,6 +69,23 @@ class AutoGrad(object):
                 DICT[line] = ""
         return DICT
 
+    def get_assignment_dir(self, course, assignment, submission):
+        c_keys = list(self.course_names.keys())
+        c_vals = list(self.course_names.values())
+        a_keys = sorted(list(self.assg_names.keys()))
+
+        root = self.code_dir
+        assignment_dir = a_keys[int(assignment) - 1]
+        course_dir = c_keys[int(course) - 1]
+        submission_dir = submission
+        
+        return os.path.join(root, assignment_dir, course_dir, submission_dir)
+
+    def get_graded_dir(self, course, assignment, submission):
+        course_assg_sub_dir = '_'.join((course, assignment, submission))                        
+        return os.path.join(self.BASE_DIR, 'assets','graded', course_assg_sub_dir)
+
+
     def download_files(self, files_info):
         """ Download necessary files to be graded """
         click.echo("Downloading assignment files ...")
@@ -328,7 +345,7 @@ class AutoGrad(object):
                 info = self.get_names_from_number(assignment=assignment_num, course=course_number)
 
                 os.chdir(self.BASE_DIR)
-                code_dir = 'assets{}code'.format(os.sep)
+                code_dir = os.path.join('assets','code')
                 if not os.path.exists(code_dir):
                     os.makedirs(code_dir)
                 
@@ -379,12 +396,8 @@ class AutoGrad(object):
                             p = '_'.join((course_num,assignment_num, submission_num))
                             graded = os.path.join(self.BASE_DIR, 'assets','graded',p)
                             
-                            if not os.path.exists(graded):
-                                os.makedirs(graded)
-
                             if move.lower() == 'true':
-                                click.echo("Moving {} to /assets/graded".format(self.file_path))
-                                shutil.move(self.file_path, graded)
+                                self.move_to_graded(self.file_path, graded)
 
                         except Exception as e:
                             with open(os.path.join(self.BASE_DIR, "grading_errors.txt"), 'a') as f:
@@ -398,6 +411,22 @@ class AutoGrad(object):
             if logged: self.save_grading_info(course_num, assignment_num ,submission_num, only=only)
     
         return all
+
+    def move(self, src, dst):
+        # if not os.path.exists(dst):
+        #     os.makedirs(dst)
+        shutil.move(src, dst)
+
+
+    def move_to_graded(self, src, dst):
+        """ Move files from src to graded folder (dst)"""
+        click.echo("Moving {} to {}".format(src,dst))
+        self.move(src,dst)
+    
+    def undo_move(self, src, dst):
+        """ Move files from graded to old src dir"""
+        click.echo("Undoing move from {} to {}".format(src,dst))
+        self.move(src, dst)
 
     def attach_ids(self, *args):
         p = '_'.join(args)
