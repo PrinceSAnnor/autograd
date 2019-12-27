@@ -489,13 +489,16 @@ void checkRects() //check rects
     String[] splitByEquals;
     String[] splitBySemiColon;
     String[] splitBySpace;
-    
+    String pattern = "[A-Za-z0-9 ]+=[A-Za-z0-9 ]+";
+ 
     try
     {
       for(int i = 0; i < linesFiltered.size(); i++)
       {  
-        if (match(linesFiltered.get(i), "=") != null)
+        String thisLine = linesFiltered.get(i);
+        if ( match(thisLine, pattern) != null)
         {
+          println(thisLine);
           variableLines.add(i);
         }
       }
@@ -716,15 +719,21 @@ void checkRects() //check rects
           && match(thisLine, "^textSize.*$") == null // This is not textSize()
           && !thisLine.contains("=")) // This is not an assignment to be sure.
         {
+          println("line=",thisLine);
           // Get matches for only text()
-         
-          String[] splitBy = splitTokens(thisLine, "(),//; ");
-          
+          String[] splitBy = splitTokens(thisLine, "(),//;");
+        
           String scorey = splitBy[3]; 
           String scorex = splitBy[2]; 
           String score = splitBy[1]; 
+          
+         /*
+         Two possible scenarios so far with text()
+         1 - text(variable, 20, 20);
+         2 - text("text", 20, 20);
+         */
          
-          if( splitBy[1].contains("\"") )
+          if( splitBy[1].contains("\"") ) //
           {
             magicFlag = 1;
             yvals.add(int(scorey));
@@ -733,8 +742,9 @@ void checkRects() //check rects
           }
           else{   
             stryvals.add(scorey);
-           
-            xvals.add(int(variablesHashMap.get(splitBy[2])));    
+            println("scorex=",scorex);
+            println("variablesHashMap = ",variablesHashMap);
+            //xvals.add(int(variablesHashMap.get(scorex)));
             scorevals.add(scorex);
             strscores.add(score);
            }
