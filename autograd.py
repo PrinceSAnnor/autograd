@@ -174,7 +174,7 @@ def mail_local(context):
     a.log_to_file(final, 'email.json')
 
     status = a.send_mail(final) # Edit sub_limit to allow multiple submissions. Will integrate later
-    a.recycle(os.path.join('logs',p)) # recycle results file after mailing
+    a.recycle(os.path.join('logs',p,'results.json')) # recycle results file after mailing
     
 
 @cli.command()
