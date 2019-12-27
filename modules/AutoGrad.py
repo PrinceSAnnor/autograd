@@ -435,8 +435,7 @@ class AutoGrad(object):
         temporary_json = os.path.join(dir, 'temporary.json')
 
         if not os.path.exists(temporary_json) or not os.path.exists(results_json):
-            click.echo("Path: {} or {} may not exist. You must have graded submissions before submitting locally stored results.\
-                 Run auto.py with grade-download".format(temporary_json, results))
+            click.echo("Path: {} or {} may not exist. You must have graded submissions before submitting locally stored results.Run auto.py with grade-download".format(temporary_json, results))
             return False
 
         with open(results_json, 'r') as f, open(temporary_json, 'r') as g:
